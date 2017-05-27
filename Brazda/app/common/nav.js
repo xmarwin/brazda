@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('myApp.nav', ['ngRoute'])
-
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/nav', {
             templateUrl: 'nav/nav.html',
@@ -9,6 +8,12 @@ angular.module('myApp.nav', ['ngRoute'])
         });
     }])
 
-    .controller('NavCtrl', [function () {
+    .controller('NavCtrl', NavController);
 
-    }]);
+NavController.$inject = ['AuthService'];
+
+function NavController(authService) {
+    var vm = this;
+
+    vm.isLoggedIn = authService.isLoggedIn;
+};

@@ -65,6 +65,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\login\logout.html" />
+    <Content Include="app\services\authService.js" />
     <Content Include="packages.config" />
     <Content Include=".bowerrc" />
     <Content Include=".jshintrc" />

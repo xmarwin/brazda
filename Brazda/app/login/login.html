@@ -1,1 +1,7 @@
-<p>This is the partial for view 1.</p>
+﻿<div ng-controller="LoginCtrl as login">
+    <form novalidate class="simple-form">
+        <label>Název týmu: <input type="text" ng-model="login.name" /></label><br />
+        <label>Heslo:<input type="password" ng-model="login.password" /></label>
+        <input type="submit" ng-click="login.login()" value="Odeslat" />
+    </form>
+</div>
