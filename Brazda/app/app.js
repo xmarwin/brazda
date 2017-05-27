@@ -4,6 +4,7 @@
 angular.module('myApp', [
     'ngRoute',
     'myApp.authService',
+    'myApp.teamService',
     'myApp.pravidla',
     'myApp.kontakt',
     'myApp.nav',

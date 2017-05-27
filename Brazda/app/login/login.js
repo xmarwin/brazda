@@ -14,19 +14,34 @@ angular.module('myApp.login', ['ngRoute'])
 
     .controller('LoginCtrl', LoginController);
 
-LoginController.$inject = ['AuthService'];
+LoginController.$inject = ['$location', 'AuthService', 'TeamService'];
 
-function LoginController(authService) {
+function LoginController($location, authService, teamService) {
     var vm = this;
+
+    var init = function () {
+        vm.teams = teamService.getTeams();
+    }
 
     vm.login = function () {
         var name = vm.name;
         var password = vm.password;
 
-        authService.login(name, password);
+        var retval = authService.login(name.id, password);
+
+        if (retval.status === 'OK') {
+            vm.showError = false;
+            $location.path('/stanoviste');
+        } else {
+            vm.showError = true;
+            vm.errorMessage = retval.message;
+        }
     }
 
     vm.logout = function () {
         authService.logout();
+        $location.path('/login');
     }
+
+    init();
 }

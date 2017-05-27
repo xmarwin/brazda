@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 var module = angular.module('myApp.authService', []);
 
@@ -10,12 +10,17 @@ module.service('AuthService', function () {
         return isLoggedIn;
     }
 
-    vm.login = function(username, password) {
-        isLoggedIn = true;
+    vm.login = function (username, password) {
+        if (username === 1 && password === 'a') {
+            isLoggedIn = true;
+            return { 'status': 'OK' }
+        } else {
+            return { 'status': 'Error', 'message': 'Nesprávné heslo' }
+        }
     }
 
     vm.logout = function () {
-       isLoggedIn = false;
+        isLoggedIn = false;
     }
 
     return {

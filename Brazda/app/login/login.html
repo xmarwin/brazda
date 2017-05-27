@@ -1,6 +1,8 @@
 ﻿<div ng-controller="LoginCtrl as login">
     <form novalidate class="simple-form">
-        <label>Název týmu: <input type="text" ng-model="login.name" /></label><br />
+        <div class="alert alert-danger" role="alert" ng-show="login.showError">{{login.errorMessage}}</div>
+        <label>Název týmu: 
+        <select name="teamName" id="teamName" ng-options="team.name for team in login.teams" ng-model="login.name"></select></label><br />
         <label>Heslo:<input type="password" ng-model="login.password" /></label>
         <input type="submit" ng-click="login.login()" value="Odeslat" />
     </form>
