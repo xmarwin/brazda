@@ -1,31 +1,53 @@
 ﻿'use strict';
 
-var module = angular.module('myApp.authService', []);
+angular.module('myApp.authService', [])
+            .service('AuthService', AuthService)
 
-module.service('AuthService', function () {
+//AuthService.$inject = ['LocalStorageModule'];
+
+function AuthService(localStorageService) {
     var vm = this;
-    var isLoggedIn = false;
 
-    vm.isLoggedIn = function () {
-        return isLoggedIn;
+    return {
+        isLoggedIn: isLoggedIn,
+        login: login,
+        logout: logout,
+        team: getTeam()
     }
 
-    vm.login = function (username, password) {
-        if (username === 1 && password === 'a') {
-            isLoggedIn = true;
+    //////////////////////////////////
+
+    var _isLoggedIn = true;
+
+    function isLoggedIn() {
+        return _isLoggedIn;
+    }
+
+    function login(team, password) {
+        if (team.id === 1 && password === 'a') {
+            _isLoggedIn = true;
+            saveTeam(team);
             return { 'status': 'OK' }
         } else {
             return { 'status': 'Error', 'message': 'Nesprávné heslo' }
         }
     }
 
-    vm.logout = function () {
-        isLoggedIn = false;
+    function logout() {
+        removeTeam();
+        _isLoggedIn = false;
     }
 
-    return {
-        isLoggedIn: vm.isLoggedIn,
-        login: vm.login,
-        logout: vm.logout
+    function saveTeam(team) {
+        return localStorageService.set('team', team);
     }
-});
+
+    function getTeam() {
+        return { "id": 1, "team_type": "ORG", "name": "BRAZDA", "description": "Organizační tým" };
+        //return localStorageService.get('team');
+    }
+
+    function removeTeam() {
+        return localStorageService.remove('team');
+    }
+}
