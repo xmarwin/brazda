@@ -39,7 +39,6 @@ function AuthService(localStorageService) {
     }
 
     function getTeam() {
-        //return { "id": 1, "team_type": "ORG", "name": "BRAZDA", "description": "Organizační tým" };
         return localStorageService.get('team');
     }
 
