@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\login\logout.html" />
+    <Content Include="app\services\postService.js" />
     <Content Include="app\services\teamService.js" />
     <Content Include="app\services\authService.js" />
     <Content Include="packages.config" />
@@ -97,18 +98,18 @@
     <Content Include="app\components\version\version_test.js" />
     <Content Include="app\index-async.html" />
     <Content Include="app\index.html" />
-    <Content Include="app\kontakt\kontakt.html" />
-    <Content Include="app\kontakt\kontakt.js" />
-    <Content Include="app\kontakt\kontakt_test.js" />
+    <Content Include="app\contact\contact.html" />
+    <Content Include="app\contact\contact.js" />
+    <Content Include="app\contact\contact_test.js" />
     <Content Include="app\login\login.html" />
     <Content Include="app\login\login.js" />
     <Content Include="app\login\login_test.js" />
-    <Content Include="app\pravidla\pravidla.html" />
-    <Content Include="app\pravidla\pravidla.js" />
-    <Content Include="app\pravidla\pravidla_test.js" />
-    <Content Include="app\stanoviste\view1.html" />
-    <Content Include="app\stanoviste\view1.js" />
-    <Content Include="app\stanoviste\view1_test.js" />
+    <Content Include="app\rules\rules.html" />
+    <Content Include="app\rules\rules.js" />
+    <Content Include="app\rules\rules_test.js" />
+    <Content Include="app\posts\posts.html" />
+    <Content Include="app\posts\posts.js" />
+    <Content Include="app\posts\posts_test.js" />
     <Content Include="app\bonusy\view2.html" />
     <Content Include="app\bonusy\view2.js" />
     <Content Include="app\bonusy\view2_test.js" />

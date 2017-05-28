@@ -15,5 +15,5 @@ NavController.$inject = ['AuthService'];
 function NavController(authService) {
     var vm = this;
 
-    vm.isLoggedIn = authService.isLoggedIn;
+    vm.isAuthorized = authService.isAuthorized;
 };

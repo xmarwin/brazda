@@ -24,14 +24,14 @@ function LoginController($location, authService, teamService) {
     }
 
     vm.login = function () {
-        var name = vm.name;
+        var team = vm.team;
         var password = vm.password;
 
-        var retval = authService.login(name.id, password);
+        var retval = authService.login(team, password);
 
         if (retval.status === 'OK') {
             vm.showError = false;
-            $location.path('/stanoviste');
+            $location.path('/posts');
         } else {
             vm.showError = true;
             vm.errorMessage = retval.message;
