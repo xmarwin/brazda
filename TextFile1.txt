@@ -1,0 +1,51 @@
+Login
+	- AKCE - login {team: "", password:"", deviceId:""} ----> {vše, co je v tabulce + token + deviceId}
+	- AKCE - logout {token: "", deviceId: ""} ----> OK/NOK
+	- seznam všech týmù
+		- filtr: aktivní|neaktivní (jestli pøijeli), poloha, pøed startem|v akci|v cíli, role
+			TH: Pridat sloupec do tabulky Teams - IsActive (bool) + allowTracking (bool)
+			TH: token musí mít vazbu na team
+
+
+
+Stanovištì
+ - seznam všech stanoviš (pouze ta, která má tým vidìt)
+	- full (vrací celou tabulku posts kromì: šibolet, nápovìda (pokud si ji ještì nevzali), bonus_code a pøipojí post_type_name, post_color_name, post_color_code, post_size_name, 
+					cache_type_name, èas zalogování, èas odemèení bonusu, souøadnice finále nebo stage)
+			- má na sobì atribut includeWaypoints
+	- filtry: typ stanovištì, terén, obtížnost, barva, odloveno
+	- AKCE - stáhnout gpx
+
+
+Detail stanovištì ({post: ""} --> viz stanovištì (+ poslat nápovìdu, pokud si ji tým vzal + waypointy))
+	- kontrola, jesli ho mùžu vidìt
+	- které týmy už tam byly a kdy
+	- AKCE - zobrazit nápovìdu {post:""} --> {help:""}
+	- AKCE - zalogovat stanovištì {post:"", šibolet:""} ---> {OK/NOK}
+	- AKCE - stáhnout gpx
+	- AKCE - odemknout {post:"", bonus_code:""} ----> {OK/NOK}
+	
+Nice to have
+	
+Admin
+	- AKCE - smazat log
+		- seznam týmù
+		- seznam stanoviš
+	- AKCE - nastavit polohu týmu (?)
+	- AKCE - smazat vzatou nápovìdu (?)
+	- Výsledková listina
+	- Seznam týmù s poslední polohou
+	- Editace stanoviš + waypointù/bonusù
+	- Editace týmù
+	- Generování listingù do pdf
+
+
+Trackování
+	- Co X minut uložit polohu
+	- Co Y minut (pokud online) odeslat polohy ({[{timestamp: "", lat:"", lon: "", alt: "?"}]}) -----> OK/NOK
+	- Mít možnost vypnout trekování
+
+
+Upravit tabulku místo audit_log (výraznì to zjednodušší tvorbu výsledkù):
+team_id (int)  |  post_id (int)  |   logged_at (timestamp)   |   log_failed_at (timestamp)   |   help_at (timestamp)   |   bonus_unlocked_at (timestamp)
+------------------------------------------------------------------------------------

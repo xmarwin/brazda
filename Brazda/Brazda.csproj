@@ -65,6 +65,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\img\logo.png" />
     <Content Include="app\login\logout.html" />
     <Content Include="app\services\postService.js" />
     <Content Include="app\services\teamService.js" />
