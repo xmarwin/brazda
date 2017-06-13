@@ -25,7 +25,5 @@ function PostsController(authService, postService) {
 
 
 
-
-
     init();
 }

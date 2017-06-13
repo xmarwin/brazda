@@ -5,6 +5,8 @@ angular.module('myApp', [
     'ngRoute',
     'LocalStorageModule',
 
+    'star-rating',
+
     'myApp.authService',
     'myApp.teamService',
     'myApp.postService',
@@ -12,6 +14,7 @@ angular.module('myApp', [
     'myApp.rules',
     'myApp.contact',
     'myApp.posts',
+    'myApp.postDetail',
     'myApp.nav',
     'myApp.login',
     'myApp.version'

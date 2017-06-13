@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
     <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="assets/css/app.css">
     <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
@@ -23,12 +23,13 @@
     <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <div ng-view></div>
+    <div ng-view class="container"></div>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/angular1-star-rating/dist/index.js"></script>
     <!--App-->
     <script src="app.js"></script>
 
@@ -42,7 +43,9 @@
     <script src="rules/rules.js"></script>
     <script src="contact/contact.js"></script>
     <script src="login/login.js"></script>
-    <script src="posts/posts.js"></script>
+    <script src="posts/posts.controller.js"></script>
+    <script src="posts/postItem.directive.js"></script>
+    <script src="posts/postDetail.controller.js"></script>
 
     <script src="components/version/version.js"></script>
     <script src="components/version/version-directive.js"></script>

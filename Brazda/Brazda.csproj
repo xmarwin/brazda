@@ -65,8 +65,21 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\assets\css\app.css" />
+    <Content Include="app\assets\images\activity.png" />
+    <Content Include="app\assets\images\bonus.png" />
+    <Content Include="app\assets\images\cache.png" />
+    <Content Include="app\assets\images\cipher.png" />
+    <Content Include="app\assets\images\finish.png" />
+    <Content Include="app\assets\images\logo.png" />
+    <Content Include="app\assets\images\star-rating.icons.svg" />
+    <Content Include="app\assets\images\start.png" />
     <Content Include="app\img\logo.png" />
     <Content Include="app\login\logout.html" />
+    <Content Include="app\posts\postItem.directive.js" />
+    <Content Include="app\posts\postItem.tpl.html" />
+    <Content Include="app\posts\postDetail.html" />
+    <Content Include="app\posts\postDetail.controller.js" />
     <Content Include="app\services\postService.js" />
     <Content Include="app\services\teamService.js" />
     <Content Include="app\services\authService.js" />
@@ -87,7 +100,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
-    <Content Include="app\app.css" />
     <Content Include="app\app.js" />
     <Content Include="app\common\nav.html" />
     <Content Include="app\common\nav.js" />
@@ -109,7 +121,7 @@
     <Content Include="app\rules\rules.js" />
     <Content Include="app\rules\rules_test.js" />
     <Content Include="app\posts\posts.html" />
-    <Content Include="app\posts\posts.js" />
+    <Content Include="app\posts\posts.controller.js" />
     <Content Include="app\posts\posts_test.js" />
     <Content Include="app\bonusy\view2.html" />
     <Content Include="app\bonusy\view2.js" />
