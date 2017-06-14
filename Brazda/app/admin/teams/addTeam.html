@@ -1,0 +1,25 @@
+﻿<div ng-controller="AddTeamCtrl as addTeam">
+    <h1>Admin - přidat tým</h1>
+
+    <form novalidate name="addTeamForm">
+        <div class="row form-group" ng-class="{ 'has-error' : addTeamForm.name.$invalid && !addTeamForm.name.$pristine }">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                Název týmu:
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <input type="text" id="name" name="name" ng-model="addTeam.team.name" required ng-required="true" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                Popis:
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <input type="text" id="description" name="description" ng-model="addTeam.team.description" />
+            </div>
+        </div>
+        <div class="row">
+            <input type="submit" value="Přidat" ng-click="addTeam.addTeam(team)" ng-disabled="addTeamForm.$invalid"  class="btn btn-primary">
+        </div>
+    </form>
+</div>

@@ -65,6 +65,16 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\admin\teams\deleteTeam.controller.js" />
+    <Content Include="app\admin\teams\deleteTeam.html" />
+    <Content Include="app\admin\teams\editTeam.controller.js" />
+    <Content Include="app\admin\teams\editTeam.html" />
+    <Content Include="app\admin\teams\teamItem.directive.js" />
+    <Content Include="app\admin\teams\teamItem.tpl.html" />
+    <Content Include="app\admin\teams\addTeam.html" />
+    <Content Include="app\admin\teams\addTeam.controller.js" />
+    <Content Include="app\admin\teams\teams.controller.js" />
+    <Content Include="app\admin\teams\teams.html" />
     <Content Include="app\assets\css\app.css" />
     <Content Include="app\assets\images\activity.png" />
     <Content Include="app\assets\images\bonus.png" />

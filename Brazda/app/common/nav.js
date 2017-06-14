@@ -16,4 +16,5 @@ function NavController(authService) {
     var vm = this;
 
     vm.isAuthorized = authService.isAuthorized;
+    vm.isAdmin = authService.isAdmin;
 };

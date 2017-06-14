@@ -10,6 +10,7 @@ function AuthService(localStorageService) {
 
     return {
         isAuthorized: isAuthorized,
+        isAdmin : isAdmin,
         login: login,
         logout: logout,
         team: getTeam()
@@ -19,6 +20,14 @@ function AuthService(localStorageService) {
    
     function isAuthorized() {
         return getTeam() !== null;
+    }
+
+    function isAdmin() {
+        if (isAuthorized()) {
+            return getTeam().team_type === 'ORG';
+        } else {
+            return false;
+        }
     }
 
     function login(team, password) {
