@@ -1,7 +1,7 @@
 ﻿<div ng-controller="PostsCtrl as posts">
     <h1>Stanoviště</h1>
-    <div class="row">
-        <post-item ng-repeat="post in posts.posts" post-item="post">
+    <div class="list-group">
+        <post-item ng-repeat="post in posts.posts" post-item="post" class="list-group-item">
 
         </post-item>
     </div>

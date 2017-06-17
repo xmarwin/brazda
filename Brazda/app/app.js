@@ -8,6 +8,9 @@ angular.module('myApp', [
     //3rd party
     'star-rating',
     'ui-notification',
+    'ngQuill',
+    'ui.bootstrap',
+    'ngDialog',
 
     //Services
     'myApp.authService',
@@ -25,6 +28,10 @@ angular.module('myApp', [
     'myApp.admin.addTeam',
     'myApp.admin.editTeam',
     'myApp.admin.deleteTeam',
+
+    'myApp.admin.posts',
+    'myApp.admin.addPost',
+    'myApp.admin.editPost',
 
     //Common
     'myApp.nav',

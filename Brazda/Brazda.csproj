@@ -65,6 +65,15 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\admin\posts\editPost.html" />
+    <Content Include="app\admin\posts\editPost.controller.js" />
+    <Content Include="app\admin\posts\addPost.controller.js" />
+    <Content Include="app\admin\posts\addPost.html" />
+    <Content Include="app\admin\posts\postItemAdmin.directive.js" />
+    <Content Include="app\admin\posts\postItemAdmin.tpl.html" />
+    <Content Include="app\admin\posts\addWaypointModal.html" />
+    <Content Include="app\admin\posts\postsAdmin.controller.js" />
+    <Content Include="app\admin\posts\postsAdmin.html" />
     <Content Include="app\admin\teams\deleteTeam.controller.js" />
     <Content Include="app\admin\teams\deleteTeam.html" />
     <Content Include="app\admin\teams\editTeam.controller.js" />
@@ -145,7 +154,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\admin\posts\" />
     <Folder Include="app\admin\waypoints\" />
   </ItemGroup>
   <PropertyGroup>

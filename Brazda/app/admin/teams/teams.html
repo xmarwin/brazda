@@ -1,8 +1,8 @@
 ﻿<div ng-controller="TeamsCtrl as teams">
     <h1>Admin - týmy</h1>
     <a href="#!/admin/teams/add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Přidat tým</a>
-    <div class="row">
-        <team-item ng-repeat="team in teams.teams" team-item="team">
+    <div class="list-group">
+        <team-item ng-repeat="team in teams.teams" team-item="team" class="list-group-item">
 
         </team-item>
     </div>

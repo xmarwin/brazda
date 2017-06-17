@@ -16,7 +16,10 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="bower_components/angular-ui-notification/dist/angular-ui-notification.min.css">
     <link rel="stylesheet" href="assets/css/app.css">
-    <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+    <link href="../node_modules/quill/dist/quill.snow.css" rel="stylesheet" />
+    <link href="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css" rel="stylesheet" />
+    <link href="bower_components/ng-dialog/css/ngDialog.min.css" rel="stylesheet" />
+    <link href="bower_components/ng-dialog/css/ngDialog-theme-default.min.css" rel="stylesheet" />
 </head>
 <body>
     <div ng-controller="NavCtrl as nav" ng-include src="'/brazda/app/common/nav.html'"></div>
@@ -25,6 +28,7 @@
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <div ng-view class="container"></div>
+    <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
@@ -32,6 +36,11 @@
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/angular1-star-rating/dist/index.js"></script>
     <script src="bower_components/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
+    <script src="bower_components/ng-dialog/js/ngDialog.min.js"></script>
+    <script src="../node_modules/quill/dist/quill.min.js"></script>
+    <script src="../node_modules/ng-quill/dist/ng-quill.min.js"></script>
+    <script src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+    <script src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
     <!--App-->
     <script src="app.js"></script>
 
@@ -55,6 +64,11 @@
     <script src="admin/teams/addTeam.controller.js"></script>
     <script src="admin/teams/editTeam.controller.js"></script>
     <script src="admin/teams/deleteTeam.controller.js"></script>
+
+    <script src="admin/posts/postsAdmin.controller.js"></script>
+    <script src="admin/posts/postItemAdmin.directive.js"></script>
+    <script src="admin/posts/addPost.controller.js"></script>
+    <script src="admin/posts/editPost.controller.js"></script>
 
     <script src="components/version/version.js"></script>
     <script src="components/version/version-directive.js"></script>

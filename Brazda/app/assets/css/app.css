@@ -28,8 +28,12 @@
     border: 1px solid black;
 }
 
+.postItemAdmin {
+    border: 1px solid black;
+}
+
 .RED {
-    background-color: red;
+    background-color: #ff5757;
 }
 
 .YEL {
@@ -37,13 +41,26 @@
 }
 
 .BLU {
-    background-color: blue;
+    background-color: #75aefb;
 }
 
 .GRN {
-    background-color: green;
+    background-color: #79f8bb;
 }
 
 .delete-icon {
     color: red
+}
+
+[ng-quill-editor] {
+    display: block;
+    height: 300px;
+}
+
+.icon {
+    font-size: x-large;
+}
+
+.clickable {
+    cursor: pointer;
 }
