@@ -52,7 +52,7 @@ function EditPostController($routeParams, $location, notification, authService, 
         angular.forEach(vm.post.waypoints, function (value) {
             value.waypoint_type = $filter('filter')(vm.waypointTypes, { 'waypoint_type': value.waypoint_type }, true)[0];
             value.waypoint_visibility = $filter('filter')(vm.waypointVisibilities, { 'waypoint_visibility': value.waypoint_visibility }, true)[0];
-        });        
+        });
     }
 
     vm.addWaypoint = function () {

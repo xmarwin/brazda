@@ -4,6 +4,7 @@
 angular.module('myApp', [
     'ngRoute',
     'LocalStorageModule',
+    'ngSanitize',
 
     //3rd party
     'star-rating',
@@ -16,6 +17,7 @@ angular.module('myApp', [
     'myApp.authService',
     'myApp.teamService',
     'myApp.postService',
+    'myApp.downloadService',
 
     //App
     'myApp.rules',

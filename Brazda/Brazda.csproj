@@ -93,12 +93,14 @@
     <Content Include="app\assets\images\logo.png" />
     <Content Include="app\assets\images\star-rating.icons.svg" />
     <Content Include="app\assets\images\start.png" />
+    <Content Include="app\common\filters\coordinates.filter.js" />
     <Content Include="app\img\logo.png" />
     <Content Include="app\login\logout.html" />
     <Content Include="app\posts\postItem.directive.js" />
     <Content Include="app\posts\postItem.tpl.html" />
     <Content Include="app\posts\postDetail.html" />
     <Content Include="app\posts\postDetail.controller.js" />
+    <Content Include="app\services\downloadService.js" />
     <Content Include="app\services\postService.js" />
     <Content Include="app\services\teamService.js" />
     <Content Include="app\services\authService.js" />
