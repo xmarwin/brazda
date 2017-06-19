@@ -20,6 +20,7 @@
     <link href="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css" rel="stylesheet" />
     <link href="bower_components/ng-dialog/css/ngDialog.min.css" rel="stylesheet" />
     <link href="bower_components/ng-dialog/css/ngDialog-theme-default.min.css" rel="stylesheet" />
+    <base href="/brazda/app/index.html" />
 </head>
 <body>
     <div ng-controller="NavCtrl as nav" ng-include src="'/brazda/app/common/nav.html'"></div>
@@ -28,6 +29,8 @@
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <div ng-view class="container"></div>
+    <script src="https://use.fontawesome.com/bdd636d4d4.js"></script>
+
     <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/angular/angular.js"></script>
@@ -42,6 +45,7 @@
     <script src="../node_modules/ng-quill/dist/ng-quill.min.js"></script>
     <script src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
     <script src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+
     <!--App-->
     <script src="app.js"></script>
 
@@ -54,12 +58,18 @@
 
     <!--Controllers-->
     <script src="common/nav.js"></script>
+
     <script src="rules/rules.js"></script>
+
     <script src="contact/contact.js"></script>
+
     <script src="login/login.js"></script>
+
     <script src="posts/posts.controller.js"></script>
     <script src="posts/postItem.directive.js"></script>
     <script src="posts/postDetail.controller.js"></script>
+    <script src="posts/postLog.controller.js"></script>
+    <script src="posts/bonusUnlock.controller.js"></script>
 
     <!--Admin-->
     <script src="admin/teams/teams.controller.js"></script>

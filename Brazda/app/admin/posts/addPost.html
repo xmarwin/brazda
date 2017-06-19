@@ -1,4 +1,4 @@
-﻿<div ng-controller="AddPostCtrl as addPost">
+﻿<div ng-controller="AddPostCtrl as ctrl">
     <h1>Admin - přidat stanoviště</h1>
 
     <form novalidate name="addPostForm">
@@ -7,7 +7,7 @@
                 Název:
             </div>
             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                <input type="text" id="name" name="name" ng-model="addPost.post.name" required ng-required="true" class="form-control" />
+                <input type="text" id="name" name="name" ng-model="ctrl.post.name" required ng-required="true" class="form-control" />
             </div>
         </div>
         <div class="row form-group">
@@ -15,7 +15,7 @@
                 Popis:
             </div>
             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                <ng-quill-editor ng-model="addPost.post.description"></ng-quill-editor>
+                <ng-quill-editor ng-model="ctrl.post.description"></ng-quill-editor>
             </div>
         </div>
         <div class="row form-group">
@@ -23,19 +23,19 @@
                 Typ stanoviště:
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <select ng-options="postType.name for postType in addPost.postTypes" ng-model="addPost.post.postType" class="form-control"></select>
+                <select ng-options="postType.name for postType in ctrl.postTypes" ng-model="ctrl.post.postType" class="form-control"></select>
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 Typ keše:
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <select ng-options="cacheType.name for cacheType in addPost.cacheTypes" ng-model="addPost.post.cacheType" class="form-control" ng-disabled="addPost.post.postType.post_type !== 'CGC' && addPost.post.postType.post_type !== 'BON'"></select>
+                <select ng-options="cacheType.name for cacheType in ctrl.cacheTypes" ng-model="ctrl.post.cacheType" class="form-control" ng-disabled="ctrl.post.postType.post_type !== 'CGC' && ctrl.post.postType.post_type !== 'BON'"></select>
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 Velikost keše:
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <select ng-options="postSize.name for postSize in addPost.postSizes" ng-model="addPost.post.postSize" class="form-control" ng-disabled="addPost.post.postType.post_type !== 'CGC' && addPost.post.postType.post_type !== 'BON'"></select>
+                <select ng-options="postSize.name for postSize in ctrl.postSizes" ng-model="ctrl.post.postSize" class="form-control" ng-disabled="ctrl.post.postType.post_type !== 'CGC' && ctrl.post.postType.post_type !== 'BON'"></select>
             </div>
         </div>
         <div class="row form-group">
@@ -43,19 +43,19 @@
                 Barva:
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <select ng-options="postColor.name for postColor in addPost.postColors" ng-model="addPost.post.postColor" class="form-control"></select>
+                <select ng-options="postColor.name for postColor in ctrl.postColors" ng-model="ctrl.post.postColor" class="form-control"></select>
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 Terén:
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <select ng-options="terrain.name for terrain in addPost.postTerrains" ng-model="addPost.post.terrain" class="form-control"></select>
+                <select ng-options="terrain.name for terrain in ctrl.postTerrains" ng-model="ctrl.post.terrain" class="form-control"></select>
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 Obtížnost:
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <select ng-options="difficulty.name for difficulty in addPost.postDifficulties" ng-model="addPost.post.difficulty" class="form-control"></select>
+                <select ng-options="difficulty.name for difficulty in ctrl.postDifficulties" ng-model="ctrl.post.difficulty" class="form-control"></select>
             </div>
         </div>
         <div class="row form-group">
@@ -63,19 +63,19 @@
                 Maximální skóre:
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <input type="number" ng-model="addPost.post.maxScore" id="maxScore" name="maxScore" class="form-control" />
+                <input type="number" ng-model="ctrl.post.maxScore" id="maxScore" name="maxScore" class="form-control" />
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 Indicie:
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <input type="text" ng-model="addPost.post.shibboleth" id="shibboleth" name="shibboleth" class="form-control" />
+                <input type="text" ng-model="ctrl.post.shibboleth" id="shibboleth" name="shibboleth" class="form-control" />
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 Bonusový kód:
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <input type="text" ng-model="addPost.post.bonusCode" id="bonusCode" name="bonusCode" class="form-control" ng-disabled="addPost.post.postType.post_type !== 'BON'" />
+                <input type="text" ng-model="ctrl.post.bonusCode" id="bonusCode" name="bonusCode" class="form-control" ng-disabled="ctrl.post.postType.post_type !== 'BON'" />
             </div>
         </div>
         <div class="row form-group">
@@ -83,19 +83,19 @@
                 Hint:
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <input type="text" ng-model="addPost.post.hint" id="hint" name="hint" class="form-control" />
+                <input type="text" ng-model="ctrl.post.hint" id="hint" name="hint" class="form-control" />
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 Nápověda:
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <input type="text" ng-model="addPost.post.help" id="help" name="help" class="form-control" />
+                <input type="text" ng-model="ctrl.post.help" id="help" name="help" class="form-control" />
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 S orgem:
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <input type="checkbox" ng-model="addPost.post.withStaff" id="withStaff" name="withStaff" class="form-control" />
+                <input type="checkbox" ng-model="ctrl.post.withStaff" id="withStaff" name="withStaff" class="form-control" />
             </div>
         </div>
         <div class="row form-group">
@@ -104,7 +104,7 @@
             </div>
             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                 <div class="list-group">
-                    <div class="list-group-item row" ng-repeat="wpt in addPost.waypoints" ng-class="{'list-group-item-success': wpt.waypointVisibility.waypoint_visibility === 'VW', 'list-group-item-warning': wpt.waypointVisibility.waypoint_visibility === 'HW', 'list-group-item-danger': wpt.waypointVisibility.waypoint_visibility === 'HC'}">
+                    <div class="list-group-item row" ng-repeat="wpt in ctrl.waypoints" ng-class="{'list-group-item-success': wpt.waypointVisibility.waypoint_visibility === 'VW', 'list-group-item-warning': wpt.waypointVisibility.waypoint_visibility === 'HW', 'list-group-item-danger': wpt.waypointVisibility.waypoint_visibility === 'HC'}">
                         <img src="/brazda/app/assets/images/finish.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypointType.waypoint_type==='FIN'" title="{{wpt.waypointType.name}}" />
                         <img src="/brazda/app/assets/images/parking.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypointType.waypoint_type==='PAR'" title="{{wpt.waypointType.name}}" />
                         <img src="/brazda/app/assets/images/poi.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypointType.waypoint_type==='REF'" title="{{wpt.waypointType.name}}" />
@@ -124,11 +124,11 @@
                 </div>
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <button ng-click="addPost.addWaypoint()" class="btn btn-primary">Přidat waypoint</button>
+                <button ng-click="ctrl.addWaypoint()" class="btn btn-primary">Přidat waypoint</button>
             </div>
         </div>
         <div class="row">
-            <input type="submit" value="Přidat" ng-click="addPost.addPost(addPost.post)" ng-disabled="addPostForm.$invalid" class="btn btn-primary">
+            <input type="submit" value="Přidat" ng-click="ctrl.addPost(ctrl.post)" ng-disabled="addPostForm.$invalid" class="btn btn-primary">
         </div>
     </form>
 </div>

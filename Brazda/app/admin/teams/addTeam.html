@@ -1,4 +1,4 @@
-﻿<div ng-controller="AddTeamCtrl as addTeam">
+﻿<div ng-controller="AddTeamCtrl as ctrl">
     <h1>Admin - přidat tým</h1>
 
     <form novalidate name="addTeamForm">
@@ -7,7 +7,7 @@
                 Název týmu:
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <input type="text" id="name" name="name" ng-model="addTeam.team.name" required ng-required="true" class="form-control" />
+                <input type="text" id="name" name="name" ng-model="ctrl.team.name" required ng-required="true" class="form-control" />
             </div>
         </div>
         <div class="row">
@@ -15,11 +15,11 @@
                 Popis:
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <input type="text" id="description" name="description" ng-model="addTeam.team.description" class="form-control" />
+                <input type="text" id="description" name="description" ng-model="ctrl.team.description" class="form-control" />
             </div>
         </div>
         <div class="row">
-            <input type="submit" value="Přidat" ng-click="addTeam.addTeam(team)" ng-disabled="addTeamForm.$invalid"  class="btn btn-primary">
+            <input type="submit" value="Přidat" ng-click="ctrl.addTeam(team)" ng-disabled="addTeamForm.$invalid"  class="btn btn-primary">
         </div>
     </form>
 </div>

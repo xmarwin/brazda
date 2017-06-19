@@ -1,45 +1,47 @@
-﻿<div ng-controller="PostDetailCtrl as post">
+﻿<div ng-controller="PostDetailCtrl as ctrl">
     <div class="row">
-        <img class="col-xs-1 col-sm-1 col-md-1 col-xl-1" src="/brazda/app/assets/images/cipher.png" ng-show="post.post.post_type==='CIP'" />
-        <img class="col-xs-1 col-sm-1 col-md-1 col-xl-1" src="/brazda/app/assets/images/activity.png" ng-show="post.post.post_type==='ACT'" />
-        <img class="col-xs-1 col-sm-1 col-md-1 col-xl-1" src="/brazda/app/assets/images/cache.png" ng-show="post.post.post_type==='CGC'" />
-        <img class="col-xs-1 col-sm-1 col-md-1 col-xl-1" src="/brazda/app/assets/images/bonus.png" ng-show="post.post.post_type==='BON'" />
-        <img class="col-xs-1 col-sm-1 col-md-1 col-xl-1" src="/brazda/app/assets/images/start.png" ng-show="post.post.post_type==='BEG'" />
-        <img class="col-xs-1 col-sm-1 col-md-1 col-xl-1" src="/brazda/app/assets/images/finish.png" ng-show="post.post.post_type==='END'" />
-        <h1 class="col-xs-11 col-sm-11 col-md-11 col-xl-11">Stanoviště {{post.post.name}}</h1>
+        <div class="col-xs-1 col-sm-1 col-md-1 col-xl-1 {{postItem.color}}">
+            <i class="fa fa-question-circle-o fa-4x" aria-hidden="true" ng-show="ctrl.post.post_type==='CIP'"></i>
+            <i class="fa fa-compass fa-4x" aria-hidden="true" ng-show="ctrl.post.post_type==='ACT'"></i>
+            <i class="fa fa-archive fa-4x" aria-hidden="true" ng-show="ctrl.post.post_type==='CGC'"></i>
+            <i class="fa fa-gift fa-4x" aria-hidden="true" ng-show="ctrl.post.post_type==='BON'"></i>
+            <i class="fa fa-play fa-4x" aria-hidden="true" ng-show="ctrl.post.post_type==='BEG'"></i>
+            <i class="fa fa-flag-checkered fa-4x" aria-hidden="true" ng-show="ctrl.post.post_type==='END'"></i>
+        </div>
+        <h1 class="col-xs-11 col-sm-11 col-md-11 col-xl-11">Stanoviště {{ctrl.post.name}}</h1>
     </div>
     <div class="row">
         <strong class="col-xs-6 col-sm-6 col-md-6 col-xl-6">Terén:</strong>
-        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6">{{post.post.terrain}}</div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6">{{ctrl.post.terrain}}</div>
     </div>
     <div class="row">
         <strong class="col-xs-6 col-sm-6 col-md-6 col-xl-6">Obtížnost:</strong>
-        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6">{{post.post.difficulty}}</div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6">{{ctrl.post.difficulty}}</div>
     </div>
     <div class="row">
         <strong class="col-xs-6 col-sm-6 col-md-6 col-xl-6">Body:</strong>
-        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6">{{post.post.max_score}}</div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6">{{ctrl.post.max_score}}</div>
     </div>
-    <div class="row" ng-show="post.post.post_type==='CGC'">
+    <div class="row" ng-show="ctrl.post.post_type==='CGC'">
         <strong class="col-xs-6 col-sm-6 col-md-6 col-xl-6">Typ:</strong>
-        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6">{{post.post.cacheType.name}}</div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6">{{ctrl.post.cacheType.name}}</div>
     </div>
-    <div class="row" ng-show="post.post.post_type==='BON' || post.post.post_type==='CGC'">
+    <div class="row" ng-show="ctrl.post.post_type==='BON' || ctrl.post.post_type==='CGC'">
         <strong class="col-xs-6 col-sm-6 col-md-6 col-xl-6">Velikost:</strong>
-        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6">{{post.post.postSize.name}}</div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6">{{ctrl.post.postSize.name}}</div>
     </div>
     <div class="row">
         <h2 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Popis</h2>
     </div>
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12" ng-bind-html="post.post.description" />
+        <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12" ng-bind-html="ctrl.post.description" />
     </div>
     <div class="row">
         <h2 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Hint</h2>
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12">
-            {{post.post.hint}}
+            {{ctrl.post.hint}}
         </div>
     </div>
     <div class="row">
@@ -47,7 +49,7 @@
     </div>
     <div class="row">
         <div class="list-group">
-            <div class="list-group-item row" ng-repeat="wpt in post.post.waypoints">
+            <div class="list-group-item row" ng-repeat="wpt in ctrl.post.waypoints">
                 <img src="/brazda/app/assets/images/finish.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypoint_type.waypoint_type==='FIN'" title="{{wpt.waypoint_type.name}}" />
                 <img src="/brazda/app/assets/images/parking.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypoint_type.waypoint_type==='PAR'" title="{{wpt.waypoint_type.name}}" />
                 <img src="/brazda/app/assets/images/poi.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypoint_type.waypoint_type==='REF'" title="{{wpt.waypoint_type.name}}" />
@@ -70,9 +72,9 @@
         <h2 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Akce</h2>
     </div>
     <div class="row">
-        <button ng-click="post.downloadGpx()">Stáhnout GPX</button>
-        <button ng-click="post.getHelp()" ng-show="post.post.help !== ''">Nápověda</button>
-        <button ng-click="post.unlock()">Odemknout</button>
-        <button ng-click="post.log()">Zalogovat</button>
+        <button ng-click="ctrl.downloadGpx()">Stáhnout GPX</button>
+        <button ng-click="ctrl.getHelp()" ng-show="ctrl.post.help !== ''">Nápověda</button>
+        <a href="#/bonusUnlock/{{ctrl.post.post}}" class="btn btn-default" ng-show="ctrl.post.post_type==='BON'">Odemknout</a>
+        <a href="#/postLog/{{ctrl.post.post}}" class="btn btn-default">Zalogovat</a>
     </div>
 </div>

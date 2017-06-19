@@ -94,8 +94,11 @@
     <Content Include="app\assets\images\star-rating.icons.svg" />
     <Content Include="app\assets\images\start.png" />
     <Content Include="app\common\filters\coordinates.filter.js" />
-    <Content Include="app\img\logo.png" />
     <Content Include="app\login\logout.html" />
+    <Content Include="app\posts\bonusUnlock.html" />
+    <Content Include="app\posts\bonusUnlock.controller.js" />
+    <Content Include="app\posts\postLog.html" />
+    <Content Include="app\posts\postLog.controller.js" />
     <Content Include="app\posts\postItem.directive.js" />
     <Content Include="app\posts\postItem.tpl.html" />
     <Content Include="app\posts\postDetail.html" />
@@ -155,9 +158,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="app\admin\waypoints\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

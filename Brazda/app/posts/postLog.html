@@ -1,0 +1,21 @@
+﻿<div ng-controller="PostLogCtrl as ctrl">
+    <form name="logPostForm">
+        <div class="row">
+            <h1 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Zalogovat stanoviště {{ctrl.post.name}}</h1>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Zadejte heslo k tomuto stanovišti:</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12">
+                <input type="text" class="form-control" ng-model="ctrl.shibboleth" required />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12">
+                <button ng-click="ctrl.log()" ng-disabled="logPostForm.$invalid" class="btn btn-primary">Zalogovat</button>
+            </div>
+        </div>
+    </form>
+</div>

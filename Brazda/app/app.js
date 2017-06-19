@@ -24,6 +24,8 @@ angular.module('myApp', [
     'myApp.contact',
     'myApp.posts',
     'myApp.postDetail',
+    'myApp.postLog',
+    'myApp.bonusUnlock',
 
     //Admin
     'myApp.admin.teams',
@@ -41,9 +43,8 @@ angular.module('myApp', [
     'myApp.version'
 ])
     .config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
-        $locationProvider.hashPrefix('!');
-
-        $routeProvider.otherwise({ redirectTo: '/posts' });
+        $locationProvider.hashPrefix('');
+        $routeProvider.otherwise({ redirectTo: 'posts' });
     }])
 
     .config(function (localStorageServiceProvider) {

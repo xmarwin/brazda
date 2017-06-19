@@ -1,15 +1,15 @@
-﻿<div ng-controller="LoginCtrl as login">
+﻿<div ng-controller="LoginCtrl as ctrl">
     <form novalidate class="simple-form">
-        <div class="alert alert-danger" role="alert" ng-show="login.showError">{{login.errorMessage}}</div>
+        <div class="alert alert-danger" role="alert" ng-show="ctrl.showError">{{ctrl.errorMessage}}</div>
         <div class="form-group">
             <label>
                 Název týmu:
-                <select name="teamName" id="teamName" ng-options="team.name for team in login.teams" ng-model="login.team" class="form-control"></select>
+                <select name="teamName" id="teamName" ng-options="team.name for team in ctrl.teams" ng-model="ctrl.team" class="form-control"></select>
             </label><br />
         </div>
         <div class="form-group">
-            <label>Heslo:<input type="password" ng-model="login.password" class="form-control" /></label>
+            <label>Heslo:<input type="password" ng-model="ctrl.password" class="form-control" /></label>
         </div>
-        <input type="submit" ng-click="login.login()" value="Odeslat" class="btn btn-default" />
+        <input type="submit" ng-click="ctrl.login()" value="Odeslat" class="btn btn-default" />
     </form>
 </div>
