@@ -10,7 +10,6 @@ angular.module('myApp', [
     'star-rating',
     'ui-notification',
     'ngQuill',
-    'ui.bootstrap',
     'ngDialog',
 
     //Services
