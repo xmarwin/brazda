@@ -1,0 +1,21 @@
+﻿<div ng-controller="BonusUnlockCtrl as ctrl">
+    <form name="unlockBonusForm">
+        <div class="row">
+            <h1 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Odemknout bonus {{ctrl.post.name}}</h1>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Zadejte klíč k tomuto bonusu:</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12">
+                <input type="text" class="form-control" ng-model="ctrl.password" required />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12">
+                <button ng-click="ctrl.unlock()" ng-disabled="unlockBonusForm.$invalid" class="btn btn-primary">Odemknout</button>
+            </div>
+        </div>
+    </form>
+</div>

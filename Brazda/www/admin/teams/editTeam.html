@@ -1,0 +1,33 @@
+﻿<div ng-controller="EditTeamCtrl as ctrl">
+    <h1>Admin - upravit tým</h1>
+
+    <form novalidate name="editTeamForm">
+        <div class="row form-group">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                Id týmu:
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <input type="text" id="id" name="id" ng-model="ctrl.team.id" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="row form-group" ng-class="{ 'has-error' : editTeamForm.name.$invalid && !editTeamForm.name.$pristine }">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                Název týmu:
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <input type="text" id="name" name="name" ng-model="ctrl.team.name" required ng-required="true" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                Popis:
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <input type="text" id="description" name="description" ng-model="ctrl.team.description" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <input type="submit" value="Upravit" ng-click="ctrl.editTeam(team)" ng-disabled="editTeamForm.$invalid" class="btn btn-primary">
+        </div>
+    </form>
+</div>

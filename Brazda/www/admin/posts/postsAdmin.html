@@ -1,0 +1,9 @@
+﻿<div ng-controller="PostsAdminCtrl as ctrl">
+    <h1>Admin - stanoviště</h1>
+    <a href="#/admin/posts/add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Přidat stanoviště</a>
+    <div class="row">
+        <post-item-admin ng-repeat="post in ctrl.posts" post-item-admin="post">
+
+        </post-item-admin>
+    </div>
+</div>

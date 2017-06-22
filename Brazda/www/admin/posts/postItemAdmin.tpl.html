@@ -1,0 +1,24 @@
+﻿<div class="col-xs-12 col-sm-12 col-md-12 col-xl-12 postItemAdmin">
+    <div class="row">
+        <div class="col-xs-1 col-sm-1 col-md-1 col-xl-1 {{postItemAdmin.color}}">
+            <i class="fa fa-question-circle-o fa-4x" aria-hidden="true" ng-show="postItemAdmin.post_type==='CIP'"></i>
+            <i class="fa fa-compass fa-4x" aria-hidden="true" ng-show="postItemAdmin.post_type==='ACT'"></i>
+            <i class="fa fa-archive fa-4x" aria-hidden="true" ng-show="postItemAdmin.post_type==='CGC'"></i>
+            <i class="fa fa-gift fa-4x" aria-hidden="true" ng-show="postItemAdmin.post_type==='BON'"></i>
+            <i class="fa fa-play fa-4x" aria-hidden="true" ng-show="postItemAdmin.post_type==='BEG'"></i>
+            <i class="fa fa-flag-checkered fa-4x" aria-hidden="true" ng-show="postItemAdmin.post_type==='END'"></i>
+        </div>
+        <h3 class="col-xs-3 col-sm-3 col-md-3 col-xl-3">{{postItemAdmin.name}}</h3>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-xl-2">
+            <star-rating-comp rating="postItemAdmin.terrain" color="'ok'" size="'medium'" label-text="'Terén: '" show-half-stars="true" show-hover-stars="true" read-only="true"></star-rating-comp>
+            <star-rating-comp rating="postItemAdmin.difficulty" color="'ok'" size="'medium'" label-text="'Obtížnost: '" show-half-stars="true" show-hover-stars="true" read-only="true"></star-rating-comp>
+        </div>
+        <div class="col-xs-5 col-sm-5 col-md-5 col-xl-5">
+
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1 col-xl-1" ng-hide="teamItem.team_type === 'ORG'">
+            <a href="#/admin/posts/edit/{{postItemAdmin.post}}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+            <a href="#/admin/posts/delete/{{postItemAdmin.post}}"><span class="glyphicon glyphicon-remove delete-icon" aria-hidden="true"></span></a>
+        </div>
+    </div>
+</div>

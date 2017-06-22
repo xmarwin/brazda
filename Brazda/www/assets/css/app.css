@@ -1,0 +1,66 @@
+﻿/* app css stylesheet */
+
+.menu {
+    list-style: none;
+    border-bottom: 0.1em solid black;
+    margin-bottom: 2em;
+    padding: 0 0 0.5em;
+}
+
+    .menu:before {
+        content: "[";
+    }
+
+    .menu:after {
+        content: "]";
+    }
+
+    .menu > li {
+        display: inline;
+    }
+
+        .menu > li + li:before {
+            content: "|";
+            padding-right: 0.3em;
+        }
+
+.postItem {
+    border: 1px solid black;
+}
+
+.postItemAdmin {
+    border: 1px solid black;
+}
+
+.RED {
+    background-color: #ff5757;
+}
+
+.YEL {
+    background-color: yellow;
+}
+
+.BLU {
+    background-color: #75aefb;
+}
+
+.GRN {
+    background-color: #79f8bb;
+}
+
+.delete-icon {
+    color: red
+}
+
+[ng-quill-editor] {
+    display: block;
+    height: 300px;
+}
+
+.icon {
+    font-size: x-large;
+}
+
+.clickable {
+    cursor: pointer;
+}
