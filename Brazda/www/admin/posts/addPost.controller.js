@@ -17,6 +17,8 @@ AddPostController.$inject = ['$routeParams', '$location', 'Notification', 'AuthS
 function AddPostController($routeParams, $location, notification, authService, postService, ngDialog) {
     var vm = this;
     vm.post = {};
+    vm.post.waypoints = [];
+
     vm.postTypes = [];
     vm.cacheTypes = [];
     vm.postSizes = [];
@@ -27,7 +29,6 @@ function AddPostController($routeParams, $location, notification, authService, p
     vm.waypointTypes = [];
     vm.waypointVisibilities = [];
 
-    vm.waypoints = [];
 
     var init = function () {
         vm.postTypes = postService.getPostTypes();
@@ -48,11 +49,18 @@ function AddPostController($routeParams, $location, notification, authService, p
             controller: 'AddPostCtrl',
             controllerAs: 'vm'
         }).then(function (data) {
-            vm.waypoints.push(data);
+            data.wpt = vm.post.waypoints.length + 1;
+            vm.post.waypoints.push(data);
         }, function (err) {
 
         })
     };
+
+    vm.removeWaypoint = function (wpt) {
+        var index = vm.post.waypoints.indexOf(wpt);
+        vm.post.waypoints.splice(index, 1);
+        return false;
+    }
 
     vm.addWaypointOk = function () {
         $uibModalInstance.close($ctrl.selected.item);
