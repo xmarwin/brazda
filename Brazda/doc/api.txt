@@ -1,0 +1,111 @@
+﻿ERROR: {
+    "code": <integer>,
+    "message": <string>
+}
+
+TEAM
+====
+
+/api/v1/team/login
+Přihlášení týmu do aplikace.
+POST: {
+    "login": <string>,
+    "password": <string>
+}
+REPLY: {
+    "session": <string>
+}
+
+/api/team/logout/<session>:
+Odhlášení týmu z aplikace.
+GET: {
+    "session": <string>
+}
+REPLY: {
+    "status": "ok"
+    "session": null
+}
+
+/api/team/position/<session>:
+Reportování polohy týmu.
+POST: {
+    "latitude": <float>,
+    "longitude": <float>,
+    "timestamp": <string>
+}
+REPLY: {
+    "status": "ok"
+}
+
+
+POST
+====
+
+/api/post/list/<session>:
+Seznam všech viditelných stanovišť.
+GET: {
+    "session": <string>
+}
+REPLY: [
+    {
+        "post": <integer>,
+        "postType": <string>,
+        "color": <integer>,
+        "name": <string>,
+        "difficulty": <string>,
+        "terrain": <string>,
+        "size": <string>,
+        "description": <string>,
+        "cacheType": <string>,
+        "maxScore": <integer>,
+        "openFrom": <string>,
+        "openTo": <string>,
+        "colorName": <string>,
+        "colorCode": <string>,
+        "typeName": <string>,
+        "sizeName": <string>,
+        "cacheName": <string>,
+*       "isLogged": <boolean>,
+*       "logType": <string>
+    }
+]
+
+/api/post/detail/<session>/<post>:
+Detail daného stanoviště.
+GET: {
+    "session": <string>,
+    "post": <integer>
+}
+REPLY: {
+    "post": <integer>,
+    "postType": <string>,
+    "color": <integer>,
+    "name": <string>,
+    "difficulty": <string>,
+    "terrain": <string>,
+    "size": <string>,
+    "description": <string>,
+    "cacheType": <string>,
+    "maxScore": <integer>,
+    "openFrom": <string>,
+    "openTo": <string>,
+    "colorName": <string>,
+    "colorCode": <string>,
+    "typeName": <string>,
+    "sizeName": <string>,
+    "cacheName": <string>,
+*   "hint": <string>,
+*   "isLogged": <boolean>,
+*   "logType": <string>
+}
+
+/api/post/help/<session>/<post>:
+Log zpřístupňující nápovědu.
+GET: {
+    "session": <string>,
+    "post": <integer>
+}
+REPLY: {
+    "post": <integer>,
+    "help": <string>
+}

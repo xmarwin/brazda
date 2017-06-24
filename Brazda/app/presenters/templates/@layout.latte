@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="myApp" class="no-js">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My AngularJS App</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/angular-ui-notification/dist/angular-ui-notification.min.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+    <link href="node_modules/quill/dist/quill.snow.css" rel="stylesheet" />
+    <link href="bower_components/ng-dialog/css/ngDialog.min.css" rel="stylesheet" />
+    <link href="bower_components/ng-dialog/css/ngDialog-theme-default.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div ng-controller="NavCtrl as nav" ng-include src="'/common/nav.html'"></div>
+
+    <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div ng-view class="container"></div>
+    <script src="https://use.fontawesome.com/bdd636d4d4.js"></script>
+
+    <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/angular1-star-rating/dist/index.js"></script>
+    <script src="bower_components/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
+    <script src="bower_components/ng-dialog/js/ngDialog.min.js"></script>
+    <script src="node_modules/quill/dist/quill.min.js"></script>
+    <script src="node_modules/ng-quill/dist/ng-quill.min.js"></script>
+
+    <!--App-->
+    <script src="app.js"></script>
+
+
+    <!--Services-->
+    <script src="services/authService.js"></script>
+    <script src="services/teamService.js"></script>
+    <script src="services/postService.js"></script>
+    <script src="services/downloadService.js"></script>
+
+    <!--Controllers-->
+    <script src="common/nav.js"></script>
+
+    <script src="rules/rules.js"></script>
+
+    <script src="contact/contact.js"></script>
+
+    <script src="login/login.js"></script>
+
+    <script src="posts/posts.controller.js"></script>
+    <script src="posts/postItem.directive.js"></script>
+    <script src="posts/postDetail.controller.js"></script>
+    <script src="posts/postLog.controller.js"></script>
+    <script src="posts/bonusUnlock.controller.js"></script>
+
+    <!--Admin-->
+    <script src="admin/teams/teams.controller.js"></script>
+    <script src="admin/teams/teamItem.directive.js"></script>
+    <script src="admin/teams/addTeam.controller.js"></script>
+    <script src="admin/teams/editTeam.controller.js"></script>
+    <script src="admin/teams/deleteTeam.controller.js"></script>
+
+    <script src="admin/posts/postsAdmin.controller.js"></script>
+    <script src="admin/posts/postItemAdmin.directive.js"></script>
+    <script src="admin/posts/addPost.controller.js"></script>
+    <script src="admin/posts/editPost.controller.js"></script>
+
+    <script src="components/version/version.js"></script>
+    <script src="components/version/version-directive.js"></script>
+    <script src="components/version/interpolate-filter.js"></script>
+
+    <!--Filters-->
+    <script src="common/filters/coordinates.filter.js"></script>
+</body>
+</html>

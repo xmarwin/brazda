@@ -1,0 +1,7 @@
+#!/bin/bash
+
+PGHOST="localhost"
+PGUSER="brazda"
+PGPASSWORD="FzwtMS/jq.XSQ"
+
+/usr/bin/psql brazda
