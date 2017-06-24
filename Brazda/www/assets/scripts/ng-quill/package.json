@@ -1,0 +1,80 @@
+{
+  "_from": "ng-quill",
+  "_id": "ng-quill@3.2.1",
+  "_inBundle": false,
+  "_integrity": "sha1-EazSAkJ2512MM3imzwtQHe6ChTc=",
+  "_location": "/ng-quill",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "ng-quill",
+    "name": "ng-quill",
+    "escapedName": "ng-quill",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://www.myget.org/F/linksoft/npm/ng-quill/-/ng-quill-3.2.1.tgz",
+  "_shasum": "11acd2024276e75d8c3378a6cf0b501dee828537",
+  "_spec": "ng-quill",
+  "_where": "D:\\Development\\Brazda\\Brazda",
+  "author": {
+    "name": "Bengt Weiße",
+    "email": "bengtler@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/KillerCodeMonkey/ngQuill/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Bengt Weiße"
+    }
+  ],
+  "dependencies": {
+    "angular": "^1.5.3",
+    "quill": "^1.2.0"
+  },
+  "deprecated": false,
+  "description": "Angular directive for rich text editor Quill",
+  "devDependencies": {
+    "angular-mocks": "^1.5.3",
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.3.0",
+    "karma-coverage": "^1.1.1",
+    "karma-jasmine": "^1.1.0",
+    "karma-mocha-reporter": "2.2.1",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "rimraf": "^2.6.1",
+    "uglify-js": "^2.4.10"
+  },
+  "engines": {
+    "node": ">=0.10"
+  },
+  "homepage": "https://github.com/KillerCodeMonkey/ngQuill",
+  "keywords": [
+    "editor",
+    "rich text",
+    "wysiwyg",
+    "angular",
+    "directive"
+  ],
+  "license": "MIT",
+  "main": "dist/ng-quill.js",
+  "name": "ng-quill",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KillerCodeMonkey/ngQuill.git"
+  },
+  "scripts": {
+    "build": "rimraf dist && mkdir dist && cp src/ng-quill.js dist/ && cat dist/ng-quill.js | uglifyjs > dist/ng-quill.min.js && echo \";\" >> dist/ng-quill.js",
+    "prepare": "npm run test && npm run build",
+    "test": "karma start"
+  },
+  "version": "3.2.1"
+}
