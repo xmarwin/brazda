@@ -1,0 +1,12 @@
+#!/bin/bash
+
+/usr/bin/dropdb -U postgres brazda
+/usr/bin/createdb -U postgres -O brazda -E UTF-8 -T template0 brazda
+
+PGUSER="brazda"
+PGPASSWORD="FzwtMS/jq.XSQ"
+
+/usr/bin/psql -U brazda -f schema.sql
+/usr/bin/psql -U brazda -f data.sql
+/usr/bin/psql -U brazda -f posts.sql
+/usr/bin/psql -U brazda -f results.sql
