@@ -1,8 +1,87 @@
 ﻿<div ng-controller="PostsCtrl as ctrl">
-    <h1>Stanoviště</h1>
-    <div class="list-group">
-        <post-item ng-repeat="post in ctrl.posts" post-item="post" class="list-group-item">
-
-        </post-item>
+    <div class="row form-group">
+        <div class="col-xs-6 col-sm-8 col-md-9 col-lg-9">
+            <h1>Stanoviště</h1>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 text-right">
+            <button type="button" ng-click="ctrl.toggleFilter()" class="btn btn-primary" ng-class="{ 'active': ctrl.showFilter }"><i class="fa fa-filter" aria-hidden="true"></i> Filtr</button>
+            <button type="button" ng-click="ctrl.refresh()" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i> Aktualizovat</button>
+        </div>
     </div>
+    <div ng-show="ctrl.showFilter">
+        <div class="row form-group">
+            <div class="col-xs-3 col-sm-1 col-md-1 col-lg-1">
+                Stav:
+            </div>
+            <div class="col-xs-9 col-sm-2 col-md-2 col-lg-2">
+                <select ng-model="ctrl.filter.state" class="form-control">
+                    <option value="all">Vše</option>
+                    <option value="notFound">Nenalezené</option>
+                    <option value="found">Nalezené</option>
+                </select>
+            </div>
+            <div class="col-xs-3 col-sm-1 col-md-1 col-lg-1">
+                Typ:
+            </div>
+            <div class="col-xs-9 col-sm-2 col-md-2 col-lg-2">
+                <select ng-options="postType.name for postType in ctrl.postTypes" ng-model="ctrl.filter.post_type" class="form-control" ng-change="ctrl.filter()">
+                    <option value="">Vše</option>
+                </select>
+            </div>
+            <div class="col-xs-3 col-sm-1 col-md-1 col-lg-1">
+                Barva:
+            </div>
+            <div class="col-xs-9 col-sm-2 col-md-2 col-lg-2">
+                <select ng-options="postColor.name for postColor in ctrl.postColors" ng-model="ctrl.filter.color" class="form-control" ng-change="ctrl.filter()">
+                    <option value="">Vše</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <table class="post-list">
+        <tbody ng-repeat="postItem in ctrl.postsFiltered">
+            <tr class="{{postItem.color}}">
+                <td rowspan="2" class="width: 36px">
+                    <i class="fa fa-lock fa-2x" aria-hidden="true"></i>
+                    <i class="fa fa-unlock fa-2x" aria-hidden="true"></i>
+                </td>
+
+                <td rowspan="2" class="width: 36px">
+                    <i class="fa fa-question-circle-o fa-2x" aria-hidden="true" ng-show="postItem.post_type==='CIP'"></i>
+                    <i class="fa fa-compass fa-2x" aria-hidden="true" ng-show="postItem.post_type==='ACT'"></i>
+                    <i class="fa fa-archive fa-2x" aria-hidden="true" ng-show="postItem.post_type==='CGC'"></i>
+                    <i class="fa fa-gift fa-2x" aria-hidden="true" ng-show="postItem.post_type==='BON'"></i>
+                    <i class="fa fa-play fa-2x" aria-hidden="true" ng-show="postItem.post_type==='BEG'"></i>
+                    <i class="fa fa-flag-checkered fa-2x" aria-hidden="true" ng-show="postItem.post_type==='END'"></i>
+                </td>
+                <td colspan="5">{{postItem.name}}</td>
+                <td rowspan="2">
+                    <a href="#/postDetail/{{postItem.post}}" class="btn btn-default">Detail</a>
+                </td>
+            </tr>
+            <tr class="{{postItem.color}}">
+                <td>
+                    T<span class="hidden-xs">erén</span>: {{postItem.terrain}}
+                </td>
+                <td>
+                    O<span class="hidden-xs">btížnost</span>: {{postItem.difficulty}}
+                </td>
+
+                <td ng-show="postItem.size === 'M'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/micro.gif" title="Micro" /></td>
+                <td ng-show="postItem.size === 'S'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/small.gif" title="Small" /></td>
+                <td ng-show="postItem.size === 'R'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/regular.gif" title="Regular" /></td>
+                <td ng-show="postItem.size === 'L'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/large.gif" title="Large" /></td>
+                <td ng-show="postItem.size === 'O'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/other.gif" title="Other" /></td>
+
+                <td ng-show="postItem.cache_type === 'TRA'">T<span class="hidden-xs">yp</span>: <img src="../assets/images/traditional_16.gif"></td>
+                <td ng-show="postItem.cache_type === 'MLT'">T<span class="hidden-xs">yp</span>: <img src="../assets/images/multi_16.gif"></td>
+                <td ng-show="postItem.cache_type === 'MYS'">T<span class="hidden-xs">yp</span>: <img src="../assets/images/unknown_16.gif"></td>
+                <td ng-show="postItem.cache_type === 'ERT'">T<span class="hidden-xs">yp</span>: <img src="../assets/images/earthcache_16.gif"></td>
+                <td ng-show="postItem.cache_type === 'WIG'">T<span class="hidden-xs">yp</span>: <img src="../assets/images/wherigo_16.gif"></td>
+                <td ng-show="postItem.cache_type == null || postItem.cache_type === ''">T<span class="hidden-xs">yp</span>: -</td>
+
+                <td>B<span class="hidden-xs">ody</span>: {{postItem.max_score}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
