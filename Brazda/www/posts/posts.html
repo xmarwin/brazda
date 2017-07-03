@@ -4,8 +4,8 @@
             <h1>Stanoviště</h1>
         </div>
         <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 text-right">
-            <button type="button" ng-click="ctrl.toggleFilter()" class="btn btn-primary" ng-class="{ 'active': ctrl.showFilter }"><i class="fa fa-filter" aria-hidden="true"></i> Filtr</button>
-            <button type="button" ng-click="ctrl.refresh()" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i> Aktualizovat</button>
+            <button type="button" ng-click="ctrl.toggleFilter()" class="btn btn-primary" ng-class="{ 'active': ctrl.showFilter }"><i class="fa fa-filter" aria-hidden="true"></i><span class="hidden-xs"> Filtr</span></button>
+            <button type="button" ng-click="ctrl.refresh()" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i><span class="hidden-xs"> Aktualizovat</span></button>
         </div>
     </div>
     <div ng-show="ctrl.showFilter">
