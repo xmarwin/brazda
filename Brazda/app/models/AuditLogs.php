@@ -3,7 +3,8 @@
 namespace Brazda\Models;
 
 use Brazda\Models\Logs,
-    Nette;;
+    Nette,
+    Nette\DI;
 
 class AuditLogs extends Base
 {
