@@ -1,51 +1,51 @@
-Login
-	- AKCE - login {team: "", password:"", deviceId:""} ----> {vše, co je v tabulce + token + deviceId}
+ï»¿Login
+	- AKCE - login {team: "", password:"", deviceId:""} ----> {vÅ¡e, co je v tabulce + token + deviceId}
 	- AKCE - logout {token: "", deviceId: ""} ----> OK/NOK
-	- seznam všech tımù
-		- filtr: aktivní|neaktivní (jestli pøijeli), poloha, pøed startem|v akci|v cíli, role
+	- seznam vÅ¡ech tÃ½mÅ¯
+		- filtr: aktivnÃ­|neaktivnÃ­ (jestli pÅ™ijeli), poloha, pÅ™ed startem|v akci|v cÃ­li, role
 			TH: Pridat sloupec do tabulky Teams - IsActive (bool) + allowTracking (bool)
-			TH: token musí mít vazbu na team
+			TH: token musÃ­ mÃ­t vazbu na team
 
 
 
-Stanovištì
- - seznam všech stanoviš (pouze ta, která má tım vidìt)
-	- full (vrací celou tabulku posts kromì: šibolet, nápovìda (pokud si ji ještì nevzali), bonus_code a pøipojí post_type_name, post_color_name, post_color_code, post_size_name, 
-					cache_type_name, èas zalogování, èas odemèení bonusu, souøadnice finále nebo stage)
-			- má na sobì atribut includeWaypoints
-	- filtry: typ stanovištì, terén, obtínost, barva, odloveno
-	- AKCE - stáhnout gpx
+StanoviÅ¡tÄ›
+ - seznam vÅ¡ech stanoviÅ¡Å¥ (pouze ta, kterÃ¡ mÃ¡ tÃ½m vidÄ›t)
+	- full (vracÃ­ celou tabulku posts kromÄ›: Å¡ibolet, nÃ¡povÄ›da (pokud si ji jeÅ¡tÄ› nevzali), bonus_code a pÅ™ipojÃ­ post_type_name, post_color_name, post_color_code, post_size_name, 
+					cache_type_name, Äas zalogovÃ¡nÃ­, Äas odemÄenÃ­ bonusu, souÅ™adnice finÃ¡le nebo stage)
+			- mÃ¡ na sobÄ› atribut includeWaypoints
+	- filtry: typ stanoviÅ¡tÄ›, terÃ©n, obtÃ­Å¾nost, barva, odloveno
+	- AKCE - stÃ¡hnout gpx
 
 
-Detail stanovištì ({post: ""} --> viz stanovištì (+ poslat nápovìdu, pokud si ji tım vzal + waypointy))
-	- kontrola, jesli ho mùu vidìt
-	- které tımy u tam byly a kdy
-	- AKCE - zobrazit nápovìdu {post:""} --> {help:""}
-	- AKCE - zalogovat stanovištì {post:"", šibolet:""} ---> {OK/NOK}
-	- AKCE - stáhnout gpx
+Detail stanoviÅ¡tÄ› ({post: ""} --> viz stanoviÅ¡tÄ› (+ poslat nÃ¡povÄ›du, pokud si ji tÃ½m vzal + waypointy))
+	- kontrola, jesli ho mÅ¯Å¾u vidÄ›t
+	- kterÃ© tÃ½my uÅ¾ tam byly a kdy
+	- AKCE - zobrazit nÃ¡povÄ›du {post:""} --> {help:""}
+	- AKCE - zalogovat stanoviÅ¡tÄ› {post:"", Å¡ibolet:""} ---> {OK/NOK}
+	- AKCE - stÃ¡hnout gpx
 	- AKCE - odemknout {post:"", bonus_code:""} ----> {OK/NOK}
 	
 Nice to have
 	
 Admin
 	- AKCE - smazat log
-		- seznam tımù
-		- seznam stanoviš
-	- AKCE - nastavit polohu tımu (?)
-	- AKCE - smazat vzatou nápovìdu (?)
-	- Vısledková listina
-	- Seznam tımù s poslední polohou
-	- Editace stanoviš + waypointù/bonusù
-	- Editace tımù
-	- Generování listingù do pdf
+		- seznam tÃ½mÅ¯
+		- seznam stanoviÅ¡Å¥
+	- AKCE - nastavit polohu tÃ½mu (?)
+	- AKCE - smazat vzatou nÃ¡povÄ›du (?)
+	- VÃ½sledkovÃ¡ listina
+	- Seznam tÃ½mÅ¯ s poslednÃ­ polohou
+	- Editace stanoviÅ¡Å¥ + waypointÅ¯/bonusÅ¯
+	- Editace tÃ½mÅ¯
+	- GenerovÃ¡nÃ­ listingÅ¯ do pdf
 
 
-Trackování
-	- Co X minut uloit polohu
+TrackovÃ¡nÃ­
+	- Co X minut uloÅ¾it polohu
 	- Co Y minut (pokud online) odeslat polohy ({[{timestamp: "", lat:"", lon: "", alt: "?"}]}) -----> OK/NOK
-	- Mít monost vypnout trekování
+	- MÃ­t moÅ¾nost vypnout trekovÃ¡nÃ­
 
 
-Upravit tabulku místo audit_log (vıraznì to zjednodušší tvorbu vısledkù):
+Upravit tabulku mÃ­sto audit_log (vÃ½raznÄ› to zjednoduÅ¡Å¡Ã­ tvorbu vÃ½sledkÅ¯):
 team_id (int)  |  post_id (int)  |   logged_at (timestamp)   |   log_failed_at (timestamp)   |   help_at (timestamp)   |   bonus_unlocked_at (timestamp)
 ------------------------------------------------------------------------------------

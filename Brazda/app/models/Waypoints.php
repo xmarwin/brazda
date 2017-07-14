@@ -2,7 +2,8 @@
 
 namespace Brazda\Models;
 
-use Nette;
+use Nette,
+    Nette\DI;
 
 class Waypoints extends Base
 {

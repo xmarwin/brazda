@@ -13,19 +13,22 @@ session:
 
 services:
 	database: Dibi\Connection(%database%)
+	dibipanel: Dibi\Bridges\Tracy\Panel
 	router: Brazda\RouterFactory::createRouter
 	authenticator: Brazda\Models\Authenticator(@container)
-	
+
 	teams: Brazda\Models\Teams(@container)
+
+	tracy.bar:
+		setup:
+			- @dibipanel::register(@database)
 
 extensions:
 #	dibi: Dibi\Bridges\Nette\DibiExtension22
 	restful: Drahak\Restful\DI\RestfulExtension
 
-	
-
 restful:
-	convention: camelCase
+	convention: 'camelCase'
 	cacheDir: '%tempDir%/cache'
 	routes:
 		generateAtStart: false
