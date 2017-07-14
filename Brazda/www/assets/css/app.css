@@ -64,3 +64,11 @@
 .clickable {
     cursor: pointer;
 }
+
+table.post-list {
+    width: 100%;
+}
+
+table.post-list > tr {
+    border-bottom: thin 1px grey;
+}
