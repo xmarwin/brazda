@@ -54,4 +54,13 @@ class SignPresenter extends BasePresenter
 		$this->sendResource($this->outputType);
 	} // actionOut()
 
+	public function actionTeamsList()
+	{
+		$teams = $this->teams->view([], [ 'name' => 'ASC' ]);
+		foreach ($teams as $team) {
+			$this->resource[] = $team['name'];
+		} // foreach
+		$this->sendResource($this->outputType);
+	} // actionTeamsList()
+
 } // SignPresenter
