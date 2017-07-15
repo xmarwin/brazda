@@ -4,7 +4,7 @@ namespace Brazda\Module\Api\Presenters;
 
 use Nette\Security;
 
-class TeamPresenter extends BasePresenter
+class TeamPresenter extends SecuredBasePresenter
 {
     protected
         $teams;
@@ -16,19 +16,22 @@ class TeamPresenter extends BasePresenter
         $this->teams = $this->context->getService('teams');
     } // startup()
 
-	public function actionLogin($login, $password, $type)
+	public function actionList(array $filter = [], array $order = [])
 	{
-		try {
-			$identity = $this->getUser()->login($login, $password);
-		} catch (Security\AuthenticationException $e) {
-		} // try
-	} // actionLogin()
+		$viewFilter = [];
+		if (isset($filter['role']) && !empty($filter['role'])) {
+			$roles = explode(',', $filter['role']);
+			$viewFilter[] = [ 't.team_type IN %in', $roles ];
+		} // if
 
-	public function actionList()
-	{
-        $this->resource->teams = $this->teams->view();
+		if (isset($filter['status']) && !empty($filter['status'])) {
+			$statuses = explode(',', $filter['status']);
+			$viewFilter[] = ['t.status IN %in', $statuses ];
+		} // if
 
-        $this->sendResource($this->typeMap['json']);
+        $this->resource = $this->teams->view($viewFilter, $order);
+
+        $this->sendResource($this->outputType);
 	} // actionList()
 
 } // TeamPresenter
