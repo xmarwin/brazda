@@ -38,7 +38,12 @@ class Posts extends Base
         )->fetch();
     }
 
-    public function view() {
+    public function view(array $filter = [], array $order = [], array $limit = []) {
+
+		$filter = $this->normalizeFilter($filter);
+		$order  = $this->normalizeOrder($order);
+		$limit  = $this->normalizeLimit($limit);
+		list($limit, $offset) = each($limit);
 
         return $this->db->query(
             "SELECT
@@ -66,7 +71,7 @@ class Posts extends Base
             JOIN post_sizes ps USING (size)
             LEFT JOIN cache_types ct USING (cache_type)
             ORDER BY p.post_type, p.color, p.name"
-        );
+        )->fetch();
     } // view()
 
     public function overview($team, $postType = null)
