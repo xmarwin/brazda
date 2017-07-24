@@ -75,6 +75,8 @@ create table posts (
     bonus_code      character varying (20),
     open_from       timestamp,
     open_to         timestamp,
+    latitude        float not null,
+    longitude       float not null,
     primary key (post),
     foreign key (post_type) references post_types(post_type) on update cascade on delete restrict,
     foreign key (color) references post_colors(color) on update cascade on delete restrict,
