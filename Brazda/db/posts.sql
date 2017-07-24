@@ -91,41 +91,41 @@ INSERT INTO players (team, name)
 -------------------------------------------
 
 
-INSERT INTO posts (post, post_type,color,name,max_score,difficulty,terrain,size,cache_type,shibboleth,with_staff,help,description,bonus_code,hint)
+INSERT INTO posts (post, post_type,color,name,max_score,difficulty,terrain,size,cache_type,shibboleth,with_staff,help,description,bonus_code,hint,latitude,longitude)
      VALUES
             (1, 'BEG', 'TRA', 'Start', 0, 1, 1, 'O', null, 'Hybaj', True, '', '<p><strong>Vítejte na startu závodu BRAZDA 2016</strong>.<br> Přejeme Vám hodně štěstí, výdrže a odhodlání jej dokončit :)</p>
-                <p><strong>Uvidíme se zde</strong> opět <strong>v 18.30</strong>, kdy závod končí.</p>', null, null),
+                <p><strong>Uvidíme se zde</strong> opět <strong>v 18.30</strong>, kdy závod končí.</p>', null, null, 49.4671494, 18.1633683),
 
 
-			(2, 'ACT', 'RED', 'Transport', 150, 2.5, 2.5, 'O', null, 'Dánsko', True, '', '<p>Aktivita, která prověří vaši logiku, obratnost i vytrvalost. Může se hodit ručník a plavky.</p>', null, ''),
+			(2, 'ACT', 'RED', 'Transport', 150, 2.5, 2.5, 'O', null, 'Dánsko', True, '', '<p>Aktivita, která prověří vaši logiku, obratnost i vytrvalost. Může se hodit ručník a plavky.</p>', null, '', 49.4204853, 183181772),
 
-			(3, 'ACT', 'RED', 'Klíčová pakárna', 100, 2, 3.5, 'O', null, 'král', True, '', '<p>Aktivita, která prověří vaši sílu a vytvalost. Hodí se dobré boty.</p>', null, ''),
+			(3, 'ACT', 'RED', 'Klíčová pakárna', 100, 2, 3.5, 'O', null, 'král', True, '', '<p>Aktivita, která prověří vaši sílu a vytvalost. Hodí se dobré boty.</p>', null, '', 49.4840008, 18.0407717),
 
-			(4, 'ACT', 'RED', 'Přepravky', 150, 2, 4, 'O', null, 'trn', True, '', '<p>Aktivita, která prověří vaši odvahu a obratnost na hranice mezí. Vlastní sedák může být výhoda.</p>', null, ''),
+			(4, 'ACT', 'RED', 'Přepravky', 150, 2, 4, 'O', null, 'trn', True, '', '<p>Aktivita, která prověří vaši odvahu a obratnost na hranice mezí. Vlastní sedák může být výhoda.</p>', null, '', 49.4269000, 17.9922000),
 
-			(5, 'ACT', 'RED', 'Titanic', 130, 3, 5, 'O', null, 'jelen', True, '', '<p>Aktivita, která prověří váš důvtip a vytrvalost. Ručník a plavky budou potřeba.</p>', null, ''),
+			(5, 'ACT', 'RED', 'Titanic', 130, 3, 5, 'O', null, 'jelen', True, '', '<p>Aktivita, která prověří váš důvtip a vytrvalost. Ručník a plavky budou potřeba.</p>', null, '', 49.4243056, 18.0256944),
 
-			(6, 'ACT', 'BLU', 'Špionáž', 150, 3, 2, 'O', null, 'červená', False, '', '<p>Aktivita, která prověří vaši všímavost a důvtip. Nutnost zařízení, které umí přečíst QR kódy.</p>', null, 'Za dřevěnou nástěnkou'),
+			(6, 'ACT', 'BLU', 'Špionáž', 150, 3, 2, 'O', null, 'červená', False, '', '<p>Aktivita, která prověří vaši všímavost a důvtip. Nutnost zařízení, které umí přečíst QR kódy.</p>', null, 'Za dřevěnou nástěnkou', 49.3910500, 17.9634833),
 
-			(7, 'ACT', 'YEL', 'Váhy', 100, 4, 1, 'O', null, '3,14159', True, '', '<p>Aktivita, která prověří váši inteligenci a důvtip. Jak to uděláte je opravdu na vás.</p>', null, ''),
+			(7, 'ACT', 'YEL', 'Váhy', 100, 4, 1, 'O', null, '3,14159', True, '', '<p>Aktivita, která prověří váši inteligenci a důvtip. Jak to uděláte je opravdu na vás.</p>', null, '', 49.4348644, 18.2533158),
 
-			(8, 'ACT', 'RED', 'Mozaika', 90, 3, 1.5, 'O', null, 'zub', True, '', '<p>Aktivita, která prověří vaši inteligenci a představivost. Chce to jen čas.</p>', null, ''),
+			(8, 'ACT', 'RED', 'Mozaika', 90, 3, 1.5, 'O', null, 'zub', True, '', '<p>Aktivita, která prověří vaši inteligenci a představivost. Chce to jen čas.</p>', null, '', 49.4486153, 18.1931350),
 
 
 
-			(9, 'CIP', 'BLU', 'Morseovka', 100, 5, 1, 'O', null, 'magnituda', False, 'Záleží na úhlu pohledu', '<p>Co by to byl za závod, kdyby na něm nebyla aspoň jedna šifra v morseovce. Nebo ne?</p>', null, 'Za památníkem'),
+			(9, 'CIP', 'BLU', 'Morseovka', 100, 5, 1, 'O', null, 'magnituda', False, 'Záleží na úhlu pohledu', '<p>Co by to byl za závod, kdyby na něm nebyla aspoň jedna šifra v morseovce. Nebo ne?</p>', null, 'Za památníkem', 49.4064167, 18.0722806),
 
-			(10, 'CIP', 'BLU', 'Křížovka', 60, 2.5, 2, 'O', null, 'mercedes', False, 'Do třetice všeho dobrého', '<p>Vcelku jednoduchá šifra na dobře známém základě.</p>', null, 'Mezi koulema'),
+			(10, 'CIP', 'BLU', 'Křížovka', 60, 2.5, 2, 'O', null, 'mercedes', False, 'Do třetice všeho dobrého', '<p>Vcelku jednoduchá šifra na dobře známém základě.</p>', null, 'Mezi koulema', 49.4356500, 18.0958333),
 
-			(11, 'CIP', 'BLU', 'Housenka', 80, 2.5, 2, 'O', null, 'gymnastika', False, 'Semafor', '<p>Ne až tak náročná šifra, jen na to přijít.</p>', null, 'Pod kamenem, cca 15m od cesty'),
+			(11, 'CIP', 'BLU', 'Housenka', 80, 2.5, 2, 'O', null, 'gymnastika', False, 'Semafor', '<p>Ne až tak náročná šifra, jen na to přijít.</p>', null, 'Pod kamenem, cca 15m od cesty', 49.5034000, 18.2776333),
 
-			(12, 'CIP', 'BLU', 'Trajektorie', 60, 3, 1.5, 'O', null, 'letohrádek', False, 'Mapa', '<p>Ne až tak složitá šifra, chce to jen trochu představivosti.</p>', null, ''),
+			(12, 'CIP', 'BLU', 'Trajektorie', 60, 3, 1.5, 'O', null, 'letohrádek', False, 'Mapa', '<p>Ne až tak složitá šifra, chce to jen trochu představivosti.</p>', null, '', 49.4634333, 18.1489167),
 
-			(13, 'CIP', 'BLU', 'Šipky', 120, 4, 1, 'O', null, 'rudá', False, 'Tetris', '<p>Poměrně náročná a pracná šifra, ale ono to na konec vždycky nějak jde.</p>', null, 'Za rezavou boudou'),
+			(13, 'CIP', 'BLU', 'Šipky', 120, 4, 1, 'O', null, 'rudá', False, 'Tetris', '<p>Poměrně náročná a pracná šifra, ale ono to na konec vždycky nějak jde.</p>', null, 'Za rezavou boudou', 49.4679167, 18.0905333),
 
-			(14, 'CIP', 'YEL', 'Tunel', 80, 2, 2.5, 'O', null, 'horor', False, 'Uwe Filter', '<p>Vcelku nenáročná šifra v tunelu, jen si na ni posvítit. Pokud je víc vody, hodí se gumáky. Šifra je v nejtemnější části.</p>', null, ''),
+			(14, 'CIP', 'YEL', 'Tunel', 80, 2, 2.5, 'O', null, 'horor', False, 'Uwe Filter', '<p>Vcelku nenáročná šifra v tunelu, jen si na ni posvítit. Pokud je víc vody, hodí se gumáky. Šifra je v nejtemnější části.</p>', null, '', 49.4549378, 18.1276106),
 
-			(15, 'CIP', 'YEL', 'Substituce', 90, 2, 2.5, 'O', null, 'tréning', False, '', '<p>Šifra jejíž luštění není až tak náročné mentálně jako spíš fyzicky. Během jejího luštění se tým může kvůli efektivitě rozdělit.</p>', null, 'Na čerstvém pařezu'),
+			(15, 'CIP', 'YEL', 'Substituce', 90, 2, 2.5, 'O', null, 'tréning', False, '', '<p>Šifra jejíž luštění není až tak náročné mentálně jako spíš fyzicky. Během jejího luštění se tým může kvůli efektivitě rozdělit.</p>', null, 'Na čerstvém pařezu', 49.4019000, 17.9757833),
 
 
 
@@ -134,15 +134,15 @@ INSERT INTO posts (post, post_type,color,name,max_score,difficulty,terrain,size,
 				<p>Od 5. století začali pak trigonometrii budovat Indové, od kterých pochází dnešní název pro sinus, a po nich vědci Střední Asie a Arabové. Z Indů se trigonometrii nejvíce věnoval Brahmagupta (7. století), z vědců Střední Asie a Arábie je pak třeba vzpomenout syrského astronoma al-Battáního.</p>
 				<p>Evropa se s trigonometrií seznámila díky západním Arabům. K rozvoji trigonometrie významně přispěl polský astronom Mikuláš Koperník, stejně tak i francouzský matematik François Viète, který představil kosinovou větu v trigonometrické podobě. Dnešní podobu trigonometrie jakožto vědu o goniometrických funkcích ve svém díle Introductio in analysin infinitorum (Úvod do analýzy) vytvořil Leonhard Euler. Poprvé zkoumal hodnoty sin x, cos x jako čísla, nikoli jako úsečky, a jako hodnoty proměnné připouštěl kladná i záporná čísla.</p>
 				<p>Nejvýznamnější a technologicky nejvyspělejší aplikací trigonometrie v současnosti patří jednoznačně satelitní navigační systémy, které pracují právě na principech sférické trigonometrie s využitím znalosti efemerid družicového pole a přesného času, kdy z rozdílu mezi přijetím stejného času lze dopočítat vzdálenost k družici, která jej vyslala a díky znalostí poloh alespoň tří (v praxi však více) družic dopočítat vlastní pozici na kulové ploše.</p>
-				<p>Po vás nic tak složitého chtít nebudeme, nicméně pro nález krabičky budete potřebovat nějakým způsobem trigonometrii ať již v algebraické, nebo geometrické podobě použít. Na jednotlivých stagích najdete vzdálenost od keše. Vše ostatní je na vás.<p>', null, 'Všechny stage: sloupy el. vedení, Final: visí'),
+				<p>Po vás nic tak složitého chtít nebudeme, nicméně pro nález krabičky budete potřebovat nějakým způsobem trigonometrii ať již v algebraické, nebo geometrické podobě použít. Na jednotlivých stagích najdete vzdálenost od keše. Vše ostatní je na vás.<p>', null, 'Všechny stage: sloupy el. vedení, Final: visí', 49.4648000, 17.9966000),
 
-			(17, 'CGC', 'GRN', 'Plotny', 150, 2, 5, 'S', 'TRA', 'láska', False, '', '<p>"Co by to bylo za pořádný geozávod, kdyby na něm nebyla alespoň jedna T5ka!" řekli jsme si při přípravě. V tomto případě je jí skála, na kterou bude potřeba vylézt. Zcela jistě budete potřebovat lezeckou výbavu.</p>', null, 'Visí'),
+			(17, 'CGC', 'GRN', 'Plotny', 150, 2, 5, 'S', 'TRA', 'láska', False, '', '<p>"Co by to bylo za pořádný geozávod, kdyby na něm nebyla alespoň jedna T5ka!" řekli jsme si při přípravě. V tomto případě je jí skála, na kterou bude potřeba vylézt. Zcela jistě budete potřebovat lezeckou výbavu.</p>', null, 'Visí', 49.4692886, 18.1769136),
 
 			(18, 'CGC', 'GRN', 'Můstek', 80, 1.5, 3, 'R', 'TRA', 'zvon', False, '', '<p>Vydejte se na malou procházku do udržovaného lesíku a objevte dávno zapomenutý poklad. Časy jeho slávy připomíná už jen torzo a těžko říct, kolik pamětníků je ještě mezi námi.</p>
 				<p>Můstky dříve rostly jako houby po dešti; dvaceti či třicetimetrové můstky měla každá třetí horská obec, i když se na nich konaly třeba jen dva závody. Před 2. světovou válkou bylo na území ČR více než 220 můstků, ve zlatém věku na přelomu 50. a 60. let autoři napočítali dokonce 270 můstků.</p>
 				<p>V blízkosti se nachází Ski areál. Ski areál Búřov leží v malebné vesnici Valašská Bystřice, v samotném srdci Beskyd, 7 km od Rožnova pod Radhoštěm.</p>
 				<p>Areál je vhodný pro začínající i pokročilé lyžaře, ideální pro lyžařské kurzy. Náš areál často navštěvují také snowboardisté, pro které máme zřízen snowpark.</p>
-				<p>Nadmořská výška vleků je 500 – 620 m.n.m.</p>', null, ''),
+				<p>Nadmořská výška vleků je 500 – 620 m.n.m.</p>', null, '', 49.4085333, 18.1065667),
 
 			(19, 'CGC', 'YEL', 'Pod Mísnú', 80, 2, 3.5, 'R', 'MLT', 'svatozář', False, '', '<h2>Pod Mísnú</h2>
                 <p>Když se podíváte na mapu do místa známého jako Zákopčí (nebo Za Kopcem), jinak místní části Hutiska-Solanec, všimnete si pojmenování Pod Mísnou a to hned na několika různých místech. Ovšem žádný kopec s názvem Mísná na mapě neuvidíte. Hluboké údolí Zákopčí se kousek za památníkem Charlotte Garrigue-Masaryk u školy v přírodě (rekreačního střediska Hutisko-Solanec) dělí na dvě části, jedním protéká Hutiský potok a druhým potok Mísná. Podél Hutiského potoka vede zelená turistická značka, která končí na Vsacké Tanečnici (912 m n.m.). My se však vydáme proti proudu potoka Mísná do druhého, zapadlejšího údolí.</p>
@@ -159,35 +159,35 @@ INSERT INTO posts (post, post_type,color,name,max_score,difficulty,terrain,size,
                 <h3>Výpočet pro Finále</h3>
                 <p><strong>N 49°24,(D)(B)(A)<br>
                 E 018°10,(F)(B)(D+B)</strong></p>
-                <p>Ještě než se vydáte ke keši, tak jak je to teda s tou Mísnou? Když budete pokračovat po cestě dále, dostanete se až na hřeben mezi Hážovskými díly a Vsackou Tanečnicí a tam někde na modré turistické značce najdete rozcestí Mísná.</p>', null, 'Nahoře krytá před deštěm'),
+                <p>Ještě než se vydáte ke keši, tak jak je to teda s tou Mísnou? Když budete pokračovat po cestě dále, dostanete se až na hřeben mezi Hážovskými díly a Vsackou Tanečnicí a tam někde na modré turistické značce najdete rozcestí Mísná.</p>', null, 'Nahoře krytá před deštěm', 49.4187500, 18.2015000),
 
 			(20, 'CGC', 'YEL', 'Kání', 70, 1.5, 4, 'R', 'TRA', 'olympiáda', False, '', '<h3>O místě</h3>
 				<p>Kání je výrazný kopec, který se tyčí do výšky 666m nad mořem nad obcí Hutisko-Solanec. Po přerušení Solaneckým potokem jím pokračuje jižní hřeben údolí Rožnovské brázdy, který se táhne od kopce Brdo nad Valašským Meziříčím a končí kopcem Beskyd na Česko-Slovenském pomezí poblíž Bumbálky.</p>
 				<p>Vede přes něj modrá turistická značka, která z Hutiska-Solance stoupá právě na tomto kopci na hřeben, po kterém přes Kýnačky a Hluboký vede až k rozcestí Na Západí, kde se k ní připojuje zelená turistická značka od Zavadilky. Přes Jezerné pod Kotlovu pak vede dále na Benešky, Polanu, Vysokou a přes Třeštík až na zmíněý Beskyd. Je to jedna z nejkrásnějších tras v této části Beskyd, ze které je řada krásných výhledů jak do údolí Rožnovské tak do údolí Vsetínské Bečvy. Tato trasa je velmi oblíbená nejen mezi pěšímí, ale cyklo turisty</p>
 				<p>Kousek pod vrcholem kopce Kání stojí i retranslační a základová stanice s dobře viditelným vysílačem. Pod vrcholem je několik chalup, ke kterým se dostat ale není vůbec jednoduché. Ostatně při cestě ke keši to poznáte sami.</p>
 				<h3>O Keši</h3>
-				<p>Keš samotná je pověšena na stromě nedaleko vysílače, není to žádné supertěžké stromolezení, ale zadarmo to taky nebude. Místo však rozhodně stojí za návštěvu.</p>', null, ''),
+				<p>Keš samotná je pověšena na stromě nedaleko vysílače, není to žádné supertěžké stromolezení, ale zadarmo to taky nebude. Místo však rozhodně stojí za návštěvu.</p>', null, '', 49.4201164, 18.2359644),
 
             (21, 'CGC', 'RED', 'Kostel sv. Zdislavy', 30, 2, 2, 'R', 'TRA', 'strom', False, '', '<p>Obec Prostřední Bečva leží ve východní části Radhošťské hornatiny a Vsetínských vrchů v nadmořské výšce 430 m.n.m. Byla donedávna jedna z mála okolních obcí, která neměla svůj vlastní kostel.</p>
                 <p>Dne  23.&thinsp;května 1998 vznikla Kostelní jednota sv. Zdislavy, jejíž členové začali usilovat o&nbsp;výstavbu nového kostela. V&nbsp;roce 1999 začali členové této jednoty vybírat finanční prostředky na jeho výstavbu. Dřevo na výstavbu bylo darováno, obec poskytla pozemek, věřící darovali potřebnou finanční částku a některé z vybavení kostela.</p>
-                <p>Stavba byla zahájena dne 11. července roku 2000 a trvala jeden rok. Výsledkem stavby byl pěkný moderní kostel, ke kterému vás přivede tato keška. Při odlovu si počínejte opatrně v případě mudlů v okolí.</p>', null, 'Pod čepičkou'),
+                <p>Stavba byla zahájena dne 11. července roku 2000 a trvala jeden rok. Výsledkem stavby byl pěkný moderní kostel, ke kterému vás přivede tato keška. Při odlovu si počínejte opatrně v případě mudlů v okolí.</p>', null, 'Pod čepičkou', 49.4399500, 18.2480500),
 
             (22, 'CGC', 'YEL', 'Nořičí trail 1', 60, 2, 2.5, 'R', 'TRA', 'záchrana', False, '', '<p><strong>Noříčí trail</strong> je okruh 4 kešek, nacházející se v blízkosti Pusteven. Pokud se chcete vyhnout davům lidí proudící směrem k Radhošti, určitě za to stojí vyrazit po turistické značce na cca 8 kilometrů dlouhý okruh a navštívit místa, která nejsou příliš známá, ale přesto krásná.</p>
-                <p><strong>Pozor! Parkoviště na Pustevnách je zpoplatněno</strong> (80 kč/den)!</p>', null, 'Pata stromu'),
+                <p><strong>Pozor! Parkoviště na Pustevnách je zpoplatněno</strong> (80 kč/den)!</p>', null, 'Pata stromu', 49.4969500, 18.2790833),
 
 			(23, 'CGC', 'YEL', 'Nořičí trail 2', 60, 2, 2.5, 'R', 'TRA', 'objezd', False, '', '<p><strong>Noříčí trail</strong> je okruh 4 kešek, nacházející se v blízkosti Pusteven. Pokud se chcete vyhnout davům lidí proudící směrem k Radhošti, určitě za to stojí vyrazit po turistické značce na cca 8 kilometrů dlouhý okruh a navštívit místa, která nejsou příliš známá, ale přesto krásná.</p>
-                <p><strong>Pozor! Parkoviště na Pustevnách je zpoplatněno</strong> (80 kč/den)!</p>', null, 'Za kamenem'),
+                <p><strong>Pozor! Parkoviště na Pustevnách je zpoplatněno</strong> (80 kč/den)!</p>', null, 'Za kamenem', 49.5114167, 18.2778000),
 
 			(24, 'CGC', 'GRN', 'Nořičí trail 3', 60, 2, 2.5, 'R', 'TRA', 'oběh', False, '', '<p><strong>Noříčí trail</strong> je okruh 4 kešek, nacházející se v blízkosti Pusteven. Pokud se chcete vyhnout davům lidí proudící směrem k Radhošti, určitě za to stojí vyrazit po turistické značce na cca 8 kilometrů dlouhý okruh a navštívit místa, která nejsou příliš známá, ale přesto krásná.</p>
-                <p><strong>Pozor! Parkoviště na Pustevnách je zpoplatněno</strong> (80 kč/den)!</p>', null, 'Zezadu cedule'),
+                <p><strong>Pozor! Parkoviště na Pustevnách je zpoplatněno</strong> (80 kč/den)!</p>', null, 'Zezadu cedule', 49.5083167, 18.265333),
 
 			(25, 'CGC', 'GRN', 'Nořičí trail 4', 60, 2, 2.5, 'R', 'TRA', 'infarkt', False, '', '<p><strong>Noříčí trail</strong> je okruh 4 kešek, nacházející se v blízkosti Pusteven. Pokud se chcete vyhnout davům lidí proudící směrem k Radhošti, určitě za to stojí vyrazit po turistické značce na cca 8 kilometrů dlouhý okruh a navštívit místa, která nejsou příliš známá, ale přesto krásná.</p>
-                <p><strong>Pozor! Parkoviště na Pustevnách je zpoplatněno</strong> (80 kč/den)!</p>', null, 'Smrček'),
+                <p><strong>Pozor! Parkoviště na Pustevnách je zpoplatněno</strong> (80 kč/den)!</p>', null, 'Smrček', 49.4991500, 18.2725833),
 
 			(26, 'CGC', 'GRN', 'Kostel sv. Antonína Paduánského', 40, 2, 1.5, 'R', 'TRA', 'trumf', False, '', '<p>Kostel sv. Antonína Paduánského byl postaven 1906 stavitelem Ing. Aloisem Pallatem z Olomouce. Nachází se ve středu obce Dolní Bečva, v blízkosti lipové aleje Hynka Tošenovského. Základní kámen byl posvěcen  24.září 1905 Antonínem C. Stojanem.</p>
                 <p>Patronem  kostela byl zvolen sv. Antonín Paduánský. Kostel byl požehnán v roce 1907. Jeho délka je 28 metrů, šířka 9,5 metrů a jeho věž je vysoká 37 metrů. Byl postaven v novorománském slohu.</p>
                 <h3>Ke keši</h3>
-                <p>Keš se nachází na poměrně frekventovaném místě, proto prosím s odlovem počkejte, dokud nebude oblast vylidněná. K odlovení keše není potřeba nic rozhrabávat, ani ničit. </p>', null, 'Zespodu, magnet'),
+                <p>Keš se nachází na poměrně frekventovaném místě, proto prosím s odlovem počkejte, dokud nebude oblast vylidněná. K odlovení keše není potřeba nic rozhrabávat, ani ničit. </p>', null, 'Zespodu, magnet', 49.4561833, 18.1923500),
 
 			(27, 'CGC', 'GRN', 'Lom Kněhyně', 100, 3, 3, 'O', 'ERT', 'zlato707', False, '', '<h2>Lom Kněhyně</h2>
 				<p>Významnou geologickou lokalitu představuje opuštěný, částečně zasutěný stěnový kamenolom v katastru obce Prostřední Bečva na jihozápadním úpatí Kněhyně (1 257 m n.m.). Lom se nachází ve vzdálenosti asi 4,5 km od obce, vpravo od silnice z Prostřední Bečvy na Pustevny. Přístupová cesta odbočuje v první z ostrých zatáček na začátku stoupání této silnice ve směru na Pustevny. Lomovou stěnou jsou zastiženy křídové sedimenty středního a svrchního oddílu godulského souvrství (cenoman až senon), budujícího hlavní hřebeny Beskyd a představujícího současně nejmocnější člen (přes 3 000 m) slezské jednotky.<br>
@@ -222,16 +222,16 @@ INSERT INTO posts (post, post_type,color,name,max_score,difficulty,terrain,size,
 					<li>http://www.geology.cz</li>
 					<li>http://pruvodce.geol.morava.sci.muni.cz/Prostredni_Becva/Knehyne_text.htm</li>
 					<li>http://geologie.vsb.cz/reg_geol_cr/10_kapitola.htm</li>
-				</ul>', null, 'Stage 2: 6m pod betonovým sloupkem, dvířka nad vodou'),
+				</ul>', null, 'Stage 2: 6m pod betonovým sloupkem, dvířka nad vodou', 49.48105500, 18.2842500),
 
-			(28, 'BON', 'GRN', 'Zelený bonus', 150, 2, 3, 'R', 'TRA', 'srdce', False, '', '<p>Tento bonus vás zavede na pěkné místo :)</p>', 'hypochondr', 'Kořeny'),
+			(28, 'BON', 'GRN', 'Zelený bonus', 150, 2, 3, 'R', 'TRA', 'srdce', False, '', '<p>Tento bonus vás zavede na pěkné místo :)</p>', 'hypochondr', 'Kořeny', 49.4676553, 18.0427094),
 
-			(29, 'BON', 'BLU', 'Modrý bonus', 150, 2.5, 2.5, 'R', 'TRA', 'hvězda', False, '', '<p>Tento bonus vás zavede na pěkné místo, ale dostat se tam není zas tak jednoduché.</p>', 'mlhovina', 'Visí 30cm nad zemí'),
+			(29, 'BON', 'BLU', 'Modrý bonus', 150, 2.5, 2.5, 'R', 'TRA', 'hvězda', False, '', '<p>Tento bonus vás zavede na pěkné místo, ale dostat se tam není zas tak jednoduché.</p>', 'mlhovina', 'Visí 30cm nad zemí', 49.4600547, 18.1374664),
 
 			(30, 'BON', 'YEL', 'Žlutý bonus', 150, 2, 3, 'R', 'TRA', 'kruh', False, '', '<h2>Díly</h2>
 				<p>Na Valašsku a v okolí Rožnova jsou Díly poměrně častý název kopce. Obvykle je pozůstatkem po první pasekářské kolonizaci údolí Rožnovské Bečvy, kdy jednotlivé části krajiny byly přidělovány osadníkům a každý tak dostal svůj díl. Obvykle se země rozdělovala tak, že od cest vedených obvykle postředkem údolí v blízkosti vodních toků byly vyčleňovány úzké pruhy země směrem nahoru k hřebenům nad údolím. V některých (především jižních) částech obcí v Hutiském údolí je tato struktura patrná dodnes v rozmístění budov. Dnes však již hospodaříme s krajinou jinými způsoby a tak lze podobné rozdělení vysledovat stále řídčeji</p>
 				<h3>O Keši</h3>
-				<p>Kterých dílů se naše povídání týká, zda-li Zuberských, Tylovských, Hažovských Vingantských, nebo Hutiských vám však neprozradíme. Na to budete muset ze žlutých indicií zjistit správné heslo pro odemčení tohoto bonusu. Hodně štěstí při jejich získávání i při dedukci hesla.</p>', 'orbital', 'Oběšená na menším z dvojstromu'),
+				<p>Kterých dílů se naše povídání týká, zda-li Zuberských, Tylovských, Hažovských Vingantských, nebo Hutiských vám však neprozradíme. Na to budete muset ze žlutých indicií zjistit správné heslo pro odemčení tohoto bonusu. Hodně štěstí při jejich získávání i při dedukci hesla.</p>', 'orbital', 'Oběšená na menším z dvojstromu', 49.4564842, 18.1898769),
 
     		(31, 'BON', 'RED', 'Červený bonus', 150, 2, 2.5, 'R', 'TRA', 'koruna', False, '', '<h2>Sklářství na Valašsku</h2>
                 <p>Od poloviny devatenáctého století se datuje rozmach sklářského průmyslu na Valašsku a je spojován s firmou S.REICH. Firma si pronajala od panství Valašské Meziříčí - Rožnov sklárnu Františčina Huť ve Velkých Karlovicích, poté v roce 1855 zahájila provoz ve své největší sklárně v Krásně ve Valašském Meziříčí, dále od roku 1861 začala provozovat Mariánskou Huť ve Velkých Karlovicích, v roce 1862 otevřela sklárnu Karolinina Huť v Novém Hrozenkově. Dozvuky tohoto rozmachu jsou patrné i dnes, sklárny stále fungují v Karolince a tradice výroby skla dodnes přetrvává i ve Valašském Meziříčí.<br>
@@ -244,12 +244,12 @@ INSERT INTO posts (post, post_type,color,name,max_score,difficulty,terrain,size,
                     <li>http://www.lesycr.cz/volny-cas-v-lese/:w
                     naucne-stezky/Documents/T3-lesy-vyuziti.pdf</li>
                 </ul>
-', 'bitcoin', 'Visí na malém smrčku na vyvráceném pařezu nad vodou'),
+', 'bitcoin', 'Visí na malém smrčku na vyvráceném pařezu nad vodou', 49.4381006, 18.2659389),
 
 
 
             (32, 'END', 'TRA', 'Cíl', 0, 1, 1, 'O', null, 'Finito', True, '', '<p><strong>Gratulejeme k dokončení závodu BRAZDA 2016</strong>.<br> Těšíme se na Vás u vyhlášení výsledků.</p>
-                <p><strong>Uvidíme se zde</strong> opět <strong>v 18.30</strong>, kdy závod končí.</p>', null, null);
+                <p><strong>Uvidíme se zde</strong> opět <strong>v 18.30</strong>, kdy závod končí.</p>', null, null, 49.4671494, 18.1633683);
 
 
 -------------------------------------------

@@ -14,12 +14,12 @@ insert into post_types values
 ('BON', 'Bonus');
 
 insert into post_colors values
-('TRA', 'žádn', 'transparent'),
-('RED', 'červen', 'rgb(247, 150, 70)'),
-('YEL', 'žlut', 'rgb(255, 255, 153)'),
-('GRN', 'zelen', 'rgb(146, 208, 80)'),
-('BLU', 'modr', 'rgb(66, 133, 244)'),
-('WHT', 'bíl', 'rgb(255, 255, 255)');
+('TRA', 'žádná', 'transparent'),
+('RED', 'červená', 'rgb(247, 150, 70)'),
+('YEL', 'žlutá', 'rgb(255, 255, 153)'),
+('GRN', 'zelená', 'rgb(146, 208, 80)'),
+('BLU', 'modrá', 'rgb(66, 133, 244)'),
+('WHT', 'bílá', 'rgb(255, 255, 255)');
 
 insert into post_sizes values
 ('M', 'Mikro'),
