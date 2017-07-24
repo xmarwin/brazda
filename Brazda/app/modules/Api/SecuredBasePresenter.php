@@ -15,7 +15,9 @@ class SecuredBasePresenter extends SecuredResourcePresenter
 		],
 		$outputType = IResource::JSON,
 
-		$logins;
+		$logins,
+
+		$team;
 
     public function startup()
     {
@@ -24,6 +26,7 @@ class SecuredBasePresenter extends SecuredResourcePresenter
         $this->logins = $this->context->getService('logins');
 
         $this->checkSecurityToken();
+        $this->team = $this->getUser()->getIdentity()->getData();
     } // startup()
 
     public function checkSecurityToken()

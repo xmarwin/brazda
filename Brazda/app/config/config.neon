@@ -20,6 +20,7 @@ services:
 	logins: Brazda\Models\Logins(@container)
 	teams: Brazda\Models\Teams(@container)
 	posts: Brazda\Models\Posts(@container)
+	waypoints: Brazda\Models\Waypoints(@container)
 
 	tracy.bar:
 		setup:
