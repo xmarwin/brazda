@@ -63,13 +63,14 @@ class Logins extends Base implements Security\IAuthenticator
         ); // Identity()
     } // authenticate()
 
+    public function getTeam($securityToken)
+    {
+        return $this->find([ [ 'security_token LIKE %s', $securityToken ] ]);
+    } // getTeam()
+
     public function isLoggedIn($securityToken)
     {
-        $login = $this->db->query(
-            "SELECT *
-             FROM logins
-             WHERE security_token LIKE %s", $securityToken
-        )->fetch();
+        $login = $this->find([ [ 'security_token LIKE %s', $securityToken ] ]);
 
         return (bool) !empty($login);
     } // isLoggedIn()

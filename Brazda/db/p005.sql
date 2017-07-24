@@ -1,8 +1,8 @@
 begin;
-/*
+
 alter table teams
 drop column security_token;
-*/
+
 create table logins (
     login                serial not null,
     team                 integer not null,
