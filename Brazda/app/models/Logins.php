@@ -40,7 +40,7 @@ class Logins extends Base implements Security\IAuthenticator
                     'Tým se jménem %s neexistuje.',
                     $name
                 ), // sprintf()
-                404
+                200
             ); // AuthenticationException()
         } // if
 
@@ -49,7 +49,7 @@ class Logins extends Base implements Security\IAuthenticator
                     'Špatné heslo pro tým %s.',
                     $name
                 ), // sprintf()
-                401
+                200
             ); // AuthenticationException()
         } // if
 

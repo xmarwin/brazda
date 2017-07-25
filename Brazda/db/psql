@@ -1,7 +1,10 @@
 #!/bin/bash
 
-PGHOST="localhost"
-PGUSER="brazda"
-PGPASSWORD="FzwtMS/jq.XSQ"
+PGHOST="dbserver"
+PGPORT="5432"
+PGDATABASE="brazda"
 
-/usr/bin/psql brazda
+export PGUSER="brazda"
+export PGPASSWORD="FzwtMS/jq.XSQ"
+
+/usr/bin/psql -h $PGHOST -p $PGPORT $PGDATABASE

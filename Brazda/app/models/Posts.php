@@ -7,25 +7,25 @@ use Nette,
 
 class Posts extends Base
 {
-    const BEGIN = 'BEG';
-    const END = 'END';
+    const BEGIN        = 'BEG';
+    const END          = 'END';
     const ORGANIZATION = 'ORG';
-    const ACTIVITY = 'ACT';
-    const CIPHER = 'CIP';
-    const CACHE = 'CGC';
-    const BONUS = 'BON';
+    const ACTIVITY     = 'ACT';
+    const CIPHER       = 'CIP';
+    const CACHE        = 'CGC';
+    const BONUS        = 'BON';
 
-    const MICRO = 'M';
-    const SMALL = 'S';
+    const MICRO   = 'M';
+    const SMALL   = 'S';
     const REGULAR = 'R';
-    const LARGE = 'L';
-    const OTHER = 'O';
+    const LARGE   = 'L';
+    const OTHER   = 'O';
 
     const TRADITIONAL = 'TRA';
-    const MULTICACHE = 'MLT';
-    const MYSTERY = 'MYS';
-    const EARTHCACHE = 'ERT';
-    const WHEREIGO = 'WIG';
+    const MULTICACHE  = 'MLT';
+    const MYSTERY     = 'MYS';
+    const EARTHCACHE  = 'ERT';
+    const WHEREIGO    = 'WIG';
 
     public function find($post)
     {
@@ -59,7 +59,10 @@ class Posts extends Base
                 p.difficulty,
                 p.terrain,
                 p.size,
-                CASE lh.moment WHEN NULL THEN p.hint ELSE NULL END AS hint,
+                p.hint,
+                %if", isset($team), "
+                (CASE WHEN lh.moment IS NOT NULL THEN p.help ELSE NULL END) AS help,
+                %end
                 p.description,
                 p.cache_type,
                 p.max_score,
@@ -107,45 +110,6 @@ class Posts extends Base
         );
     } // view()
 /*
-    public function overview($team, $postType = null)
-    {
-        $team = (int) $team;
-
-        return $this->db->query(
-            "SELECT
-                p.post,
-                p.post_type,
-                p.color,
-                p.name,
-                p.difficulty,
-                p.terrain,
-                p.size,
-                p.hint,
-                p.description,
-                p.cache_type,
-                p.max_score,
-                p.open_from,
-                p.open_to,
-                pc.name AS color_name,
-                pc.code AS color_code,
-                pt.name AS type_name,
-                ps.name AS size_name,
-                ct.name AS cache_name,
-                ll.moment AS log_out_moment,
-                lb.moment AS log_bonus_moment
-            FROM posts p
-            JOIN post_colors pc USING (color)
-            JOIN post_types pt USING (post_type)
-            JOIN post_sizes ps USING (size)
-            LEFT JOIN cache_types ct USING (cache_type)
-            LEFT JOIN logs AS ll
-                ON ll.post = p.post AND (ll.log_type = 'OUT') AND ll.team = %i
-            LEFT JOIN logs AS lb
-                ON l.post = p.post AND (lb.log_type = 'BON') AND lb.team = %i", $team,
-           "ORDER BY is_logged, p.post_type, p.color, l.moment, p.name"
-        )->fetchAll();
-    } // overview()
-*/
     public function detail($post)
     {
         $post = (int) $post;
@@ -176,7 +140,7 @@ class Posts extends Base
              WHERE p.post = %i", $post
         )->fetch();
     } // detail()
-
+*/
     public function getHelp($post)
     {
         $post = (int) $post;
@@ -187,7 +151,7 @@ class Posts extends Base
             WHERE p.post = %i", $post
         )->fetchSingle('help');
     } // getHelp()
-
+/*
     public function bonusOverview($team)
     {
         $team = (int) $team;
@@ -219,7 +183,7 @@ class Posts extends Base
             "ORDER BY p.color, l.moment ASC"
         )->fetchAssoc('color,#');
     } // bonusOverview()
-
+*/
     public function getShibboleth($post)
     {
         $post = (int) $post;
@@ -241,7 +205,7 @@ class Posts extends Base
              WHERE post = %i", $post
         )->fetchSingle('bonus_code');
     } // getBonusCode()
-
+/*
     public function getWaypoints($post = 0)
     {
         return $this->context
@@ -257,5 +221,5 @@ class Posts extends Base
 			 WHERE post_type LIKE %s", $postType
 		); // query()
     } // findByType()
-
+*/
 } // Posts
