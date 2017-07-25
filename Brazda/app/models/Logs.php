@@ -2,8 +2,7 @@
 
 namespace Brazda\Models;
 
-use Nette,
-    Nette\DI;
+use Nette;
 
 class Logs extends Base
 {
@@ -14,15 +13,14 @@ class Logs extends Base
     const ERROR  = 'ERR';
     const HELP   = 'HLP';
 
-    public function findLog($team, $post = 0, $logType = '')
+    public function find(array $filter)
     {
-        $team = (int) $team;
-        $post = (int) $post;
-        $logType = $this->checkLogType($logType);
+        $logType = self::checkLogType($filter['log_type']);
 
         return $this->db->query(
             "SELECT
                 l.*,
+                lt.name AS log_type_name,
                 p.post_type,
                 p.color,
                 p.name,
@@ -30,29 +28,27 @@ class Logs extends Base
                 p.terrain,
                 p.size,
                 p.description,
-                t.name,
-                t.description
+                t.name AS team_name
              FROM logs l
              JOIN log_types lt USING (log_type)
              JOIN posts p USING (post)
              JOIN teams t USING (team)
-             WHERE l.team = %i", $team,
-              "%if", $post > 0, "AND l.post = %i", $post, "%end",
-              "%if", !empty($logType), "AND l.log_type LIKE %s", $logType, "%end",
-            "ORDER BY l.moment DESC
-             LIMIT 1"
+             WHERE %and", $filter,
+            "LIMIT 1"
         )->fetch();
-    } // findLog()
+    } // find()
 
-    public function view($team, $post = 0, $logType = '')
+    public function view(array $filter = [], array $order = [ 'moment' => 'ASC' ], array $limit = [])
     {
-        $team = (int) $team;
-        $post = (int) $post;
-        $logType = $this->checkLogType($logType);
+        $filter = $this->normalizeFilter($filter);
+        $order  = $this->normalizeOrder($order);
+        $limit  = $this->normalizeLimit($limit);
+        list($limit, $offset) = each($limit);
 
         return $this->db->query(
             "SELECT
                 l.*,
+                lt.name AS log_type_name,
                 p.post_type,
                 p.color,
                 p.name,
@@ -60,33 +56,32 @@ class Logs extends Base
                 p.terrain,
                 p.size,
                 p.description,
-                t.name,
-                t.description
+                t.name AS team_name
              FROM logs l
              JOIN log_types lt USING (log_type)
              JOIN posts p USING (post)
              JOIN teams t USING (team)
-             WHERE l.team = %i", $team,
-              "%if", $post > 0, "AND l.post = %i", $post, "%end",
-              "%if", !empty($logType), "AND l.log_type LIKE %s", $logType, "%end",
-            "ORDER BY l.moment DESC"
+             %if", !empty($filter), "WHERE %and", $filter, "%end
+             %if", !empty($order), "ORDER BY %by", $order, "%end
+             %if", !empty($limit), "LIMIT %lmt", $limit, " %ofs", $offset, "%end"
         ); // query()
-    } // findLog()
+    } // view()
 
-    public function log($team, $post, $logType)
+    public function insert(array $values)
     {
-        $team = (int) $team;
-        $post = (int) $post;
-        $logType = $this->checkLogType($logType);
+        $values['log_type'] = self::checkLogType($values['log_type']);
+
+        $record = [
+            'log_type' => $values['log_type'],
+            'team'     => (int) $values['team'],
+            'post'     => (int) $values['post']
+        ];
 
         return $this->db->query(
-            "INSERT INTO logs %v RETURNING log", [
-                'team' => $team,
-                'post' => $post,
-                'log_type' => $logType
-            ]
+            "INSERT INTO logs %v", $record,
+            "RETURNING log"
         )->fetchSingle('log');
-    } // log()
+    } // insert()
 
     public function canLog($team, $post)
     {
@@ -94,8 +89,7 @@ class Logs extends Base
         $post = (int) $post;
 
         $parameters = $this->context->getParameters();
-        $errorInterval = $parameters['errorInterval'];
-        $interval = "{$errorInterval} minutes";
+        $interval = "{$parameters['logInterval']} minutes";
 
         $lastErrorLogs = $this->db->query(
             "SELECT *,
@@ -111,6 +105,27 @@ class Logs extends Base
             &&   time() < $lastErrorLogs[0]->expire->getTimestamp());
     } // canLog()
 
+    public function nextLog($team, $post)
+    {
+        $team = (int) $team;
+        $post = (int) $post;
+
+        $parameters = $this->context->getParameters();
+        $interval = "{$parameters['logInterval']} minutes";
+
+        $lastErrorLogs = $this->db->query(
+            "SELECT *,
+                (moment::timestamp + %s::interval", $interval, ") AS expire
+             FROM logs
+             WHERE team = %i", $team,
+            "AND post = %i", $post,
+            "AND log_type LIKE %s", self::ERROR,
+            "ORDER BY moment DESC"
+        )->fetchAll();
+
+        return $lastErrorLogs[0]->expire;
+    } // nextLog()
+/*
     public function deleteLog($team, $post, $logType)
     {
         $team = (int) $team;
@@ -124,7 +139,7 @@ class Logs extends Base
             "AND log_type = %s", $logType
         ); // query()
     }
-
+*/
     public static function checkLogType($logType)
     {
         $validLogTypes = [
@@ -142,10 +157,13 @@ class Logs extends Base
 
             return $logType;
         } else {
-            throw new \UnexpectedValueException(sprintf(
-                'Hodnota typu logu %s je neznámá',
-                $logType
-            )); // \UnexpectedValueException()
+            throw new \UnexpectedValueException(
+                sprintf(
+                    'Hodnota typu logu %s je neznámá',
+                    $logType
+                ),
+                400
+            ); // \UnexpectedValueException()
         } // if
     } // checkLogType()
 

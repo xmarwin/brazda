@@ -36,6 +36,24 @@ if errorLevel 1 (
     exit /b %errorLevel%;
 )
 
+ECHO Aplikuji patch 001...
+"C:\Program Files\PostgreSQL\9.5\bin\psql.exe" -f p001.sql
+
+ECHO Aplikuji patch 002...
+"C:\Program Files\PostgreSQL\9.5\bin\psql.exe" -f p002.sql
+
+ECHO Aplikuji patch 003...
+"C:\Program Files\PostgreSQL\9.5\bin\psql.exe" -f p003.sql
+
+ECHO Aplikuji patch 004...
+"C:\Program Files\PostgreSQL\9.5\bin\psql.exe" -f p004.sql
+
+ECHO Aplikuji patch 005...
+"C:\Program Files\PostgreSQL\9.5\bin\psql.exe" -f p005.sql
+
+ECHO Aplikuji patch 006...
+"C:\Program Files\PostgreSQL\9.5\bin\psql.exe" -f p006.sql
+
 ECHO Importuji data o stanovištích...
 "C:\Program Files\PostgreSQL\9.5\bin\psql.exe" -f posts.sql
 if errorLevel 1 (

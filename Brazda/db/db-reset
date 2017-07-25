@@ -1,12 +1,22 @@
 #!/bin/bash
 
-/usr/bin/dropdb -U postgres brazda
-/usr/bin/createdb -U postgres -O brazda -E UTF-8 -T template0 brazda
+PGHOST="dbserver"
+PGPORT="5432"
+PGDATABASE="brazda"
 
-PGUSER="brazda"
-PGPASSWORD="FzwtMS/jq.XSQ"
+/usr/bin/dropdb -h $PGHOST -p $PGPORT -U postgres $PGDATABASE
+/usr/bin/createdb -h $PGHOST -p $PGPORT -U postgres -O brazda -E UTF-8 -T template0 $PGDATABASE
 
-/usr/bin/psql -U brazda -f schema.sql
-/usr/bin/psql -U brazda -f data.sql
-/usr/bin/psql -U brazda -f posts.sql
-/usr/bin/psql -U brazda -f results.sql
+export PGUSER="brazda"
+export PGPASSWORD="FzwtMS/jq.XSQ"
+
+/usr/bin/psql -h $PGHOST -p $PGPORT -f schema.sql
+/usr/bin/psql -h $PGHOST -p $PGPORT -f data.sql
+/usr/bin/psql -h $PGHOST -p $PGPORT -f p001.sql
+/usr/bin/psql -h $PGHOST -p $PGPORT -f p002.sql
+/usr/bin/psql -h $PGHOST -p $PGPORT -f p003.sql
+/usr/bin/psql -h $PGHOST -p $PGPORT -f p004.sql
+/usr/bin/psql -h $PGHOST -p $PGPORT -f p005.sql
+/usr/bin/psql -h $PGHOST -p $PGPORT -f p006.sql
+/usr/bin/psql -h $PGHOST -p $PGPORT -f posts.sql
+/usr/bin/psql -h $PGHOST -p $PGPORT -f results.sql
