@@ -1,12 +1,12 @@
 ﻿<div ng-controller="PostDetailCtrl as ctrl">
     <div class="row">
         <div class="col-xs-1 col-sm-1 col-md-1 col-xl-1 {{postItem.color}}">
-            <i class="fa fa-question-circle-o fa-4x" aria-hidden="true" ng-show="ctrl.post.post_type==='CIP'"></i>
-            <i class="fa fa-compass fa-4x" aria-hidden="true" ng-show="ctrl.post.post_type==='ACT'"></i>
-            <i class="fa fa-archive fa-4x" aria-hidden="true" ng-show="ctrl.post.post_type==='CGC'"></i>
-            <i class="fa fa-gift fa-4x" aria-hidden="true" ng-show="ctrl.post.post_type==='BON'"></i>
-            <i class="fa fa-play fa-4x" aria-hidden="true" ng-show="ctrl.post.post_type==='BEG'"></i>
-            <i class="fa fa-flag-checkered fa-4x" aria-hidden="true" ng-show="ctrl.post.post_type==='END'"></i>
+            <i class="fa fa-question-circle-o fa-4x" aria-hidden="true" ng-show="ctrl.post.postType==='CIP'"></i>
+            <i class="fa fa-compass fa-4x" aria-hidden="true" ng-show="ctrl.post.postType==='ACT'"></i>
+            <i class="fa fa-archive fa-4x" aria-hidden="true" ng-show="ctrl.post.postType==='CGC'"></i>
+            <i class="fa fa-gift fa-4x" aria-hidden="true" ng-show="ctrl.post.postType==='BON'"></i>
+            <i class="fa fa-play fa-4x" aria-hidden="true" ng-show="ctrl.post.postType==='BEG'"></i>
+            <i class="fa fa-flag-checkered fa-4x" aria-hidden="true" ng-show="ctrl.post.postType==='END'"></i>
         </div>
         <h1 class="col-xs-11 col-sm-11 col-md-11 col-xl-11">Stanoviště {{ctrl.post.name}}</h1>
     </div>
@@ -20,15 +20,24 @@
     </div>
     <div class="row">
         <strong class="col-xs-6 col-sm-6 col-md-6 col-xl-6">Body:</strong>
-        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6">{{ctrl.post.max_score}}</div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6">{{ctrl.post.maxScore}}</div>
     </div>
-    <div class="row" ng-show="ctrl.post.post_type==='CGC'">
+    <div class="row" ng-show="ctrl.post.postType==='CGC'">
         <strong class="col-xs-6 col-sm-6 col-md-6 col-xl-6">Typ:</strong>
-        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6">{{ctrl.post.cacheType.name}}</div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.cacheType === 'TRA'"><img alt="{{ctrl.post.cacheName}}" title="{{ctrl.post.cacheName}}" src="../assets/images/traditional_16.gif"></div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.cacheType === 'MLT'"><img alt="{{ctrl.post.cacheName}}" title="{{ctrl.post.cacheName}}" src="../assets/images/multi_16.gif"></div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.cacheType === 'MYS'"><img alt="{{ctrl.post.cacheName}}" title="{{ctrl.post.cacheName}}" src="../assets/images/unknown_16.gif"></div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.cacheType === 'ERT'"><img alt="{{ctrl.post.cacheName}}" title="{{ctrl.post.cacheName}}" src="../assets/images/earthcache_16.gif"></div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.cacheType === 'WIG'"><img alt="{{ctrl.post.cacheName}}" title="{{ctrl.post.cacheName}}" src="../assets/images/wherigo_16.gif"></div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.cacheType == null || ctrl.post.cacheType === ''">T<span class="hidden-xs">yp</span>: -</div>
     </div>
-    <div class="row" ng-show="ctrl.post.post_type==='BON' || ctrl.post.post_type==='CGC'">
+    <div class="row" ng-show="ctrl.post.postType==='BON' || ctrl.post.postType==='CGC'">
         <strong class="col-xs-6 col-sm-6 col-md-6 col-xl-6">Velikost:</strong>
-        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6">{{ctrl.post.postSize.name}}</div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.size === 'M'"><img src="../assets/images/micro.gif" title="{{ctrl.post.sizeName}}" alt="{{ctrl.post.sizeName}}" /></div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.size === 'S'"><img src="../assets/images/small.gif" title="{{ctrl.post.sizeName}}" alt="{{ctrl.post.sizeName}}" /></div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.size === 'R'"><img src="../assets/images/regular.gif" title="{{ctrl.post.sizeName}}" alt="{{ctrl.post.sizeName}}" /></div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.size === 'L'"><img src="../assets/images/large.gif" title="{{ctrl.post.sizeName}}" alt="{{ctrl.post.sizeName}}" /></div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.size === 'O'"><img src="../assets/images/other.gif" title="{{ctrl.post.sizeName}}" alt="{{ctrl.post.sizeName}}" /></div>
     </div>
     <div class="row">
         <h2 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Popis</h2>
@@ -50,18 +59,18 @@
     <div class="row">
         <div class="list-group">
             <div class="list-group-item row" ng-repeat="wpt in ctrl.post.waypoints">
-                <img src="../assets/images/finish.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypoint_type.waypoint_type==='FIN'" title="{{wpt.waypoint_type.name}}" />
-                <img src="../assets/images/parking.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypoint_type.waypoint_type==='PAR'" title="{{wpt.waypoint_type.name}}" />
-                <img src="../assets/images/poi.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypoint_type.waypoint_type==='REF'" title="{{wpt.waypoint_type.name}}" />
-                <img src="../assets/images/path.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypoint_type.waypoint_type==='WAY'" title="{{wpt.waypoint_type.name}}" />
-                <img src="../assets/images/stage.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypoint_type.waypoint_type==='STA'" title="{{wpt.waypoint_type.name}}" />
+                <img src="../assets/images/finish.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypointType==='FIN'" title="{{wpt.waypointTypeName}}" />
+                <img src="../assets/images/parking.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypointType==='PAR'" title="{{wpt.waypointTypeName}}" />
+                <img src="../assets/images/poi.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypointType==='REF'" title="{{wpt.waypointTypeName}}" />
+                <img src="../assets/images/path.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypointType==='WAY'" title="{{wpt.waypointTypeName}}" />
+                <img src="../assets/images/stage.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypointType==='STA'" title="{{wpt.waypointTypeName}}" />
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     {{wpt.name}}
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     {{wpt.description}}
                 </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" ng-show="wpt.waypoint_visibility === 'VW'">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" ng-show="wpt.waypointVisibility === 'VW'">
                     {{wpt.latitude | coordinate: 'N'}}<br />
                     {{wpt.longitude | coordinate: 'E'}}
                 </div>
@@ -74,7 +83,7 @@
     <div class="row">
         <button ng-click="ctrl.downloadGpx()" class="btn btn-primary">Stáhnout GPX</button>
         <button ng-click="ctrl.getHelp()" ng-show="ctrl.post.help !== ''" class="btn btn-primary">Nápověda</button>
-        <a href="#/bonusUnlock/{{ctrl.post.post}}" class="btn btn-primary" ng-show="ctrl.post.post_type==='BON'">Odemknout</a>
+        <a href="#/bonusUnlock/{{ctrl.post.post}}" class="btn btn-primary" ng-show="ctrl.post.postType==='BON'">Odemknout</a>
         <a href="#/postLog/{{ctrl.post.post}}" class="btn btn-primary">Zalogovat</a>
     </div>
 </div>

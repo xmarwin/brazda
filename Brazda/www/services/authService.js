@@ -1,46 +1,68 @@
 ﻿'use strict';
 
 angular.module('myApp.authService', [])
-            .service('AuthService', AuthService)
+    .service('AuthService', AuthService)
 
-//AuthService.$inject = ['LocalStorageModule'];
+AuthService.$inject = ['WebApiService', 'localStorageService', '$q'];
 
-function AuthService(localStorageService) {
+function AuthService(webApiService, localStorageService, $q) {
     var vm = this;
 
     return {
         isAuthorized: isAuthorized,
-        isAdmin : isAdmin,
+        isAdmin: isAdmin,
         login: login,
         logout: logout,
         team: getTeam()
     }
 
     //////////////////////////////////
-   
+
     function isAuthorized() {
         return getTeam() !== null;
     }
 
     function isAdmin() {
         if (isAuthorized()) {
-            return getTeam().team_type === 'ORG';
+            return getTeam().role === 'ORG';
         } else {
             return false;
         }
     }
 
     function login(team, password) {
-        if (team.id === 1 && password === 'a') {
-            saveTeam(team);
-            return { 'status': 'OK' }
-        } else {
-            return { 'status': 'Error', 'message': 'Nesprávné heslo' }
-        }
+        var deferred = $q.defer();
+
+        webApiService.get('/api/sign/in?team=' + team.name + '&password=' + password + '&deviceId=')
+            .then(function (data) {
+                saveTeam(data.data);
+                deferred.resolve({ 'status': 'OK' });
+            },
+            function (err) {
+                if (err.status == 401) {
+                    deferred.reject({ 'status': 'Error', 'message': 'Špatné heslo.' });
+                } else {
+                    deferred.reject({ 'status': 'Error', 'message': 'Nepodařilo se ověřit heslo, zkuste to za chvilku znova.' });
+                }
+            });
+
+        return deferred.promise;
     }
 
     function logout() {
-        removeTeam();
+        var deferred = $q.defer();
+        var token = getTeam().data.securityToken;
+
+        webApiService.get('/api/sign/out?securityToken=' + token)
+            .then(function (data) {
+                removeTeam(data);
+                deferred.resolve({ 'status': 'OK' });
+            },
+            function (err) {
+                deferred.reject({ 'status': 'Error', 'message': 'Nepodařilo se ověřit heslo, zkuste to za chvilku znova.' });
+            });
+
+        return deferred.promise;
     }
 
     function saveTeam(team) {

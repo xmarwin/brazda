@@ -20,22 +20,30 @@ function LoginController($location, authService, teamService) {
     var vm = this;
 
     var init = function () {
-        vm.teams = teamService.getTeams();
+        teamService.getTeams()
+            .then(function successCallback(response) {
+                vm.teams = response.data;
+            }, function errorCallback(err) {
+                alert(err);
+            });
     }
 
     vm.login = function () {
         var team = vm.team;
         var password = vm.password;
 
-        var retval = authService.login(team, password);
+        authService.login(team, password)
+            .then(function (data) {
+                if (data.status === 'OK') {
+                    vm.showError = false;
+                    $location.path('/posts');
+                } else {
+                    vm.showError = true;
+                    vm.errorMessage = retval.message;
+                }
+            }, function (err) {
 
-        if (retval.status === 'OK') {
-            vm.showError = false;
-            $location.path('/posts');
-        } else {
-            vm.showError = true;
-            vm.errorMessage = retval.message;
-        }
+            });      
     }
 
     vm.logout = function () {
