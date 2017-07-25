@@ -18,7 +18,12 @@ function PostsAdminController($routeParams, notification, authService, postServi
     var vm = this;
 
     var init = function () {
-        vm.posts = postService.getPosts();
+        postService.getPosts()
+            .then(function successCallback(response) {
+                vm.posts = response.data;
+            }, function errorCallback(err) {
+                alert(err);
+            });
     }
 
     init();

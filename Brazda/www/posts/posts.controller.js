@@ -31,7 +31,7 @@ function PostsController(authService, postService, $filter) {
         var postTypeFilter = (angular.isUndefined(vm.filter.post_type) || vm.filter.post_type == null) ? "" : angular.isUndefined(vm.filter.post_type.post_type) ? "" : vm.filter.post_type.post_type;
         var postColorFilter = (angular.isUndefined(vm.filter.color) || vm.filter.color == null) ? "" : angular.isUndefined(vm.filter.color.color) ? "" : vm.filter.color.color;
 
-        vm.postsFiltered = $filter('filter')(vm.posts, { "post_type": postTypeFilter, "color": postColorFilter });
+        vm.postsFiltered = $filter('filter')(vm.posts, { "postType": postTypeFilter, "color": postColorFilter });
     }
 
     vm.toggleFilter = function() {
@@ -43,8 +43,13 @@ function PostsController(authService, postService, $filter) {
     }
 
     var loadPosts = function () {
-        vm.posts = postService.getPosts(authService.team.id);
-        vm.filter();
+        postService.getPosts()
+            .then(function successCallback(response) {
+                vm.posts = response.data;
+                vm.filter();
+            }, function errorCallback(err) {
+                alert(err);
+            });
     }
 
     init();
