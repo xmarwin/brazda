@@ -5113,6 +5113,7 @@
     <Content Include="www\admin\teams\teams.html" />
     <Content Include="www\app.js" />
     <Content Include="www\assets\css\app.css" />
+    <Content Include="www\assets\css\loading-bar.css" />
     <Content Include="www\assets\images\activity.png" />
     <Content Include="www\assets\images\bonus.png" />
     <Content Include="www\assets\images\cache.png" />
@@ -5136,6 +5137,8 @@
     <Content Include="www\assets\images\traditional_16.gif" />
     <Content Include="www\assets\images\unknown_16.gif" />
     <Content Include="www\assets\images\wherigo_16.gif" />
+    <Content Include="www\assets\scripts\angular-animate.min.js" />
+    <Content Include="www\assets\scripts\loading-bar.js" />
     <Content Include="www\assets\scripts\ng-quill\demo.html" />
     <Content Include="www\assets\scripts\ng-quill\demoamd.html" />
     <Content Include="www\assets\scripts\ng-quill\dist\ng-quill.js" />
@@ -5272,7 +5275,6 @@
     <Content Include="www\bonusy\view2.html" />
     <Content Include="www\bonusy\view2.js" />
     <Content Include="www\bonusy\view2_test.js" />
-    <Content Include="www\bootstrap.php" />
     <Content Include="www\bower_components\angular-loader\.bower.json" />
     <Content Include="www\bower_components\angular-loader\angular-loader.js" />
     <Content Include="www\bower_components\angular-loader\angular-loader.min.js" />
@@ -5602,6 +5604,7 @@
     <Content Include="www\contact\contact.html" />
     <Content Include="www\contact\contact.js" />
     <Content Include="www\contact\contact_test.js" />
+    <Content Include="www\favicon.ico" />
     <Content Include="www\index-async.html" />
     <Content Include="www\index.html" />
     <Content Include="www\index.php" />
@@ -5609,21 +5612,6 @@
     <Content Include="www\login\login.js" />
     <Content Include="www\login\login_test.js" />
     <Content Include="www\login\logout.html" />
-    <Content Include="www\models\AuditLogs.php" />
-    <Content Include="www\models\Authenticator.php" />
-    <Content Include="www\models\Base.php" />
-    <Content Include="www\models\Logs.php" />
-    <Content Include="www\models\Posts.php" />
-    <Content Include="www\models\Results.php" />
-    <Content Include="www\models\Teams.php" />
-    <Content Include="www\models\Waypoints.php" />
-    <Content Include="www\modules\Api\BasePresenter.php" />
-    <Content Include="www\modules\Api\DefaultPresenter.php" />
-    <Content Include="www\modules\Api\TeamPresenter.php" />
-    <Content Include="www\modules\Base\BasePresenter.php" />
-    <Content Include="www\modules\Front\BasePresenter.php" />
-    <Content Include="www\modules\Front\DefaultPresenter.php" />
-    <Content Include="www\modules\Front\SignPresenter.php" />
     <Content Include="www\posts\bonusUnlock.controller.js" />
     <Content Include="www\posts\bonusUnlock.html" />
     <Content Include="www\posts\postDetail.controller.js" />
@@ -5633,14 +5621,12 @@
     <Content Include="www\posts\posts.controller.js" />
     <Content Include="www\posts\posts.html" />
     <Content Include="www\posts\posts_test.js" />
-    <Content Include="www\presenters\Error4xxPresenter.php" />
-    <Content Include="www\presenters\ErrorPresenter.php" />
-    <Content Include="www\presenters\HomepagePresenter.php" />
     <Content Include="www\robots.txt" />
-    <Content Include="www\router\RouterFactory.php" />
     <Content Include="www\rules\rules.html" />
     <Content Include="www\rules\rules.js" />
     <Content Include="www\rules\rules_test.js" />
+    <Content Include="www\services\webApi.interceptor.js" />
+    <Content Include="www\services\webApi.service.js" />
     <Content Include="www\services\authService.js" />
     <Content Include="www\services\downloadService.js" />
     <Content Include="www\services\postService.js" />
@@ -5652,7 +5638,6 @@
     <Content Include="app\config\config.neon" />
     <Content Include="app\models\.Teams.php.swp" />
     <Content Include="app\models\AuditLogs.php" />
-    <Content Include="app\models\Authenticator.php" />
     <Content Include="app\models\Base.php" />
     <Content Include="app\models\Logs.php" />
     <Content Include="app\models\Posts.php" />
@@ -7685,6 +7670,11 @@
     <Content Include="node_modules\clone\README.md" />
     <Content Include="temp\.gitkeep" />
     <Content Include="vendor\.gitkeep" />
+    <Content Include="app\modules\Api\PostPresenter.php" />
+    <Content Include="app\modules\Api\SecuredBasePresenter.php" />
+    <Content Include="app\modules\Api\SignPresenter.php" />
+    <Content Include="app\models\Logins.php" />
+    <Content Include="app\models\Positions.php" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -7692,26 +7682,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <Content Include="www\.htaccess" />
-    <Content Include="www\config\.config.local.neon.swp" />
-    <Content Include="www\config\.config.neon.swp" />
-    <Content Include="www\config\config.local.neon" />
-    <Content Include="www\config\config.neon" />
-    <Content Include="www\models\.Teams.php.swp" />
-    <Content Include="www\modules\Api\.TeamPresenter.php.swp" />
-    <Content Include="www\modules\Front\.BasePresenter.php.swp" />
-    <Content Include="www\modules\Front\.SignPresenter.php.swp" />
-    <Content Include="www\modules\Front\templates\%40layout.latte" />
-    <Content Include="www\modules\Front\templates\Default\default.latte" />
-    <Content Include="www\modules\Front\templates\Sign\in.latte" />
-    <Content Include="www\presenters\templates\%40layout.latte" />
-    <Content Include="www\presenters\templates\Error\403.latte" />
-    <Content Include="www\presenters\templates\Error\404.latte" />
-    <Content Include="www\presenters\templates\Error\405.latte" />
-    <Content Include="www\presenters\templates\Error\410.latte" />
-    <Content Include="www\presenters\templates\Error\4xx.latte" />
-    <Content Include="www\presenters\templates\Error\500.phtml" />
-    <Content Include="www\presenters\templates\Homepage\default.latte" />
-    <Content Include="www\router\.RouterFactory.php.swp" />
     <Content Include="www\assets\scripts\ng-quill\.npmignore" />
     <Content Include="www\assets\scripts\ng-quill\.travis.yml" />
     <Content Include="www\assets\scripts\ng-quill\bower.json" />

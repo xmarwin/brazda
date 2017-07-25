@@ -5,14 +5,20 @@ angular.module('myApp', [
     'ngRoute',
     'LocalStorageModule',
     'ngSanitize',
+    'ngAnimate',
 
     //3rd party
     'star-rating',
     'ui-notification',
     'ngQuill',
     'ngDialog',
+    'angular-loading-bar',
+
+    //interceptors
+    'myApp.webApiInterceptor',
 
     //Services
+    'myApp.webApiService',
     'myApp.authService',
     'myApp.teamService',
     'myApp.postService',
@@ -62,4 +68,12 @@ angular.module('myApp', [
             positionX: 'right',
             positionY: 'bottom'
         });
-    });
+    })
+
+    .config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
+        cfpLoadingBarProvider.includeSpinner = false;
+    }])
+
+    .config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.interceptors.push('SessionInjector');
+    }]);
