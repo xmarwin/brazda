@@ -8,11 +8,17 @@ WebApiService.$inject = ['$http', '$q'];
 function WebApiService($http, $q) {
     var vm = this;
 
-    vm.get = function (url) {
+    vm.get = function (endpointName, parameters, method) {
         var deferred = $q.defer();
 
+        if (angular.isUndefined(method)) {
+            method = 'GET';
+        }
+
+        var url = buildUrl(endpointName, parameters)
+
         $http({
-            method: 'GET',
+            method: method,
             url: url
         }).then(function successCallback(response) {
             deferred.resolve(response);
@@ -21,5 +27,21 @@ function WebApiService($http, $q) {
         });
 
         return deferred.promise;
+    }
+
+    function buildUrl(endpointName, parametersArray) {
+        var parameters = '';
+
+        if (!angular.isUndefined(parametersArray) && parametersArray.length > 0) {
+            parameters = '?';
+
+            for (var i = 0; i < parametersArray.length; i++) {
+                for (var key in parametersArray[i]) {
+                    parameters += key + '=' + parametersArray[i][key] + '&';
+                }
+            }
+        }
+
+        return 'http://brazda/api/' + endpointName + parameters;
     }
 }

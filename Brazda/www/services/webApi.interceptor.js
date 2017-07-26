@@ -3,20 +3,21 @@
 angular.module('myApp.webApiInterceptor', [])
     .factory('SessionInjector', SessionInjector)
 
-SessionInjector.$inject = ['localStorageService'];
+SessionInjector.$inject = ['localStorageService', '$q'];
 
-function SessionInjector(localStorageService) {
+function SessionInjector(localStorageService, $q) {
     var sessionInjector = {
         request: function (config) {
             var team = localStorageService.get('team');
-            if (!angular.isUndefined(team)) {
+            if (!angular.isUndefined(team) && team != null) {
                 if (config.url.indexOf('?') > -1) {
                     config.url += '&securityToken=' + team.securityToken;
                 } else {
                     config.url += '?securityToken=' + team.securityToken;
                 }
             }
-            return config;
+
+            return config || $q.when(config);
         }
     };
 

@@ -76,4 +76,4 @@ angular.module('myApp', [
 
     .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.interceptors.push('SessionInjector');
-    }]);
+    }])
