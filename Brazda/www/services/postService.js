@@ -12,8 +12,24 @@ function PostService(webApiService, $filter) {
         return webApiService.get('post/list');
     }
 
+    // http://brazda/api/post/detail?securityToken=<security token>&post=<id postu>
     vm.getPost = function (id) {
-        return $filter("filter")(vm.getPosts(), { "post": id }, true)[0];
+        return webApiService.get('post/detail', [{ 'post': id }]);
+    }
+
+    // http://brazda/api/post/help?securityToken=<security token>&post=<id postu>
+    vm.getHelp = function (id) {
+        return webApiService.get('post/help', [{ 'post': id }]);
+    }
+
+    // http://brazda/api/post/log?securityToken=<security token>&post=<id postu>&shibboleth=<heslo>
+    vm.log = function (id, shibboleth) {
+        return webApiService.get('post/log', [{ 'post': id }, { 'shibboleth': shibboleth }]);
+    }
+
+    // http://brazda/api/post/bonus?securityToken=<security token>&post=<id postu>&bonusCode=<bonus kód>
+    vm.bonus = function (id, bonusCode) {
+        return webApiService.get('post/bonus', [{ 'post': id }, { 'bonusCode': bonusCode }]);
     }
 
     vm.getCacheTypes = function () {

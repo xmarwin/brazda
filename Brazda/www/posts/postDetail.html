@@ -53,6 +53,14 @@
             {{ctrl.post.hint}}
         </div>
     </div>
+    <div class="row" ng-show="ctrl.post.help !== null">
+        <h2 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Nápověda</h2>
+    </div>
+    <div class="row" ng-show="ctrl.post.help !== null">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12">
+            {{ctrl.post.help}}
+        </div>
+    </div>
     <div class="row">
         <h2 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Waypointy</h2>
     </div>
@@ -82,8 +90,8 @@
     </div>
     <div class="row">
         <button ng-click="ctrl.downloadGpx()" class="btn btn-primary">Stáhnout GPX</button>
-        <button ng-click="ctrl.getHelp()" ng-show="ctrl.post.help !== ''" class="btn btn-primary">Nápověda</button>
-        <a href="#/bonusUnlock/{{ctrl.post.post}}" class="btn btn-primary" ng-show="ctrl.post.postType==='BON'">Odemknout</a>
-        <a href="#/postLog/{{ctrl.post.post}}" class="btn btn-primary">Zalogovat</a>
+        <button ng-click="ctrl.getHelp()" ng-show="ctrl.post.help !== ''" class="btn btn-primary" ng-disabled="ctrl.post.help !== null">Nápověda</button>
+        <a href="#/bonusUnlock/{{ctrl.post.post}}" class="btn btn-primary" ng-show="ctrl.post.postType==='BON'" ng-disabled="ctrl.post.isDone === true">Odemknout</a>
+        <a href="#/postLog/{{ctrl.post.post}}" class="btn btn-primary" ng-disabled="ctrl.post.isDone === true">Zalogovat</a>
     </div>
 </div>
