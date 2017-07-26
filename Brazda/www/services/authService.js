@@ -51,7 +51,7 @@ function AuthService(webApiService, localStorageService, $q) {
 
     function logout() {
         var deferred = $q.defer();
-        var token = getTeam().data.securityToken;
+        var token = getTeam().securityToken;
 
         webApiService.get('/api/sign/out?securityToken=' + token)
             .then(function (data) {
