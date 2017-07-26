@@ -226,7 +226,7 @@ return array(
     'Nette\\Database\\ConnectionException' => $vendorDir . '/nette/database/src/Database/exceptions.php',
     'Nette\\Database\\ConstraintViolationException' => $vendorDir . '/nette/database/src/Database/exceptions.php',
     'Nette\\Database\\Context' => $vendorDir . '/nette/database/src/Database/Context.php',
-    'Nette\\Database\\Conventions\\AmbiguousReferenceKeyException' => $vendorDir . '/nette/database/src/Database/Conventions/exceptions.php',
+    'Nette\\Database\\Conventions\\AmbiguousReferenceKeyException' => $vendorDir . '/nette/database/src/Database/Conventions/AmbiguousReferenceKeyException.php',
     'Nette\\Database\\Conventions\\DiscoveredConventions' => $vendorDir . '/nette/database/src/Database/Conventions/DiscoveredConventions.php',
     'Nette\\Database\\Conventions\\StaticConventions' => $vendorDir . '/nette/database/src/Database/Conventions/StaticConventions.php',
     'Nette\\Database\\DriverException' => $vendorDir . '/nette/database/src/Database/DriverException.php',
