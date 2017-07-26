@@ -7669,7 +7669,6 @@
     <Content Include="node_modules\clone\package.json" />
     <Content Include="node_modules\clone\README.md" />
     <Content Include="temp\.gitkeep" />
-    <Content Include="vendor\.gitkeep" />
     <Content Include="app\modules\Api\PostPresenter.php" />
     <Content Include="app\modules\Api\SecuredBasePresenter.php" />
     <Content Include="app\modules\Api\SignPresenter.php" />
@@ -8116,6 +8115,7 @@
     <Folder Include="node_modules\.staging\wtf-8-0ffdc4adf1af0a696915656b9114a7a3\" />
     <Folder Include="node_modules\.staging\xml2js-f588728f3efe4bc2e1dc247144ba7e25\" />
     <Folder Include="node_modules\.staging\xmlbuilder-3197b9bd90e5e4887e8d67023cbd04c9\" />
+    <Folder Include="vendor\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
