@@ -9,6 +9,6 @@ function TeamService(webApiService) {
     var vm = this;
 
     vm.getTeams = function () {
-        return webApiService.get('http://brazda/api/sign/teams-list');
+        return webApiService.get('sign/teams-list');
     }
 }

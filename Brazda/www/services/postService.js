@@ -9,7 +9,7 @@ function PostService(webApiService, $filter) {
     var vm = this;
 
     vm.getPosts = function (teamId) {
-        return webApiService.get('http://brazda/api/post/list');
+        return webApiService.get('post/list');
     }
 
     vm.getPost = function (id) {
