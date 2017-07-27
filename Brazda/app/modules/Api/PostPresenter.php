@@ -107,6 +107,7 @@ class PostPresenter extends SecuredBasePresenter
         } // if
 
         $postShibboleth = $this->posts->getShibboleth($post);
+        $shibboleth     = urldecode($shibboleth);
         if ($shibboleth != $postShibboleth) {
             $this->logs->insert([
                 'team'     => (int) $this->team['team'],
@@ -157,6 +158,7 @@ class PostPresenter extends SecuredBasePresenter
         } // if
 
         $postBonusCode = $this->posts->getBonusCode($post);
+        $bonusCode     = urldecode($bonusCode);
         if ($bonusCode != $postBonusCode) {
             $this->logs->insert([
                 'team'     => (int) $this->team['team'],
