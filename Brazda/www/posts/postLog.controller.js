@@ -13,7 +13,7 @@ angular.module('myApp.postLog', ['ngRoute'])
 
 PostLogController.$inject = ['PostService', '$routeParams', '$filter', 'DownloadService', 'Notification'];
 
-function PostLogController(postService, $routeParams, $filter, downloadService, Notification) {
+function PostLogController(postService, $routeParams, $filter, downloadService, notification) {
     var vm = this;
     vm.shibboleth = "";
 
@@ -26,14 +26,15 @@ function PostLogController(postService, $routeParams, $filter, downloadService, 
         postService.log(vm.postId, vm.shibboleth)
             .then(function (response) {
                 if (response.data.code === 404) {
-                    Notification.success('Blbe heslo');
+                    notification.error('Zadali jste špatné heslo.');
                 } else if (response.data.code === 408) {
-                    Notification.error({
-                        message: "Další pokus o zadání heslo můžete udělat až v " + $filter('date')(response.data.nextAttempt, 'mediumTime'), delay: null });;
+                    notification.error({
+                        message: "Další pokus o zadání heslo můžete udělat až v " + $filter('date')(response.data.nextAttempt, 'mediumTime'), delay: null
+                    });
                 } else if (response.data.code === 200) {
-                    alert("OK");
+                    notification.success('Gratulujeme, to je správná odpověď.');
                 } else {
-                    alert(response.data.status);
+                    notification.error({ message: "Stala se chyba: " + response.data.status, delay: null });
                 }
             }, function (err) {
 
