@@ -54,7 +54,7 @@
                     <i class="fa fa-play fa-2x" aria-hidden="true" ng-show="postItem.postType==='BEG'"></i>
                     <i class="fa fa-flag-checkered fa-2x" aria-hidden="true" ng-show="postItem.postType==='END'"></i>
                 </td>
-                <td colspan="5">{{postItem.name}}</td>
+                <td colspan="6">{{postItem.name}}</td>
                 <td rowspan="2">
                     <a href="#/postDetail/{{postItem.post}}" class="btn btn-default">Detail</a>
                 </td>
@@ -81,6 +81,7 @@
                 <td ng-show="postItem.cacheType == null || postItem.cacheType === ''">T<span class="hidden-xs">yp</span>: -</td>
 
                 <td>B<span class="hidden-xs">ody</span>: {{postItem.maxScore}}</td>
+                <td>I<span class="hidden-xs">ndicie</span>: {{ postItem.isDone === true ? postItem.shibboleth: '-'}}</td>
             </tr>
         </tbody>
     </table>

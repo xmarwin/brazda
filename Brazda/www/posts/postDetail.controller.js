@@ -11,9 +11,9 @@ angular.module('myApp.postDetail', ['ngRoute'])
 
     .controller('PostDetailCtrl', PostDetailController);
 
-PostDetailController.$inject = ['PostService', '$routeParams', '$filter', 'DownloadService'];
+PostDetailController.$inject = ['PostService', '$routeParams', '$filter', 'DownloadService', 'ngDialog',];
 
-function PostDetailController(postService, $routeParams, $filter, downloadService) {
+function PostDetailController(postService, $routeParams, $filter, downloadService, ngDialog) {
     var vm = this;
     vm.postSizes = [];
     vm.cacheTypes = [];
@@ -44,15 +44,18 @@ function PostDetailController(postService, $routeParams, $filter, downloadServic
         downloadService.getGpx(vm.post.post);
     }
 
-    vm.log = function () {
-
-    }
-
-    vm.unlock = function () {
-
-    }
-
     vm.getHelp = function () {
+        ngDialog.openConfirm({
+            template: 'posts/getHelpConfirmation.html'
+        }).then(function (data) {
+            getHelpInt();
+        }, function (err) {
+
+        })
+        
+    }
+
+    function getHelpInt() {
         postService.getHelp(vm.postId)
             .then(function (data) {
                 vm.post.help = data.data.help;

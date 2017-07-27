@@ -1,6 +1,6 @@
 ﻿<div ng-controller="PostDetailCtrl as ctrl">
     <div class="row">
-        <div class="col-xs-1 col-sm-1 col-md-1 col-xl-1 {{postItem.color}}">
+        <div class="col-xs-2 col-sm-1 col-md-1 col-xl-1 {{postItem.color}}">
             <i class="fa fa-question-circle-o fa-4x" aria-hidden="true" ng-show="ctrl.post.postType==='CIP'"></i>
             <i class="fa fa-compass fa-4x" aria-hidden="true" ng-show="ctrl.post.postType==='ACT'"></i>
             <i class="fa fa-archive fa-4x" aria-hidden="true" ng-show="ctrl.post.postType==='CGC'"></i>
@@ -8,7 +8,7 @@
             <i class="fa fa-play fa-4x" aria-hidden="true" ng-show="ctrl.post.postType==='BEG'"></i>
             <i class="fa fa-flag-checkered fa-4x" aria-hidden="true" ng-show="ctrl.post.postType==='END'"></i>
         </div>
-        <h1 class="col-xs-11 col-sm-11 col-md-11 col-xl-11">Stanoviště {{ctrl.post.name}}</h1>
+        <h1 class="col-xs-10 col-sm-11 col-md-11 col-xl-11">{{ctrl.post.name}}</h1>
     </div>
     <div class="row">
         <strong class="col-xs-6 col-sm-6 col-md-6 col-xl-6">Terén:</strong>
@@ -45,20 +45,28 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12" ng-bind-html="ctrl.post.description" />
     </div>
-    <div class="row">
+    <div class="row" ng-show="ctrl.post.hint !== '' && ctrl.post.hint !== null">
         <h2 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Hint</h2>
     </div>
-    <div class="row">
+    <div class="row" ng-show="ctrl.post.hint !== '' && ctrl.post.hint !== null">
         <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12">
             {{ctrl.post.hint}}
         </div>
     </div>
-    <div class="row" ng-show="ctrl.post.help !== null">
+    <div class="row" ng-show="ctrl.post.hasHelp === true && (ctrl.post.help !== '' && ctrl.post.help !== null)">
         <h2 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Nápověda</h2>
     </div>
-    <div class="row" ng-show="ctrl.post.help !== null">
+    <div class="row" ng-show="ctrl.post.hasHelp === true && (ctrl.post.help !== '' && ctrl.post.help !== null)">
         <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12">
             {{ctrl.post.help}}
+        </div>
+    </div>
+    <div class="row" ng-show="ctrl.post.isDone === true">
+        <h2 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Indicie</h2>
+    </div>
+    <div class="row" ng-show="ctrl.post.isDone === true">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12">
+            {{ctrl.post.shibboleth}}
         </div>
     </div>
     <div class="row">
@@ -90,8 +98,8 @@
     </div>
     <div class="row">
         <button ng-click="ctrl.downloadGpx()" class="btn btn-primary">Stáhnout GPX</button>
-        <button ng-click="ctrl.getHelp()" ng-show="ctrl.post.help !== ''" class="btn btn-primary" ng-disabled="ctrl.post.help !== null">Nápověda</button>
-        <a href="#/bonusUnlock/{{ctrl.post.post}}" class="btn btn-primary" ng-show="ctrl.post.postType==='BON'" ng-disabled="ctrl.post.isDone === true">Odemknout</a>
-        <a href="#/postLog/{{ctrl.post.post}}" class="btn btn-primary" ng-disabled="ctrl.post.isDone === true">Zalogovat</a>
+        <button ng-click="ctrl.getHelp()" ng-show="ctrl.post.hasHelp === true" class="btn btn-primary" ng-disabled="ctrl.post.help !== null">Nápověda</button>
+        <a href="#/bonusUnlock/{{ctrl.post.post}}" class="btn btn-primary" ng-show="ctrl.post.postType==='BON'" ng-disabled="ctrl.post.isUnlocked === true">Odemknout</a>
+        <a href="#/postLog/{{ctrl.post.post}}" class="btn btn-primary" ng-disabled="ctrl.post.isDone === true || ctrl.post.isUnlocked === false">Zalogovat</a>
     </div>
 </div>
