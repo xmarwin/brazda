@@ -38,7 +38,7 @@ class SecuredBasePresenter extends SecuredResourcePresenter
 			$this->sendErrorResource(
 				new Security\AuthenticationException(
 					'Prázdný securityToken, nelze ověřit uživatele.',
-					400
+					403
 				), // AuthenticationException()
 				$this->outputType
 			); // sendErrorResource()
@@ -50,7 +50,7 @@ class SecuredBasePresenter extends SecuredResourcePresenter
 			$this->sendErrorResource(
 				new Security\AuthenticationException(
 					'SecurityToken nebyl nalezen.',
-					400
+					403
 				), // AuthenticationException()
 				$this->outputType
 			); // sendErrorResource()

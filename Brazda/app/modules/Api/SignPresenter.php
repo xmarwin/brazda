@@ -31,7 +31,7 @@ class SignPresenter extends BasePresenter
 						'Tým %s není přihlášen.',
 						$team
 					), // sprintf()
-					3);
+					403);
 				} // if
 			} // if
 		} catch (Security\AuthenticationException $e) {
