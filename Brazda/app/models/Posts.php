@@ -60,8 +60,11 @@ class Posts extends Base
                 p.terrain,
                 p.size,
                 p.hint,
+                (CASE WHEN p.help IS NOT NULL THEN TRUE ELSE FALSE END) AS has_help,
                 %if", isset($team), "
+                (CASE WHEN lo.moment IS NOT NULL THEN p.shibboleth ELSE NULL END) AS shibboleth,
                 (CASE WHEN lh.moment IS NOT NULL THEN p.help ELSE NULL END) AS help,
+                (CASE WHEN lo.moment IS NOT NULL AND p.post_type = 'BON' THEN TRUE ELSE FALSE END) as is_unlocked,
                 %end
                 p.description,
                 p.cache_type,
@@ -109,38 +112,7 @@ class Posts extends Base
             "%if", !empty($limit), " LIMIT %lmt", $limit, " %ofs", $offset
         );
     } // view()
-/*
-    public function detail($post)
-    {
-        $post = (int) $post;
 
-        return $this->db->query(
-            "SELECT
-                p.post,
-                p.post_type,
-                p.color,
-                p.name,
-                p.difficulty,
-                p.terrain,
-                p.size,
-                p.hint,
-                p.description,
-                p.max_score,
-                p.open_from,
-                p.open_to,
-                (p.help <> '') AS have_help,
-                pc.name AS color_name,
-                pc.code AS color_code,
-                pt.name AS type_name,
-                ps.name AS size_name
-              FROM posts p
-              JOIN post_colors pc USING (color)
-              JOIN post_types pt USING (post_type)
-              JOIN post_sizes ps USING (size)
-             WHERE p.post = %i", $post
-        )->fetch();
-    } // detail()
-*/
     public function getHelp($post)
     {
         $post = (int) $post;
@@ -151,39 +123,7 @@ class Posts extends Base
             WHERE p.post = %i", $post
         )->fetchSingle('help');
     } // getHelp()
-/*
-    public function bonusOverview($team)
-    {
-        $team = (int) $team;
 
-        return $this->db->query(
-            "SELECT
-                p.post,
-                p.post_type,
-                p.name,
-                p.shibboleth,
-                p.bonus_code,
-                p.color,
-                pc.name AS color_name,
-                pc.code AS color_code,
-                l.log_type,
-                bp.post AS bonus_post,
-                bp.name AS bonus_name,
-                bp.color AS bonus_color
-             FROM posts p
-             JOIN post_colors pc USING (color)
-             JOIN logs l USING (post)
-             JOIN (
-                 SELECT p.post, p.name, p.color
-                 FROM posts p
-                 WHERE post_type = 'BON'
-             ) bp USING (color)
-             WHERE l.team = %i", $team,
-              "AND (l.log_type = 'OUT' OR l.log_type = 'BON')",
-            "ORDER BY p.color, l.moment ASC"
-        )->fetchAssoc('color,#');
-    } // bonusOverview()
-*/
     public function getShibboleth($post)
     {
         $post = (int) $post;
@@ -205,21 +145,5 @@ class Posts extends Base
              WHERE post = %i", $post
         )->fetchSingle('bonus_code');
     } // getBonusCode()
-/*
-    public function getWaypoints($post = 0)
-    {
-        return $this->context
-            ->getService('waypoints')
-            ->overview($post);
-    }
 
-    public function findByType($postType)
-    {
-		return $this->db->query(
-			"SELECT *
-			 FROM posts
-			 WHERE post_type LIKE %s", $postType
-		); // query()
-    } // findByType()
-*/
 } // Posts
