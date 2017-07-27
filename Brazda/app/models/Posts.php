@@ -60,7 +60,7 @@ class Posts extends Base
                 p.terrain,
                 p.size,
                 p.hint,
-                (CASE WHEN p.help IS NOT NULL THEN TRUE ELSE FALSE END) AS has_help,
+                (CASE WHEN (p.help NOT LIKE '') THEN TRUE ELSE FALSE END) AS has_help,
                 %if", isset($team), "
                 (CASE WHEN lo.moment IS NOT NULL THEN p.shibboleth ELSE NULL END) AS shibboleth,
                 (CASE WHEN lh.moment IS NOT NULL THEN p.help ELSE NULL END) AS help,
