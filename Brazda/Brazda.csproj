@@ -5613,6 +5613,7 @@
     <Content Include="www\login\login.js" />
     <Content Include="www\login\login_test.js" />
     <Content Include="www\login\logout.html" />
+    <Content Include="www\posts\getHelpConfirmation.html" />
     <Content Include="www\posts\bonusUnlock.controller.js" />
     <Content Include="www\posts\bonusUnlock.html" />
     <Content Include="www\posts\postDetail.controller.js" />
