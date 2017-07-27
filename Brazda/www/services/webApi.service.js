@@ -42,6 +42,10 @@ function WebApiService($http, $q) {
             }
         }
 
+        if (parameters.endsWith('&')) {
+            parameters = parameters.substr(0, parameters.length - 1);
+        }
+
         return 'http://brazda/api/' + endpointName + parameters;
     }
 }

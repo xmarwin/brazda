@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 angular.module('myApp.bonusUnlock', ['ngRoute'])
 
@@ -11,9 +11,9 @@ angular.module('myApp.bonusUnlock', ['ngRoute'])
 
     .controller('BonusUnlockCtrl', BonusUnlockController);
 
-BonusUnlockController.$inject = ['PostService', '$routeParams', '$filter', 'DownloadService'];
+BonusUnlockController.$inject = ['PostService', '$routeParams', '$filter', 'DownloadService', 'Notification'];
 
-function BonusUnlockController(postService, $routeParams, $filter, downloadService) {
+function BonusUnlockController(postService, $routeParams, $filter, downloadService, notification) {
     var vm = this;
     vm.password = "";
 
@@ -26,13 +26,15 @@ function BonusUnlockController(postService, $routeParams, $filter, downloadServi
         postService.bonus(vm.postId, vm.password)
             .then(function (response) {
                 if (response.data.code === 404) {
-                    alert("blbe heslo");
+                    notification.error('Zadali jste špatné heslo.');
                 } else if (response.data.code === 408) {
-                    alert("predcasne - cekate do " + response.data.nextAttempt);
+                    notification.error({
+                        message: "Další pokus o zadání heslo můžete udělat až v " + $filter('date')(response.data.nextAttempt, 'mediumTime'), delay: null
+                    });
                 } else if (response.data.code === 200) {
-                    alert("OK");
+                    notification.success('Gratulujeme, to je správná odpověď.');
                 } else {
-                    alert(response.data.status);
+                    notification.error({ message: "Stala se chyba: " + response.data.status, delay: null });
                 }
             }, function (err) {
 
