@@ -23,7 +23,20 @@ function BonusUnlockController(postService, $routeParams, $filter, downloadServi
     }
 
     vm.unlock = function () {
-        alert("Heslo je " + vm.password);
+        postService.bonus(vm.postId, vm.password)
+            .then(function (response) {
+                if (response.data.code === 404) {
+                    alert("blbe heslo");
+                } else if (response.data.code === 408) {
+                    alert("predcasne - cekate do " + response.data.nextAttempt);
+                } else if (response.data.code === 200) {
+                    alert("OK");
+                } else {
+                    alert(response.data.status);
+                }
+            }, function (err) {
+
+            });
     }
 
     init();

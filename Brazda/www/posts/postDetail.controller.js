@@ -24,9 +24,9 @@ function PostDetailController(postService, $routeParams, $filter, downloadServic
         vm.postId = $routeParams.postId;
         vm.postSizes = postService.getPostSizes();
         vm.cacheTypes = postService.getCacheTypes();
-        postService.getPosts()
+        postService.getPost(vm.postId)
             .then(function (data) {
-                vm.post = $filter('filter')(data.data, { "post": parseInt(vm.postId) }, true)[0]; //TODO: udelat metodu na backendu
+                vm.post = data.data
             }, function (err) {
 
             });
@@ -53,7 +53,12 @@ function PostDetailController(postService, $routeParams, $filter, downloadServic
     }
 
     vm.getHelp = function () {
+        postService.getHelp(vm.postId)
+            .then(function (data) {
+                vm.post.help = data.data.help;
+            }, function (err) {
 
+            });
     }
 
     init();

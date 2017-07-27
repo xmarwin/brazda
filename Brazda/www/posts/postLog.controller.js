@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 angular.module('myApp.postLog', ['ngRoute'])
 
@@ -11,9 +11,9 @@ angular.module('myApp.postLog', ['ngRoute'])
 
     .controller('PostLogCtrl', PostLogController);
 
-PostLogController.$inject = ['PostService', '$routeParams', '$filter', 'DownloadService'];
+PostLogController.$inject = ['PostService', '$routeParams', '$filter', 'DownloadService', 'Notification'];
 
-function PostLogController(postService, $routeParams, $filter, downloadService) {
+function PostLogController(postService, $routeParams, $filter, downloadService, Notification) {
     var vm = this;
     vm.shibboleth = "";
 
@@ -23,7 +23,21 @@ function PostLogController(postService, $routeParams, $filter, downloadService) 
     }
 
     vm.log = function () {
-        alert("Heslo je " + vm.shibboleth);
+        postService.log(vm.postId, vm.shibboleth)
+            .then(function (response) {
+                if (response.data.code === 404) {
+                    Notification.success('Blbe heslo');
+                } else if (response.data.code === 408) {
+                    Notification.error({
+                        message: "Další pokus o zadání heslo můžete udělat až v " + $filter('date')(response.data.nextAttempt, 'mediumTime'), delay: null });;
+                } else if (response.data.code === 200) {
+                    alert("OK");
+                } else {
+                    alert(response.data.status);
+                }
+            }, function (err) {
+
+            });
     }
 
     init();
