@@ -15,12 +15,12 @@ services:
 	database: Dibi\Connection(%database%)
 	dibipanel: Dibi\Bridges\Tracy\Panel
 	router: Brazda\RouterFactory::createRouter
-	#authenticator: Brazda\Models\Logins(@container)
 
 	logins: Brazda\Models\Logins(@container)
 	logs: Brazda\Models\Logs(@container)
 	teams: Brazda\Models\Teams(@container)
 	posts: Brazda\Models\Posts(@container)
+	postTypes: Brazda\Models\PostTypes(@container)
 	waypoints: Brazda\Models\Waypoints(@container)
 
 	tracy.bar:

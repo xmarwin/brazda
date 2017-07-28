@@ -14,6 +14,7 @@ class SecuredBasePresenter extends SecuredResourcePresenter
 			'xml'  => IResource::XML
 		],
 		$outputType = IResource::JSON,
+		$input,
 
 		$logins,
 
@@ -27,6 +28,8 @@ class SecuredBasePresenter extends SecuredResourcePresenter
 
         $this->checkSecurityToken();
         $this->team = $this->getUser()->getIdentity()->getData();
+
+		$this->input = $this->getInput();
     } // startup()
 
     public function checkSecurityToken()
@@ -60,5 +63,20 @@ class SecuredBasePresenter extends SecuredResourcePresenter
 
 		return true;
     } // checkSecurityToken()
+
+    public function checkAdministrator()
+    {
+        if (!$this->getUser()->isInRole('ORG')) {
+            $this->sendErrorResource(
+                new Security\AuthenticationException(
+                    'Nemáte oprávnění pro volání této metody.',
+                    401
+                ), // AuthenticationException()
+                $this->outputType
+            ); // sendErrorResource()
+        } // if
+
+        return true;
+    } // checkAdministrator()
 
 } // SecuredBasePresenter

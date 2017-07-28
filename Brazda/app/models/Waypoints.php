@@ -81,29 +81,69 @@ class Waypoints extends Base
         ); // query()
     } // view()
 
-    public function overview($post = 0)
+    public function insert(array $values)
     {
-        $post = (int) $post;
+        if (empty($values)) throw new \Exception('Missing values for waypoint insert.');
+        self::checkType($values['waypoint_type']);
+        self::checkVisibility($values['waypoint_visibility']);
 
         return $this->db->query(
-            "SELECT
-                w.waypoint,
-                w.waypoint_type,
-                w.waypoint_visibility,
-                w.post,
-                w.name,
-                w.description,
-                w.latitude,
-                w.longitude,
-                wt.name AS waypoint_type_name,
-                wt.rank AS waypoint_type_rank,
-                wv.name AS waypoint_visibility_name
-             FROM waypoints w
-             JOIN waypoint_types wt USING (waypoint_type)
-             JOIN waypoint_visibilities wv USING (waypoint_visibility)
-             %if", $post > 0, "WHERE w.post = %i", $post, "%end",
-             "ORDER BY wt.rank, w.name"
-        );
-    } // overview()
+            "INSERT INTO waypoints %v", $values,
+            "RETURNING waypoint"
+        )->fetchSingle('waypoint');
+    } // insert()
+
+    public function update(array $values, array $filter)
+    {
+        if (empty($filter)) throw new \Exception('Missing filter for waypoint update.');
+        self::checkType($values['waypoint_type']);
+        self::checkVisibility($values['waypoint_visibility']);
+
+        return $this->db->query(
+            "UPDATE waypoints
+             SET %a", $values,
+            "WHERE %and", $filter
+        ); // query()
+    } // update()
+
+    public function delete(array $filter)
+    {
+        if (empty($filter)) throw new \Exception('Missing filter for waypoint delete.');
+
+        return $this->db->query(
+            "DELETE FROM waypoints
+             WHERE %and", $filter
+        ); // query()
+    } // delete()
+
+    public static function checkType($value)
+    {
+        $validTypes = [
+            self::FINALE,
+            self::STAGE,
+            self::REFERENCE,
+            self::PARKING,
+            self::WAYPOINT
+        ];
+
+        $value = strtoupper($value);
+        if (!in_array($value, $validTypes)) {
+            throw new \Exception(sprintf('Invalid waypoint type %s.', $value));
+        } // if
+    } // checkType()
+
+    public static function checkVisibility($value)
+    {
+        $validVisibilities = [
+            self::VISIBLE,
+            self::HIDDEN_COORDINATES,
+            self::HIDDEN
+        ];
+
+        $value = strtoupper($value);
+        if (!in_array($value, $validVisibilities)) {
+            throw new \Exception(sprintf('Invalid waypoint visibility %s.', $value));
+        } // if
+    } // checkVisibility()
 
 } // Waypoints

@@ -27,6 +27,13 @@ class Posts extends Base
     const EARTHCACHE  = 'ERT';
     const WHEREIGO    = 'WIG';
 
+    const TRANSPARENT = 'TRA';
+    const RED         = 'RED';
+    const YELLOW      = 'YEL';
+    const GREEN       = 'GRN';
+    const BLUE        = 'BLU';
+    const VIOLET      = 'VLT';
+
     public function find($post)
     {
         $post = (int) $post;
@@ -148,5 +155,137 @@ class Posts extends Base
              WHERE post = %i", $post
         )->fetchSingle('bonus_code');
     } // getBonusCode()
+
+    public function insert(array $values)
+    {
+        if (empty($values)) throw new \Exception('Missing values for post insert.');
+        self::checkType($values['post_type']);
+        self::checkColor($values['color']);
+        self::checkTerrain($values['terrain']);
+        self::checkDifficulty($values['difficulty']);
+        self::checkCacheSize($values['size']);
+        self::checkCacheType($values['cache_type']);
+
+        return $this->db->query(
+            "INSERT INTO posts %v", $values,
+            "RETURNING post"
+        )->fetchSingle('post');
+    } // insert()
+
+    public function update(array $values, array $filter)
+    {
+        if (empty($filter)) throw new \Exception('Missing filter for post update.');
+        self::checkType($values['post_type']);
+        self::checkColor($values['color']);
+        self::checkTerrain($values['terrain']);
+        self::checkDifficulty($values['difficulty']);
+        self::checkCacheSize($values['size']);
+        self::checkCacheType($values['cache_type']);
+
+        return $this->db->query(
+            "UPDATE posts
+             SET %a", $values,
+            "WHERE %and", $filter
+        ); // query()
+    } // update()
+
+    public function delete(array $filter)
+    {
+        if (empty($filter)) throw new \Exception('Missing filter for post delete.');
+
+        return $this->db->query(
+            "DELETE FROM posts
+             WHERE %and", $filter
+        ); // query()
+    } // delete()
+
+    public static function checkType($value)
+    {
+        $validTypes = [
+            self::BEGIN,
+            self::END,
+            self::ORGANIZATION,
+            self::ACTIVITY,
+            self::CIPHER,
+            self::CACHE,
+            self::BONUS
+        ];
+
+        $value = strtoupper($value);
+        if (!in_array($value, $validTypes)) {
+            throw new \Exception(sprintf('Invalid post type %s.', $value));
+        } // if
+    } // checkType()
+
+    public static function checkColor($value)
+    {
+        $validColors = [
+            self::TRANSPARENT,
+            self::RED,
+            self::YELLOW,
+            self::GREEN,
+            self::BLUE,
+            self::VIOLET
+        ];
+
+        $value = strtoupper($value);
+        if (!in_array($value, $validColors)) {
+            throw new \Exception(sprintf('Invalid post color %s.', $value));
+        } // if
+    } // checkColor()
+
+    public static function checkCacheSize($value)
+    {
+        $validCacheSizes = [
+            '',
+            self::MICRO,
+            self::SMALL,
+            self::REGULAR,
+            self::LARGE,
+            self::OTHER
+        ];
+
+        $value = strtoupper($value);
+        if (!in_array($value, $validCacheSizes)) {
+            throw new \Exception(sprintf('Invalid cache size %s.', $value));
+        } // if
+    } // checkCacheSize()
+
+    public static function checkCacheType($value)
+    {
+        $validCacheTypes = [
+            '',
+            self::TRADITIONAL,
+            self::MULTICACHE,
+            self::MYSTERY,
+            self::EARTHCACHE,
+            self::WHEREIGO
+        ];
+
+        $value = strtoupper($value);
+        if (!in_array($value, $validCacheTypes)) {
+            throw new \Exception(sprintf('Invalid cache type %s.', $value));
+        } // if
+    } // checkCacheType()
+
+    public static function checkTerrain($value)
+    {
+        $validTerrains = [ 1, 1.5, 2,  2.5, 3, 3.5, 4, 4.5, 5 ];
+
+        $value = floatval($value);
+        if (!in_array($value, $validTerrains)) {
+            throw new \Exception(sprintf('Invalid post terrain %f.', $value));
+        } // if
+    } // checkTerrain()
+
+    public static function checkDifficulty($value)
+    {
+        $value = floatval($value);
+        $validDifficulties = [ 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5 ];
+
+        if (!in_array($value, $validDifficulties)) {
+            throw new \Exception(sprintf('Invalid post difficulty %f.', $value));
+        } // if
+    } // checkDifficulty()
 
 } // Posts
