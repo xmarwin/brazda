@@ -32,6 +32,11 @@ function PostService(webApiService, $filter) {
         return webApiService.get('post/bonus', [{ 'post': id }, { 'bonusCode': bonusCode }]);
     }
 
+    // http://brazda/api/post/delete?securityToken=<...>&post=35
+    vm.deletePost = function (id) {
+        return webApiService.get('post/delete', [{ 'post': id }]);
+    }
+
     vm.getCacheTypes = function () {
         return [
             { "cacheType": "TRA", "name": "Tradiční keš" },

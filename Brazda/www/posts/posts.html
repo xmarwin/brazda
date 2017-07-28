@@ -14,8 +14,8 @@
                 Stav:
             </div>
             <div class="col-xs-9 col-sm-2 col-md-2 col-lg-2">
-                <select ng-model="ctrl.filter.state" class="form-control">
-                    <option value="all">Vše</option>
+                <select ng-model="ctrl.filter.state" class="form-control" ng-change="ctrl.filter()">
+                    <option value="">Vše</option>
                     <option value="notFound">Nenalezené</option>
                     <option value="found">Nalezené</option>
                 </select>
@@ -24,7 +24,7 @@
                 Typ:
             </div>
             <div class="col-xs-9 col-sm-2 col-md-2 col-lg-2">
-                <select ng-options="postType.name for postType in ctrl.postTypes" ng-model="ctrl.filter.post_type" class="form-control" ng-change="ctrl.filter()">
+                <select ng-options="postType.name for postType in ctrl.postTypes" ng-model="ctrl.filter.postType" class="form-control" ng-change="ctrl.filter()">
                     <option value="">Vše</option>
                 </select>
             </div>
@@ -36,27 +36,29 @@
                     <option value="">Vše</option>
                 </select>
             </div>
+            <div class="col-xs-9 col-sm-2 col-md-2 col-lg-2">
+                <button type="button" ng-click="ctrl.resetFilter()" class="btn btn-default"><i class="fa fa-eraser" aria-hidden="true"></i><span class="hidden-xs"> Odstranit filtry</span></button>
+            </div>
         </div>
     </div>
     <table class="post-list">
         <tbody ng-repeat="postItem in ctrl.postsFiltered">
-            <tr class="{{postItem.color}}">
-                <td rowspan="2" class="width: 36px">
-                    <i class="fa fa-lock fa-2x" aria-hidden="true" ng-show="postItem.isDone===false"></i>
-                    <i class="fa fa-unlock fa-2x" aria-hidden="true" ng-show="postItem.isDone===true"></i>
+            <tr>
+                <td rowspan="2" style="width: 36px">
+                    <i class="fa fa-check fa-2x" style="color: green" aria-hidden="true" ng-show="postItem.isDone===true"></i>
                 </td>
 
-                <td rowspan="2" class="width: 36px">
-                    <i class="fa fa-question-circle-o fa-2x" aria-hidden="true" ng-show="postItem.postType==='CIP'"></i>
-                    <i class="fa fa-compass fa-2x" aria-hidden="true" ng-show="postItem.postType==='ACT'"></i>
-                    <i class="fa fa-archive fa-2x" aria-hidden="true" ng-show="postItem.postType==='CGC'"></i>
-                    <i class="fa fa-gift fa-2x" aria-hidden="true" ng-show="postItem.postType==='BON'"></i>
-                    <i class="fa fa-play fa-2x" aria-hidden="true" ng-show="postItem.postType==='BEG'"></i>
-                    <i class="fa fa-flag-checkered fa-2x" aria-hidden="true" ng-show="postItem.postType==='END'"></i>
+                <td rowspan="2" style="width: 36px" class="{{postItem.color}}">
+                    <i class="fa fa-2x fa-question-circle-o" aria-hidden="true" ng-show="postItem.postType==='CIP'"></i>
+                    <i class="fa fa-2x fa-compass" aria-hidden="true" ng-show="postItem.postType==='ACT'"></i>
+                    <i class="fa fa-2x fa-archive" aria-hidden="true" ng-show="postItem.postType==='CGC'"></i>
+                    <i class="fa fa-2x fa-gift" aria-hidden="true" ng-show="postItem.postType==='BON'"></i>
+                    <i class="fa fa-2x fa-play" aria-hidden="true" ng-show="postItem.postType==='BEG'"></i>
+                    <i class="fa fa-2x fa-flag-checkered" aria-hidden="true" ng-show="postItem.postType==='END'"></i>
                 </td>
-                <td colspan="6">{{postItem.name}}</td>
-                <td rowspan="2">
-                    <a href="#/postDetail/{{postItem.post}}" class="btn btn-default">Detail</a>
+                <td colspan="6" class="{{postItem.color}}">{{postItem.name}}</td>
+                <td rowspan="2" class="{{postItem.color}}">
+                    <a href="#/postDetail/{{postItem.post}}" class="btn btn-default"><i class="fa fa-angle-double-right" aria-hidden="true"></i><span class="hidden-xs"> Detail</span></a>
                 </td>
             </tr>
             <tr class="{{postItem.color}}">
