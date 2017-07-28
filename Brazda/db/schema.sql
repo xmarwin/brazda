@@ -114,7 +114,7 @@ create table waypoint_visibilities (
 create table waypoints (
     waypoint            serial not null,
     waypoint_type       character (3) not null,
-    waypoint_visibility character (2) not null default 'VI',
+    waypoint_visibility character (2) not null default 'VW',
     post                integer not null,
     name                character varying (255) not null,
     description         text,

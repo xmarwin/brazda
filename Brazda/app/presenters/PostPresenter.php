@@ -3,23 +3,26 @@
 namespace Brazda\Presenters;
 
 use Nette\Security,
-    Brazda\Models;
+    Brazda\Models,
+    Drahak\Restful\Validation;
 
 class PostPresenter extends SecuredBasePresenter
 {
 	protected
         $logs,
 		$posts,
+		$postTypes,
 		$waypoints;
 
 	public function startup()
 	{
 		parent::startup();
 
-		$this->logs = $this->context->getService('logs');
-		$this->posts = $this->context->getService('posts');
+		$this->logs      = $this->context->getService('logs');
+		$this->posts     = $this->context->getService('posts');
+		$this->postTypes = $this->context->getService('postTypes');
 		$this->waypoints = $this->context->getService('waypoints');
-	}
+	} // startup()
 
 	public function actionList(array $filter = [], array $order = [])
 	{
@@ -183,5 +186,154 @@ class PostPresenter extends SecuredBasePresenter
         ];
         $this->sendResource($this->outputType);
 	} // actionBonus()
+
+    public function actionCreate()
+    {
+        $this->checkAdministrator();
+
+        $values = [
+            'post_type'   => strtoupper($this->input->postType),
+            'color'       => strtoupper($this->input->color),
+            'name'        => $this->input->name,
+            'max_score'   => (int) $this->input->maxScore,
+            'difficulty'  => (float) $this->input->difficulty,
+            'terrain'     => (float) $this->input->terrain,
+            'size'        => strtoupper($this->input->size),
+            'cache_type'  => strtoupper($this->input->cacheType),
+            'shibboleth'  => $this->input->shibboleth,
+            'with_staff'  => (bool) $this->input->withStaff,
+            'hint'        => $this->input->hint,
+            'help'        => $this->input->help,
+            'description' => $this->input->description,
+            'bonus_code'  => $this->input->bonusCode,
+            'latitude'    => $this->input->latitude,
+            'longitude'   => $this->input->longitude
+        ];
+        if (isset($this->input->openFrom) && !empty($this->input->openFrom))
+            $values['open_from'] = date('Y-m-d H:i:s', strtotime($this->input->openFrom));
+
+        if (isset($this->input->openTo) && !empty($this->input->openTo))
+            $values['open_to'] = date('Y-m-d H:i:s', strtotime($this->input->openTo));
+
+        $result = [];
+        $this->posts->begin();
+        try {
+            $result['post'] = (int) $this->posts->insert($values);
+        } catch (Exception $e) {
+            $this->posts->rollback();
+            $this->sendErrorResource($e, $this->outputType);
+        } // try
+
+        foreach ($this->input->waypoints as $wp) {
+            $values = [
+                'waypoint_type'       => strtoupper($wp['waypointType']),
+                'waypoint_visibility' => strtoupper($wp['waypointVisibility']),
+                'post'                => $result['post'],
+                'name'                => $wp['name'],
+                'description'         => $wp['description'],
+                'latitude'            => (float) $wp['latitude'],
+                'longitude'           => (float) $wp['longitude']
+            ];
+
+            try {
+                $result['waypoints'][] = (int) $this->waypoints->insert($values);
+            } catch (Exception $e) {
+                $this->posts->rollback();
+                $this->sendErrorResource($e, $this->outputType);
+            } // try
+        } // foreach
+        $this->posts->commit();
+
+        $this->resource = [
+            'status' => 'OK',
+            'code'   => 201,
+            'data'   => $result
+        ];
+        $this->sendResource($this->outputType);
+    } // actionCreate()
+
+    public function actionUpdate()
+    {
+        $this->checkAdministrator();
+
+        $post = (int) $this->input->post;
+        $filter = [ 'post' => $post ];
+        $values = [
+            'post_type'   => strtoupper($this->input->postType),
+            'color'       => strtoupper($this->input->color),
+            'name'        => $this->input->name,
+            'max_score'   => (int) $this->input->maxScore,
+            'difficulty'  => (float) $this->input->difficulty,
+            'terrain'     => (float) $this->input->terrain,
+            'size'        => strtoupper($this->input->size),
+            'cache_type'  => strtoupper($this->input->cacheType),
+            'shibboleth'  => $this->input->shibboleth,
+            'with_staff'  => (bool) $this->input->withStaff,
+            'hint'        => $this->input->hint,
+            'help'        => $this->input->help,
+            'description' => $this->input->description,
+            'bonus_code'  => $this->input->bonusCode,
+            'latitude'    => $this->input->latitude,
+            'longitude'   => $this->input->longitude
+        ];
+        if (isset($this->input->openFrom) && !empty($this->input->openFrom))
+            $values['open_from'] = date('Y-m-d H:i:s', strtotime($this->input->openFrom));
+
+        if (isset($this->input->openTo) && !empty($this->input->openTo))
+            $values['open_to'] = date('Y-m-d H:i:s', strtotime($this->input->openTo));
+
+        $this->posts->begin();
+        try {
+            $this->posts->update($values, $filter);
+        } catch (Exception $e) {
+            $this->posts->rollback();
+            $this->sendErrorResource($e, $this->outputType);
+        } // try
+
+        foreach ($this->input->waypoints as $wp) {
+            $filter = [ 'waypoint' => (int) $wp->waypoint ];
+            $values = [
+                'waypoint_type'       => strtoupper($wp['waypointType']),
+                'waypoint_visibility' => strtoupper($wp['waypointVisibility']),
+                'post'                => $post,
+                'name'                => $wp['name'],
+                'description'         => $wp['description'],
+                'latitude'            => (float) $wp['latitude'],
+                'longitude'           => (float) $wp['longitude']
+            ];
+
+            try {
+                $this->waypoints->update($values, $filter);
+            } catch (Exception $e) {
+                $this->posts->rollback();
+                $this->sendErrorResource($e, $this->outputType);
+            } // try
+        } // foreach
+        $this->posts->commit();
+
+        $this->resource = [
+            'status' => 'OK',
+            'code'   => 201
+        ];
+        $this->sendResource($this->outputType);
+    } // actionUpdate()
+
+    public function actionDelete()
+    {
+        $this->checkAdministrator();
+
+        $filter = [ (int) $this->input->post ];
+        try {
+            $this->posts->delete($filter);
+        } catch (Exception $e) {
+            $this->sendErrorResource($e, $this->outputType);
+        } // try
+
+        $this->resource = [
+            'status' => 'OK',
+            'code'   => 200
+        ];
+        $this->sendResource($this->outputType);
+    } // actionDelete()
 
 } // PostPresenter

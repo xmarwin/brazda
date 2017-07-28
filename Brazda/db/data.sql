@@ -19,7 +19,7 @@ insert into post_colors values
 ('YEL', 'žlutá', 'rgb(255, 255, 153)'),
 ('GRN', 'zelená', 'rgb(146, 208, 80)'),
 ('BLU', 'modrá', 'rgb(66, 133, 244)'),
-('WHT', 'bílá', 'rgb(255, 255, 255)');
+('VLT', 'fialová', 'rgb(238, 130, 238)');
 
 insert into post_sizes values
 ('M', 'Mikro'),
