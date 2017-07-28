@@ -60,11 +60,12 @@ class Posts extends Base
                 p.terrain,
                 p.size,
                 p.hint,
-                (CASE WHEN (p.help NOT LIKE '') THEN TRUE ELSE FALSE END) AS has_help,
+                CASE WHEN p.help NOT LIKE '' THEN TRUE ELSE FALSE END AS has_help,
                 %if", isset($team), "
-                (CASE WHEN lo.moment IS NOT NULL THEN p.shibboleth ELSE NULL END) AS shibboleth,
-                (CASE WHEN lh.moment IS NOT NULL THEN p.help ELSE NULL END) AS help,
-                (CASE WHEN lo.moment IS NOT NULL AND p.post_type = 'BON' THEN TRUE ELSE FALSE END) as is_unlocked,
+                CASE WHEN (lo.moment IS NOT NULL AND p.post_type != 'BON') THEN p.shibboleth
+                     WHEN (lo.moment IS NOT NULL AND p.post_type = 'BON') THEN p.bonus_code
+                ELSE NULL END AS shibboleth,
+                CASE WHEN lh.moment IS NOT NULL THEN p.help ELSE NULL END AS help,
                 %end
                 p.description,
                 p.cache_type,
@@ -80,8 +81,10 @@ class Posts extends Base
                 ct.name AS cache_name %if,", isset($team), "
                 lo.moment AS log_out_moment,
                 lb.moment AS log_bonus_moment,
-                lh.moment AS log_help_moment, %end
-                CASE WHEN (p.post_type = 'BON' AND lb.moment IS NOT NULL) OR (lo.moment IS NOT NULL) THEN TRUE ELSE FALSE END AS is_done
+                lh.moment AS log_help_moment,
+                CASE WHEN lb.moment IS NOT NULL THEN TRUE ELSE FALSE END as is_unlocked,
+                CASE WHEN lo.moment IS NOT NULL THEN TRUE ELSE FALSE END AS is_done
+                %end
              FROM posts p
              JOIN post_colors pc USING (color)
              JOIN post_types pt USING (post_type)

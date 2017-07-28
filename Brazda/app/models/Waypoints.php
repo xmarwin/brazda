@@ -41,15 +41,26 @@ class Waypoints extends Base
                 w.waypoint_visibility,
                 wv.name AS waypoint_visibility_name,
                 %if", isset($team), "
-                CASE WHEN (waypoint_visibility = 'VW') OR (waypoint_visibility = 'HC' AND lo.moment IS NOT NULL) THEN w.latitude ELSE NULL END AS latitude,
-                CASE WHEN (waypoint_visibility = 'VW') OR (waypoint_visibility = 'HC' AND lo.moment IS NOT NULL) THEN w.longitude ELSE NULL END AS longitude
+                CASE WHEN w.waypoint_visibility = 'VW' THEN w.latitude
+                     WHEN w.waypoint_visibility = 'HC' AND p.post_type != 'BON' AND lo.moment IS NOT NULL THEN w.latitude
+                     WHEN w.waypoint_visibility = 'HC' AND p.post_type  = 'BON' AND lb.moment IS NOT NULL THEN w.latitude
+                     WHEN w.waypoint_visibility = 'HW' AND p.post_type != 'BON' AND lo.moment IS NOT NULL THEN w.latitude
+                     WHEN w.waypoint_visibility = 'HW' AND p.post_type  = 'BON' AND lb.moment IS NOT NULL THEN w.latitude
+                     ELSE NULL END AS latitude,
+                CASE WHEN w.waypoint_visibility = 'VW' THEN w.longitude
+                     WHEN w.waypoint_visibility = 'HC' AND p.post_type != 'BON' AND lo.moment IS NOT NULL THEN w.longitude
+                     WHEN w.waypoint_visibility = 'HC' AND p.post_Type  = 'BON' AND lb.moment IS NOT NULL THEN w.longitude
+                     WHEN w.waypoint_visibility = 'HW' AND p.post_type != 'BON' AND lo.moment IS NOT NULL THEN w.longitude
+                     WHEN w.waypoint_visibility = 'HW' AND p.post_type  = 'BON' AND lb.moment IS NOT NULL THEN w.longitude
+                     ELSE NULL END AS longitude
                 %else
-                CASE waypoint_visibility WHEN 'VW' THEN w.latitude ELSE NULL END AS altitude,
+                CASE waypoint_visibility WHEN 'VW' THEN w.latitude  ELSE NULL END AS latitude,
                 CASE waypoint_visibility WHEN 'VW' THEN w.longitude ELSE NULL END AS longitude
                 %end
              FROM waypoints w
              JOIN waypoint_types wt USING (waypoint_type)
              JOIN waypoint_visibilities wv USING (waypoint_visibility)
+             JOIN posts p USING (post)
              %if", isset($team), "
              LEFT JOIN (
                 SELECT post, moment
@@ -57,6 +68,12 @@ class Waypoints extends Base
                 WHERE log_type = 'OUT'
                   AND team = %i", $team, "
              ) lo USING (post)
+             LEFT JOIN (
+                SELECT post, moment
+                FROM logs
+                WHERE log_type = 'BON'
+                  AND team = %i", $team, "
+             ) lb USING (post)
              %end
              %if", !empty($filter), " WHERE %and", $filter, "%end
              %if", !empty($orders), " ORDER BY %by", $order, "%end
