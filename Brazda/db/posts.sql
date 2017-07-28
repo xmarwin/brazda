@@ -224,16 +224,16 @@ INSERT INTO posts (post, post_type,color,name,max_score,difficulty,terrain,size,
 					<li>http://geologie.vsb.cz/reg_geol_cr/10_kapitola.htm</li>
 				</ul>', null, 'Stage 2: 6m pod betonovým sloupkem, dvířka nad vodou', 49.48105500, 18.2842500),
 
-			(28, 'BON', 'GRN', 'Zelený bonus', 150, 2, 3, 'R', 'TRA', 'srdce', False, '', '<p>Tento bonus vás zavede na pěkné místo :)</p>', 'hypochondr', 'Kořeny', 49.4676553, 18.0427094),
+			(28, 'BON', 'GRN', 'Zelený bonus', 150, 2, 3, 'R', 'TRA', 'hypochondr', False, '', '<p>Tento bonus vás zavede na pěkné místo :)</p>', 'srdce', 'Kořeny', 49.4676553, 18.0427094),
 
-			(29, 'BON', 'BLU', 'Modrý bonus', 150, 2.5, 2.5, 'R', 'TRA', 'hvězda', False, '', '<p>Tento bonus vás zavede na pěkné místo, ale dostat se tam není zas tak jednoduché.</p>', 'mlhovina', 'Visí 30cm nad zemí', 49.4600547, 18.1374664),
+			(29, 'BON', 'BLU', 'Modrý bonus', 150, 2.5, 2.5, 'R', 'TRA', 'mlhovina', False, '', '<p>Tento bonus vás zavede na pěkné místo, ale dostat se tam není zas tak jednoduché.</p>', 'hvězda', 'Visí 30cm nad zemí', 49.4600547, 18.1374664),
 
-			(30, 'BON', 'YEL', 'Žlutý bonus', 150, 2, 3, 'R', 'TRA', 'kruh', False, '', '<h2>Díly</h2>
+			(30, 'BON', 'YEL', 'Žlutý bonus', 150, 2, 3, 'R', 'TRA', 'orbital', False, '', '<h2>Díly</h2>
 				<p>Na Valašsku a v okolí Rožnova jsou Díly poměrně častý název kopce. Obvykle je pozůstatkem po první pasekářské kolonizaci údolí Rožnovské Bečvy, kdy jednotlivé části krajiny byly přidělovány osadníkům a každý tak dostal svůj díl. Obvykle se země rozdělovala tak, že od cest vedených obvykle postředkem údolí v blízkosti vodních toků byly vyčleňovány úzké pruhy země směrem nahoru k hřebenům nad údolím. V některých (především jižních) částech obcí v Hutiském údolí je tato struktura patrná dodnes v rozmístění budov. Dnes však již hospodaříme s krajinou jinými způsoby a tak lze podobné rozdělení vysledovat stále řídčeji</p>
 				<h3>O Keši</h3>
-				<p>Kterých dílů se naše povídání týká, zda-li Zuberských, Tylovských, Hažovských Vingantských, nebo Hutiských vám však neprozradíme. Na to budete muset ze žlutých indicií zjistit správné heslo pro odemčení tohoto bonusu. Hodně štěstí při jejich získávání i při dedukci hesla.</p>', 'orbital', 'Oběšená na menším z dvojstromu', 49.4564842, 18.1898769),
+				<p>Kterých dílů se naše povídání týká, zda-li Zuberských, Tylovských, Hažovských Vingantských, nebo Hutiských vám však neprozradíme. Na to budete muset ze žlutých indicií zjistit správné heslo pro odemčení tohoto bonusu. Hodně štěstí při jejich získávání i při dedukci hesla.</p>', 'kruh', 'Oběšená na menším z dvojstromu', 49.4564842, 18.1898769),
 
-    		(31, 'BON', 'RED', 'Červený bonus', 150, 2, 2.5, 'R', 'TRA', 'koruna', False, '', '<h2>Sklářství na Valašsku</h2>
+    		(31, 'BON', 'RED', 'Červený bonus', 150, 2, 2.5, 'R', 'TRA', 'bitcoin', False, '', '<h2>Sklářství na Valašsku</h2>
                 <p>Od poloviny devatenáctého století se datuje rozmach sklářského průmyslu na Valašsku a je spojován s firmou S.REICH. Firma si pronajala od panství Valašské Meziříčí - Rožnov sklárnu Františčina Huť ve Velkých Karlovicích, poté v roce 1855 zahájila provoz ve své největší sklárně v Krásně ve Valašském Meziříčí, dále od roku 1861 začala provozovat Mariánskou Huť ve Velkých Karlovicích, v roce 1862 otevřela sklárnu Karolinina Huť v Novém Hrozenkově. Dozvuky tohoto rozmachu jsou patrné i dnes, sklárny stále fungují v Karolince a tradice výroby skla dodnes přetrvává i ve Valašském Meziříčí.<br>
                 Ovšem ještě před industrializací sklářské výroby a vzniku velkých skláren, existovaly na Valašsku malé hutě, jejichž vznik je datován do 15. až 16. století. Do dnešních dní se po nich nedochovalo více, než názvy obcí a místních částí. Jednou z obcí, jejíž historie je spojena se sklářskými hutěmi je Hutisko-Solanec. Sklárny byly na místě Hutiska založeny v první polovině 17. století, samotná osada vznikla později, po roce 1656 (roku 1666 byla prohlášena za obec). V první polovině 18. století byla huť z Hutiska přesunuta jinam.</p>
                 <h3>Zdroje</h3>
@@ -244,7 +244,7 @@ INSERT INTO posts (post, post_type,color,name,max_score,difficulty,terrain,size,
                     <li>http://www.lesycr.cz/volny-cas-v-lese/:w
                     naucne-stezky/Documents/T3-lesy-vyuziti.pdf</li>
                 </ul>
-', 'bitcoin', 'Visí na malém smrčku na vyvráceném pařezu nad vodou', 49.4381006, 18.2659389),
+', 'koruna', 'Visí na malém smrčku na vyvráceném pařezu nad vodou', 49.4381006, 18.2659389),
 
 
 
