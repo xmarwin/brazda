@@ -17,14 +17,7 @@ class RouterFactory
 	public static function createRouter()
 	{
 		$router = new RouteList;
-		//$router[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');
-		$router[] = new Route('index.php', 'Front:Default:default', Route::ONE_WAY);
-
-		$router[] = $apiRouter = new RouteList('Api');
-		$apiRouter[] = new Route('api/<presenter>/<action>[/<id>]', 'Default:default');
-		
-		$router[] = $frontRouter = new RouteList('Front');
-		$frontRouter[] = new Route('<presenter>/<action>[/<id>]', 'Default:default');
+		$router[] = new Route('api/<presenter>/<action>[/<id>]', 'Homepage:default');
 
 		return $router;
 	}
