@@ -1,6 +1,6 @@
 <?php
 
-namespace Brazda\Module\Api\Presenters;
+namespace Brazda\Presenters;
 
 use Drahak\Restful\IResource,
     Drahak\Restful\Application\UI\ResourcePresenter;
