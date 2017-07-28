@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 angular.module('myApp.postDetail', ['ngRoute'])
 
@@ -51,14 +51,13 @@ function PostDetailController(postService, $routeParams, $filter, downloadServic
             getHelpInt();
         }, function (err) {
 
-        })
-        
+        });        
     }
 
     function getHelpInt() {
         postService.getHelp(vm.postId)
             .then(function (data) {
-                vm.post.help = data.data.help;
+                notification.success('Stanoviště úspěšně odstraněno.');
             }, function (err) {
 
             });

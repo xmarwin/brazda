@@ -12,11 +12,23 @@ angular.module('myApp.admin.posts', ['ngRoute'])
 
     .controller('PostsAdminCtrl', PostsAdminController);
 
-PostsAdminController.$inject = ['$routeParams', 'Notification', 'AuthService', 'PostService'];
+PostsAdminController.$inject = ['$routeParams', 'Notification', 'AuthService', 'PostService', 'ngDialog'];
 
-function PostsAdminController($routeParams, notification, authService, postService) {
+function PostsAdminController($routeParams, notification, authService, postService, ngDialog) {
     var vm = this;
+    var postId;
 
+    vm.deletePost = function (id) {
+        postId = id;
+        ngDialog.openConfirm({
+            template: 'admin/posts/deletePostConfirmation.html'
+        }).then(function (data) {
+            deletePostInt(postId);
+        }, function (err) {
+
+        })
+    }
+    
     var init = function () {
         postService.getPosts()
             .then(function successCallback(response) {
@@ -27,4 +39,13 @@ function PostsAdminController($routeParams, notification, authService, postServi
     }
 
     init();
+
+    function deletePostInt(id) {
+        postService.deletePost(id)
+            .then(function successCallback(response) {
+                
+            }, function errorCallback(err) {
+                alert(err);
+            });
+    }
 }

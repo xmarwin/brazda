@@ -5097,8 +5097,7 @@
     <Content Include="www\admin\posts\addWaypointModal.html" />
     <Content Include="www\admin\posts\editPost.controller.js" />
     <Content Include="www\admin\posts\editPost.html" />
-    <Content Include="www\admin\posts\postItemAdmin.directive.js" />
-    <Content Include="www\admin\posts\postItemAdmin.tpl.html" />
+    <Content Include="www\admin\posts\deletePostConfirmation.html" />
     <Content Include="www\admin\posts\postsAdmin.controller.js" />
     <Content Include="www\admin\posts\postsAdmin.html" />
     <Content Include="www\admin\teams\addTeam.controller.js" />
