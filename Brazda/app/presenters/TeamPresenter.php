@@ -34,4 +34,81 @@ class TeamPresenter extends SecuredBasePresenter
         $this->sendResource($this->outputType);
 	} // actionList()
 
+	public function actionCreate()
+	{
+        $this->checkAdministrator();
+
+        $values = [
+            'name'           => $this->input->name,
+            'shibboleth'     => $this->input->shibboleth,
+            'team_type'      => strtoupper($this->input->role),
+            'is_active'      => (bool) $this->input->active,
+            'allow_tracking' => (bool) $this->input->allowTracking,
+        ];
+        if (isset($this->input->description) && !empty($this->input->description)) {
+            $values['description'] = $this->input->description;
+        } // if
+
+        try {
+            $result['team'] = $this->teams->insert($values);
+        } catch (\Exception $e) {
+            $this->sendErrorResource($e, $this->outputType);
+        } // try
+
+        $this->resource = [
+            'status' => 'OK',
+            'code'   => 201,
+            'data'   => $result
+        ];
+        $this->sendResource($this->outputType);
+	} // actionCreate()
+
+	public function actionUpdate()
+	{
+        $this->checkAdministrator();
+
+        $team = (int) $this->input->team;
+        $filter = [ 'team' => $team ];
+        $values = [
+            'name'           => $this->input->name,
+            'shibboleth'     => $this->input->shibboleth,
+            'team_type'      => strtoupper($this->input->role),
+            'is_active'      => (bool) $this->input->active,
+            'allow_tracking' => (bool) $this->input->allowTracking,
+        ];
+        if (isset($this->input->description) && !empty($this->input->description)) {
+            $values['description'] = $this->input->description;
+        } // if
+
+        try {
+            $this->teams->update($values, $filter);
+        } catch (\Exception $e) {
+            $this->sendErrorResource($e, $this->outputType);
+        } // try
+
+        $this->resource = [
+            'status' => 'OK',
+            'code'   => 201
+        ];
+        $this->sendResource($this->outputType);
+	} // actionCreate()
+
+	public function actionDelete()
+	{
+        $this->checkAdministrator();
+
+        $filter = [ 'team' => (int) $this->input->team ];
+        try {
+            $this->teams->delete($filter);
+        } catch (\Exception $e) {
+            $this->sendErrorResource($this->outputType);
+        } // if
+
+        $this->resource = [
+            'status' => 'OK',
+            'code'   => 200
+        ];
+        $this->sendResource($this->outputType);
+	} // actionDelete()
+
 } // TeamPresenter
