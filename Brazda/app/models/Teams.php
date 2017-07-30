@@ -125,4 +125,50 @@ class Teams extends Base
         )->fetch();
     } // findByName()
 
+    public function insert(array $values)
+    {
+        if (empty($values)) throw new \Exception('Missing values for team insert.');
+        self::checkType($values['team_type']);
+
+        return $this->db->query(
+            "INSERT INTO teams %v", $values,
+            "RETURNING team"
+        )->fetchSingle('team');
+    } // insert()
+
+    public function update(array $values, array $filter)
+    {
+        if (empty($values)) throw new \Exception('Missing filter for team update.');
+        self::checkType($values['team_type']);
+
+        return $this->db->query(
+            "UPDATE teams
+             SET %a", $values,
+            "WHERE %and", $filter
+        );
+    } // update()
+
+    public function delete(array $filter)
+    {
+        if (empty($values)) throw new \Exception('Missing filter for team delete.');
+
+        return $this->db->query(
+            "DELETE FROM teams"
+            "WHERE %and", $filter
+        );
+    } // delete()
+
+    public static function checkType($value)
+    {
+        $validTypes = [
+            self::ORGANIZATION,
+            self::COMPETITORS
+        ];
+
+        $value = strtoupper($value);
+        if (!in_array($value, $validTypes)) {
+            throw new \Exception(sprintf('Invalid team type %s.', $value));
+        } // if
+    } // checkType()
+
 } // Teams
