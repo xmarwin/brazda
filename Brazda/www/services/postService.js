@@ -32,6 +32,16 @@ function PostService(webApiService, $filter) {
         return webApiService.get('post/bonus', [{ 'post': id }, { 'bonusCode': bonusCode }]);
     }
 
+    // http://brazda/api/post/create?securityToken=<...>
+    vm.addPost = function (data) {
+        return webApiService.get('post/create', data, 'POST');
+    }
+
+    // http://brazda/api/post/update?securityToken=<...>
+    vm.updatePost = function (data) {
+        return webApiService.get('post/update', data, 'POST');
+    }
+
     // http://brazda/api/post/delete?securityToken=<...>&post=35
     vm.deletePost = function (id) {
         return webApiService.get('post/delete', [{ 'post': id }]);

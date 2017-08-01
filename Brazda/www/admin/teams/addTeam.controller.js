@@ -6,7 +6,8 @@ angular.module('myApp.admin.addTeam', ['ngRoute'])
         $routeProvider
             .when('/admin/teams/add', {
                 templateUrl: 'admin/teams/addTeam.html',
-                controller: 'AddTeamCtrl'
+                controller: 'AddTeamCtrl',
+                controllerAs: 'ctrl'
             });
     }])
 

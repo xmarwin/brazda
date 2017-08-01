@@ -5,7 +5,8 @@ angular.module('myApp.postLog', ['ngRoute'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/postLog/:postId', {
             templateUrl: 'posts/postLog.html',
-            controller: 'PostLogCtrl'
+            controller: 'PostLogCtrl',
+            controllerAs: 'ctrl'
         });
     }])
 

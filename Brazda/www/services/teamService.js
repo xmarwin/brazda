@@ -11,4 +11,16 @@ function TeamService(webApiService) {
     vm.getTeams = function () {
         return webApiService.get('sign/teams-list');
     }
+
+    vm.addTeam = function () {
+
+    }
+
+    vm.updateTeam = function () {
+
+    }
+
+    vm.deleteTeam = function (teamId) {
+
+    }
 }

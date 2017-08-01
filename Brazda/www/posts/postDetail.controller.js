@@ -5,7 +5,8 @@ angular.module('myApp.postDetail', ['ngRoute'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/postDetail/:postId', {
             templateUrl: 'posts/postDetail.html',
-            controller: 'PostDetailCtrl'
+            controller: 'PostDetailCtrl',
+            controllerAs: 'ctrl'
         });
     }])
 

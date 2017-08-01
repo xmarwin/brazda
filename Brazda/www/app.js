@@ -36,7 +36,6 @@ angular.module('myApp', [
     'myApp.admin.teams',
     'myApp.admin.addTeam',
     'myApp.admin.editTeam',
-    'myApp.admin.deleteTeam',
 
     'myApp.admin.posts',
     'myApp.admin.addPost',

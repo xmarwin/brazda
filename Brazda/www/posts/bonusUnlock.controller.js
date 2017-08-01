@@ -5,7 +5,8 @@ angular.module('myApp.bonusUnlock', ['ngRoute'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/bonusUnlock/:postId', {
             templateUrl: 'posts/bonusUnlock.html',
-            controller: 'BonusUnlockCtrl'
+            controller: 'BonusUnlockCtrl',
+            controllerAs: 'ctrl'
         });
     }])
 
