@@ -6,7 +6,8 @@ angular.module('myApp.admin.editTeam', ['ngRoute'])
         $routeProvider
             .when('/admin/teams/edit/:teamId', {
                 templateUrl: 'admin/teams/editTeam.html',
-                controller: 'EditTeamCtrl'
+                controller: 'EditTeamCtrl',
+                controllerAs: 'ctrl'
             });
     }])
 
@@ -19,9 +20,14 @@ function EditTeamController($routeParams, $location, $filter, notification, auth
     vm.team = {};
 
     var init = function () {
-        var teams = teamService.getTeams();
         var teamId = parseInt($routeParams.teamId);
-        vm.team = $filter('filter')(teams, { id: teamId }, true)[0];
+
+        teamService.getTeams()
+            .then(function successCallback(response) {
+                vm.team = $filter('filter')(response.data, { team: teamId }, true)[0];
+            }, function errorCallback(err) {
+                alert(err);
+            });
     }
 
     vm.editTeam = function () {

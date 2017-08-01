@@ -6,7 +6,8 @@ angular.module('myApp.admin.editPost', ['ngRoute'])
         $routeProvider
             .when('/admin/posts/edit/:postId', {
                 templateUrl: 'admin/posts/editPost.html',
-                controller: 'EditPostCtrl'
+                controller: 'EditPostCtrl',
+                controllerAs: 'ctrl'
             });
     }])
 
@@ -40,11 +41,9 @@ function EditPostController($routeParams, $location, notification, authService, 
         vm.waypointTypes = postService.getWaypointTypes();
         vm.waypointVisibilities = postService.getWaypointVisibilities();
 
-
-       // vm.post = postService.getPost(postId);
-        postService.getPosts()
+        postService.getPost(parseInt(postId))
             .then(function (data) {
-                vm.post = $filter('filter')(data.data, { "post": parseInt(postId) }, true)[0]; //TODO: udelat metodu na backendu
+                vm.post = data.data;
 
                 vm.post.postType = $filter('filter')(vm.postTypes, { 'postType': vm.post.postType }, true)[0];
                 vm.post.color = $filter('filter')(vm.postColors, { 'color': vm.post.color }, true)[0];
@@ -90,8 +89,48 @@ function EditPostController($routeParams, $location, notification, authService, 
     };
 
     vm.editPost = function (post) {
-        notification.success("Stanoviště " + vm.post.name + " bylo upraveno.");
-        $location.path("admin/posts");
+        var waypoints = [];
+
+        for (var i = 0; i < post.waypoints.length; i++) {
+            waypoints.push({
+                "waypoint": post.waypoints[i].waypoint,
+                "name": post.waypoints[i].name,
+                "description": post.waypoints[i].description,
+                "waypointType": post.waypoints[i].waypointType.waypointType,
+                "waypointVisibility": post.waypoints[i].waypointVisibility.waypointVisibility,
+                "latitude": post.waypoints[i].latitude,
+                "longitude": post.waypoints[i].longitude
+            });
+        }
+
+        var input = {
+            "post": post.post,
+            "postType": post.cacheName,
+            "color": angular.isUndefined(post.postColor) ? null : post.postColor.color,
+            "name": post.name,
+            "difficulty": angular.isUndefined(post.difficulty) ? null : post.difficulty.difficulty,
+            "terrain": angular.isUndefined(post.terrain) ? null : post.terrain.terrain,
+            "size": angular.isUndefined(post.postSize) ? null : post.postSize.size,
+            "hint": post.hint,
+            "help": post.help,
+            "bonusCode": post.bonusCode,
+            "shibboleth": post.shibboleth,
+            "description": post.description,
+            "cacheType": angular.isUndefined(post.cacheType) ? null : post.cacheType.cacheType,
+            "maxScore": post.maxScore,
+            "latitude": post.latitude,
+            "longitude": post.longitude,
+            "withStaff": post.withStaff,
+            "waypoints": waypoints
+        }
+
+        postService.updatePost(input)
+            .then(function (data) {
+                $location.path("admin/posts");
+                notification.success("Stanoviště " + vm.post.name + " bylo upraveno.");
+            }, function (err) {
+                notification.error(err);
+            });
     }
 
     init();

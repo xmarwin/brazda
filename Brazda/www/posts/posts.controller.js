@@ -5,7 +5,8 @@ angular.module('myApp.posts', ['ngRoute'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/posts', {
             templateUrl: 'posts/posts.html',
-            controller: 'PostsCtrl'
+            controller: 'PostsCtrl',
+            controllerAs: 'ctrl'
         });
     }])
 
@@ -20,7 +21,7 @@ function PostsController(authService, postService, $filter) {
     vm.filter = [];
     vm.showFilter = false;
 
-    var init = function () {
+    vm.init = function () {
         loadPosts();
 
         vm.postTypes = postService.getPostTypes();
@@ -64,5 +65,5 @@ function PostsController(authService, postService, $filter) {
             });
     }
 
-    init();
+    vm.init();
 }

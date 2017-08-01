@@ -6,7 +6,8 @@ angular.module('myApp.admin.addPost', ['ngRoute'])
         $routeProvider
             .when('/admin/posts/add', {
                 templateUrl: 'admin/posts/addPost.html',
-                controller: 'AddPostCtrl'
+                controller: 'AddPostCtrl',
+                controllerAs: 'ctrl'
             });
     }])
 
@@ -71,8 +72,46 @@ function AddPostController($routeParams, $location, notification, authService, p
     };
 
     vm.addPost = function (post) {
-        notification.success("Stanoviště " + vm.post.name + " bylo přidáno.");
-        $location.path("admin/posts");
+        var waypoints = [];
+
+        for (var i = 0; i < post.waypoints.length; i++) {
+            waypoints.push({
+                "name": post.waypoints[i].name,
+                "description": post.waypoints[i].description,
+                "waypointType": post.waypoints[i].waypointType.waypointType,
+                "waypointVisibility": post.waypoints[i].waypointVisibility.waypointVisibility,
+                "latitude": post.waypoints[i].latitude,
+                "longitude": post.waypoints[i].longitude
+            });
+        }
+
+        var input = {
+            "postType": post.cacheName,
+            "color": angular.isUndefined(post.postColor) ? null : post.postColor.color,
+            "name": post.name,
+            "difficulty": angular.isUndefined(post.difficulty) ? null : post.difficulty.difficulty,
+            "terrain": angular.isUndefined(post.terrain) ? null : post.terrain.terrain,
+            "size": angular.isUndefined(post.postSize) ? null : post.postSize.size,
+            "hint": post.hint,
+            "help": post.help,
+            "bonusCode": post.bonusCode,
+            "shibboleth": post.shibboleth,
+            "description": post.description,
+            "cacheType": angular.isUndefined(post.cacheType) ? null : post.cacheType.cacheType,
+            "maxScore": post.maxScore,
+            "latitude": post.latitude,
+            "longitude": post.longitude,
+            "withStaff": post.withStaff,
+            "waypoints": waypoints
+        }
+
+        postService.addPost(input)
+            .then(function (data) {
+                $location.path("admin/posts");
+                notification.success("Stanoviště " + vm.post.name + " bylo přidáno.");
+            }, function (err) {
+                notification.error(err);
+            });
     }
 
     init();

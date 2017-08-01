@@ -10,16 +10,24 @@ function WebApiService($http, $q) {
 
     vm.get = function (endpointName, parameters, method) {
         var deferred = $q.defer();
+        var data;
+        var url;
 
         if (angular.isUndefined(method)) {
             method = 'GET';
         }
 
-        var url = buildUrl(endpointName, parameters)
-
+        if (method === 'POST') {
+            data = parameters;
+            url = buildUrl(endpointName, [])
+        } else {
+            url = buildUrl(endpointName, parameters);
+        }
+        
         $http({
             method: method,
-            url: url
+            url: url,
+            data: data
         }).then(function successCallback(response) {
             deferred.resolve(response);
         }, function errorCallback(err) {

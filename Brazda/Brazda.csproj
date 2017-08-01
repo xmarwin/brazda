@@ -5102,12 +5102,9 @@
     <Content Include="www\admin\posts\postsAdmin.html" />
     <Content Include="www\admin\teams\addTeam.controller.js" />
     <Content Include="www\admin\teams\addTeam.html" />
-    <Content Include="www\admin\teams\deleteTeam.controller.js" />
-    <Content Include="www\admin\teams\deleteTeam.html" />
+    <Content Include="www\admin\teams\deleteTeamConfirmation.html" />
     <Content Include="www\admin\teams\editTeam.controller.js" />
     <Content Include="www\admin\teams\editTeam.html" />
-    <Content Include="www\admin\teams\teamItem.directive.js" />
-    <Content Include="www\admin\teams\teamItem.tpl.html" />
     <Content Include="www\admin\teams\teams.controller.js" />
     <Content Include="www\admin\teams\teams.html" />
     <Content Include="www\app.js" />

@@ -6,7 +6,8 @@ angular.module('myApp.admin.posts', ['ngRoute'])
         $routeProvider
             .when('/admin/posts', {
                 templateUrl: 'admin/posts/postsAdmin.html',
-                controller: 'PostsAdminCtrl'
+                controller: 'PostsAdminCtrl',
+                controllerAs: 'ctrl'
             });
     }])
 
@@ -19,11 +20,10 @@ function PostsAdminController($routeParams, notification, authService, postServi
     var postId;
 
     vm.deletePost = function (id) {
-        postId = id;
         ngDialog.openConfirm({
             template: 'admin/posts/deletePostConfirmation.html'
         }).then(function (data) {
-            deletePostInt(postId);
+            deletePostInt(id);
         }, function (err) {
 
         })
