@@ -75,8 +75,6 @@ create table posts (
     bonus_code      character varying (20),
     open_from       time,
     open_to         time,
-    latitude        float not null,
-    longitude       float not null,
     primary key (post),
     foreign key (post_type) references post_types(post_type) on update cascade on delete restrict,
     foreign key (cache_type) references cache_types(cache_type) on update cascade on delete restrict,

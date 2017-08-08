@@ -16,6 +16,7 @@ INSERT INTO teams (team, team_type, name, shibboleth, description) VALUES
 	(13, 'COM','Čuňoši', 'Kolaloka?', '');
 --	(14, 'COM','(ještě se poradíme)', 'nevímdál.', '');
 
+SELECT setval('teams_team_seq', 13);
 
 ---------------------------------------------
 
@@ -86,7 +87,6 @@ INSERT INTO players (team, name)
 	 (13, 'XiXao02');
 
 --	 (14, 'RaDim');
-
 
 -------------------------------------------
 
@@ -250,6 +250,8 @@ INSERT INTO posts (post, post_type,color,name,max_score,difficulty,terrain,size,
 
             (32, 'END', 'TRA', 'Cíl', 0, 1, 1, 'O', null, 'Finito', True, '', '<p><strong>Gratulejeme k dokončení závodu BRAZDA 2016</strong>.<br> Těšíme se na Vás u vyhlášení výsledků.</p>
                 <p><strong>Uvidíme se zde</strong> opět <strong>v 18.30</strong>, kdy závod končí.</p>', null, null, 49.4671494, 18.1633683);
+
+SELECT setval('posts_post_seq', 32);
 
 
 -------------------------------------------
