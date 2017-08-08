@@ -218,10 +218,10 @@ class PostPresenter extends SecuredBasePresenter
             'longitude'   => $this->input->longitude
         ];
         if (isset($this->input->openFrom) && !empty($this->input->openFrom))
-            $values['open_from'] = date('Y-m-d H:i:s', strtotime($this->input->openFrom));
+            $values['open_from'] = $this->input->openFrom;
 
         if (isset($this->input->openTo) && !empty($this->input->openTo))
-            $values['open_to'] = date('Y-m-d H:i:s', strtotime($this->input->openTo));
+            $values['open_to'] = $this->input->openTo;
 
         $result = [];
         $this->posts->begin();
@@ -285,10 +285,10 @@ class PostPresenter extends SecuredBasePresenter
             'longitude'   => $this->input->longitude
         ];
         if (isset($this->input->openFrom) && !empty($this->input->openFrom))
-            $values['open_from'] = date('Y-m-d H:i:s', strtotime($this->input->openFrom));
+            $values['open_from'] = $this->input->openFrom;
 
         if (isset($this->input->openTo) && !empty($this->input->openTo))
-            $values['open_to'] = date('Y-m-d H:i:s', strtotime($this->input->openTo));
+            $values['open_to'] = $this->input->openTo;
 
         $this->posts->begin();
         try {
