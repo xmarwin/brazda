@@ -100,11 +100,15 @@ class PostPresenter extends SecuredBasePresenter
             $this->sendResource($this->outputType);
         } // if
 
+        $nextAttempt = $this->logs->nextLog($this->team['team'], $post);
+        $nextTimeout = $nextAttempt - time();
+
         if (!$this->logs->canLog($this->team['team'], $post)) {
             $this->resource = [
                 'status' => 'Waiting period',
                 'code'   => 408,
-                'next_attempt' => $this->logs->nextLog($this->team['team'], $post)
+                'next_timestamp' => $nextAttempt,
+                'next_interval'  => $nextTimeout
             ];
             $this->sendResource($this->outputType);
         } // if
@@ -151,11 +155,15 @@ class PostPresenter extends SecuredBasePresenter
             $this->sendResource($this->outputType);
         } // if
 
-        if (!$this->logs->canLog($this->team['team'], $post)) {
+        $nextAttempt = $this->logs->nextBonusLog($this->team['team'], $post);
+        $nextTimeout = $nextAttempt - time();
+
+        if (!$this->logs->canBonusLog($this->team['team'], $post)) {
             $this->resource = [
                 'status' => 'Waiting period',
                 'code'   => 408,
-                'next_attempt' => $this->logs->nextLog($this->team['team'], $post)
+                'next_timestamp' => $nextAttempt,
+                'next_interval'  => $nextTimeout
             ];
             $this->sendResource($this->outputType);
         } // if

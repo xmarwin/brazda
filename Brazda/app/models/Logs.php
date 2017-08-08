@@ -105,13 +105,41 @@ class Logs extends Base
             &&   time() < $lastErrorLogs[0]->expire->getTimestamp());
     } // canLog()
 
-    public function nextLog($team, $post)
+    public function canBonusLog($team, $post)
     {
         $team = (int) $team;
         $post = (int) $post;
 
         $parameters = $this->context->getParameters();
-        $interval = "{$parameters['logInterval']} minutes";
+        $interval = "{$parameters['bonusInterval']} minutes";
+
+        $lastErrorLogs = $this->db->query(
+            "SELECT *,
+                (moment::timestamp + %s::interval", $interval, ") AS expire
+             FROM logs
+             WHERE team = %i", $team,
+            "AND post = %i", $post,
+            "AND log_type LIKE %s", self::ERROR,
+            "ORDER BY moment DESC"
+        )->fetchAll();
+
+        return !(count($lastErrorLogs) > 1
+            &&   time() < $lastErrorLogs[0]->expire->getTimestamp());
+    } // canBonusLog()
+
+    public function nextLogTimeout()
+    {
+        $parameters = $this->context->getParameters();
+
+        return "{$parameters['logInterval']} minutes";
+    } // nextLogTimeout()
+
+    public function nextLog($team, $post)
+    {
+        $team = (int) $team;
+        $post = (int) $post;
+
+        $interval = $this->nextLogTimeout();
 
         $lastErrorLogs = $this->db->query(
             "SELECT *,
@@ -125,6 +153,33 @@ class Logs extends Base
 
         return $lastErrorLogs[0]->expire;
     } // nextLog()
+
+    public function nextBonusLogTimeout()
+    {
+        $parameters = $this->context->getParameters();
+
+        return "{$parameters['bonusInterval']} minutes";
+    } // nextBonusLogTimeout()
+
+    public function nextBonusLog($team, $post)
+    {
+        $team = (int) $team;
+        $post = (int) $post;
+
+        $interval = $this->nextBonusLogTimeout();
+
+        $lastErrorLogs = $this->db->query(
+            "SELECT *,
+                (moment::timestamp + %s::interval", $interval, ") AS expire
+             FROM logs
+             WHERE team = %i", $team,
+            "AND post = %i", $post,
+            "AND log_type LIKE %s", self::ERROR,
+            "ORDER BY moment DESC"
+        )->fetchAll();
+
+        return $lastErrorLogs[0]->expire;
+    } // nextBonusLog()
 /*
     public function deleteLog($team, $post, $logType)
     {
