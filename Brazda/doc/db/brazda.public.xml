@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="brazda" schema="public" type="PostgreSQL - 9.5.7">
+   <tables>
+      <table name="audit_logs" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('audit_logs_audit_log_seq'::regclass)" digits="0" id="0" name="audit_log" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="team" nullable="false" remarks="" size="10" type="int4">
+            <parent column="team" foreignKey="audit_logs_team_fkey" implied="false" onDeleteCascade="true" table="teams"/>
+         </column>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="2" name="moment" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="3" name="message" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="'info'::character varying" digits="0" id="4" name="log_type" nullable="false" remarks="" size="10" type="varchar">
+            <parent column="log_type" foreignKey="audit_logs_log_type_fkey" implied="false" onDeleteCascade="false" table="log_types"/>
+         </column>
+         <primaryKey column="audit_log" sequenceNumberInPK="1"/>
+         <index name="audit_logs_pkey" unique="true">
+            <column ascending="true" name="audit_log"/>
+         </index>
+      </table>
+      <table name="cache_types" numRows="5" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="cache_type" nullable="false" remarks="" size="3" type="bpchar">
+            <child column="cache_type" foreignKey="posts_cache_type_fkey" implied="false" onDeleteCascade="false" table="posts"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="32" type="varchar"/>
+         <primaryKey column="cache_type" sequenceNumberInPK="1"/>
+         <index name="cache_types_pkey" unique="true">
+            <column ascending="true" name="cache_type"/>
+         </index>
+         <index name="cache_types_name_key" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="log_types" numRows="6" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="log_type" nullable="false" remarks="" size="3" type="bpchar">
+            <child column="log_type" foreignKey="audit_logs_log_type_fkey" implied="false" onDeleteCascade="false" table="audit_logs"/>
+            <child column="log_type" foreignKey="logs_log_type_fkey" implied="false" onDeleteCascade="false" table="logs"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="20" type="varchar"/>
+         <primaryKey column="log_type" sequenceNumberInPK="1"/>
+         <index name="log_types_pkey" unique="true">
+            <column ascending="true" name="log_type"/>
+         </index>
+         <index name="log_types_name_key" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="logins" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('logins_login_seq'::regclass)" digits="0" id="0" name="login" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="team" nullable="false" remarks="" size="10" type="int4">
+            <parent column="team" foreignKey="logins_team_fkey" implied="false" onDeleteCascade="false" table="teams"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="device_id" nullable="false" remarks="" size="32" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="security_token" nullable="false" remarks="" size="32" type="varchar"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="4" name="moment" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="5" name="last_activity_moment" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="login" sequenceNumberInPK="1"/>
+         <index name="logins_pkey" unique="true">
+            <column ascending="true" name="login"/>
+         </index>
+         <index name="logins_security_token_key" unique="true">
+            <column ascending="true" name="security_token"/>
+         </index>
+         <index name="logins_team_device_id_key" unique="true">
+            <column ascending="true" name="team"/>
+            <column ascending="true" name="device_id"/>
+         </index>
+      </table>
+      <table name="logs" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('logs_log_seq'::regclass)" digits="0" id="0" name="log" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="log_type" nullable="false" remarks="" size="3" type="bpchar">
+            <parent column="log_type" foreignKey="logs_log_type_fkey" implied="false" onDeleteCascade="false" table="log_types"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="team" nullable="false" remarks="" size="10" type="int4">
+            <parent column="team" foreignKey="logs_team_fkey" implied="false" onDeleteCascade="false" table="teams"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="post" nullable="false" remarks="" size="10" type="int4">
+            <parent column="post" foreignKey="logs_post_fkey" implied="false" onDeleteCascade="true" table="posts"/>
+         </column>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="4" name="moment" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="log" sequenceNumberInPK="1"/>
+         <index name="logs_pkey" unique="true">
+            <column ascending="true" name="log"/>
+         </index>
+      </table>
+      <table name="players" numRows="49" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('players_player_seq'::regclass)" digits="0" id="0" name="player" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="team" nullable="false" remarks="" size="10" type="int4">
+            <parent column="team" foreignKey="players_team_fkey" implied="false" onDeleteCascade="false" table="teams"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="name" nullable="false" remarks="" size="100" type="varchar"/>
+         <primaryKey column="player" sequenceNumberInPK="1"/>
+         <index name="players_pkey" unique="true">
+            <column ascending="true" name="player"/>
+         </index>
+      </table>
+      <table name="positions" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('positions_position_seq'::regclass)" digits="0" id="0" name="position" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="team" nullable="false" remarks="" size="10" type="int4">
+            <parent column="team" foreignKey="positions_team_fkey" implied="false" onDeleteCascade="false" table="teams"/>
+         </column>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="2" name="moment" nullable="false" remarks="" size="35" type="timestamptz"/>
+         <column autoUpdated="false" digits="0" id="3" name="location" nullable="false" remarks="" size="2147483647" type="point"/>
+         <primaryKey column="position" sequenceNumberInPK="1"/>
+         <index name="positions_pkey" unique="true">
+            <column ascending="true" name="position"/>
+         </index>
+         <index name="moment_idx" unique="false">
+            <column ascending="true" name="moment"/>
+         </index>
+      </table>
+      <table name="post_colors" numRows="6" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="color" nullable="false" remarks="" size="3" type="bpchar">
+            <child column="color" foreignKey="posts_color_fkey" implied="false" onDeleteCascade="false" table="posts"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="code" nullable="false" remarks="" size="20" type="varchar"/>
+         <primaryKey column="color" sequenceNumberInPK="1"/>
+         <index name="post_colors_pkey" unique="true">
+            <column ascending="true" name="color"/>
+         </index>
+         <index name="post_colors_code_key" unique="true">
+            <column ascending="true" name="code"/>
+         </index>
+         <index name="post_colors_name_key" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="post_notes" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('post_notes_post_note_seq'::regclass)" digits="0" id="0" name="post_note" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="post" nullable="false" remarks="" size="10" type="int4">
+            <parent column="post" foreignKey="post_notes_post_fkey" implied="false" onDeleteCascade="true" table="posts"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="team" nullable="false" remarks="" size="10" type="int4">
+            <parent column="team" foreignKey="post_notes_team_fkey" implied="false" onDeleteCascade="true" table="teams"/>
+         </column>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="3" name="last_change" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="4" name="note" nullable="true" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="post_note" sequenceNumberInPK="1"/>
+         <index name="post_notes_pkey" unique="true">
+            <column ascending="true" name="post_note"/>
+         </index>
+      </table>
+      <table name="post_sizes" numRows="5" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="size" nullable="false" remarks="" size="1" type="bpchar">
+            <child column="size" foreignKey="posts_size_fkey" implied="false" onDeleteCascade="false" table="posts"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="20" type="varchar"/>
+         <primaryKey column="size" sequenceNumberInPK="1"/>
+         <index name="post_sizes_pkey" unique="true">
+            <column ascending="true" name="size"/>
+         </index>
+         <index name="post_sizes_name_key" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="post_types" numRows="7" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="post_type" nullable="false" remarks="" size="3" type="bpchar">
+            <child column="post_type" foreignKey="posts_post_type_fkey" implied="false" onDeleteCascade="false" table="posts"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="20" type="varchar"/>
+         <primaryKey column="post_type" sequenceNumberInPK="1"/>
+         <index name="post_types_pkey" unique="true">
+            <column ascending="true" name="post_type"/>
+         </index>
+      </table>
+      <table name="posts" numRows="32" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('posts_post_seq'::regclass)" digits="0" id="0" name="post" nullable="false" remarks="" size="10" type="serial">
+            <child column="post" foreignKey="logs_post_fkey" implied="false" onDeleteCascade="true" table="logs"/>
+            <child column="post" foreignKey="post_notes_post_fkey" implied="false" onDeleteCascade="true" table="post_notes"/>
+            <child column="post" foreignKey="waypoints_post_fkey" implied="false" onDeleteCascade="true" table="waypoints"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="post_type" nullable="false" remarks="" size="3" type="bpchar">
+            <parent column="post_type" foreignKey="posts_post_type_fkey" implied="false" onDeleteCascade="false" table="post_types"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="color" nullable="false" remarks="" size="3" type="bpchar">
+            <parent column="color" foreignKey="posts_color_fkey" implied="false" onDeleteCascade="false" table="post_colors"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="name" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="max_score" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="1" digits="17" id="5" name="difficulty" nullable="false" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" defaultValue="1" digits="17" id="6" name="terrain" nullable="false" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" defaultValue="'O'::bpchar" digits="0" id="7" name="size" nullable="false" remarks="" size="1" type="bpchar">
+            <parent column="size" foreignKey="posts_size_fkey" implied="false" onDeleteCascade="false" table="post_sizes"/>
+         </column>
+         <column autoUpdated="false" defaultValue="'TRA'::bpchar" digits="0" id="8" name="cache_type" nullable="true" remarks="" size="3" type="bpchar">
+            <parent column="cache_type" foreignKey="posts_cache_type_fkey" implied="false" onDeleteCascade="false" table="cache_types"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="9" name="shibboleth" nullable="false" remarks="" size="20" type="varchar"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="10" name="with_staff" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="11" name="hint" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="12" name="help" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="13" name="description" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="14" name="bonus_code" nullable="true" remarks="" size="20" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="15" name="open_from" nullable="true" remarks="" size="15" type="time"/>
+         <column autoUpdated="false" digits="6" id="16" name="open_to" nullable="true" remarks="" size="15" type="time"/>
+         <column autoUpdated="false" digits="17" id="17" name="latitude" nullable="false" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="17" id="18" name="longitude" nullable="false" remarks="" size="17" type="float8"/>
+         <primaryKey column="post" sequenceNumberInPK="1"/>
+         <index name="posts_pkey" unique="true">
+            <column ascending="true" name="post"/>
+         </index>
+      </table>
+      <table name="team_statuses" numRows="3" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="team_status" nullable="false" remarks="" size="3" type="bpchar">
+            <child column="status" foreignKey="teams_status_fkey" implied="false" onDeleteCascade="false" table="teams"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="20" type="varchar"/>
+         <primaryKey column="team_status" sequenceNumberInPK="1"/>
+         <index name="team_statuses_pkey" unique="true">
+            <column ascending="true" name="team_status"/>
+         </index>
+         <index name="team_statuses_name_key" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="team_types" numRows="2" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="team_type" nullable="false" remarks="" size="3" type="bpchar">
+            <child column="team_type" foreignKey="teams_team_type_fkey" implied="false" onDeleteCascade="false" table="teams"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="20" type="varchar"/>
+         <primaryKey column="team_type" sequenceNumberInPK="1"/>
+         <index name="team_types_pkey" unique="true">
+            <column ascending="true" name="team_type"/>
+         </index>
+         <index name="team_types_name_key" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="teams" numRows="13" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('teams_team_seq'::regclass)" digits="0" id="0" name="team" nullable="false" remarks="" size="10" type="serial">
+            <child column="team" foreignKey="audit_logs_team_fkey" implied="false" onDeleteCascade="true" table="audit_logs"/>
+            <child column="team" foreignKey="logins_team_fkey" implied="false" onDeleteCascade="false" table="logins"/>
+            <child column="team" foreignKey="logs_team_fkey" implied="false" onDeleteCascade="false" table="logs"/>
+            <child column="team" foreignKey="players_team_fkey" implied="false" onDeleteCascade="false" table="players"/>
+            <child column="team" foreignKey="positions_team_fkey" implied="false" onDeleteCascade="false" table="positions"/>
+            <child column="team" foreignKey="post_notes_team_fkey" implied="false" onDeleteCascade="true" table="post_notes"/>
+         </column>
+         <column autoUpdated="false" defaultValue="'COM'::bpchar" digits="0" id="1" name="team_type" nullable="false" remarks="" size="3" type="bpchar">
+            <parent column="team_type" foreignKey="teams_team_type_fkey" implied="false" onDeleteCascade="false" table="team_types"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="name" nullable="false" remarks="" size="100" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="shibboleth" nullable="false" remarks="" size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="description" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="true" digits="0" id="5" name="is_active" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="'STR'::bpchar" digits="0" id="6" name="status" nullable="false" remarks="" size="3" type="bpchar">
+            <parent column="team_status" foreignKey="teams_status_fkey" implied="false" onDeleteCascade="false" table="team_statuses"/>
+         </column>
+         <column autoUpdated="false" defaultValue="true" digits="0" id="7" name="tracking_allowed" nullable="false" remarks="" size="1" type="bool"/>
+         <primaryKey column="team" sequenceNumberInPK="1"/>
+         <index name="teams_pkey" unique="true">
+            <column ascending="true" name="team"/>
+         </index>
+         <index name="teams_name_key" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="waypoint_types" numRows="5" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="waypoint_type" nullable="false" remarks="" size="3" type="bpchar">
+            <child column="waypoint_type" foreignKey="waypoints_waypoint_type_fkey" implied="false" onDeleteCascade="false" table="waypoints"/>
+         </column>
+         <column autoUpdated="true" defaultValue="nextval('waypoint_types_rank_seq'::regclass)" digits="0" id="1" name="rank" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="2" name="name" nullable="false" remarks="" size="32" type="varchar"/>
+         <primaryKey column="waypoint_type" sequenceNumberInPK="1"/>
+         <index name="waypoint_types_pkey" unique="true">
+            <column ascending="true" name="waypoint_type"/>
+         </index>
+         <index name="waypoint_types_name_key" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="waypoint_visibilities" numRows="3" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="waypoint_visibility" nullable="false" remarks="" size="2" type="bpchar">
+            <child column="waypoint_visibility" foreignKey="waypoints_waypoint_visibility_fkey" implied="false" onDeleteCascade="false" table="waypoints"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="32" type="varchar"/>
+         <primaryKey column="waypoint_visibility" sequenceNumberInPK="1"/>
+         <index name="waypoint_visibilities_pkey" unique="true">
+            <column ascending="true" name="waypoint_visibility"/>
+         </index>
+         <index name="waypoint_visibilities_name_key" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="waypoints" numRows="77" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('waypoints_waypoint_seq'::regclass)" digits="0" id="0" name="waypoint" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="waypoint_type" nullable="false" remarks="" size="3" type="bpchar">
+            <parent column="waypoint_type" foreignKey="waypoints_waypoint_type_fkey" implied="false" onDeleteCascade="false" table="waypoint_types"/>
+         </column>
+         <column autoUpdated="false" defaultValue="'VW'::bpchar" digits="0" id="2" name="waypoint_visibility" nullable="false" remarks="" size="2" type="bpchar">
+            <parent column="waypoint_visibility" foreignKey="waypoints_waypoint_visibility_fkey" implied="false" onDeleteCascade="false" table="waypoint_visibilities"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="post" nullable="false" remarks="" size="10" type="int4">
+            <parent column="post" foreignKey="waypoints_post_fkey" implied="false" onDeleteCascade="true" table="posts"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="name" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="description" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="17" id="6" name="latitude" nullable="false" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="17" id="7" name="longitude" nullable="false" remarks="" size="17" type="float8"/>
+         <primaryKey column="waypoint" sequenceNumberInPK="1"/>
+         <index name="waypoints_pkey" unique="true">
+            <column ascending="true" name="waypoint"/>
+         </index>
+      </table>
+   </tables>
+</database>
