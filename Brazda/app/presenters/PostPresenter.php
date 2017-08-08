@@ -299,7 +299,7 @@ class PostPresenter extends SecuredBasePresenter
         } // try
 
         foreach ($this->input->waypoints as $wp) {
-            $filter = [ 'waypoint' => (int) $wp->waypoint ];
+            $filter = [ 'waypoint' => (int) $wp['waypoint'] ];
             $values = [
                 'waypoint_type'       => strtoupper($wp['waypointType']),
                 'waypoint_visibility' => strtoupper($wp['waypointVisibility']),
