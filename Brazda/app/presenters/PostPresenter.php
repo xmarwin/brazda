@@ -330,7 +330,7 @@ class PostPresenter extends SecuredBasePresenter
     {
         $this->checkAdministrator();
 
-        $filter = [ (int) $this->input->post ];
+        $filter = [ 'post' => (int) $this->input->post ];
         try {
             $this->posts->delete($filter);
         } catch (Exception $e) {
