@@ -1,10 +1,13 @@
 #!/bin/bash
 
-PGHOST="dbserver"
-PGPORT="5432"
-PGDATABASE="brazda"
+#PGHOST="dbserver"
+#PGPORT="5432"
+#PGDATABASE="brazda"
 
-export PGUSER="brazda"
-export PGPASSWORD="FzwtMS/jq.XSQ"
+#export PGUSER="brazda"
+#export PGPASSWORD="FzwtMS/jq.XSQ"
+
+DIR="$(dirname "$0")"
+source "$DIR/config"
 
 /usr/bin/psql -h $PGHOST -p $PGPORT $PGDATABASE
