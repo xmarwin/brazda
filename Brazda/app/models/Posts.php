@@ -69,9 +69,8 @@ class Posts extends Base
                 p.hint,
                 CASE WHEN p.help NOT LIKE '' THEN TRUE ELSE FALSE END AS has_help,
                 %if", isset($team), "
-                CASE WHEN (lo.moment IS NOT NULL AND p.post_type != 'BON') THEN p.shibboleth
-                     WHEN (lo.moment IS NOT NULL AND p.post_type = 'BON') THEN p.bonus_code
-                ELSE NULL END AS shibboleth,
+                CASE WHEN lo.moment IS NOT NULL THEN p.shibboleth ELSE NULL END AS shibboleth,
+                CASE WHEN lb.moment IS NOT NULL THEN p.bonus_code ELSE NULL END AS bonus_code,
                 CASE WHEN lh.moment IS NOT NULL THEN p.help ELSE NULL END AS help,
                 %end
                 p.description,
@@ -85,7 +84,8 @@ class Posts extends Base
                 pc.code AS color_code,
                 pt.name AS type_name,
                 ps.name AS size_name,
-                ct.name AS cache_name %if,", isset($team), "
+                ct.name AS cache_name
+                %if,", isset($team), "
                 lo.moment AS log_out_moment,
                 lb.moment AS log_bonus_moment,
                 lh.moment AS log_help_moment,
