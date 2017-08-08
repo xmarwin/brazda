@@ -18,9 +18,10 @@ class Teams extends Base
     protected
         $positions;
 
-    public function find($team)
+    public function find(array $filter)
     {
-        $team = (int) $team;
+        $filter = $this->normalizeFilter($filter);
+        $filter['is_active'] = true;
 
         return $this->db->query(
            "SELECT
@@ -30,26 +31,25 @@ class Teams extends Base
                 t.team_type AS role,
                 tt.name AS roleName,
                 t.is_active AS active,
-                t.allow_tracking AS allowTracking,
-                t.status,
+                t.tracking_allowed AS allow_tracking,
+                t.team_status,
                 t.shibboleth,
                 ts.name AS statusName,
-                p.positionMoment,
-                p.positionLocation
+                p.moment AS position_moment,
+                p.location AS position_location
             FROM teams t
-            JOIN team_types tt ON (team_type)
-            JOIN team_statuses ts ON (team_status)
+            JOIN team_types tt USING (team_type)
+            JOIN team_statuses ts USING (team_status)
             LEFT JOIN (
                 SELECT
                     team,
                     moment,
                     location
                 FROM positions
-                ORDER BY moment DESC,
+                ORDER BY moment DESC
                 LIMIT 1
-            ) p ON (team)
-            WHERE t.is_active IS TRUE
-              AND t.team = %i", $team
+            ) p USING (team)
+            WHERE %and", $filter
         )->fetch();
     } // find();
 
@@ -69,7 +69,7 @@ class Teams extends Base
                 tt.name AS roleName,
                 t.is_active AS active,
                 t.tracking_allowed AS allow_tracking,
-                t.status,
+                t.team_status,
                 ts.name AS status_name,
                 p.moment AS position_moment,
                 p.location AS position_location
@@ -103,7 +103,7 @@ class Teams extends Base
                 tt.name AS roleName,
                 t.is_active AS active,
                 t.tracking_allowed AS allow_tracking,
-                t.status,
+                t.team_status,
                 t.shibboleth,
                 ts.name AS status_name,
                 p.moment AS position_moment,

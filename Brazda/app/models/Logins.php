@@ -32,13 +32,13 @@ class Logins extends Base implements Security\IAuthenticator
 
     public function authenticate(array $credentials)
     {
-        list($name, $shibboleth) = $credentials;
+        list($teamId, $shibboleth) = $credentials;
 
-        $team = $this->teams->findByName($name);
+        $team = $this->teams->find([ 'team' => $teamId ]);
         if (empty($team)) {
             throw new Security\AuthenticationException(sprintf(
-                    'Tým se jménem %s neexistuje.',
-                    $name
+                    'Tým %d neexistuje.',
+                    $teamId
                 ), // sprintf()
                 200
             ); // AuthenticationException()
@@ -46,8 +46,8 @@ class Logins extends Base implements Security\IAuthenticator
 
         if ($team->shibboleth !== $shibboleth) {
             throw new Security\AuthenticationException(sprintf(
-                    'Špatné heslo pro tým %s.',
-                    $name
+                    'Špatné heslo pro tým %d.',
+                    $teamId
                 ), // sprintf()
                 200
             ); // AuthenticationException()
