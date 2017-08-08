@@ -19,15 +19,15 @@ class Waypoints extends Base
 
     public function view(array $filter = [], array $order = [], array $limit = [])
     {
-		$filter = $this->normalizeFilter($filter);
-		$order  = $this->normalizeOrder($order);
-		$limit  = $this->normalizeLimit($limit);
-		list($limit, $offset) = each($limit);
+        $filter = $this->normalizeFilter($filter);
+        $order  = $this->normalizeOrder($order);
+        $limit  = $this->normalizeLimit($limit);
+        list($limit, $offset) = each($limit);
 
-		if (isset($filter['team']) && !empty($filter['team'])) {
+        if (isset($filter['team']) && !empty($filter['team'])) {
             $team = (int) $filter['team'];
             unset($filter['team']);
-		} // if
+        } // if
 
         return $this->db->query(
             "SELECT
