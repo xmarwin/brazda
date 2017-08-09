@@ -75,7 +75,7 @@ class Teams extends Base
                 p.location AS position_location
             FROM teams t
             JOIN team_types tt USING (team_type)
-            JOIN team_statuses ts ON (t.status = ts.team_status)
+            JOIN team_statuses ts USING (team_status)
             LEFT JOIN (
                 SELECT
                     team,
@@ -110,7 +110,7 @@ class Teams extends Base
                 p.location AS position_location
             FROM teams t
             JOIN team_types tt USING (team_type)
-            JOIN team_statuses ts ON (t.status = ts.team_status)
+            JOIN team_statuses ts USING (team_status)
             LEFT JOIN (
                 SELECT
                     team,
