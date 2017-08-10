@@ -51,7 +51,7 @@ class Teams extends Base
             ) p USING (team)
             WHERE %and", $filter
         )->fetch();
-    } // find();
+    } // find()
 
     public function view(array $filter = [], array $order = [], array $limit = [])
     {
