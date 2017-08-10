@@ -86,11 +86,11 @@ function AddPostController($routeParams, $location, notification, authService, p
         }
 
         var input = {
-            "postType": post.cacheName,
-            "color": angular.isUndefined(post.postColor) ? null : post.postColor.color,
+            "postType": post.postType.postType,
+            "color": angular.isUndefined(post.color) ? null : post.color.color,
             "name": post.name,
-            "difficulty": angular.isUndefined(post.difficulty) ? null : post.difficulty.difficulty,
-            "terrain": angular.isUndefined(post.terrain) ? null : post.terrain.terrain,
+            "difficulty": angular.isUndefined(post.difficulty) ? null : post.difficulty.value,
+            "terrain": angular.isUndefined(post.terrain) ? null : post.terrain.value,
             "size": angular.isUndefined(post.postSize) ? null : post.postSize.size,
             "hint": post.hint,
             "help": post.help,
