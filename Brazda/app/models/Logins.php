@@ -34,6 +34,15 @@ class Logins extends Base implements Security\IAuthenticator
     {
         list($teamId, $shibboleth) = $credentials;
 
+        if (!is_integer($teamId)) {
+            throw new \Exception(sprintf(
+                    '%d není platné id týmu.',
+                    $teamId
+                ), // printf()
+                400
+            ); // \Exception()
+        } // if
+
         $team = $this->teams->find([ 'team' => $teamId ]);
         if (empty($team)) {
             throw new Security\AuthenticationException(sprintf(
