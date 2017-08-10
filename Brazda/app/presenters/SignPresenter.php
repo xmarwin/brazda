@@ -22,6 +22,9 @@ class SignPresenter extends BasePresenter
 			if (!$this->getUser()->isLoggedIn()) {
 				$this->getUser()->login($team, $password);
 				$identity = $this->getUser()->getIdentity()->getData();
+                if (empty($deviceId)) {
+                    throw new \Exception('DeviceId je prázdné.', 400);
+                } // if
 				$login    = $this->logins->login($identity['team'], $deviceId);
 			} else {
 				$identity = $this->getUser()->getIdentity()->getData();
@@ -34,7 +37,7 @@ class SignPresenter extends BasePresenter
 					403);
 				} // if
 			} // if
-		} catch (Security\AuthenticationException $e) {
+		} catch (\Exception $e) {
 			$this->sendErrorResource($e, $this->outputType);
 		} // try
 
