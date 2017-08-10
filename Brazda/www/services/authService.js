@@ -33,7 +33,7 @@ function AuthService(webApiService, localStorageService, $q) {
     function login(team, password) {
         var deferred = $q.defer();
 
-        webApiService.get('sign/in', [{ 'team': team.name }, { 'password': password }, { 'deviceId': '' }])
+        webApiService.get('sign/in', [{ 'team': team.team }, { 'password': password }, { 'deviceId': '123' }])
             .then(function (data) {
                 saveTeam(data.data);
                 deferred.resolve({ 'status': 'OK' });
