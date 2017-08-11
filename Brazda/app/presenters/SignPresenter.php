@@ -20,7 +20,7 @@ class SignPresenter extends BasePresenter
 	{
 		try {
 			if (!$this->getUser()->isLoggedIn()) {
-				$this->getUser()->login($team, $password);
+				$this->getUser()->login((int) $team, $password);
 				$identity = $this->getUser()->getIdentity()->getData();
                 if (empty($deviceId)) {
                     throw new \Exception('DeviceId je prázdné.', 400);
