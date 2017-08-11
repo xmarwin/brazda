@@ -29,13 +29,13 @@
                 Typ keše:
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <select ng-options="cacheType.name for cacheType in ctrl.cacheTypes" ng-model="ctrl.post.cacheType" class="form-control" ng-disabled="ctrl.post.postType.post_type !== 'CGC' && ctrl.post.postType.post_type !== 'BON'"></select>
+                <select ng-options="cacheType.name for cacheType in ctrl.cacheTypes" ng-model="ctrl.post.cacheType" class="form-control" ng-disabled="ctrl.post.postType.postType !== 'CGC' && ctrl.post.postType.postType !== 'BON'"></select>
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 Velikost keše:
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <select ng-options="postSize.name for postSize in ctrl.postSizes" ng-model="ctrl.post.postSize" class="form-control" ng-disabled="ctrl.post.postType.post_type !== 'CGC' && ctrl.post.postType.post_type !== 'BON'"></select>
+                <select ng-options="postSize.name for postSize in ctrl.postSizes" ng-model="ctrl.post.postSize" class="form-control" ng-disabled="ctrl.post.postType.postType !== 'CGC' && ctrl.post.postType.postType !== 'BON'"></select>
             </div>
         </div>
         <div class="row form-group">
@@ -43,7 +43,7 @@
                 Barva:
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <select ng-options="postColor.name for postColor in ctrl.postColors" ng-model="ctrl.post.postColor" class="form-control"></select>
+                <select ng-options="postColor.name for postColor in ctrl.postColors" ng-model="ctrl.post.color" class="form-control"></select>
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 Terén:
@@ -75,7 +75,7 @@
                 Bonusový kód:
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <input type="text" ng-model="ctrl.post.bonusCode" id="bonusCode" name="bonusCode" class="form-control" ng-disabled="ctrl.post.postType.post_type !== 'BON'" />
+                <input type="text" ng-model="ctrl.post.bonusCode" id="bonusCode" name="bonusCode" class="form-control" ng-disabled="ctrl.post.postType.postType !== 'BON'" />
             </div>
         </div>
         <div class="row form-group">
@@ -104,12 +104,12 @@
             </div>
             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                 <div class="list-group">
-                    <div class="list-group-item row" ng-repeat="wpt in ctrl.post.waypoints" ng-class="{'list-group-item-success': wpt.waypoint_visibility.waypoint_visibility === 'VW', 'list-group-item-warning': wpt.waypoint_visibility.waypoint_visibility === 'HW', 'list-group-item-danger': wpt.waypoint_visibility.waypoint_visibility === 'HC'}">
-                        <img src="assets/images/finish.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypoint_type.waypoint_type==='FIN'" title="{{wpt.waypointType.name}}" />
-                        <img src="assets/images/parking.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypoint_type.waypoint_type==='PAR'" title="{{wpt.waypointType.name}}" />
-                        <img src="assets/images/poi.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypoint_type.waypoint_type==='REF'" title="{{wpt.waypointType.name}}" />
-                        <img src="assets/images/path.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypoint_type.waypoint_type==='WAY'" title="{{wpt.waypointType.name}}" />
-                        <img src="assets/images/stage.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypoint_type.waypoint_type==='STA'" title="{{wpt.waypointType.name}}" />
+                    <div class="list-group-item row" ng-repeat="wpt in ctrl.post.waypoints" ng-class="{'list-group-item-success': wpt.waypointVisibility.waypointVisibility === 'VW', 'list-group-item-warning': wpt.waypointVisibility.waypointVisibility === 'HW', 'list-group-item-danger': wpt.waypointVisibility.waypointVisibility === 'HC'}">
+                        <img src="assets/images/finish.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypointType.waypointType==='FIN'" title="{{wpt.waypointType.name}}" />
+                        <img src="assets/images/parking.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypointType.waypointType==='PAR'" title="{{wpt.waypointType.name}}" />
+                        <img src="assets/images/poi.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypointType.waypointType==='REF'" title="{{wpt.waypointType.name}}" />
+                        <img src="assets/images/path.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypointType.waypointType==='WAY'" title="{{wpt.waypointType.name}}" />
+                        <img src="assets/images/stage.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypointType.waypointType==='STA'" title="{{wpt.waypointType.name}}" />
                         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                             {{wpt.name}}
                         </div>
