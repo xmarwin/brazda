@@ -11,7 +11,7 @@ class BaseXmlPresenter extends UI\Presenter
 
     public function startup()
     {
-        parent::startup()
+        parent::startup();
 
         $this->logins = $this->context->getService('logins');
     } // startup()
