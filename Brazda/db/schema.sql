@@ -43,10 +43,10 @@ create table post_colors (
     unique (code)
 );
 
-create table post_sizes (
-    "size"      character (1) not null,
+create table cache_sizes (
+    cache_size  character (1) not null,
     name        character varying (20) not null,
-    primary key ("size"),
+    primary key (cache_size),
     unique (name)
 );
 
@@ -65,8 +65,8 @@ create table posts (
     max_score       integer not null default 0,
     difficulty      float not null default 1,
     terrain         float not null default 1,
-    "size"          character (1) not null default 'O',
-    cache_type      character (3) default 'TRA',
+    cache_size      character (1),
+    cache_type      character (3),
     shibboleth      character varying (20) not null,
     with_staff      boolean not null default false,
     hint            text,
@@ -79,7 +79,7 @@ create table posts (
     foreign key (post_type) references post_types(post_type) on update cascade on delete restrict,
     foreign key (cache_type) references cache_types(cache_type) on update cascade on delete restrict,
     foreign key (color) references post_colors(color) on update cascade on delete restrict,
-    foreign key ("size") references post_sizes("size") on update cascade on delete restrict
+    foreign key (cache_size) references cache_sizes(cache_size) on update cascade on delete restrict
 );
 
 create table post_notes (
