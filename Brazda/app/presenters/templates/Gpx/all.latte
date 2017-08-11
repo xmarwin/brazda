@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<gpx xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" creator="Groundspeak, Inc. All Rights Reserved. http://www.groundspeak.com" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://www.groundspeak.com/cache/1/0 http://www.groundspeak.com/cache/1/0/cache.xsd" xmlns="http://www.topografix.com/GPX/1/0">
+    <name>Stanoviště závodu BRAZDA</name>
+    <desc>Seznam stanovišť závodu BRAZDA vygenerovaný z brazda-gc.cz</desc>
+    <author>Account "BRAZDAteam" From Geocaching.com</author>
+    <email>info@brazda-gc.cz</email>
+    <url>http://www.brazda-gc.cz</url>
+    <urlname>BRAZDA - Brutální Rožnovský Závod Družstev Amatérů</urlname>
+    <time>{php echo date('c')}</time>
+    <keywords>cache, geocache</keywords>
+    <bounds minlat="49.5280778" minlon="17.9448169" maxlat="49.3806722" maxlon="18.3373956" />
+    {foreach $posts as $postId => $post}
+    <wpt lat="{$post->latitude}" lon="{$post->longitude}">
+        <time>{php echo date('c')}</time>
+        <name>{$post->type_name} {$post->name} ({$post->color_name})</name>
+        <desc>{$post->name}, {$post->type_name} ({$post->difficulty}/{$post->terrain})</desc>
+        <sym>{if $post->post_type == \Brazda\Models\Posts::BEGIN}
+            Flag, Green
+        {elseif $post->post_type == \Brazda\Models\Posts::END}
+            Flag, Red
+        {elseif $post->post_type == \Brazda\Models\Posts::ACTIVITY}
+            Ball Park
+        {elseif $post->post_type == \Brazda\Models\Posts::BONUS}
+            City (Capitol)
+        {elseif $post->post_type == \Brazda\Models\Posts::CIPHER}
+            Puzzle Cache
+        {elseif $post->post_type == \Brazda\Models\Posts::CACHE}
+            Geocache
+        {/if}</sym>
+        <type>{if $post->post_type == \Brazda\Models\Posts::ACTIVITY}
+            Activity
+        {elseif $post->post_type == \Brazda\Models\Posts::CIPHER}
+            Cipher
+            {elseif $post->post_type == \Brazda\Models\Posts::CACHE}
+            Geocache|{if $post->cache_type == \Brazda\Models\Posts::TRADITIONAL}
+            Traditional Cache
+            {elseif $post->cache_type == \Brazda\Models\Posts::MULTICACHE}
+            Multi-Cache
+            {elseif $post->cache_type == \Brazda\Models\Posts::MYSTERY}
+            Mystery
+            {elseif $post->cache_type == \Brazda\Models\Posts::EARTHCACHE}
+            Earth Cache
+            {elseif $post->cache_type == \Brazda\Models\Posts::WHEREIGO}
+            Where I Go
+            {/if}
+        {elseif $post->post_type == \Brazda\Models\Posts::BONUS}
+            Geocache
+        {/if}</type>
+        <groundspeak:cache id="{$post->post}" available="True" archived="False" xmlns:groundspeak="http://www.groundspeak.com/cache/1/0">
+            <groundspeak:name>{$post->name}</groundspeak:name>
+            <groundspeak:placed_by>BRAZDAteam</groundspeak:placed_by>
+            <groundspeak:owner>BRAZDAteam</groundspeak:owner>
+            <groundspeak:sym>{if $post->post_type == \Brazda\Models\Posts::BEGIN}
+                Flag, Green
+                {elseif $post->post_type == \Brazda\Models\Posts::END}
+                Flag, Red
+                {elseif $post->post_type == \Brazda\Models\Posts::ACTIVITY}
+                Ball Park
+                {elseif $post->post_type == \Brazda\Models\Posts::CIPHER}
+                Puzzle Cache
+                {elseif $post->post_type == \Brazda\Models\Posts::CACHE}
+                Geocache
+                {elseif $post->post_type == \Brazda\Models\Posts::BONUS}
+                Puzzle Cache
+                {/if}</groundspeak:sym>
+            <groundspeak:type>{if $post->post_type == \Brazda\Models\Posts::ACTIVITY}
+                Activity
+                {elseif $post->post_type == \Brazda\Models\Posts::CIPHER}
+                Mystery
+                {elseif $post->post_type == \Brazda\Models\Posts::CACHE}
+                Geocache|{if $post->cache_type == \Brazda\Models\Posts::TRADITIONAL}
+                Traditional Cache
+                {elseif $post->cache_type == \Brazda\Models\Posts::MULTICACHE}
+                Multi-Cache
+                {elseif $post->cache_type == \Brazda\Models\Posts::MYSTERY}
+                Mystery
+                {elseif $post->cache_type == \Brazda\Models\Posts::EARTHCACHE}
+                Earth Cache
+                {elseif $post->cache_type == \Brazda\Models\Posts::WHEREIGO}
+                Where I Go
+                {/if}
+                {elseif $post->post_type == \Brazda\Models\Posts::BONUS}
+                Mystery
+                {/if}</groundspeak:type>
+            <groundspeak:container>{if $post->post_type == \Brazda\Models\Posts::BEGIN}
+                Other
+                {elseif $post->post_type == \Brazda\Models\Posts::END}
+                Other
+                {elseif $post->post_type == \Brazda\Models\Posts::ACTIVITY}
+                Other
+                {elseif $post->post_type == \Brazda\Models\Posts::CIPHER}
+                Other
+                {elseif $post->post_type == \Brazda\Models\Posts::CACHE
+                || $post->post_type == \Brazda\Models\Posts::BONUS}
+                {if $post->cache_size == \Brazda\Models\Posts::MICRO}
+                Micro
+                {elseif $post->cache_size == \Brazda\Models\Posts::SMALL}
+                Small
+                {elseif $post->cache_size == \Brazda\Models\Posts::REGULAR}
+                Regular
+                {elseif $post->cache_size == \Brazda\Models\Posts::LARGE}
+                Large
+                {else}
+                Other
+                {/if}
+                {/if}</groundspeak:container>
+            <groundspeak:difficulty>{$post->difficulty}</groundspeak:difficulty>
+            <groundspeak:terrain>{$post->terrain}</groundspeak:terrain>
+            <groundspeak:country>Czech Republic</groundspeak:country>
+            <groundspeak:state>Zlinsky kraj</groundspeak:state>
+            <groundspeak:short_description html="False"></groundspeak:short_description>
+            <groundspeak:long_description html="True">{$post->description}</groundspeak:long_description>
+            <groundspeak:encoded_hints>{$post->hint}</groundspeak:encoded_hints>
+        </groundspeak:cache>
+    </wpt>
+        {foreach $post->waypoints as $waypoint}
+        {if in_array($waypoint->waypoint_visibility, [ \Brazda\Models\Waypoints::VISIBLE, \Brazda\Models\Waypoints::HIDDEN_COORDINATES ])}
+        <wpt lat="{if $waypoint->waypoint_visibility == \Brazda\Models\Waypoints::VISIBLE}{$waypoint->latitude}{/if}" lon="{if $waypoint->waypoint_visibility == \Brazda\Models\Waypoints::VISIBLE}{$waypoint->longitude}{/if}">
+            <time>{php echo date('c')}</time>
+            <name>{$waypoint->name}</name>
+            <cmt />
+            <desc>{$waypoint->description}</desc>
+            {if $waypoint->waypoint_type == \Brazda\Models\Waypoints::FINALE}
+            <sym>Geocache</sym>
+            <type>Geocache</type>
+            {elseif $waypoint->waypoint_type == \Brazda\Models\Waypoints::STAGE}
+            <sym>Virtual Stage</sym>
+            <type>Waypoint|Virtual Stage</type>
+            {elseif $waypoint->waypoint_type ==  \Brazda\Models\Waypoints::REFERENCE}
+            <sym>Reference Point</sym>
+            <type>Waypoint|Reference Point</type>
+            {elseif $waypoint->waypoint_type ==  \Brazda\Models\Waypoints::PARKING}
+            <sym>Parking Area</sym>
+            <type>Waypoint|Parking Area</type>
+            {elseif $waypoint->waypoint_type == \Brazda\Models\Waypoints::WAYPOINT}
+            <sym>Waypoint</sym>
+            <type>Waypoint|Trailhead</type>
+            {/if}
+        </wpt>
+        {/if}
+        {/foreach}
+    {/foreach}
+</gpx>

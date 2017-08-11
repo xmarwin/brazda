@@ -20,7 +20,17 @@ class GpxPresenter extends SecuredBaseXmlPresenter
 
     public function actionAll()
     {
-
+        $viewFilter = [
+            'team' => $this->team['team']
+        ];
+        $posts = $this->posts->view($viewFilter)->fetchAll();
+        foreach ($posts as $id => $post) {
+            $posts[$id]->waypoints = $this->waypoints->view([
+                'post' => (int) $post->post,
+                'team' => (int) $this->team['team']
+            ])->fetchAll();
+        } // foreach
+        $this->template->posts = $posts;
     } // actionAll()
 
     public function actionPost($post)

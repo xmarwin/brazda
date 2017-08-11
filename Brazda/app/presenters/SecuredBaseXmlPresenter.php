@@ -31,7 +31,7 @@ class SecuredBaseXmlPresenter extends BaseXmlPresenter
                 ); // AuthenticationException()
             } // if
 
-            $login = $this->logins->find([ 'security_token' => $securityToken ]);
+            $login = $this->logins->find([ 'security_token' => $parameters['securityToken'] ]);
             if (empty($login)) {
                 throw new Security\AuthenticationException(
                     'SecurityToken nebyl nalezen.',
@@ -42,7 +42,7 @@ class SecuredBaseXmlPresenter extends BaseXmlPresenter
             $this->error($e->getMessage(), $e->getCode());
         } // try
 
-        $this->logins->touch($securityToken);
+        $this->logins->touch($parameters['securityToken']);
 
         return true;
     } // checkSecurityToken()
