@@ -43,19 +43,19 @@ class Posts extends Base
              FROM posts
              WHERE post = %i", $post
         )->fetch();
-    }
+    } // find()
 
     public function view(array $filter = [], array $order = [ 'post_type' => 'ASC', 'color' => 'ASC', 'name' => 'ASC' ], array $limit = []) {
 
-		$filter = $this->normalizeFilter($filter);
-		$order  = $this->normalizeOrder($order);
-		$limit  = $this->normalizeLimit($limit);
-		list($limit, $offset) = each($limit);
+        $filter = $this->normalizeFilter($filter);
+        $order  = $this->normalizeOrder($order);
+        $limit  = $this->normalizeLimit($limit);
+        list($limit, $offset) = each($limit);
 
-		if (isset($filter['team']) && !empty($filter['team'])) {
+        if (isset($filter['team']) && !empty($filter['team'])) {
             $team = (int) $filter['team'];
             unset($filter['team']);
-		} // if
+        } // if
 
         return $this->db->query(
             "SELECT
@@ -65,7 +65,11 @@ class Posts extends Base
                 p.name,
                 p.difficulty,
                 p.terrain,
-                p.size,
+                p.cache_size,
+                cs.name AS size_name,
+                p.description,
+                p.cache_type,
+                ct.name AS cache_name,
                 p.hint,
                 CASE WHEN p.help NOT LIKE '' THEN TRUE ELSE FALSE END AS has_help,
                 %if", isset($team), "
@@ -73,8 +77,6 @@ class Posts extends Base
                 CASE WHEN lb.moment IS NOT NULL THEN p.bonus_code ELSE NULL END AS bonus_code,
                 CASE WHEN lh.moment IS NOT NULL THEN p.help ELSE NULL END AS help,
                 %end
-                p.description,
-                p.cache_type,
                 p.max_score,
                 p.with_staff,
                 to_char(p.open_from, 'HH24:MI') AS open_from,
@@ -83,9 +85,7 @@ class Posts extends Base
                 p.longitude,
                 pc.name AS color_name,
                 pc.code AS color_code,
-                pt.name AS type_name,
-                ps.name AS size_name,
-                ct.name AS cache_name
+                pt.name AS type_name
                 %if,", isset($team), "
                 lo.moment AS log_out_moment,
                 lb.moment AS log_bonus_moment,
@@ -96,7 +96,7 @@ class Posts extends Base
              FROM posts p
              JOIN post_colors pc USING (color)
              JOIN post_types pt USING (post_type)
-             JOIN post_sizes ps USING (size)
+             LEFT JOIN cache_sizes cs USING (cache_size)
              LEFT JOIN cache_types ct USING (cache_type)
              %if", isset($team), "
              LEFT JOIN (
@@ -160,12 +160,12 @@ class Posts extends Base
     public function insert(array $values)
     {
         if (empty($values)) throw new \Exception('Missing values for post insert.');
-        self::checkType($values['post_type']);
-        self::checkColor($values['color']);
-        self::checkTerrain($values['terrain']);
-        self::checkDifficulty($values['difficulty']);
-        self::checkCacheSize($values['size']);
-        self::checkCacheType($values['cache_type']);
+        $this->checkType($values['post_type']);
+        $this->checkColor($values['color']);
+        $this->checkTerrain($values['terrain']);
+        $this->checkDifficulty($values['difficulty']);
+        $this->checkCacheSize($values['size']);
+        $this->checkCacheType($values['cache_type']);
 
         return $this->db->query(
             "INSERT INTO posts %v", $values,
@@ -176,12 +176,12 @@ class Posts extends Base
     public function update(array $values, array $filter)
     {
         if (empty($filter)) throw new \Exception('Missing filter for post update.');
-        self::checkType($values['post_type']);
-        self::checkColor($values['color']);
-        self::checkTerrain($values['terrain']);
-        self::checkDifficulty($values['difficulty']);
-        self::checkCacheSize($values['size']);
-        self::checkCacheType($values['cache_type']);
+        $this->checkType($values['post_type']);
+        $this->checkColor($values['color']);
+        $this->checkTerrain($values['terrain']);
+        $this->checkDifficulty($values['difficulty']);
+        $this->checkCacheSize($values['cache_size']);
+        $this->checkCacheType($values['cache_type']);
 
         return $this->db->query(
             "UPDATE posts
@@ -200,17 +200,18 @@ class Posts extends Base
         ); // query()
     } // delete()
 
-    public static function checkType($value)
+    public function getTypes()
     {
-        $validTypes = [
-            self::BEGIN,
-            self::END,
-            self::ORGANIZATION,
-            self::ACTIVITY,
-            self::CIPHER,
-            self::CACHE,
-            self::BONUS
-        ];
+        return $this->db->query(
+            "SELECT *
+             FROM post_types
+             ORDER BY name"
+        )->fetchPairs('post_type', 'name');
+    } // getTypes()
+
+    public function checkType($value)
+    {
+        $validTypes = array_keys($this->getTypes());
 
         $value = strtoupper($value);
         if (!in_array($value, $validTypes)) {
@@ -218,16 +219,18 @@ class Posts extends Base
         } // if
     } // checkType()
 
-    public static function checkColor($value)
+    public function getColors()
     {
-        $validColors = [
-            self::TRANSPARENT,
-            self::RED,
-            self::YELLOW,
-            self::GREEN,
-            self::BLUE,
-            self::VIOLET
-        ];
+        return $this->db->query(
+            "SELECT *
+             FROM post_colors
+             ORDER BY name"
+        )->fetchPairs('color', 'name');
+    } // getColors()
+
+    public function checkColor($value)
+    {
+        $validColors = array_keys($this->getColors());
 
         $value = strtoupper($value);
         if (!in_array($value, $validColors)) {
@@ -235,16 +238,19 @@ class Posts extends Base
         } // if
     } // checkColor()
 
-    public static function checkCacheSize($value)
+    public function getCacheSizes()
     {
-        $validCacheSizes = [
-            '',
-            self::MICRO,
-            self::SMALL,
-            self::REGULAR,
-            self::LARGE,
-            self::OTHER
-        ];
+        return $this->db->query(
+            "SELECT *
+             FROM cache_sizes
+             ORDER BY name"
+        )->fetchPairs('cache_size', 'name');
+    } // getCacheSizes()
+
+    public function checkCacheSize($value)
+    {
+        $validCacheSizes = array_keys($this->getCacheSizes());
+        $validCacheSizes[''] = '';
 
         $value = strtoupper($value);
         if (!in_array($value, $validCacheSizes)) {
@@ -252,16 +258,19 @@ class Posts extends Base
         } // if
     } // checkCacheSize()
 
-    public static function checkCacheType($value)
+    public function getCacheTypes()
     {
-        $validCacheTypes = [
-            '',
-            self::TRADITIONAL,
-            self::MULTICACHE,
-            self::MYSTERY,
-            self::EARTHCACHE,
-            self::WHEREIGO
-        ];
+        return $this->db->query(
+            "SELECT *
+             FROM cache_types
+             ORDER BY name"
+        )->fetchPairs('cache_type', 'name');
+    } // getCacheTypes()
+
+    public function checkCacheType($value)
+    {
+        $validCacheTypes = array_keys($this->getCacheTypes());
+        $validCacheTypes[''] = '';
 
         $value = strtoupper($value);
         if (!in_array($value, $validCacheTypes)) {
@@ -269,23 +278,33 @@ class Posts extends Base
         } // if
     } // checkCacheType()
 
-    public static function checkTerrain($value)
+    public function getTerrains()
     {
-        $validTerrains = [ 1, 1.5, 2,  2.5, 3, 3.5, 4, 4.5, 5 ];
+        return [ 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5 ];
+    } // getTerrains()
+
+    public function checkTerrain($value)
+    {
+        $validTerrains = $this->getTerrains();
 
         $value = floatval($value);
         if (!in_array($value, $validTerrains)) {
-            throw new \Exception(sprintf('Invalid post terrain %f.', $value));
+            throw new \Exception(sprintf('Invalid post terrain %0.1f.', $value));
         } // if
     } // checkTerrain()
 
-    public static function checkDifficulty($value)
+    public function getDifficulties()
     {
-        $value = floatval($value);
-        $validDifficulties = [ 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5 ];
+        return [ 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5 ];
+    } // getDifficulties()
 
+    public function checkDifficulty($value)
+    {
+        $validDifficulties = $this->getDifficulties();
+
+        $value = floatval($value);
         if (!in_array($value, $validDifficulties)) {
-            throw new \Exception(sprintf('Invalid post difficulty %f.', $value));
+            throw new \Exception(sprintf('Invalid post difficulty %0.1f.', $value));
         } // if
     } // checkDifficulty()
 

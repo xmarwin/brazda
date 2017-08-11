@@ -206,17 +206,32 @@ class PostPresenter extends SecuredBasePresenter
             'max_score'   => (int) $this->input->maxScore,
             'difficulty'  => (float) $this->input->difficulty,
             'terrain'     => (float) $this->input->terrain,
-            'size'        => strtoupper($this->input->size),
-            'cache_type'  => strtoupper($this->input->cacheType),
             'shibboleth'  => $this->input->shibboleth,
-            'with_staff'  => (bool) $this->input->withStaff,
-            'hint'        => $this->input->hint,
-            'help'        => $this->input->help,
-            'description' => $this->input->description,
-            'bonus_code'  => $this->input->bonusCode,
             'latitude'    => $this->input->latitude,
             'longitude'   => $this->input->longitude
         ];
+
+        if (isset($this->input->cacheType) && !empty($this->input->cacheType))
+            $values['cache_type'] = strtoupper($this->input->cacheType);
+
+        if (isset($this->input->cacheSize) && !empty($this->input->cacheSize))
+            $values['cache_size'] = strtoupper($this->input->cacheSize);
+
+        if (isset($this->input->withStaff) && !empty($this->input->withStaff))
+            $values['with_staff'] = (bool) $this->input->withStaff;
+
+        if (isset($this->input->hint) && !empty($this->input->hint))
+            $values['hint'] = $this->input->hint;
+
+        if (isset($this->input->help) && !empty($this->input->help))
+            $values['help'] = $this->input->help;
+
+        if (isset($this->input->description) && !empty($this->input->description))
+            $values['description'] = $this->input->description;
+
+        if (isset($this->input->bonusCode) && !empty($this->input->bonusCode))
+            $values['bonus_code'] = $this->input->bonusCode;
+
         if (isset($this->input->openFrom) && !empty($this->input->openFrom))
             $values['open_from'] = $this->input->openFrom;
 
@@ -273,17 +288,32 @@ class PostPresenter extends SecuredBasePresenter
             'max_score'   => (int) $this->input->maxScore,
             'difficulty'  => (float) $this->input->difficulty,
             'terrain'     => (float) $this->input->terrain,
-            'size'        => strtoupper($this->input->size),
-            'cache_type'  => strtoupper($this->input->cacheType),
             'shibboleth'  => $this->input->shibboleth,
-            'with_staff'  => (bool) $this->input->withStaff,
-            'hint'        => $this->input->hint,
-            'help'        => $this->input->help,
-            'description' => $this->input->description,
-            'bonus_code'  => $this->input->bonusCode,
             'latitude'    => $this->input->latitude,
             'longitude'   => $this->input->longitude
         ];
+
+        if (isset($this->input->cacheType) && !empty($this->input->cacheType))
+            $values['cache_type'] = strtoupper($this->input->cacheType);
+
+        if (isset($this->input->cacheSize) && !empty($this->input->cacheSize))
+            $values['cache_size'] = strtoupper($this->input->cacheSize);
+
+        if (isset($this->input->withStaff) && !empty($this->input->withStaff))
+            $values['with_staff'] = (bool) $this->input->withStaff;
+
+        if (isset($this->input->hint) && !empty($this->input->hint))
+            $values['hint'] = $this->input->hint;
+
+        if (isset($this->input->help) && !empty($this->input->help))
+            $values['help'] = $this->input->help;
+
+        if (isset($this->input->description) && !empty($this->input->description))
+            $values['description'] = $this->input->description;
+
+        if (isset($this->input->bonusCode) && !empty($this->input->bonusCode))
+            $values['bonus_code'] = $this->input->bonusCode;
+
         if (isset($this->input->openFrom) && !empty($this->input->openFrom))
             $values['open_from'] = $this->input->openFrom;
 

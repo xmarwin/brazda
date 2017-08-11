@@ -21,7 +21,7 @@ insert into post_colors values
 ('BLU', 'modrá', 'rgb(66, 133, 244)'),
 ('VLT', 'fialová', 'rgb(238, 130, 238)');
 
-insert into post_sizes values
+insert into cache_sizes values
 ('M', 'Mikro'),
 ('S', 'Malá'),
 ('R', 'Střední'),
