@@ -5,14 +5,14 @@ namespace Brazda\Presenters;
 use Nette\Application,
     Nette\Security;
 
-class SercuredBaseXmlPresenter extends BaseXmlPresenter
+class SecuredBaseXmlPresenter extends BaseXmlPresenter
 {
     protected
         $team;
 
     public function startup()
     {
-        parent::startup()
+        parent::startup();
 
         $this->checkSecurityToken();
         $this->team = $this->getUser()->getIdentity()->getData();
