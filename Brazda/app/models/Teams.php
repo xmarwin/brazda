@@ -2,7 +2,6 @@
 
 namespace Brazda\Models;
 
-
 use Nette,
     Nette\DI;
 
