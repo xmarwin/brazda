@@ -17,7 +17,7 @@ PostsAdminController.$inject = ['$routeParams', 'Notification', 'AuthService', '
 
 function PostsAdminController($routeParams, notification, authService, postService, ngDialog) {
     var vm = this;
-    var postId;
+    //var postId;
 
     vm.deletePost = function (id) {
         ngDialog.openConfirm({
@@ -28,8 +28,12 @@ function PostsAdminController($routeParams, notification, authService, postServi
 
         })
     }
-    
+
     var init = function () {
+        getPosts();
+    }
+
+    var getPosts = function () {
         postService.getPosts()
             .then(function successCallback(response) {
                 vm.posts = response.data;
@@ -43,7 +47,7 @@ function PostsAdminController($routeParams, notification, authService, postServi
     function deletePostInt(id) {
         postService.deletePost(id)
             .then(function successCallback(response) {
-                
+                getPosts();
             }, function errorCallback(err) {
                 alert(err);
             });
