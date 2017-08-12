@@ -16,10 +16,11 @@ angular.module('myApp.login', ['ngRoute'])
 
     .controller('LoginCtrl', LoginController);
 
-LoginController.$inject = ['$location', 'AuthService', 'TeamService'];
+LoginController.$inject = ['$location', 'AuthService', 'TeamService', 'Notification'];
 
-function LoginController($location, authService, teamService) {
+function LoginController($location, authService, teamService, Notification) {
     var vm = this;
+    vm.password = 'Mocn8Klika'; //TODO: pred zavodem odstranit
 
     var init = function () {
         teamService.getTeams()
@@ -40,17 +41,20 @@ function LoginController($location, authService, teamService) {
                     vm.showError = false;
                     $location.path('/posts');
                 } else {
-                    vm.showError = true;
-                    vm.errorMessage = retval.message;
+                    Notification.error(retval.message);
                 }
             }, function (err) {
-
+                Notification.error(err.message);
             });      
     }
 
     vm.logout = function () {
-        authService.logout();
-        $location.path('/login');
+        authService.logout()
+            .then(function (data) {
+                $location.path('/login');
+            }, function (err) {
+                Notification.error(err.message);
+            });        
     }
 
     init();

@@ -8,7 +8,7 @@ SessionInjector.$inject = ['localStorageService', '$q'];
 function SessionInjector(localStorageService, $q) {
     var sessionInjector = {
         request: function (config) {
-            var team = localStorageService.get('team');
+            var team = localStorageService.get('brazdaTeam');
             if (!angular.isUndefined(team) && team != null) {
                 if (config.url.indexOf('?') > -1) {
                     config.url += '&securityToken=' + team.securityToken;

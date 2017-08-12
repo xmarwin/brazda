@@ -102,7 +102,9 @@ function AddPostController($routeParams, $location, notification, authService, p
             "latitude": post.latitude,
             "longitude": post.longitude,
             "withStaff": post.withStaff,
-            "waypoints": waypoints
+            "waypoints": waypoints,
+            "latitude": 0,
+            "longitude": 0
         }
 
         postService.addPost(input)
