@@ -13,6 +13,7 @@ angular.module('myApp', [
     'ngQuill',
     'ngDialog',
     'angular-loading-bar',
+    'geolocation',
 
     //interceptors
     'myApp.webApiInterceptor',
@@ -23,6 +24,7 @@ angular.module('myApp', [
     'myApp.teamService',
     'myApp.postService',
     'myApp.downloadService',
+    'myApp.trackingService',
 
     //App
     'myApp.rules',
@@ -76,3 +78,7 @@ angular.module('myApp', [
     .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.interceptors.push('SessionInjector');
     }])
+
+    .run(['TrackingService', function (trackingService) {
+        trackingService.startTracking();
+    }]);
