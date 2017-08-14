@@ -33,6 +33,7 @@ class Teams extends Base
                 t.tracking_allowed AS allow_tracking,
                 t.team_status,
                 t.shibboleth,
+                t.telephone,
                 ts.name AS statusName,
                 p.moment AS position_moment,
                 p.location AS position_location
@@ -69,6 +70,7 @@ class Teams extends Base
                 t.is_active AS active,
                 t.tracking_allowed AS allow_tracking,
                 t.team_status,
+                t.telephone,
                 ts.name AS status_name,
                 p.moment AS position_moment,
                 p.location AS position_location
@@ -104,6 +106,7 @@ class Teams extends Base
                 t.tracking_allowed AS allow_tracking,
                 t.team_status,
                 t.shibboleth,
+                t.telephone,
                 ts.name AS status_name,
                 p.moment AS position_moment,
                 p.location AS position_location
@@ -144,7 +147,7 @@ class Teams extends Base
             "UPDATE teams
              SET %a", $values,
             "WHERE %and", $filter
-        );
+        ); // query()
     } // update()
 
     public function delete(array $filter)
@@ -152,11 +155,9 @@ class Teams extends Base
         if (empty($values)) throw new \Exception('Missing filter for team delete.');
 
         return $this->db->query(
-            /*
-			"DELETE FROM teams"
+            "DELETE FROM teams"
             "WHERE %and", $filter
-			*/
-	);
+        ); // query()
     } // delete()
 
     public static function checkType($value)
