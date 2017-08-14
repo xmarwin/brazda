@@ -39,6 +39,9 @@ class SignPresenter extends BasePresenter
 			} // if
 		} catch (\Exception $e) {
 			$this->sendErrorResource($e, $this->outputType);
+			if ($this->getUser->isLoggedIn()) {
+                $this->getUser()->logout();
+			} // if
 		} // try
 
 		$data  = (array) $identity;
