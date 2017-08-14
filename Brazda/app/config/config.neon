@@ -2,6 +2,7 @@ parameters:
     logInterval: 5 # minutes
     bonusInterval: 10 # minutes
 
+
 application:
 	errorPresenter: Error
 	mapping:
@@ -20,6 +21,7 @@ services:
 	logins: Brazda\Models\Logins(@container)
 	logs: Brazda\Models\Logs(@container)
 	teams: Brazda\Models\Teams(@container)
+	positions: Brazda\Models\Positions($container)
 	posts: Brazda\Models\Posts(@container)
 	postTypes: Brazda\Models\PostTypes(@container)
 	waypoints: Brazda\Models\Waypoints(@container)
@@ -28,9 +30,11 @@ services:
 		setup:
 			- @dibipanel::register(@database)
 
+
 extensions:
 #	dibi: Dibi\Bridges\Nette\DibiExtension22
 	restful: Drahak\Restful\DI\RestfulExtension
+
 
 restful:
 	convention: 'camelCase'
