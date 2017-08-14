@@ -1,3 +1,4 @@
+{contentType application/gpx+xml}
 <?xml version="1.0" encoding="utf-8"?>
 <gpx xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" creator="Groundspeak, Inc. All Rights Reserved. http://www.groundspeak.com" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://www.groundspeak.com/cache/1/0 http://www.groundspeak.com/cache/1/0/cache.xsd" xmlns="http://www.topografix.com/GPX/1/0">
     <name>Stanoviště závodu BRAZDA</name>
@@ -6,12 +7,12 @@
     <email>info@brazda-gc.cz</email>
     <url>http://www.brazda-gc.cz</url>
     <urlname>BRAZDA - Brutální Rožnovský Závod Družstev Amatérů</urlname>
-    <time>{php echo date('c')}</time>
+    <time>{date('c')}</time>
     <keywords>cache, geocache</keywords>
     <bounds minlat="49.5280778" minlon="17.9448169" maxlat="49.3806722" maxlon="18.3373956" />
     {foreach $posts as $postId => $post}
     <wpt lat="{$post->latitude}" lon="{$post->longitude}">
-        <time>{php echo date('c')}</time>
+        <time>{date('c')}</time>
         <name>{$post->type_name} {$post->name} ({$post->color_name})</name>
         <desc>{$post->name}, {$post->type_name} ({$post->difficulty}/{$post->terrain})</desc>
         <sym>{if $post->post_type == \Brazda\Models\Posts::BEGIN}
@@ -116,7 +117,7 @@
         {foreach $post->waypoints as $waypoint}
         {if in_array($waypoint->waypoint_visibility, [ \Brazda\Models\Waypoints::VISIBLE, \Brazda\Models\Waypoints::HIDDEN_COORDINATES ])}
         <wpt lat="{if $waypoint->waypoint_visibility == \Brazda\Models\Waypoints::VISIBLE}{$waypoint->latitude}{/if}" lon="{if $waypoint->waypoint_visibility == \Brazda\Models\Waypoints::VISIBLE}{$waypoint->longitude}{/if}">
-            <time>{php echo date('c')}</time>
+            <time>{date('c')}</time>
             <name>{$waypoint->name}</name>
             <cmt />
             <desc>{$waypoint->description}</desc>
