@@ -54,6 +54,6 @@ function WebApiService($http, $q) {
             parameters = parameters.substr(0, parameters.length - 1);
         }
 
-        return 'http://brazda/api/' + endpointName + parameters;
+        return 'https://brazda/api/' + endpointName + parameters;
     }
 }
