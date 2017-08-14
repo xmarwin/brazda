@@ -12,7 +12,7 @@ waypoint_types
 team_types
 team_statuses
 post_types
-post_sizes
 post_colors
 cache_types
+cache_sizes
 log_types

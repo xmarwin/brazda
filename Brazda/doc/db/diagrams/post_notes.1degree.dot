@@ -46,7 +46,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="max_score" COLSPAN="3" ALIGN="LEFT">max_score</TD></TR>
       <TR><TD PORT="difficulty" COLSPAN="3" ALIGN="LEFT">difficulty</TD></TR>
       <TR><TD PORT="terrain" COLSPAN="3" ALIGN="LEFT">terrain</TD></TR>
-      <TR><TD PORT="size" COLSPAN="3" ALIGN="LEFT">size</TD></TR>
+      <TR><TD PORT="cache_size" COLSPAN="3" ALIGN="LEFT">cache_size</TD></TR>
       <TR><TD PORT="cache_type" COLSPAN="3" ALIGN="LEFT">cache_type</TD></TR>
       <TR><TD PORT="shibboleth" COLSPAN="3" ALIGN="LEFT">shibboleth</TD></TR>
       <TR><TD PORT="with_staff" COLSPAN="3" ALIGN="LEFT">with_staff</TD></TR>
@@ -58,7 +58,7 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="open_to" COLSPAN="3" ALIGN="LEFT">open_to</TD></TR>
       <TR><TD PORT="latitude" COLSPAN="3" ALIGN="LEFT">latitude</TD></TR>
       <TR><TD PORT="longitude" COLSPAN="3" ALIGN="LEFT">longitude</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 4</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">32 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">3 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 4</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">33 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">3 &gt;</TD></TR>
     </TABLE>>
     URL="posts.html"
     tooltip="posts"
@@ -73,8 +73,9 @@ digraph "oneDegreeRelationshipsDiagram" {
       <TR><TD PORT="shibboleth" COLSPAN="3" ALIGN="LEFT">shibboleth</TD></TR>
       <TR><TD PORT="description" COLSPAN="3" ALIGN="LEFT">description</TD></TR>
       <TR><TD PORT="is_active" COLSPAN="3" ALIGN="LEFT">is_active</TD></TR>
-      <TR><TD PORT="status" COLSPAN="3" ALIGN="LEFT">status</TD></TR>
+      <TR><TD PORT="team_status" COLSPAN="3" ALIGN="LEFT">team_status</TD></TR>
       <TR><TD PORT="tracking_allowed" COLSPAN="3" ALIGN="LEFT">tracking_allowed</TD></TR>
+      <TR><TD PORT="telephone" COLSPAN="3" ALIGN="LEFT">telephone</TD></TR>
       <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">13 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">6 &gt;</TD></TR>
     </TABLE>>
     URL="teams.html"

@@ -20,5 +20,6 @@ source "$DIR/config"
 /usr/bin/psql -h $PGHOST -p $PGPORT -f p004.sql
 /usr/bin/psql -h $PGHOST -p $PGPORT -f p005.sql
 /usr/bin/psql -h $PGHOST -p $PGPORT -f p006.sql
+/usr/bin/psql -h $PGHOST -p $PGPORT -f p007.sql
 /usr/bin/psql -h $PGHOST -p $PGPORT -f posts.sql
 /usr/bin/psql -h $PGHOST -p $PGPORT -f results.sql
