@@ -88,6 +88,21 @@ class Logins extends Base implements Security\IAuthenticator
     {
         $securityToken = bin2hex(openssl_random_pseudo_bytes(16));
 
+        $login = $this->db->qeury(
+            "SELECT *
+             FROM logins
+             WHERE team = %i", $team,
+            "  AND device_id LIKE %s", $deviceId
+        )->fetch();
+
+        if (!empty($login)) {
+            throw new Security\AuthenticationException(sprintf(
+                    'Někdo se za tento tým zalogoval ze stejného zařízení již v %s.', date('j. n. Y H:i', strtotime($login->moment))
+                ), // sprintf()
+                200
+            ); // AuthenticationException()
+        } // if
+
         $login = $this->db->query(
             "INSERT INTO logins (
                 team,
