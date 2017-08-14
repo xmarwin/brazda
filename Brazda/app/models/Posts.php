@@ -164,7 +164,7 @@ class Posts extends Base
         $this->checkColor($values['color']);
         $this->checkTerrain($values['terrain']);
         $this->checkDifficulty($values['difficulty']);
-        $this->checkCacheSize($values['size']);
+        $this->checkCacheSize($values['cache_size']);
         $this->checkCacheType($values['cache_type']);
 
         return $this->db->query(
