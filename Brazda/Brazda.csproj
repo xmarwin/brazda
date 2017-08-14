@@ -5271,6 +5271,7 @@
     <Content Include="www\bonusy\view2.html" />
     <Content Include="www\bonusy\view2.js" />
     <Content Include="www\bonusy\view2_test.js" />
+    <Content Include="www\bower_components\angular-geolocation\angular-geolocation.js" />
     <Content Include="www\bower_components\angular-loader\.bower.json" />
     <Content Include="www\bower_components\angular-loader\angular-loader.js" />
     <Content Include="www\bower_components\angular-loader\angular-loader.min.js" />
@@ -5623,6 +5624,7 @@
     <Content Include="www\rules\rules.html" />
     <Content Include="www\rules\rules.js" />
     <Content Include="www\rules\rules_test.js" />
+    <Content Include="www\services\trackingService.js" />
     <Content Include="www\services\webApi.interceptor.js" />
     <Content Include="www\services\webApi.service.js" />
     <Content Include="www\services\authService.js" />
