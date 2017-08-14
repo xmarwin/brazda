@@ -155,7 +155,7 @@ class Teams extends Base
         if (empty($values)) throw new \Exception('Missing filter for team delete.');
 
         return $this->db->query(
-            "DELETE FROM teams"
+            "DELETE FROM teams",
             "WHERE %and", $filter
         ); // query()
     } // delete()
