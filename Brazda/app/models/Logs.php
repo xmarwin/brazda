@@ -54,7 +54,7 @@ class Logs extends Base
                 p.name,
                 p.difficulty,
                 p.terrain,
-                p.size,
+                p.cache_size,
                 p.description,
                 t.name AS team_name
              FROM logs l
