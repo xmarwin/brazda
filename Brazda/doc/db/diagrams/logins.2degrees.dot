@@ -25,7 +25,7 @@ digraph "twoDegreesRelationshipsDiagram" {
   "players":"elipses":w -> "teams":"team":e [arrowhead=none dir=back arrowtail=crowodot];
   "positions":"elipses":w -> "teams":"team":e [arrowhead=none dir=back arrowtail=crowodot];
   "post_notes":"elipses":w -> "teams":"team":e [arrowhead=none dir=back arrowtail=crowodot];
-  "teams":"status":w -> "team_statuses":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "teams":"team_status":w -> "team_statuses":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "teams":"team_type":w -> "team_types":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "audit_logs" [
     label=<
@@ -47,7 +47,7 @@ digraph "twoDegreesRelationshipsDiagram" {
       <TR><TD PORT="security_token" COLSPAN="2" BGCOLOR="#f4f7da" ALIGN="LEFT">security_token</TD><TD PORT="security_token.type" ALIGN="LEFT">varchar[32]</TD></TR>
       <TR><TD PORT="moment" COLSPAN="2" ALIGN="LEFT">moment</TD><TD PORT="moment.type" ALIGN="LEFT">timestamp[29,6]</TD></TR>
       <TR><TD PORT="last_activity_moment" COLSPAN="2" ALIGN="LEFT">last_activity_moment</TD><TD PORT="last_activity_moment.type" ALIGN="LEFT">timestamp[29,6]</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 row</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 &gt;</TD></TR>
     </TABLE>>
     URL="logins.html"
     tooltip="logins"
@@ -122,8 +122,9 @@ digraph "twoDegreesRelationshipsDiagram" {
       <TR><TD PORT="shibboleth" COLSPAN="3" ALIGN="LEFT">shibboleth</TD></TR>
       <TR><TD PORT="description" COLSPAN="3" ALIGN="LEFT">description</TD></TR>
       <TR><TD PORT="is_active" COLSPAN="3" ALIGN="LEFT">is_active</TD></TR>
-      <TR><TD PORT="status" COLSPAN="3" ALIGN="LEFT">status</TD></TR>
+      <TR><TD PORT="team_status" COLSPAN="3" ALIGN="LEFT">team_status</TD></TR>
       <TR><TD PORT="tracking_allowed" COLSPAN="3" ALIGN="LEFT">tracking_allowed</TD></TR>
+      <TR><TD PORT="telephone" COLSPAN="3" ALIGN="LEFT">telephone</TD></TR>
       <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">13 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">6 &gt;</TD></TR>
     </TABLE>>
     URL="teams.html"

@@ -1,7 +1,7 @@
 log_types
+cache_sizes
 cache_types
 post_colors
-post_sizes
 post_types
 team_statuses
 team_types

@@ -24,13 +24,24 @@ digraph "twoDegreesRelationshipsDiagram" {
   "logs":"team":w -> "teams":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "post_notes":"post":w -> "posts":"post.type":e [arrowhead=none dir=back arrowtail=crowodot];
   "post_notes":"team":w -> "teams":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "posts":"cache_size":w -> "cache_sizes":"cache_size":e [arrowhead=none dir=back arrowtail=crowodot];
   "posts":"cache_type":w -> "cache_types":"cache_type":e [arrowhead=none dir=back arrowtail=crowodot];
   "posts":"color":w -> "post_colors":"color":e [arrowhead=none dir=back arrowtail=crowodot];
   "posts":"post_type":w -> "post_types":"post_type":e [arrowhead=none dir=back arrowtail=crowodot];
-  "posts":"size":w -> "post_sizes":"size":e [arrowhead=none dir=back arrowtail=crowodot];
   "waypoints":"post":w -> "posts":"post.type":e [arrowhead=none dir=back arrowtail=crowodot];
   "waypoints":"waypoint_type":w -> "waypoint_types":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "waypoints":"waypoint_visibility":w -> "waypoint_visibilities":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "cache_sizes" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">cache_sizes</TD></TR>
+      <TR><TD PORT="cache_size" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">cache_size</TD></TR>
+      <TR><TD PORT="name" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">name</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">5 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
+    </TABLE>>
+    URL="cache_sizes.html"
+    tooltip="cache_sizes"
+  ];
   "cache_types" [
     label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
@@ -92,17 +103,6 @@ digraph "twoDegreesRelationshipsDiagram" {
     URL="post_notes.html"
     tooltip="post_notes"
   ];
-  "post_sizes" [
-    label=<
-    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">post_sizes</TD></TR>
-      <TR><TD PORT="size" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">size</TD></TR>
-      <TR><TD PORT="name" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">name</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">5 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1 &gt;</TD></TR>
-    </TABLE>>
-    URL="post_sizes.html"
-    tooltip="post_sizes"
-  ];
   "post_types" [
     label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
@@ -125,7 +125,7 @@ digraph "twoDegreesRelationshipsDiagram" {
       <TR><TD PORT="max_score" COLSPAN="2" ALIGN="LEFT">max_score</TD><TD PORT="max_score.type" ALIGN="LEFT">int4[10]</TD></TR>
       <TR><TD PORT="difficulty" COLSPAN="2" ALIGN="LEFT">difficulty</TD><TD PORT="difficulty.type" ALIGN="LEFT">float8[17,17]</TD></TR>
       <TR><TD PORT="terrain" COLSPAN="2" ALIGN="LEFT">terrain</TD><TD PORT="terrain.type" ALIGN="LEFT">float8[17,17]</TD></TR>
-      <TR><TD PORT="size" COLSPAN="2" ALIGN="LEFT">size</TD><TD PORT="size.type" ALIGN="LEFT">bpchar[1]</TD></TR>
+      <TR><TD PORT="cache_size" COLSPAN="2" ALIGN="LEFT">cache_size</TD><TD PORT="cache_size.type" ALIGN="LEFT">bpchar[1]</TD></TR>
       <TR><TD PORT="cache_type" COLSPAN="2" ALIGN="LEFT">cache_type</TD><TD PORT="cache_type.type" ALIGN="LEFT">bpchar[3]</TD></TR>
       <TR><TD PORT="shibboleth" COLSPAN="2" ALIGN="LEFT">shibboleth</TD><TD PORT="shibboleth.type" ALIGN="LEFT">varchar[20]</TD></TR>
       <TR><TD PORT="with_staff" COLSPAN="2" ALIGN="LEFT">with_staff</TD><TD PORT="with_staff.type" ALIGN="LEFT">bool[1]</TD></TR>
@@ -137,7 +137,7 @@ digraph "twoDegreesRelationshipsDiagram" {
       <TR><TD PORT="open_to" COLSPAN="2" ALIGN="LEFT">open_to</TD><TD PORT="open_to.type" ALIGN="LEFT">time[15,6]</TD></TR>
       <TR><TD PORT="latitude" COLSPAN="2" ALIGN="LEFT">latitude</TD><TD PORT="latitude.type" ALIGN="LEFT">float8[17,17]</TD></TR>
       <TR><TD PORT="longitude" COLSPAN="2" ALIGN="LEFT">longitude</TD><TD PORT="longitude.type" ALIGN="LEFT">float8[17,17]</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 4</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">32 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">3 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">&lt; 4</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">33 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">3 &gt;</TD></TR>
     </TABLE>>
     URL="posts.html"
     tooltip="posts"
