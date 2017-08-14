@@ -45,9 +45,12 @@ class TeamPresenter extends SecuredBasePresenter
             'is_active'      => (bool) $this->input->active,
             'allow_tracking' => (bool) $this->input->allowTracking,
         ];
-        if (isset($this->input->description) && !empty($this->input->description)) {
+
+        if (isset($this->input->description) && !empty($this->input->description))
             $values['description'] = $this->input->description;
-        } // if
+
+        if (isset($this->input->telephone) && !empty($this->input->telephone))
+            $values['telephone'] = $this->input->telephone;
 
         try {
             $result['team'] = $this->teams->insert($values);
@@ -76,9 +79,12 @@ class TeamPresenter extends SecuredBasePresenter
             'is_active'      => (bool) $this->input->active,
             'allow_tracking' => (bool) $this->input->allowTracking,
         ];
-        if (isset($this->input->description) && !empty($this->input->description)) {
+
+        if (isset($this->input->description) && !empty($this->input->description))
             $values['description'] = $this->input->description;
-        } // if
+
+        if (isset($this->input->telephone) && !empty($this->input->telephone))
+            $values['telephone'] = $this->input->telephone;
 
         try {
             $this->teams->update($values, $filter);
