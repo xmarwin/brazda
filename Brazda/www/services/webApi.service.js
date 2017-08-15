@@ -18,7 +18,7 @@ function WebApiService($http, $q) {
         }
 
         if (method === 'POST') {
-            data = parameters;
+            data = JSON.stringify(parameters);
             url = buildUrl(endpointName, [])
         } else {
             url = buildUrl(endpointName, parameters);
@@ -54,6 +54,6 @@ function WebApiService($http, $q) {
             parameters = parameters.substr(0, parameters.length - 1);
         }
 
-        return 'https://brazda/api/' + endpointName + parameters;
+        return '/api/' + endpointName + parameters;
     }
 }
