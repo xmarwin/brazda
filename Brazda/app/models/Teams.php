@@ -129,7 +129,7 @@ class Teams extends Base
 
     public function insert(array $values)
     {
-        if (empty($values)) throw new \Exception('Missing values for team insert.');
+        if (empty($values)) throw new \Exception('Chybí hodnoty pro zápis týmu.');
         self::checkType($values['team_type']);
 
         return $this->db->query(
@@ -140,7 +140,7 @@ class Teams extends Base
 
     public function update(array $values, array $filter)
     {
-        if (empty($values)) throw new \Exception('Missing filter for team update.');
+        if (empty($values)) throw new \Exception('Chybí hodnoty pro úpravu týmu.');
         self::checkType($values['team_type']);
 
         return $this->db->query(
@@ -152,7 +152,7 @@ class Teams extends Base
 
     public function delete(array $filter)
     {
-        if (empty($values)) throw new \Exception('Missing filter for team delete.');
+        if (empty($values)) throw new \Exception('Chybí specifikace týmu pro smazání.');
 
         return $this->db->query(
             "DELETE FROM teams",
@@ -169,7 +169,7 @@ class Teams extends Base
 
         $value = strtoupper($value);
         if (!in_array($value, $validTypes)) {
-            throw new \Exception(sprintf('Invalid team type %s.', $value));
+            throw new \Exception(sprintf('Neplatný typ týmu %s.', $value));
         } // if
     } // checkType()
 
