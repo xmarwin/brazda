@@ -91,7 +91,7 @@ function AddPostController($routeParams, $location, notification, authService, p
             "name": post.name,
             "difficulty": angular.isUndefined(post.difficulty) ? null : post.difficulty.value,
             "terrain": angular.isUndefined(post.terrain) ? null : post.terrain.value,
-            "size": angular.isUndefined(post.postSize) ? null : post.postSize.size,
+            "cacheSize": angular.isUndefined(post.postSize) ? null : post.postSize.size,
             "hint": post.hint,
             "help": post.help,
             "bonusCode": post.bonusCode,
