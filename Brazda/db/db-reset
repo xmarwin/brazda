@@ -7,8 +7,6 @@ PGDATABASE="brazda"
 /usr/bin/dropdb -h $PGHOST -p $PGPORT -U postgres $PGDATABASE
 /usr/bin/createdb -h $PGHOST -p $PGPORT -U postgres -O brazda -E UTF-8 -T template0 $PGDATABASE
 
-#export PGUSER="brazda"
-#export PGPASSWORD="FzwtMS/jq.XSQ"
 DIR="$(dirname "$0")"
 source "$DIR/config"
 
@@ -22,5 +20,6 @@ source "$DIR/config"
 /usr/bin/psql -h $PGHOST -p $PGPORT -f p006.sql
 /usr/bin/psql -h $PGHOST -p $PGPORT -f p007.sql
 /usr/bin/psql -h $PGHOST -p $PGPORT -f p008.sql
+/usr/bin/psql -h $PGHOST -p $PGPORT -f p009.sql
 /usr/bin/psql -h $PGHOST -p $PGPORT -f posts.sql
 /usr/bin/psql -h $PGHOST -p $PGPORT -f results.sql

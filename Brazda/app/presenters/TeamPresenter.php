@@ -52,6 +52,9 @@ class TeamPresenter extends SecuredBasePresenter
         if (isset($this->input->telephone) && !empty($this->input->telephone))
             $values['telephone'] = $this->input->telephone;
 
+        if (isset($this->input->email) && !empty($this->input->email))
+            $values['email'] = $this->input->email;
+
         try {
             $result['team'] = $this->teams->insert($values);
         } catch (\Exception $e) {
@@ -85,6 +88,9 @@ class TeamPresenter extends SecuredBasePresenter
 
         if (isset($this->input->telephone) && !empty($this->input->telephone))
             $values['telephone'] = $this->input->telephone;
+
+        if (isset($this->input->email) && !empty($this->input->email))
+            $values['email'] = $this->input->email;
 
         try {
             $this->teams->update($values, $filter);
