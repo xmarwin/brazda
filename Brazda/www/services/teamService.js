@@ -12,15 +12,26 @@ function TeamService(webApiService) {
         return webApiService.get('sign/teams-list');
     }
 
-    vm.addTeam = function () {
 
+//    http://brazda/api/team/create?securityToken=...
+//      {
+//        "name": "Název týmu",
+//        "shibboleth": "Heslo pro přihlášení",
+//        "team_type": "COM",
+//        "is_active": true,
+//        "allow_tracking": true,
+//        "description": "Popis týmu", // nepovinná položka
+//        "telephone": "+420 123 456 789", // nepovinná položka
+//      }
+    vm.addTeam = function (data) {
+        return webApiService.get('team/create', data, 'POST');
     }
 
     vm.updateTeam = function () {
-
+        return webApiService.get('team/update', data, 'POST');
     }
 
     vm.deleteTeam = function (teamId) {
-
+        return webApiService.get('team/delete', [{ 'team': teamId }]);
     }
 }

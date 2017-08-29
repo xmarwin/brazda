@@ -68,6 +68,13 @@
   <ItemGroup>
     <Content Include="db\data.sql" />
     <Content Include="db\demo.sql" />
+    <Content Include="db\p001.sql" />
+    <Content Include="db\p002.sql" />
+    <Content Include="db\p003.sql" />
+    <Content Include="db\p004.sql" />
+    <Content Include="db\p005.sql" />
+    <Content Include="db\p006.sql" />
+    <Content Include="db\p007.sql" />
     <Content Include="db\posts.sql" />
     <Content Include="db\schema.sql" />
     <Content Include="doc\api.txt" />
