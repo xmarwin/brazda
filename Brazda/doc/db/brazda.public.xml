@@ -72,10 +72,6 @@
          <index name="logins_security_token_key" unique="true">
             <column ascending="true" name="security_token"/>
          </index>
-         <index name="logins_team_device_id_key" unique="true">
-            <column ascending="true" name="team"/>
-            <column ascending="true" name="device_id"/>
-         </index>
       </table>
       <table name="logs" numRows="0" remarks="" schema="public" type="TABLE">
          <column autoUpdated="true" defaultValue="nextval('logs_log_seq'::regclass)" digits="0" id="0" name="log" nullable="false" remarks="" size="10" type="serial"/>
