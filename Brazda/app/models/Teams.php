@@ -34,6 +34,7 @@ class Teams extends Base
                 t.team_status,
                 t.shibboleth,
                 t.telephone,
+                t.email,
                 ts.name AS statusName,
                 p.moment AS position_moment,
                 p.location AS position_location
@@ -71,6 +72,7 @@ class Teams extends Base
                 t.tracking_allowed AS allow_tracking,
                 t.team_status,
                 t.telephone,
+                t.email,
                 ts.name AS status_name,
                 p.moment AS position_moment,
                 p.location AS position_location
@@ -107,6 +109,7 @@ class Teams extends Base
                 t.team_status,
                 t.shibboleth,
                 t.telephone,
+                t.email,
                 ts.name AS status_name,
                 p.moment AS position_moment,
                 p.location AS position_location

@@ -243,6 +243,7 @@
          </column>
          <column autoUpdated="false" defaultValue="true" digits="0" id="7" name="tracking_allowed" nullable="false" remarks="" size="1" type="bool"/>
          <column autoUpdated="false" digits="0" id="8" name="telephone" nullable="true" remarks="" size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="email" nullable="true" remarks="" size="2147483647" type="text"/>
          <primaryKey column="team" sequenceNumberInPK="1"/>
          <index name="teams_pkey" unique="true">
             <column ascending="true" name="team"/>
