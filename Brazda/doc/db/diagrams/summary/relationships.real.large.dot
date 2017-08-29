@@ -1,4 +1,4 @@
-// dot 2.40.1 on Linux 4.11.5-gentoo
+// dot 2.40.1 on Linux 4.12.8-gentoo
 // SchemaSpy rev 590
 digraph "largeRelationshipsDiagram" {
   graph [
@@ -71,8 +71,8 @@ digraph "largeRelationshipsDiagram" {
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">logins</TD></TR>
       <TR><TD PORT="login" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">login</TD></TR>
-      <TR><TD PORT="team" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">team</TD></TR>
-      <TR><TD PORT="device_id" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">device_id</TD></TR>
+      <TR><TD PORT="team" COLSPAN="3" ALIGN="LEFT">team</TD></TR>
+      <TR><TD PORT="device_id" COLSPAN="3" ALIGN="LEFT">device_id</TD></TR>
       <TR><TD PORT="security_token" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">security_token</TD></TR>
       <TR><TD PORT="moment" COLSPAN="3" ALIGN="LEFT">moment</TD></TR>
       <TR><TD PORT="last_activity_moment" COLSPAN="3" ALIGN="LEFT">last_activity_moment</TD></TR>
