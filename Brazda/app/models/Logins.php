@@ -88,7 +88,7 @@ class Logins extends Base implements Security\IAuthenticator
     {
         $securityToken = bin2hex(openssl_random_pseudo_bytes(16));
 
-        $login = $this->db->qeury(
+        $login = $this->db->query(
             "SELECT *
              FROM logins
              WHERE team = %i", $team,
