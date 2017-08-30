@@ -33,7 +33,7 @@ function TeamsController($routeParams, notification, authService, teamService, n
     }
 
     function getTeams() {
-        teamService.getTeams()
+        teamService.getTeamsFull()
             .then(function successCallback(response) {
                 vm.teams = response.data;
             }, function errorCallback(err) {

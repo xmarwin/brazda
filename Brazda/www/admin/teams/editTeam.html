@@ -18,7 +18,15 @@
                 <input type="text" id="name" name="name" ng-model="ctrl.team.name" required ng-required="true" class="form-control" />
             </div>
         </div>
-        <div class="row">
+        <div class="row form-group" ng-class="{ 'has-error' : editTeamForm.name.$invalid && !editTeamForm.name.$pristine }">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                Heslo:
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <input type="text" id="shibboleth" name="shibboleth" ng-model="ctrl.team.shibboleth" required ng-required="true" class="form-control" />
+            </div>
+        </div>
+        <div class="row form-group">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 Popis:
             </div>
@@ -26,7 +34,39 @@
                 <input type="text" id="description" name="description" ng-model="ctrl.team.description" class="form-control" />
             </div>
         </div>
-        <div class="row">
+        <div class="row form-group">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                Email:
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <input type="email" id="email" name="email" ng-model="ctrl.team.email" class="form-control" />
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                Telefon:
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <input type="text" id="phone" name="phone" ng-model="ctrl.team.phone" class="form-control" />
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                Aktivní:
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <input type="checkbox" id="active" name="active" ng-model="ctrl.team.active" class="form-control" />
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                Povolit sledování:
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <input type="checkbox" id="allowTracking" name="allowTracking" ng-model="ctrl.team.allowTracking" class="form-control" />
+            </div>
+        </div>
+        <div class="row form-group">
             <input type="submit" value="Upravit" ng-click="ctrl.editTeam(team)" ng-disabled="editTeamForm.$invalid" class="btn btn-primary">
         </div>
     </form>

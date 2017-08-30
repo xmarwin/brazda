@@ -104,7 +104,9 @@ function AddPostController($routeParams, $location, notification, authService, p
             "withStaff": post.withStaff,
             "waypoints": waypoints,
             "latitude": 0,
-            "longitude": 0
+            "longitude": 0,
+            "openFrom": $filter("date")(post.openFrom, "shortTime"),
+            "openTo": $filter("date")(post.openTo, "shortTime")
         }
 
         postService.addPost(input)

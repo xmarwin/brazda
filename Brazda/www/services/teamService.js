@@ -8,8 +8,16 @@ TeamService.$inject = ['WebApiService'];
 function TeamService(webApiService) {
     var vm = this;
 
-    vm.getTeams = function () {
+    vm.getTeamsLight = function () {
         return webApiService.get('sign/teams-list');
+    }
+
+    vm.getTeamsFull = function (teamId) {
+        return webApiService.get('team/list');
+    }
+
+    vm.getTeam = function (teamId) {
+        return webApiService.get('team/detail', [{ 'team': teamId }]);
     }
 
 
@@ -27,7 +35,7 @@ function TeamService(webApiService) {
         return webApiService.get('team/create', data, 'POST');
     }
 
-    vm.updateTeam = function () {
+    vm.updateTeam = function (data) {
         return webApiService.get('team/update', data, 'POST');
     }
 

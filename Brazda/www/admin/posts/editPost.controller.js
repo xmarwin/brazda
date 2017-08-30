@@ -51,6 +51,13 @@ function EditPostController($routeParams, $location, notification, authService, 
                 vm.post.terrain = $filter('filter')(vm.postTerrains, { 'value': vm.post.terrain.toString() }, true)[0];
                 vm.post.postSize = $filter('filter')(vm.postSizes, { 'size': vm.post.postSize }, true)[0];
                 vm.post.cacheType = $filter('filter')(vm.cacheTypes, { 'cacheType': vm.post.cacheType }, true)[0];
+                if (vm.post.openFrom !== null) {
+                    vm.post.openFrom = new Date("2017-01-01 " + vm.post.openFrom + ":00");
+                }
+
+                if (vm.post.openTo !== null) {
+                    vm.post.openTo = new Date("2017-01-01 " + vm.post.openTo + ":00");
+                }
 
                 angular.forEach(vm.post.waypoints, function (value) {
                     value.waypointType = $filter('filter')(vm.waypointTypes, { 'waypointType': value.waypointType }, true)[0];
@@ -122,7 +129,9 @@ function EditPostController($routeParams, $location, notification, authService, 
             "latitude": post.latitude,
             "longitude": post.longitude,
             "withStaff": post.withStaff,
-            "waypoints": waypoints
+            "waypoints": waypoints,
+            "openFrom": $filter("date")(post.openFrom, "shortTime"),
+            "openTo": $filter("date")(post.openTo, "shortTime")
         }
 
         postService.updatePost(input)
