@@ -34,6 +34,16 @@ class Posts extends Base
     const BLUE        = 'BLU';
     const VIOLET      = 'VLT';
 
+    protected
+        $teams;
+
+    public function __construct(DI\Container $container)
+    {
+        parent::__construct($container);
+
+        $this->teams = $this->context->getService('teams');
+    } // __construct()
+
     public function find($post)
     {
         $post = (int) $post;
@@ -54,6 +64,9 @@ class Posts extends Base
 
         if (isset($filter['team']) && !empty($filter['team'])) {
             $team = (int) $filter['team'];
+
+            $role = $this->teams->find(['team' => $team])->role;
+
             unset($filter['team']);
         } // if
 
@@ -72,10 +85,14 @@ class Posts extends Base
                 ct.name AS cache_name,
                 p.hint,
                 CASE WHEN p.help NOT LIKE '' THEN TRUE ELSE FALSE END AS has_help,
-                %if", isset($team), "
+                %if", isset($team) && $role == Teams::COMPETITORS, "
                 CASE WHEN lo.moment IS NOT NULL THEN p.shibboleth ELSE NULL END AS shibboleth,
                 CASE WHEN lb.moment IS NOT NULL THEN p.bonus_code ELSE NULL END AS bonus_code,
                 CASE WHEN lh.moment IS NOT NULL THEN p.help ELSE NULL END AS help,
+                %else
+                p.shibboleth,
+                p.bonus_code,
+                p.help,
                 %end
                 p.max_score,
                 p.with_staff,
@@ -86,7 +103,7 @@ class Posts extends Base
                 pc.name AS color_name,
                 pc.code AS color_code,
                 pt.name AS type_name
-                %if,", isset($team), "
+                %if,", isset($team) && $role == Teams::COMPETITORS, "
                 lo.moment AS log_out_moment,
                 lb.moment AS log_bonus_moment,
                 lh.moment AS log_help_moment,
@@ -98,7 +115,7 @@ class Posts extends Base
              JOIN post_types pt USING (post_type)
              LEFT JOIN cache_sizes cs USING (cache_size)
              LEFT JOIN cache_types ct USING (cache_type)
-             %if", isset($team), "
+             %if", isset($team) && $role == Teams::COMPETITORS, "
              LEFT JOIN (
                 SELECT post, moment
                 FROM logs
