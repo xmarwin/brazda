@@ -23,7 +23,7 @@ function LoginController($location, authService, teamService, Notification) {
     vm.password = 'Mocn8Klika'; //TODO: pred zavodem odstranit
 
     var init = function () {
-        teamService.getTeams()
+        teamService.getTeamsLight()
             .then(function successCallback(response) {
                 vm.teams = response.data;
             }, function errorCallback(err) {

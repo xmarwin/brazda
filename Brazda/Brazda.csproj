@@ -4,6 +4,7 @@
   <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>
@@ -5682,7 +5683,6 @@
     <Content Include="db\db-reset" />
     <Content Include="db\psql" />
     <Content Include="db\psql.bat" />
-    <Content Include="db\reset-db.bat" />
     <Content Include="node_modules\%40types\jasmine\LICENSE" />
     <Content Include="node_modules\%40types\jasmine\package.json" />
     <Content Include="node_modules\%40types\jasmine\README.md" />
@@ -7685,6 +7685,8 @@
     <Content Include="app\modules\Api\SignPresenter.php" />
     <Content Include="app\models\Logins.php" />
     <Content Include="app\models\Positions.php" />
+    <Content Include="db\db-reset.bat" />
+    <Content Include="tsconfig.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -7919,6 +7921,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="**\*.ts" Exclude="$(GlobalExclude)" />
+  </ItemGroup>
+  <ItemGroup>
     <TypeScriptCompile Include="node_modules\%40types\jasmine\index.d.ts" />
     <TypeScriptCompile Include="node_modules\%40types\node\index.d.ts" />
     <TypeScriptCompile Include="node_modules\%40types\q\index.d.ts" />
@@ -8140,7 +8145,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63007</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

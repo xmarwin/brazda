@@ -22,17 +22,33 @@ function EditTeamController($routeParams, $location, $filter, notification, auth
     var init = function () {
         var teamId = parseInt($routeParams.teamId);
 
-        teamService.getTeams()
+        teamService.getTeam(teamId)
             .then(function successCallback(response) {
-                vm.team = $filter('filter')(response.data, { team: teamId }, true)[0];
+                vm.team = response.data;
             }, function errorCallback(err) {
                 alert(err);
             });
     }
 
-    vm.editTeam = function () {
-        notification.success("Tým " + vm.team.name + " byl upraven.");
-        $location.path("admin/teams");
+    vm.editTeam = function (team) {
+        var input = {
+            "team": vm.team.team,
+            "name": vm.team.name,
+            "shibboleth": vm.team.shibboleth,
+            "role": "COM", //vm.team.type,
+            "isActive": vm.team.active,
+            "allowTracking": vm.team.allowTracking,
+            "description": vm.team.description,
+            "telephone": vm.team.phone
+        }
+
+        teamService.updateTeam(input)
+            .then(function (data) {
+                $location.path("admin/teams");
+                notification.success("Tým " + vm.team.name + " byl upraven.");
+            }, function (err) {
+                notification.error(err);
+            });
     }
 
     init();
