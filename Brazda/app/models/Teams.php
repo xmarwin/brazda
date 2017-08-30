@@ -132,7 +132,9 @@ class Teams extends Base
 
     public function insert(array $values)
     {
-        if (empty($values)) throw new \Exception('Chybí hodnoty pro zápis týmu.');
+        if (empty($values))
+            throw new \Exception('Chybí hodnoty pro zápis týmu.');
+
         self::checkType($values['team_type']);
 
         return $this->db->query(
@@ -143,7 +145,9 @@ class Teams extends Base
 
     public function update(array $values, array $filter)
     {
-        if (empty($values)) throw new \Exception('Chybí hodnoty pro úpravu týmu.');
+        if (empty($values))
+            throw new \Exception('Chybí hodnoty pro úpravu týmu.');
+
         self::checkType($values['team_type']);
 
         return $this->db->query(
@@ -155,7 +159,8 @@ class Teams extends Base
 
     public function delete(array $filter)
     {
-        if (empty($values)) throw new \Exception('Chybí specifikace týmu pro smazání.');
+        if (empty($values))
+            throw new \Exception('Chybí specifikace týmu pro smazání.');
 
         return $this->db->query(
             "DELETE FROM teams",

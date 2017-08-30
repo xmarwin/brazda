@@ -176,13 +176,19 @@ class Posts extends Base
 
     public function insert(array $values)
     {
-        if (empty($values)) throw new \Exception('Missing values for post insert.');
+        if (empty($values))
+            throw new \Exception('Missing values for post insert.');
+
+        if (isset($values['cache_type']) && !empty($values['cacheType']))
+            $this->checkCacheType($values['cache_type']);
+
+        if (isset($values['cache_size']) && !empty($values['cacheSize']))
+            $this->checkCacheSize($values['cache_size']);
+
         $this->checkType($values['post_type']);
         $this->checkColor($values['color']);
         $this->checkTerrain($values['terrain']);
         $this->checkDifficulty($values['difficulty']);
-        $this->checkCacheSize($values['cache_size']);
-        $this->checkCacheType($values['cache_type']);
 
         return $this->db->query(
             "INSERT INTO posts %v", $values,
@@ -192,13 +198,19 @@ class Posts extends Base
 
     public function update(array $values, array $filter)
     {
-        if (empty($filter)) throw new \Exception('Missing filter for post update.');
+        if (empty($filter))
+            throw new \Exception('Missing filter for post update.');
+
+        if (isset($values['cache_type']) && !empty($values['cacheType']))
+            $this->checkCacheType($values['cache_type']);
+
+        if (isset($values['cache_size']) && !empty($values['cacheSize']))
+            $this->checkCacheSize($values['cache_size']);
+
         $this->checkType($values['post_type']);
         $this->checkColor($values['color']);
         $this->checkTerrain($values['terrain']);
         $this->checkDifficulty($values['difficulty']);
-        $this->checkCacheSize($values['cache_size']);
-        $this->checkCacheType($values['cache_type']);
 
         return $this->db->query(
             "UPDATE posts
