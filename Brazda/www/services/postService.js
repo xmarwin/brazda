@@ -47,6 +47,21 @@ function PostService(webApiService, $filter) {
         return webApiService.get('post/delete', [{ 'post': id }]);
     }
 
+    // http://brazda/api/note/create?securityToken=...
+    vm.createNote  = function (data) {
+        return webApiService.get('note/create', data, 'POST');
+    }
+
+    // http://brazda/api/note/update?securityToken=...
+    vm.updateNote  = function (data) {
+        return webApiService.get('note/update', data, 'POST');
+    }
+
+    // http://brazda/api/note/delete?securityToken=...
+    vm.deleteNote  = function (id) {
+        return webApiService.get('note/delete', [{ 'post': id }]);
+    }
+
     vm.getCacheTypes = function () {
         return [
             { "cacheType": "TRA", "name": "Tradiční keš" },

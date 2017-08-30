@@ -18,7 +18,7 @@ angular.module('myApp.login', ['ngRoute'])
 
 LoginController.$inject = ['$location', 'AuthService', 'TeamService', 'Notification'];
 
-function LoginController($location, authService, teamService, Notification) {
+function LoginController($location, authService, teamService, notification) {
     var vm = this;
     vm.password = 'Mocn8Klika'; //TODO: pred zavodem odstranit
 
@@ -27,7 +27,7 @@ function LoginController($location, authService, teamService, Notification) {
             .then(function successCallback(response) {
                 vm.teams = response.data;
             }, function errorCallback(err) {
-                alert(err);
+                notification.error(err.data.message);
             });
     }
 
@@ -44,7 +44,7 @@ function LoginController($location, authService, teamService, Notification) {
                     Notification.error(retval.message);
                 }
             }, function (err) {
-                Notification.error(err.message);
+                notification.error(err.data.message);
             });      
     }
 
@@ -53,7 +53,7 @@ function LoginController($location, authService, teamService, Notification) {
             .then(function (data) {
                 $location.path('/login');
             }, function (err) {
-                Notification.error(err.message);
+                notification.error(err.data.message);
             });        
     }
 

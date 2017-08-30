@@ -5622,6 +5622,8 @@
     <Content Include="www\login\login.js" />
     <Content Include="www\login\login_test.js" />
     <Content Include="www\login\logout.html" />
+    <Content Include="www\posts\postNote.controller.js" />
+    <Content Include="www\posts\postNote.html" />
     <Content Include="www\posts\getHelpConfirmation.html" />
     <Content Include="www\posts\bonusUnlock.controller.js" />
     <Content Include="www\posts\bonusUnlock.html" />
@@ -5637,6 +5639,7 @@
     <Content Include="www\rules\rules.js" />
     <Content Include="www\rules\rules_test.js" />
     <Content Include="www\services\trackingService.js" />
+    <Content Include="www\services\webApi.interceptor2.js" />
     <Content Include="www\services\webApi.interceptor.js" />
     <Content Include="www\services\webApi.service.js" />
     <Content Include="www\services\authService.js" />

@@ -139,7 +139,7 @@ function EditPostController($routeParams, $location, notification, authService, 
                 $location.path("admin/posts");
                 notification.success("Stanoviště " + vm.post.name + " bylo upraveno.");
             }, function (err) {
-                notification.error(err);
+                notification.error(err.data.message);
             });
     }
 
