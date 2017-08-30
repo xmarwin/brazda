@@ -26,7 +26,8 @@ class Logins extends Base implements Security\IAuthenticator
             "SELECT *
              FROM logins
              WHERE %and", $filter,
-            "LIMIT 1"
+            "ORDER BY moment
+             LIMIT 1"
         )->fetch();
     } // find()
 
