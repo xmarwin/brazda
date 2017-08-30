@@ -71,6 +71,7 @@ class Teams extends Base
                 t.is_active AS active,
                 t.tracking_allowed AS allow_tracking,
                 t.team_status,
+                t.shibboleth,
                 t.telephone,
                 t.email,
                 ts.name AS status_name,

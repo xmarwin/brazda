@@ -34,6 +34,27 @@ class TeamPresenter extends SecuredBasePresenter
         $this->sendResource($this->outputType);
 	} // actionList()
 
+	public function actionDetail($team)
+	{
+        $isTeam = ($team === $this->team['team']);
+        $isAdministrator = false;
+
+        if (!$isTeam) {
+            $this->checkAdministrator();
+            $isAdministrator = true;
+        } // if
+
+        $this->resource = (array) $this->teams->find([
+            'team' => (int) $team
+        ]);
+
+        if ($isTeam) {
+            unset($teamResource->shibboleth);
+        } // if
+
+        $this->sendResource($this->outputType);
+	} // actionDetail()
+
 	public function actionCreate()
 	{
         $this->checkAdministrator();
