@@ -1,6 +1,13 @@
+temp/*
+!temp/.gitignore
+!temp/.gitkeep
 temp/cache/*
+!temp/cache/.gitkeep
 logs/*
+log/*
+!log/.gitkeep
 vendor/*
+!vendor/.gitkeep
 !.gitkeep
 node_modules/
 !bower_components/
