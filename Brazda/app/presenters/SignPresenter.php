@@ -22,12 +22,12 @@ class SignPresenter extends BasePresenter
             /** Pokud uživatel není přihlášen */
 			if (!$this->getUser()->isLoggedIn()) {
 				$this->getUser()->login((int) $team, $password);
-				$identity = $this->getUser()->getIdentity()->getData();
+				$identity = $this->getUser()->getIdentity();
                 if (empty($deviceId)) {
                     throw new \Exception('DeviceId je prázdné.', 400);
                 } // if
 
-				$login = $this->logins->login($identity['team'], $deviceId);
+				$login = $this->logins->login($identity->team, $deviceId);
 				if (!empty($login)) {
                     $this->getUser()->getIdentity()->securityToken = $login->security_token;
 				} // if
