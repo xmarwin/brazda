@@ -73,6 +73,36 @@ class Base extends Nette\Object
         return $limit;
     } // normalizeLimit()
 
+    protected function prepareFloat($value)
+    {
+        if (is_string($value))
+            $value = str_replace(',', '.', $value);
+
+        return (float) $value;
+    } // prepareFloat()
+
+    protected function prepareBoolean($value)
+    {
+        if (is_string($value)) {
+            $value = strtoupper($value);
+            switch ($value) {
+                case 'ON':
+                case 'T':
+                case 'TRUE':
+                    $value = 1;
+                    break;
+
+                case 'OFF':
+                case 'F':
+                case 'FALSE':
+                    $value = 0;
+                    break;
+            } // switch
+        } // if
+
+        return (bool) $value;
+    } // prepareBoolean()
+
     private function isAssoc(array $arr)
     {
         if (array() === $arr) return true;

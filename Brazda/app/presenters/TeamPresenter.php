@@ -42,8 +42,8 @@ class TeamPresenter extends SecuredBasePresenter
             'name'           => $this->input->name,
             'shibboleth'     => $this->input->shibboleth,
             'team_type'      => strtoupper($this->input->role),
-            'is_active'      => (bool) $this->input->active,
-            'allow_tracking' => (bool) $this->input->allowTracking,
+            'is_active'      => $this->input->active,
+            'allow_tracking' => $this->input->allowTracking,
         ];
 
         if (isset($this->input->description) && !empty($this->input->description))
@@ -79,8 +79,8 @@ class TeamPresenter extends SecuredBasePresenter
             'name'           => $this->input->name,
             'shibboleth'     => $this->input->shibboleth,
             'team_type'      => strtoupper($this->input->role),
-            'is_active'      => (bool) $this->input->active,
-            'allow_tracking' => (bool) $this->input->allowTracking,
+            'is_active'      => $this->input->active,
+            'allow_tracking' => $this->input->allowTracking,
         ];
 
         if (isset($this->input->description) && !empty($this->input->description))

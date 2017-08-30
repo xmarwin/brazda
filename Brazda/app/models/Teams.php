@@ -137,6 +137,9 @@ class Teams extends Base
 
         self::checkType($values['team_type']);
 
+        $values['is_active'] = $this->prepareBoolean($values['is_active']);
+        $values['allow_tracking'] = $this->prepareBoolean($values['allow_tracking']);
+
         return $this->db->query(
             "INSERT INTO teams %v", $values,
             "RETURNING team"
