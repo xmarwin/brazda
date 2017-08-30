@@ -19,16 +19,22 @@ class SignPresenter extends BasePresenter
 	public function actionIn($team, $password, $deviceId)
 	{
 		try {
+            /** Pokud uživatel není přihlášen */
 			if (!$this->getUser()->isLoggedIn()) {
 				$this->getUser()->login((int) $team, $password);
 				$identity = $this->getUser()->getIdentity()->getData();
                 if (empty($deviceId)) {
                     throw new \Exception('DeviceId je prázdné.', 400);
                 } // if
-				$login    = $this->logins->login($identity['team'], $deviceId);
+
+				$login = $this->logins->login($identity['team'], $deviceId);
+				if (!empty($login)) {
+                    $this->getUser()->getIdentity()->securityToken = $login->security_token;
+				} // if
 			} else {
 				$identity = $this->getUser()->getIdentity()->getData();
-				$login    = $this->logins->find([ 'team' => $identity['team'] ]);
+				$login    = $this->logins->find([ [ 'security_token LIKE %sN', $identity['securityToken'] ] ]);
+				//$login    = $this->logins->find([ 'team' => $identity['team'] ]);
 				if (empty($login)) {
 					throw new Security\AuthenticationException(sprintf(
 						'Tým %s není přihlášen.',
@@ -38,10 +44,12 @@ class SignPresenter extends BasePresenter
 				} // if
 			} // if
 		} catch (\Exception $e) {
-			$this->sendErrorResource($e, $this->outputType);
-			if ($this->getUser->isLoggedIn()) {
+			if ($this->getUser()->isLoggedIn()) {
+                $identity = $this->getUser()->getIdentity()->getData();
+                $this->logins->logout($identity['securityToken']);
                 $this->getUser()->logout();
 			} // if
+			$this->sendErrorResource($e, $this->outputType);
 		} // try
 
 		$data  = (array) $identity;
@@ -72,6 +80,7 @@ class SignPresenter extends BasePresenter
 				'is_active'   => $team['active']
 			];
 		} // foreach
+
 		$this->sendResource($this->outputType);
 	} // actionTeamsList()
 
