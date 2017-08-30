@@ -190,6 +190,12 @@ class Posts extends Base
         $this->checkTerrain($values['terrain']);
         $this->checkDifficulty($values['difficulty']);
 
+        $values['difficulty'] = $this->prepareFloat($values['difficulty']);
+        $values['terrain']    = $this->prepareFloat($values['terrain']);
+
+        if (isset($values['with_staff']) && !empty($values['with_staff']))
+            $values['with_staff'] = $this->prepareBoolean($values['with_staff']);
+
         return $this->db->query(
             "INSERT INTO posts %v", $values,
             "RETURNING post"
@@ -211,6 +217,12 @@ class Posts extends Base
         $this->checkColor($values['color']);
         $this->checkTerrain($values['terrain']);
         $this->checkDifficulty($values['difficulty']);
+
+        $values['difficulty'] = $this->prepareFloat($values['difficulty']);
+        $values['terrain']    = $this->prepareFloat($values['terrain']);
+
+        if (isset($values['with_staff']) && !empty($values['with_staff']))
+            $values['with_staff'] = $this->prepareBoolean($values['with_staff']);
 
         return $this->db->query(
             "UPDATE posts
