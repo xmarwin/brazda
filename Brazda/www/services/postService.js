@@ -82,13 +82,13 @@ function PostService(webApiService, $filter) {
     vm.getTerrains = function () {
         return [
             { "name": "1", "value": "1" },
-            { "name": "1.5", "value": "1,5" },
+            { "name": "1,5", "value": "1.5" },
             { "name": "2", "value": "2" },
-            { "name": "2.5", "value": "2,5" },
+            { "name": "2,5", "value": "2.5" },
             { "name": "3", "value": "3" },
-            { "name": "3.5", "value": "3,5" },
+            { "name": "3,5", "value": "3.5" },
             { "name": "4", "value": "4" },
-            { "name": "4.5", "value": "4,5" },
+            { "name": "4,5", "value": "4.5" },
             { "name": "5", "value": "5" },
         ];
     }
@@ -96,13 +96,13 @@ function PostService(webApiService, $filter) {
     vm.getDifficulties = function () {
         return [
             { "name": "1", "value": "1" },
-            { "name": "1.5", "value": "1,5" },
+            { "name": "1,5", "value": "1.5" },
             { "name": "2", "value": "2" },
-            { "name": "2.5", "value": "2,5" },
+            { "name": "2,5", "value": "2.5" },
             { "name": "3", "value": "3" },
-            { "name": "3.5", "value": "3,5" },
+            { "name": "3,5", "value": "3.5" },
             { "name": "4", "value": "4" },
-            { "name": "4.5", "value": "4,5" },
+            { "name": "4,5", "value": "4.5" },
             { "name": "5", "value": "5" },
         ];
     }
