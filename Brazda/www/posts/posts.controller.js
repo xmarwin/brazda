@@ -12,9 +12,9 @@ angular.module('myApp.posts', ['ngRoute'])
 
     .controller('PostsCtrl', PostsController);
 
-PostsController.$inject = ['AuthService', 'PostService', '$filter'];
+PostsController.$inject = ['AuthService', 'PostService', '$filter', 'Notification'];
 
-function PostsController(authService, postService, $filter) {
+function PostsController(authService, postService, $filter, notification) {
     var vm = this;
 
     vm.postTypes = [];
@@ -61,7 +61,7 @@ function PostsController(authService, postService, $filter) {
                 vm.posts = response.data;
                 vm.filter();
             }, function errorCallback(err) {
-                alert(err);
+                notification.error(err.data.message);
             });
     }
 

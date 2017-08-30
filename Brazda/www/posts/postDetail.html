@@ -75,11 +75,13 @@
     <div class="row">
         <div class="list-group">
             <div class="list-group-item row" ng-repeat="wpt in ctrl.post.waypoints">
-                <img src="../assets/images/finish.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypointType==='FIN'" title="{{wpt.waypointTypeName}}" />
-                <img src="../assets/images/parking.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypointType==='PAR'" title="{{wpt.waypointTypeName}}" />
-                <img src="../assets/images/poi.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypointType==='REF'" title="{{wpt.waypointTypeName}}" />
-                <img src="../assets/images/path.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypointType==='WAY'" title="{{wpt.waypointTypeName}}" />
-                <img src="../assets/images/stage.png" class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-show="wpt.waypointType==='STA'" title="{{wpt.waypointTypeName}}" />
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                    <img src="../assets/images/finish.png" ng-show="wpt.waypointType==='FIN'" title="{{wpt.waypointTypeName}}" class="waipoint-type-icon" />
+                    <img src="../assets/images/parking.png" ng-show="wpt.waypointType==='PAR'" title="{{wpt.waypointTypeName}}" class="waipoint-type-icon" />
+                    <img src="../assets/images/poi.png" ng-show="wpt.waypointType==='REF'" title="{{wpt.waypointTypeName}}" class="waipoint-type-icon" />
+                    <img src="../assets/images/path.png" ng-show="wpt.waypointType==='WAY'" title="{{wpt.waypointTypeName}}" class="waipoint-type-icon" />
+                    <img src="../assets/images/stage.png" ng-show="wpt.waypointType==='STA'" title="{{wpt.waypointTypeName}}" class="waipoint-type-icon" />
+                </div>
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     {{wpt.name}}
                 </div>
@@ -97,6 +99,7 @@
         <h2 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Akce</h2>
     </div>
     <div class="row">
+        <a href="#/postNote/{{ctrl.post.post}}" class="btn btn-primary">Poznámka</a>
         <button ng-click="ctrl.downloadGpx()" class="btn btn-primary">Stáhnout GPX</button>
         <button ng-click="ctrl.getHelp()" ng-show="ctrl.post.hasHelp === true" class="btn btn-primary" ng-disabled="ctrl.post.help !== null">Nápověda</button>
         <a href="#/bonusUnlock/{{ctrl.post.post}}" class="btn btn-primary" ng-show="ctrl.post.postType==='BON'" ng-disabled="ctrl.post.isUnlocked === true">Odemknout</a>

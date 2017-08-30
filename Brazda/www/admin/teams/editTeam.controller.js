@@ -26,7 +26,7 @@ function EditTeamController($routeParams, $location, $filter, notification, auth
             .then(function successCallback(response) {
                 vm.team = response.data;
             }, function errorCallback(err) {
-                alert(err);
+                notification.error(err.data.message);
             });
     }
 
@@ -48,7 +48,7 @@ function EditTeamController($routeParams, $location, $filter, notification, auth
                 $location.path("admin/teams");
                 notification.success("Tým " + vm.team.name + " byl upraven.");
             }, function (err) {
-                notification.error(err);
+                notification.error(err.data.message);
             });
     }
 

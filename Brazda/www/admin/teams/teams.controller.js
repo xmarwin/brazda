@@ -28,7 +28,7 @@ function TeamsController($routeParams, notification, authService, teamService, n
         }).then(function (data) {
             deleteTeamInt(id);
         }, function (err) {
-
+            notification.error(err.data.message);
         })
     }
 
@@ -37,7 +37,7 @@ function TeamsController($routeParams, notification, authService, teamService, n
             .then(function successCallback(response) {
                 vm.teams = response.data;
             }, function errorCallback(err) {
-                alert(err);
+                notification.error(err.data.message);
             });
     }
 
@@ -46,7 +46,7 @@ function TeamsController($routeParams, notification, authService, teamService, n
             .then(function successCallback(response) {
                 getTeams();
             }, function errorCallback(err) {
-                alert(err);
+                notification.error(err.data.message);
             });
     }
 
