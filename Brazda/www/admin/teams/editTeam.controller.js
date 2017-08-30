@@ -39,7 +39,8 @@ function EditTeamController($routeParams, $location, $filter, notification, auth
             "isActive": vm.team.active,
             "allowTracking": vm.team.allowTracking,
             "description": vm.team.description,
-            "telephone": vm.team.phone
+            "telephone": vm.team.phone,
+            "email": vm.team.email
         }
 
         teamService.updateTeam(input)
