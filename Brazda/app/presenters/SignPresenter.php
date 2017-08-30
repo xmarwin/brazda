@@ -32,8 +32,8 @@ class SignPresenter extends BasePresenter
                     $this->getUser()->getIdentity()->securityToken = $login->security_token;
 				} // if
 			} else {
-				$identity = $this->getUser()->getIdentity()->getData();
-				$login    = $this->logins->find([ [ 'security_token LIKE %sN', $identity['securityToken'] ] ]);
+				$identity = $this->getUser()->getIdentity();
+				$login    = $this->logins->find([ [ 'security_token LIKE %sN', $identity->securityToken ] ]);
 				//$login    = $this->logins->find([ 'team' => $identity['team'] ]);
 				if (empty($login)) {
 					throw new Security\AuthenticationException(sprintf(
@@ -45,14 +45,14 @@ class SignPresenter extends BasePresenter
 			} // if
 		} catch (\Exception $e) {
 			if ($this->getUser()->isLoggedIn()) {
-                $identity = $this->getUser()->getIdentity()->getData();
-                $this->logins->logout($identity['securityToken']);
+                $identity = $this->getUser()->getIdentity();
                 $this->getUser()->logout();
+                $this->logins->logout($identity->securityToken);
 			} // if
 			$this->sendErrorResource($e, $this->outputType);
 		} // try
 
-		$data  = (array) $identity;
+		$data  = (array) $identity->getData();
 		$data += (array) $login;
 
 		$this->resource = $data;
