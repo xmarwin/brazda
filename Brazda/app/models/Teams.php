@@ -89,7 +89,7 @@ class Teams extends Base
                 ORDER BY moment DESC
                 LIMIT 1
             ) p USING (team)
-            WHERE t.is_active IS TRUE
+            WHERE TRUE
             %if", !empty($filter), "AND %and", $filter, "%end
             %if", !empty($order), "ORDER BY %by", $order, "%end
             %if", !empty($limit), "LIMIT %lmt", $limit, " %ofs", $offset, "%end"
@@ -126,8 +126,7 @@ class Teams extends Base
                 ORDER BY moment DESC
                 LIMIT 1
             ) p USING (team)
-            WHERE t.is_active IS TRUE
-              AND t.name ILIKE %~like~", $name
+            WHERE t.name ILIKE %~like~", $name
         )->fetch();
     } // findByName()
 
