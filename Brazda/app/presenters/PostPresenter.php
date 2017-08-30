@@ -204,8 +204,8 @@ class PostPresenter extends SecuredBasePresenter
             'color'       => strtoupper($this->input->color),
             'name'        => $this->input->name,
             'max_score'   => (int) $this->input->maxScore,
-            'difficulty'  => (float) $this->input->difficulty,
-            'terrain'     => (float) $this->input->terrain,
+            'difficulty'  => $this->input->difficulty,
+            'terrain'     => $this->input->terrain,
             'shibboleth'  => $this->input->shibboleth,
             'latitude'    => $this->input->latitude,
             'longitude'   => $this->input->longitude
@@ -218,7 +218,7 @@ class PostPresenter extends SecuredBasePresenter
             $values['cache_size'] = strtoupper($this->input->cacheSize);
 
         if (isset($this->input->withStaff) && !empty($this->input->withStaff))
-            $values['with_staff'] = (bool) $this->input->withStaff;
+            $values['with_staff'] = $this->input->withStaff;
 
         if (isset($this->input->hint) && !empty($this->input->hint))
             $values['hint'] = $this->input->hint;
@@ -286,8 +286,8 @@ class PostPresenter extends SecuredBasePresenter
             'color'       => strtoupper($this->input->color),
             'name'        => $this->input->name,
             'max_score'   => (int) $this->input->maxScore,
-            'difficulty'  => (float) $this->input->difficulty,
-            'terrain'     => (float) $this->input->terrain,
+            'difficulty'  => $this->input->difficulty,
+            'terrain'     => $this->input->terrain,
             'shibboleth'  => $this->input->shibboleth,
             'latitude'    => $this->input->latitude,
             'longitude'   => $this->input->longitude
@@ -300,7 +300,7 @@ class PostPresenter extends SecuredBasePresenter
             $values['cache_size'] = strtoupper($this->input->cacheSize);
 
         if (isset($this->input->withStaff) && !empty($this->input->withStaff))
-            $values['with_staff'] = (bool) $this->input->withStaff;
+            $values['with_staff'] = $this->input->withStaff;
 
         if (isset($this->input->hint) && !empty($this->input->hint))
             $values['hint'] = $this->input->hint;
