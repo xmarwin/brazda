@@ -242,7 +242,7 @@ class PostPresenter extends SecuredBasePresenter
         $this->posts->begin();
         try {
             $result['post'] = (int) $this->posts->insert($values);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->posts->rollback();
             $this->sendErrorResource($e, $this->outputType);
         } // try
@@ -260,7 +260,7 @@ class PostPresenter extends SecuredBasePresenter
 
             try {
                 $result['waypoints'][] = (int) $this->waypoints->insert($values);
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->posts->rollback();
                 $this->sendErrorResource($e, $this->outputType);
             } // try
@@ -323,7 +323,7 @@ class PostPresenter extends SecuredBasePresenter
         $this->posts->begin();
         try {
             $this->posts->update($values, $filter);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->posts->rollback();
             $this->sendErrorResource($e, $this->outputType);
         } // try
@@ -342,7 +342,7 @@ class PostPresenter extends SecuredBasePresenter
 
             try {
                 $this->waypoints->update($values, $filter);
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->posts->rollback();
                 $this->sendErrorResource($e, $this->outputType);
             } // try
@@ -363,7 +363,7 @@ class PostPresenter extends SecuredBasePresenter
         $filter = [ 'post' => (int) $this->input->post ];
         try {
             $this->posts->delete($filter);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->sendErrorResource($e, $this->outputType);
         } // try
 
