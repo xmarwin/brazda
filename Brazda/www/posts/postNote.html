@@ -1,0 +1,21 @@
+﻿<div>
+    <form name="postNoteForm">
+        <div class="row form-group">
+            <h1 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Poznámka ke stanovišti {{ctrl.post.name}}</h1>
+        </div>
+        <div class="row form-group">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Tato poznámka je sdílená v rámci týmu. Pokud se více členů týmu pokusí poznámku uložit, tak se vždy uloží verze toho posledního, proto raději neotevírejte poznámku v jeden moment na více zařízeních.</div>
+        </div>
+        <div class="row form-group">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12">
+                <textarea class="form-control" ng-model="ctrl.note" />
+            </div>
+        </div>
+
+        <div  class="row form-group">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12">
+                <button ng-click="ctrl.saveNote()" class="btn btn-primary">Uložit</button>
+            </div>
+        </div>
+    </form>
+</div>
