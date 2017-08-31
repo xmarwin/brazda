@@ -17,6 +17,7 @@ angular.module('myApp', [
 
     //interceptors
     'myApp.webApiInterceptor',
+    'myApp.webApiInterceptor2',
 
     //Services
     'myApp.webApiService',
@@ -31,6 +32,7 @@ angular.module('myApp', [
     'myApp.contact',
     'myApp.posts',
     'myApp.postDetail',
+    'myApp.postNote',
     'myApp.postLog',
     'myApp.bonusUnlock',
 
@@ -78,6 +80,10 @@ angular.module('myApp', [
     .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.interceptors.push('SessionInjector');
     }])
+
+    .config(function ($httpProvider) {
+        $httpProvider.interceptors.push('ResponseObserver');
+    })
 
     .run(['TrackingService', function (trackingService) {
         trackingService.startTracking();

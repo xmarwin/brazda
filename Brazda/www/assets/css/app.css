@@ -72,3 +72,8 @@ table.post-list {
 table.post-list > tr {
     border-bottom: thin 1px grey;
 }
+
+.waipoint-type-icon {
+    width: 32px;
+    height: 32px;
+}

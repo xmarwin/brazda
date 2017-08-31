@@ -38,7 +38,7 @@ function BonusUnlockController(postService, $routeParams, $filter, downloadServi
                     notification.error({ message: "Stala se chyba: " + response.data.status, delay: null });
                 }
             }, function (err) {
-
+                notification.error(err.data.message);
             });
     }
 

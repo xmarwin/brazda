@@ -23,7 +23,7 @@
             Typ:
         </div>
         <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-            <select ng-options="waypointType.name for waypointType in vm.waypointTypes" ng-model="wpt.waypoint_type" class="form-control"></select>
+            <select ng-options="waypointType.name for waypointType in vm.waypointTypes" ng-model="wpt.waypointType" class="form-control"></select>
         </div>
     </div>
     <div class="row form-group">
@@ -31,7 +31,7 @@
             Viditelnost:
         </div>
         <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-            <select ng-options="waypointVisibility.name for waypointVisibility in vm.waypointVisibilities" ng-model="wpt.waypoint_visibility" class="form-control"></select>
+            <select ng-options="waypointVisibility.name for waypointVisibility in vm.waypointVisibilities" ng-model="wpt.waypointVisibility" class="form-control"></select>
         </div>
     </div>
     <div class="row form-group">
@@ -39,7 +39,7 @@
             N:
         </div>
         <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-            <input type="number" ng-model="wpt.latitude" class="form-control" ng-disabled="wpt.waypointVisibility.waypoint_visibility === 'HC'" />
+            <input type="number" ng-model="wpt.latitude" class="form-control" ng-disabled="wpt.waypointVisibility.waypointVisibility === 'HC'" />
         </div>
     </div>
     <div class="row form-group">
@@ -47,7 +47,7 @@
             E:
         </div>
         <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-            <input type="number" ng-model="wpt.longitude" class="form-control" ng-disabled="wpt.waypointVisibility.waypoint_visibility === 'HC'" />
+            <input type="number" ng-model="wpt.longitude" class="form-control" ng-disabled="wpt.waypointVisibility.waypointVisibility === 'HC'" />
         </div>
     </div>
 </div>

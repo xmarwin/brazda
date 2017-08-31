@@ -25,7 +25,7 @@ function PostsAdminController($routeParams, notification, authService, postServi
         }).then(function (data) {
             deletePostInt(id);
         }, function (err) {
-
+            notification.error(err.data.message);
         })
     }
 
@@ -38,7 +38,7 @@ function PostsAdminController($routeParams, notification, authService, postServi
             .then(function successCallback(response) {
                 vm.posts = response.data;
             }, function errorCallback(err) {
-                alert(err);
+                notification.error(err.data.message);
             });
     }
 
@@ -49,7 +49,7 @@ function PostsAdminController($routeParams, notification, authService, postServi
             .then(function successCallback(response) {
                 getPosts();
             }, function errorCallback(err) {
-                alert(err);
+                notification.error(err.data.message);
             });
     }
 }

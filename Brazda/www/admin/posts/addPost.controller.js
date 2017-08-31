@@ -114,7 +114,7 @@ function AddPostController($routeParams, $location, notification, authService, p
                 $location.path("admin/posts");
                 notification.success("Stanoviště " + vm.post.name + " bylo přidáno.");
             }, function (err) {
-                notification.error(err);
+                notification.error(err.data.message);
             });
     }
 
