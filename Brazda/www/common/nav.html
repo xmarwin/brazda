@@ -8,6 +8,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">BRÁZDA</a>
+            <img src="../assets/images/offline.png" ng-hide="nav.isOnline" />
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
@@ -27,3 +28,4 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
+<div class="alert alert-danger" role="alert" ng-hide="nav.isOnline">Telefon není připojen k síti. Je zbytečné cokoli dělat, dokud se nedostanete zase k signálu.</div>

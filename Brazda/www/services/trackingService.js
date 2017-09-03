@@ -52,8 +52,10 @@ function TrackingService($interval, geolocation, WebApiService, localStorageServ
     }
 
     function logCoordinates(lat, lon) {
-        //webApiService.get('track/track', data, 'POST');
-        $log.log(lat + ", " + lon + ", " + vm.deviceId);
+        if (WebApiService.isOnline()) {
+            //WebApiService.get('track/track', data, 'POST');
+            $log.log(lat + ", " + lon + ", " + vm.deviceId);
+        }
     }
 
     function getTeam() {

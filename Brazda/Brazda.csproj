@@ -5132,6 +5132,7 @@
     <Content Include="www\assets\images\logo.png" />
     <Content Include="www\assets\images\micro.gif" />
     <Content Include="www\assets\images\multi_16.gif" />
+    <Content Include="www\assets\images\offline.png" />
     <Content Include="www\assets\images\other.gif" />
     <Content Include="www\assets\images\parking.png" />
     <Content Include="www\assets\images\parking.svg" />

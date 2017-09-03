@@ -3,15 +3,22 @@
 angular.module('myApp.webApiService', [])
     .service('WebApiService', WebApiService)
 
-WebApiService.$inject = ['$http', '$q'];
+WebApiService.$inject = ['$http', '$q', '$rootScope'];
 
-function WebApiService($http, $q) {
+function WebApiService($http, $q, $rootScope) {
     var vm = this;
+    vm.online;
 
     vm.get = function (endpointName, parameters, method) {
         var deferred = $q.defer();
         var data;
         var url;
+
+        if (!vm.online) {
+            var data = {}
+            data.message = "Offline";
+            deferred.reject(data)
+        }
 
         if (angular.isUndefined(method)) {
             method = 'GET';
@@ -23,7 +30,7 @@ function WebApiService($http, $q) {
         } else {
             url = buildUrl(endpointName, parameters);
         }
-        
+
         $http({
             method: method,
             url: url,
@@ -36,6 +43,14 @@ function WebApiService($http, $q) {
 
         return deferred.promise;
     }
+
+    vm.isOnline = function () {
+        return vm.online;
+    }
+
+    $rootScope.$watch('online', function (newStatus) {
+        vm.online = newStatus;
+    });
 
     function buildUrl(endpointName, parametersArray) {
         var parameters = '';
