@@ -12,6 +12,9 @@ function ResponseObserver($q, $window) {
                 case 403:
                     $window.location = '#/login';
                     break;
+
+                case 408:
+                    alert("timeout");
                 //case 500:
                 //    $window.location = './500.html';
                 //    break;

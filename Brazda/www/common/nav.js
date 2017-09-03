@@ -11,11 +11,16 @@ angular.module('myApp.nav', ['ngRoute'])
 
     .controller('NavCtrl', NavController);
 
-NavController.$inject = ['AuthService'];
+NavController.$inject = ['AuthService', '$rootScope'];
 
-function NavController(authService) {
+function NavController(authService, $rootScope) {
     var vm = this;
 
     vm.isAuthorized = authService.isAuthorized;
     vm.isAdmin = authService.isAdmin;
+    vm.isOnline;
+
+    $rootScope.$watch('online', function (newStatus) {
+        vm.isOnline = newStatus;
+    });
 };
