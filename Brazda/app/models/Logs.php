@@ -72,6 +72,61 @@ class Logs extends Base
         ); // query()
     } // view()
 
+    public function resultView(array $filter = [], array $order = [ 'moment' => 'ASC' ], array $limit = [])
+    {
+        $filter = $this->normalizeFilter($filter);
+        $order  = $this->normalizeOrder($order);
+        $limit  = $this->normalizeLimit($limit);
+        list($limit, $offset) = each($limit);
+
+        return $this->db->query(
+            "SELECT
+                l.log,
+                l.moment,
+                l.team,
+                l.log_type,
+                lo.moment AS log_out_moment,
+                lh.moment AS log_help_moment,
+                lb.moment AS log_bonus_moment,
+                CASE WHEN lo.moment IS NOT NULL THEN TRUE ELSE FALSE END AS is_done,
+                CASE WHEN lh.moment IS NOT NULL THEN TRUE ELSE FALSE END AS use_help,
+                CASE WHEN lb.moment IS NOT NULL THEN TRUE ELSE FALSE END AS is_unlocked,
+                p.post,
+                p.name AS post_name,
+                p.post_type,
+                p.color,
+                p.max_score,
+                t.team,
+                t.name,
+                t.team_type
+             FROM logs l
+             JOIN posts p USING (post)
+             JOIN teams t USING (team)
+             LEFT JOIN (
+                SELECT team, post, moment, log_type
+                FROM logs
+                WHERE log_type = 'OUT'
+                ORDER BY moment
+             ) lo USING (team, post)
+             LEFT JOIN (
+                SELECT team, post, moment, log_type
+                FROM logs
+                WHERE log_type = 'BON'
+                ORDER BY moment
+             ) lb USING (team, post)
+             LEFT JOIN (
+                SELECT team, post, moment, log_type
+                FROM logs
+                WHERE log_type = 'HLP'
+                ORDER BY moment
+             ) lh USING (team, post)
+             WHERE l.log_type NOT IN ('ERR', 'HLP')
+             %if", !empty($filter), " AND %and", $filter, "%end
+             %if", !empty($order), "ORDER BY %by", $order, "%end
+             %if", !empty($limit), "LIMIT %lmt", $limit, " %ofs", $offset, "%end"
+        ); // query()
+    } // resultView()
+
     public function insert(array $values)
     {
         $values['log_type'] = self::checkLogType($values['log_type']);
@@ -185,7 +240,9 @@ class Logs extends Base
             "ORDER BY moment DESC"
         )->fetchAll();
 
-        return $lastErrorLogs[0]->expire;
+        return (is_array($lastErrorLogs) && isset($lastErrorLogs[0]))
+            ? $lastErrorLogs[0]->expire
+            : null;
     } // nextBonusLog()
 /*
     public function deleteLog($team, $post, $logType)
