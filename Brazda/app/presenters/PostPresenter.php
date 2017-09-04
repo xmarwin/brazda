@@ -329,19 +329,23 @@ class PostPresenter extends SecuredBasePresenter
         } // try
 
         foreach ($this->input->waypoints as $wp) {
-            $filter = [ 'waypoint' => (int) $wp['waypoint'] ];
-            $values = [
-                'waypoint_type'       => strtoupper($wp['waypointType']),
-                'waypoint_visibility' => strtoupper($wp['waypointVisibility']),
-                'post'                => $post,
-                'name'                => $wp['name'],
-                'description'         => $wp['description'],
-                'latitude'            => (float) $wp['latitude'],
-                'longitude'           => (float) $wp['longitude']
-            ];
-
             try {
-                $this->waypoints->update($values, $filter);
+                $filter = isset($wp['waypoint']) && !empty($wp['waypoint'])
+                        ? [ 'waypoint' => (int) $wp['waypoint'] ]
+                        : null;
+                $values = [
+                    'waypoint_type'       => strtoupper($wp['waypointType']),
+                    'waypoint_visibility' => strtoupper($wp['waypointVisibility']),
+                    'post'                => $post,
+                    'name'                => $wp['name'],
+                    'description'         => $wp['description'],
+                    'latitude'            => (float) $wp['latitude'],
+                    'longitude'           => (float) $wp['longitude']
+                ];
+
+                $result = (is_null($filter))
+                    ? $this->waypoints->insert($values)
+                    : $this->waypoints->update($values, $filter);
             } catch (\Exception $e) {
                 $this->posts->rollback();
                 $this->sendErrorResource($e, $this->outputType);
