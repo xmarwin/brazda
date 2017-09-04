@@ -6,7 +6,7 @@ source "$DIR/config"
 PGHOST="127.0.0.1"
 
 echo "Generating database documentation for database '$PGDATABASE'..."
-java -jar schemaSpy_5.0.0.jar \
+java -jar schemaSpy_6.0.0-rc1.jar \
 	-t pgsql \
 	-dp /usr/share/jdbc-postgresql/lib/jdbc-postgresql.jar \
 	-host $PGHOST \
