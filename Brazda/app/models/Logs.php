@@ -2,7 +2,8 @@
 
 namespace Brazda\Models;
 
-use Nette;
+use dibi,
+    Nette;
 
 class Logs extends Base
 {
@@ -26,9 +27,11 @@ class Logs extends Base
                 p.name,
                 p.difficulty,
                 p.terrain,
-                p.size,
+                p.cache_size,
                 p.description,
-                t.name AS team_name
+                p.max_score,
+                t.name AS team_name,
+                t.team_type
              FROM logs l
              JOIN log_types lt USING (log_type)
              JOIN posts p USING (post)
@@ -56,7 +59,9 @@ class Logs extends Base
                 p.terrain,
                 p.cache_size,
                 p.description,
-                t.name AS team_name
+                p.max_score,
+                t.name AS team_name,
+                t.team_type
              FROM logs l
              JOIN log_types lt USING (log_type)
              JOIN posts p USING (post)
@@ -151,7 +156,9 @@ class Logs extends Base
             "ORDER BY moment DESC"
         )->fetchAll();
 
-        return $lastErrorLogs[0]->expire;
+        return (is_array($lastErrorLogs) && isset($lastErrorLogs[0]))
+            ? $lastErrorLogs[0]->expire
+            : null;
     } // nextLog()
 
     public function nextBonusLogTimeout()

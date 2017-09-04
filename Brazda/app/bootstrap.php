@@ -6,7 +6,6 @@ $configurator = new Nette\Configurator;
 
 $configurator->setDebugMode([ '79.127.215.114', '127.0.0.1']); // enable for your remote IP
 $configurator->enableDebugger(realpath(__DIR__.'/../log/'));
-//$configurator->enableTracy(realpath(__DIR__ . '/../log'));
 
 $configurator->setTimeZone('Europe/Prague');
 $configurator->setTempDirectory(realpath(__DIR__ . '/../temp'));
