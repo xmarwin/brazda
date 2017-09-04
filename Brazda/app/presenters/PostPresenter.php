@@ -100,10 +100,10 @@ class PostPresenter extends SecuredBasePresenter
             $this->sendResource($this->outputType);
         } // if
 
-        $nextAttempt = $this->logs->nextLog($this->team['team'], $post);
-        $nextTimeout = $nextAttempt - time();
-
         if (!$this->logs->canLog($this->team['team'], $post)) {
+            $nextAttempt = $this->logs->nextLog($this->team['team'], $post);
+            $nextTimestamp = (int) $nextAttempt->getTimestamp();
+            $nextTimeout = $nextTimestamp - time();
             $this->resource = [
                 'status' => 'Waiting period',
                 'code'   => 408,
