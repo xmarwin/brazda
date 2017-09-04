@@ -30,8 +30,8 @@ class NotePresenter extends SecuredBasePresenter
     public function actionCreate()
     {
         $values = [
-            'post' => (int) $this->input->post,
             'team' => (int) $this->team['team'],
+            'post' => (int) $this->input->post,
             'note' => $this->input->note
         ];
 
