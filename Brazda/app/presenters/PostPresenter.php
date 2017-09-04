@@ -101,13 +101,13 @@ class PostPresenter extends SecuredBasePresenter
         } // if
 
         if (!$this->logs->canLog($this->team['team'], $post)) {
-            $nextAttempt = $this->logs->nextLog($this->team['team'], $post);
+            $nextAttempt   = $this->logs->nextLog($this->team['team'], $post);
             $nextTimestamp = (int) $nextAttempt->getTimestamp();
-            $nextTimeout = $nextTimestamp - time();
+            $nextTimeout   = $nextTimestamp - time();
             $this->resource = [
                 'status' => 'Waiting period',
                 'code'   => 408,
-                'next_timestamp' => $nextAttempt,
+                'next_timestamp' => date('j. n. Y H:i', $nextTimestamp),
                 'next_interval'  => $nextTimeout
             ];
             $this->sendResource($this->outputType);
@@ -155,14 +155,14 @@ class PostPresenter extends SecuredBasePresenter
             $this->sendResource($this->outputType);
         } // if
 
-        $nextAttempt = $this->logs->nextBonusLog($this->team['team'], $post);
-        $nextTimeout = $nextAttempt - time();
-
         if (!$this->logs->canBonusLog($this->team['team'], $post)) {
+            $nextAttempt   = $this->logs->nextBonusLog($this->team['team'], $post);
+            $nextTimestamp = (int) $nextAttempt->getTimestamp();
+            $nextTimeout   = $nextAttempt - time();
             $this->resource = [
                 'status' => 'Waiting period',
                 'code'   => 408,
-                'next_timestamp' => $nextAttempt,
+                'next_timestamp' => date('j. n. Y. H:i', $nextTimestamp),
                 'next_interval'  => $nextTimeout
             ];
             $this->sendResource($this->outputType);
