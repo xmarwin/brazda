@@ -27,6 +27,9 @@ angular.module('myApp', [
     'myApp.downloadService',
     'myApp.trackingService',
 
+    // directives
+    'myApp.waitDirective',
+
     //App
     'myApp.rules',
     'myApp.contact',
