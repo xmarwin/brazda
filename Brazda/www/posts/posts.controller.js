@@ -55,6 +55,10 @@ function PostsController(authService, postService, $filter, notification) {
         loadPosts();
     }
 
+    vm.downloadGpx = function () {
+        
+    }
+
     var loadPosts = function () {
         postService.getPosts()
             .then(function successCallback(response) {

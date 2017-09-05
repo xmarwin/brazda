@@ -5145,6 +5145,7 @@
     <Content Include="www\assets\images\start.png" />
     <Content Include="www\assets\images\traditional_16.gif" />
     <Content Include="www\assets\images\unknown_16.gif" />
+    <Content Include="www\assets\images\wait.gif" />
     <Content Include="www\assets\images\wherigo_16.gif" />
     <Content Include="www\assets\scripts\angular-animate.min.js" />
     <Content Include="www\assets\scripts\loading-bar.js" />
@@ -5604,6 +5605,7 @@
     <Content Include="www\bower_components\ng-dialog\protractor.conf.js" />
     <Content Include="www\bower_components\ng-dialog\server.js" />
     <Content Include="www\common\filters\coordinates.filter.js" />
+    <Content Include="www\common\wait.directive.js" />
     <Content Include="www\common\nav.html" />
     <Content Include="www\common\nav.js" />
     <Content Include="www\components\version\interpolate-filter.js" />
@@ -5614,7 +5616,6 @@
     <Content Include="www\components\version\version_test.js" />
     <Content Include="www\contact\contact.html" />
     <Content Include="www\contact\contact.js" />
-    <Content Include="www\contact\contact_test.js" />
     <Content Include="www\favicon.ico" />
     <Content Include="www\index-async.html" />
     <Content Include="www\index.html" />
@@ -5634,7 +5635,6 @@
     <Content Include="www\posts\postLog.html" />
     <Content Include="www\posts\posts.controller.js" />
     <Content Include="www\posts\posts.html" />
-    <Content Include="www\posts\posts_test.js" />
     <Content Include="www\robots.txt" />
     <Content Include="www\rules\rules.html" />
     <Content Include="www\rules\rules.js" />
