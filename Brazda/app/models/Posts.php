@@ -85,17 +85,6 @@ class Posts extends Base
                 p.description,
                 p.cache_type,
                 ct.name AS cache_name,
-                p.hint,
-                CASE WHEN p.help NOT LIKE '' THEN TRUE ELSE FALSE END AS has_help,
-                %if", isset($team) && $role == Teams::COMPETITORS, "
-                CASE WHEN lo.moment IS NOT NULL THEN p.shibboleth ELSE NULL END AS shibboleth,
-                CASE WHEN lb.moment IS NOT NULL THEN p.bonus_code ELSE NULL END AS bonus_code,
-                CASE WHEN lh.moment IS NOT NULL THEN p.help ELSE NULL END AS help,
-                %else
-                p.shibboleth,
-                p.bonus_code,
-                p.help,
-                %end
                 p.max_score,
                 p.with_staff,
                 to_char(p.open_from, 'HH24:MI') AS open_from,
@@ -104,14 +93,26 @@ class Posts extends Base
                 p.longitude,
                 pc.name AS color_name,
                 pc.code AS color_code,
-                pt.name AS type_name
-                %if,", isset($team) && $role == Teams::COMPETITORS, "
+                pt.name AS type_name,
+                p.hint,
+                CASE WHEN p.help NOT LIKE '' THEN TRUE ELSE FALSE END AS has_help,
+            %if", isset($team) && $role == Teams::COMPETITORS, "
+                CASE WHEN lo.moment IS NOT NULL THEN p.shibboleth ELSE NULL END AS shibboleth,
+                CASE WHEN lb.moment IS NOT NULL THEN p.bonus_code ELSE NULL END AS bonus_code,
+                CASE WHEN lh.moment IS NOT NULL THEN p.help ELSE NULL END AS help,
+                CASE WHEN lb.moment IS NOT NULL THEN TRUE ELSE FALSE END as is_unlocked,
+                CASE WHEN lo.moment IS NOT NULL THEN TRUE ELSE FALSE END AS is_done,
                 lo.moment AS log_out_moment,
                 lb.moment AS log_bonus_moment,
-                lh.moment AS log_help_moment,
-                CASE WHEN lb.moment IS NOT NULL THEN TRUE ELSE FALSE END as is_unlocked,
-                CASE WHEN lo.moment IS NOT NULL THEN TRUE ELSE FALSE END AS is_done
-                %end
+                lh.moment AS log_help_moment
+            %else
+                p.shibboleth,
+                p.bonus_code,
+                p.help,
+                lo.moment AS log_out_moment,
+                lb.moment AS log_bonus_moment,
+                lh.moment AS log_help_moment
+            %end
              FROM posts p
              JOIN post_colors pc USING (color)
              JOIN post_types pt USING (post_type)
