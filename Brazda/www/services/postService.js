@@ -157,7 +157,7 @@ function PostService(webApiService, $filter) {
     vm.getWaypointVisibilities = function () {
         return [
             { "waypointVisibility": "VW", "name": "Viditelná" },
-            { "waypointVisibility": "HC", "name": "Bez souřadnic" },
+            { "waypointVisibility": "HC", "name": "Skryté souřadnice" },
             { "waypointVisibility": "HW", "name": "Skrytá" }
         ];
     }
