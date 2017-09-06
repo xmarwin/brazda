@@ -32,7 +32,6 @@ class ResultPresenter extends SecuredBasePresenter
                 'name' => $teamItem->name,
                 'logs' => []
             ];
-//dump($this->logs->view(['team' => $teamItem->team]));exit;
             $team['logs'] = $this->logs->resultView([
                 'team' => $teamItem->team,
             ])->fetchAll();
