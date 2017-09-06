@@ -7,6 +7,8 @@ use Nette,
 
 class Posts extends Base
 {
+    use \Brazda\Encoding;
+
     const BEGIN        = 'BEG';
     const END          = 'END';
     const ORGANIZATION = 'ORG';
@@ -156,22 +158,26 @@ class Posts extends Base
     {
         $post = (int) $post;
 
-        return $this->db->query(
+        $shibboleth = $this->db->query(
             "SELECT shibboleth
              FROM posts
              WHERE post = %i", $post
         )->fetchSingle('shibboleth');
+
+        return strtolower(self::toAscii($shibboleth));
     } // getShibboleth()
 
     public function getBonusCode($post)
     {
         $post = (int) $post;
 
-        return $this->db->query(
+        $bonusCode = $this->db->query(
             "SELECT bonus_code
              FROM posts
              WHERE post = %i", $post
         )->fetchSingle('bonus_code');
+
+        return strtolower(self::toAscii($bonusCode));
     } // getBonusCode()
 
     public function insert(array $values)

@@ -8,6 +8,8 @@ use Nette\Security,
 
 class PostPresenter extends SecuredBasePresenter
 {
+    use \Brazda\Encoding;
+
 	protected
         $logs,
 		$posts,
@@ -99,7 +101,7 @@ class PostPresenter extends SecuredBasePresenter
             ];
             $this->sendResource($this->outputType);
         } // if
-
+/*
         if (!$this->logs->canLog($this->team['team'], $post)) {
             $nextAttempt   = $this->logs->nextLog($this->team['team'], $post);
             $nextTimestamp = (int) $nextAttempt->getTimestamp();
@@ -112,9 +114,10 @@ class PostPresenter extends SecuredBasePresenter
             ];
             $this->sendResource($this->outputType);
         } // if
-
+*/
         $postShibboleth = $this->posts->getShibboleth($post);
-        $shibboleth     = urldecode($shibboleth);
+        $shibboleth     = strtolower(self::toAscii(urldecode($shibboleth)));
+
         if ($shibboleth != $postShibboleth) {
             $this->logs->insert([
                 'team'     => (int) $this->team['team'],
@@ -169,7 +172,8 @@ class PostPresenter extends SecuredBasePresenter
         } // if
 
         $postBonusCode = $this->posts->getBonusCode($post);
-        $bonusCode     = urldecode($bonusCode);
+        $bonusCode     = urldecode(self::toAscii($bonusCode));
+
         if ($bonusCode != $postBonusCode) {
             $this->logs->insert([
                 'team'     => (int) $this->team['team'],
