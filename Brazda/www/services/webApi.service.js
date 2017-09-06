@@ -20,6 +20,8 @@ function WebApiService($http, $q, $rootScope) {
             deferred.reject(data)
         }
 
+        $rootScope.$broadcast('app-start-loading');
+
         if (angular.isUndefined(method)) {
             method = 'GET';
         }
@@ -36,8 +38,10 @@ function WebApiService($http, $q, $rootScope) {
             url: url,
             data: data
         }).then(function successCallback(response) {
+            $rootScope.$broadcast('app-finish-loading');
             deferred.resolve(response);
         }, function errorCallback(err) {
+            $rootScope.$broadcast('app-finish-loading');
             deferred.reject(err);
         });
 

@@ -31,7 +31,7 @@ function PostNoteController(postService, $routeParams, $filter, notification, $l
     }
 
     vm.saveNote = function () {
-        var data = JSON.stringify({post: vm.postId, note: vm.note, })
+        var data = { post: vm.postId, note: vm.note }
 
         postService.createNote(data)
             .then(function (response) {
