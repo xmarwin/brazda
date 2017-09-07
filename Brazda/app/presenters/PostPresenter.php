@@ -80,7 +80,7 @@ class PostPresenter extends SecuredBasePresenter
                 'indicies' => []
             ];
             foreach ($allPosts as $post) {
-                if ($post->color != $bonusPost->color || $post->is_done == false) continue;
+                if ($post->color != $bonusPost->color || !isset($post->is_done) || $post->is_done == false) continue;
 
                 $bonus['indicies'][] = [
                     'post' => $post->post,
