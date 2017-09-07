@@ -57,7 +57,8 @@ class Posts extends Base
         )->fetch();
     } // find()
 
-    public function view(array $filter = [], array $order = [ 'post_type' => 'ASC', 'color' => 'ASC', 'name' => 'ASC' ], array $limit = []) {
+    public function view(array $filter = [], array $order = [ 'pt.type_rank' => 'ASC', 'p.color' => 'ASC', 'p.name' => 'ASC' ], array $limit = [])
+    {
 
         $filter = $this->normalizeFilter($filter);
         $order  = $this->normalizeOrder($order);
@@ -71,7 +72,6 @@ class Posts extends Base
 
             unset($filter['team']);
         } // if
-
         return $this->db->query(
             "SELECT
                 p.post,
@@ -94,6 +94,7 @@ class Posts extends Base
                 pc.name AS color_name,
                 pc.code AS color_code,
                 pt.name AS type_name,
+                pt.rank AS type_rank,
                 p.hint,
                 CASE WHEN p.help NOT LIKE '' THEN TRUE ELSE FALSE END AS has_help,
             %if", isset($team) && $role == Teams::COMPETITORS, "
@@ -108,10 +109,7 @@ class Posts extends Base
             %else
                 p.shibboleth,
                 p.bonus_code,
-                p.help,
-                lo.moment AS log_out_moment,
-                lb.moment AS log_bonus_moment,
-                lh.moment AS log_help_moment
+                p.help
             %end
              FROM posts p
              JOIN post_colors pc USING (color)

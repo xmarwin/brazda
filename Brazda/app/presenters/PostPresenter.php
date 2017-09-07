@@ -41,6 +41,10 @@ class PostPresenter extends SecuredBasePresenter
 			$viewFilter[] = [ 'p.color IN %in', $colors ];
 		} // if
 
+		if (empty($order)) {
+            $order = ['pt.rank' => 'ASC', 'p.color' => 'ASC', 'p.name' => 'ASC'];
+		} // if
+
 		$this->resource = (array) $this->posts->view($viewFilter, $order)->fetchAll();
 		foreach ($this->resource as $id => $post) {
             $this->resource[$id]['waypoints'] = $this->waypoints->view([
@@ -101,7 +105,7 @@ class PostPresenter extends SecuredBasePresenter
             ];
             $this->sendResource($this->outputType);
         } // if
-/*
+
         if (!$this->logs->canLog($this->team['team'], $post)) {
             $nextAttempt   = $this->logs->nextLog($this->team['team'], $post);
             $nextTimestamp = (int) $nextAttempt->getTimestamp();
@@ -109,12 +113,12 @@ class PostPresenter extends SecuredBasePresenter
             $this->resource = [
                 'status' => 'Waiting period',
                 'code'   => 408,
-                'next_timestamp' => date('j. n. Y H:i', $nextTimestamp),
+                'next_timestamp' => date('H:i:s', $nextTimestamp),
                 'next_interval'  => $nextTimeout
             ];
             $this->sendResource($this->outputType);
         } // if
-*/
+
         $postShibboleth = $this->posts->getShibboleth($post);
         $shibboleth     = strtolower(self::toAscii(urldecode($shibboleth)));
 
@@ -161,18 +165,18 @@ class PostPresenter extends SecuredBasePresenter
         if (!$this->logs->canBonusLog($this->team['team'], $post)) {
             $nextAttempt   = $this->logs->nextBonusLog($this->team['team'], $post);
             $nextTimestamp = (int) $nextAttempt->getTimestamp();
-            $nextTimeout   = $nextAttempt - time();
+            $nextTimeout   = $nextTimestamp - time();
             $this->resource = [
                 'status' => 'Waiting period',
                 'code'   => 408,
-                'next_timestamp' => date('j. n. Y. H:i', $nextTimestamp),
+                'next_timestamp' => date('H:i:s', $nextTimestamp),
                 'next_interval'  => $nextTimeout
             ];
             $this->sendResource($this->outputType);
         } // if
 
         $postBonusCode = $this->posts->getBonusCode($post);
-        $bonusCode     = urldecode(self::toAscii($bonusCode));
+        $bonusCode     = strtolower(urldecode(self::toAscii($bonusCode)));
 
         if ($bonusCode != $postBonusCode) {
             $this->logs->insert([

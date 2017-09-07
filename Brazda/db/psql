@@ -1,12 +1,5 @@
 #!/bin/bash
 
-#PGHOST="dbserver"
-#PGPORT="5432"
-#PGDATABASE="brazda"
-
-#export PGUSER="brazda"
-#export PGPASSWORD="FzwtMS/jq.XSQ"
-
 DIR="$(dirname "$0")"
 source "$DIR/config"
 
