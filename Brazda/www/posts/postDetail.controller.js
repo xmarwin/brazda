@@ -12,14 +12,15 @@ angular.module('myApp.postDetail', ['ngRoute'])
 
     .controller('PostDetailCtrl', PostDetailController);
 
-PostDetailController.$inject = ['PostService', '$routeParams', '$filter', 'DownloadService', 'ngDialog',];
+PostDetailController.$inject = ['PostService', '$routeParams', '$filter', 'DownloadService', 'ngDialog', 'AuthService'];
 
-function PostDetailController(postService, $routeParams, $filter, downloadService, ngDialog) {
+function PostDetailController(postService, $routeParams, $filter, downloadService, ngDialog, authService) {
     var vm = this;
     vm.postSizes = [];
     vm.cacheTypes = [];
     vm.waypointTypes = [];
     vm.post = [];
+    vm.securityToken;
 
     var init = function () {
         vm.postId = $routeParams.postId;
@@ -39,6 +40,8 @@ function PostDetailController(postService, $routeParams, $filter, downloadServic
         angular.forEach(vm.post.waypoints, function (value) {
             value.waypoint_type = $filter('filter')(vm.waypointTypes, { 'waypointType': value.waypoint_type }, true)[0];
         });
+
+        vm.securityToken = authService.team.securityToken;
     }
 
     vm.downloadGpx = function () {
