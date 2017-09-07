@@ -7,9 +7,14 @@ PostService.$inject = ['WebApiService', '$filter'];
 
 function PostService(webApiService, $filter) {
     var vm = this;
-
+    
     vm.getPosts = function (teamId) {
         return webApiService.get('post/list');
+    }
+
+    // https://brazda/api/post/bonus-list?securityToken=e46e72c51750843d8827f91d6c3b2ff0
+    vm.getBonuses = function () {
+        return webApiService.get('post/bonus-list');
     }
 
     // http://brazda/api/post/detail?securityToken=<security token>&post=<id postu>

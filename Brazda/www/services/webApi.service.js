@@ -3,9 +3,9 @@
 angular.module('myApp.webApiService', [])
     .service('WebApiService', WebApiService)
 
-WebApiService.$inject = ['$http', '$q', '$rootScope'];
+WebApiService.$inject = ['$http', '$q', '$rootScope', '$log'];
 
-function WebApiService($http, $q, $rootScope) {
+function WebApiService($http, $q, $rootScope, $log) {
     var vm = this;
     vm.online;
 
@@ -21,6 +21,8 @@ function WebApiService($http, $q, $rootScope) {
         }
 
         $rootScope.$broadcast('app-start-loading');
+        
+            $log.log('broadcasting app-start-loading');
 
         if (angular.isUndefined(method)) {
             method = 'GET';
@@ -39,9 +41,11 @@ function WebApiService($http, $q, $rootScope) {
             data: data
         }).then(function successCallback(response) {
             $rootScope.$broadcast('app-finish-loading');
+            $log.log('broadcasting app-finish-loading');
             deferred.resolve(response);
         }, function errorCallback(err) {
             $rootScope.$broadcast('app-finish-loading');
+            $log.log('broadcasting app-finish-loading');
             deferred.reject(err);
         });
 
