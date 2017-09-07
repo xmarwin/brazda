@@ -382,6 +382,7 @@ class PostPresenter extends SecuredBasePresenter
             $this->sendErrorResource($e, $this->outputType);
         } // try
 
+        $result = [];
         foreach ($this->input->waypoints as $wp) {
             try {
                 $filter = isset($wp['waypoint']) && !empty($wp['waypoint'])
@@ -397,7 +398,7 @@ class PostPresenter extends SecuredBasePresenter
                     'longitude'           => (float) $wp['longitude']
                 ];
 
-                $result['waypoints'][] = (int) $this->waypoints->insert($values);
+                $result[] = (int) $this->waypoints->insert($values);
             } catch (\Exception $e) {
                 $this->posts->rollback();
                 $this->sendErrorResource($e, $this->outputType);
