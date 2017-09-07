@@ -20,12 +20,14 @@ function PostsController(authService, postService, $filter, notification) {
     vm.postTypes = [];
     vm.filter = [];
     vm.showFilter = false;
+    vm.securityToken;
 
     vm.init = function () {
         loadPosts();
 
         vm.postTypes = postService.getPostTypes();
         vm.postColors = postService.getPostColors();
+        vm.securityToken = authService.team.securityToken;
     }
 
     vm.filter = function () {
