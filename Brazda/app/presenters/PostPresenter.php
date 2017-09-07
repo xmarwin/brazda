@@ -42,7 +42,7 @@ class PostPresenter extends SecuredBasePresenter
 		} // if
 
 		if (empty($order)) {
-            $order = ['pt.rank' => 'ASC', 'p.color' => 'ASC', 'p.name' => 'ASC'];
+            $order = ['rank' => 'ASC', 'color' => 'ASC', 'name' => 'ASC'];
 		} // if
 
 		$this->resource = (array) $this->posts->view($viewFilter, $order)->fetchAll();
@@ -256,7 +256,7 @@ class PostPresenter extends SecuredBasePresenter
         } // try
 
         foreach ($this->input->waypoints as $wp) {
-            $values = [
+            $waypointValues = [
                 'waypoint_type'       => strtoupper($wp['waypointType']),
                 'waypoint_visibility' => strtoupper($wp['waypointVisibility']),
                 'post'                => $result['post'],
@@ -267,7 +267,7 @@ class PostPresenter extends SecuredBasePresenter
             ];
 
             try {
-                $result['waypoints'][] = (int) $this->waypoints->insert($values);
+                $result['waypoints'][] = (int) $this->waypoints->insert($waypointValues);
             } catch (\Exception $e) {
                 $this->posts->rollback();
                 $this->sendErrorResource($e, $this->outputType);
@@ -336,6 +336,13 @@ class PostPresenter extends SecuredBasePresenter
             $this->sendErrorResource($e, $this->outputType);
         } // try
 
+        try {
+            $this->waypoints->delete(['post' => $filter['post']]);
+        } catch (\Exception $e) {
+            $this->posts->rollback();
+            $this->sendErrorResource($e, $this->outputType);
+        } // try
+
         foreach ($this->input->waypoints as $wp) {
             try {
                 $filter = isset($wp['waypoint']) && !empty($wp['waypoint'])
@@ -351,9 +358,7 @@ class PostPresenter extends SecuredBasePresenter
                     'longitude'           => (float) $wp['longitude']
                 ];
 
-                $result = (is_null($filter))
-                    ? $this->waypoints->insert($values)
-                    : $this->waypoints->update($values, $filter);
+                $result['waypoints'][] = (int) $this->waypoints->insert($values);
             } catch (\Exception $e) {
                 $this->posts->rollback();
                 $this->sendErrorResource($e, $this->outputType);
@@ -363,7 +368,8 @@ class PostPresenter extends SecuredBasePresenter
 
         $this->resource = [
             'status' => 'OK',
-            'code'   => 201
+            'code'   => 201,
+            'data'   => $result
         ];
         $this->sendResource($this->outputType);
     } // actionUpdate()

@@ -39,20 +39,7 @@ class Base extends Nette\Object
 
     protected function normalizeFilter(array $filter, array $map = [])
     {
-        if (empty($map)) return $filter;
-
-        $newFilter = [];
-        foreach ($filter as $key => $value) {
-            if (!array_key_exists($key, $map)) {
-                $newFilter[$key] = $value;
-                continue;
-            } // if
-
-            $newKey = $map[$key];
-            $newFilter[$newKey] = $value;
-        } // foreach
-
-        return $newFilter;
+        return $this->normalizeMap($filter, $map);
     } // normalizeFilter()
 
     protected function normalizeOrder(array $order)
@@ -86,6 +73,24 @@ class Base extends Nette\Object
         return $limit;
     } // normalizeLimit()
 
+    protected function normalizeMap(array $input, array $normalizationMap = [])
+    {
+        if (empty($normalizationMap)) return $input;
+
+        $output = [];
+        foreach ($input as $key => $value) {
+            if (!array_key_exists($key, $normalizationMap)) {
+                $output[$key] = $value;
+                continue;
+            } // if
+
+            $outputKey = $normalizationMap[$key];
+            $output[$outputKey] = $value;
+        } // foreach
+
+        return $output;
+    } // normalizeMap()
+
     protected function prepareFloat($value)
     {
         if (is_string($value))
@@ -116,7 +121,7 @@ class Base extends Nette\Object
         return (bool) $value;
     } // prepareBoolean()
 
-    private function isAssoc(array $arr)
+    protected function isAssoc(array $arr)
     {
         if (array() === $arr) return true;
 
