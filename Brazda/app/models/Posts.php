@@ -127,7 +127,7 @@ class Posts extends Base
                 CASE WHEN lo.moment IS NOT NULL THEN TRUE ELSE FALSE END AS is_done,
                 lo.moment AS log_out_moment,
                 lb.moment AS log_bonus_moment,
-                lh.moment AS log_help_moment,
+                lh.moment AS log_help_moment
             %else
                 p.shibboleth,
                 p.bonus_code,

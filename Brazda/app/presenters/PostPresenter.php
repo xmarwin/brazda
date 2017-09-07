@@ -55,6 +55,45 @@ class PostPresenter extends SecuredBasePresenter
 		$this->sendResource($this->outputType);
 	} // actionList()
 
+	public function actionBonusList()
+	{
+        $viewBonusesFilter = [
+            'team' => $this->team['team'],
+            'post_type' => Models\Posts::BONUS
+        ];
+        $bonusPosts = $this->posts->view($viewBonusesFilter)->fetchAll();
+
+        $viewPostsFilter = [
+            'team' => $this->team['team']
+        ];
+        $allPosts = $this->posts->view($viewPostsFilter)->fetchAll();
+
+        $this->resource = [];
+        foreach ($bonusPosts as $bonusPost) {
+            $bonus = [
+                'post'     => $bonusPost->post,
+                'name'     => $bonusPost->name,
+                'color'    => [
+                    'name' => $bonusPost->color_name,
+                    'code' => $bonusPost->color_code
+                ],
+                'indicies' => []
+            ];
+            foreach ($allPosts as $post) {
+                if ($post->color != $bonusPost->color || $post->is_done == false) continue;
+
+                $bonus['indicies'][] = [
+                    'post' => $post->post,
+                    'name' => $post->name,
+                    'shibboleth' => $post->shibboleth
+                ];
+            } // foreach
+            $this->resource[] = $bonus;
+        } // foreach
+
+        $this->sendResource($this->outputType);
+	} // actionBonusList()
+
 	public function actionDetail($post)
 	{
         $this->resource = (array) $this->posts->view([
