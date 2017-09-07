@@ -55,8 +55,8 @@ class MapPresenter extends BasePresenter
                 'geometry' => [
                     'type' => 'Point',
                     'coordinates' => [
-                        $post['latitude'],
-                        $post['longitude']
+                        $post['longitude'],
+                        $post['latitude']
                     ]
                 ]
             ];
@@ -76,8 +76,8 @@ class MapPresenter extends BasePresenter
                     'geometry' => [
                         'type' => 'Point',
                         'coordinates' => [
-                            $waypoint['latitude'],
-                            $waypoint['longitude']
+                            $waypoint['longitude'],
+                            $waypoint['latitude']
                         ]
                     ]
                 ];
