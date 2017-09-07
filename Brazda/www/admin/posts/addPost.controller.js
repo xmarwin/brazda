@@ -13,9 +13,9 @@ angular.module('myApp.admin.addPost', ['ngRoute'])
 
     .controller('AddPostCtrl', AddPostController);
 
-AddPostController.$inject = ['$routeParams', '$location', 'Notification', 'AuthService', 'PostService', 'ngDialog'];
+AddPostController.$inject = ['$routeParams', '$location', 'Notification', 'AuthService', 'PostService', 'ngDialog', '$filter'];
 
-function AddPostController($routeParams, $location, notification, authService, postService, ngDialog) {
+function AddPostController($routeParams, $location, notification, authService, postService, ngDialog, $filter) {
     var vm = this;
     vm.post = {};
     vm.post.waypoints = [];
@@ -103,8 +103,8 @@ function AddPostController($routeParams, $location, notification, authService, p
             "longitude": post.longitude,
             "withStaff": post.withStaff,
             "waypoints": waypoints,
-            "latitude": 0,
-            "longitude": 0,
+            "latitude": post.latitude,
+            "longitude": post.longitude,
             "openFrom": $filter("date")(post.openFrom, "shortTime"),
             "openTo": $filter("date")(post.openTo, "shortTime")
         }

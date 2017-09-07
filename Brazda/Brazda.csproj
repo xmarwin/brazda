@@ -5283,9 +5283,8 @@
     <Content Include="www\assets\scripts\quill\ui\icons.js" />
     <Content Include="www\assets\scripts\quill\ui\picker.js" />
     <Content Include="www\assets\scripts\quill\ui\tooltip.js" />
-    <Content Include="www\bonusy\view2.html" />
-    <Content Include="www\bonusy\view2.js" />
-    <Content Include="www\bonusy\view2_test.js" />
+    <Content Include="www\bonuses\bonuses.html" />
+    <Content Include="www\bonuses\bonuses.controller.js" />
     <Content Include="www\bower_components\angular-geolocation\angular-geolocation.js" />
     <Content Include="www\bower_components\angular-loader\.bower.json" />
     <Content Include="www\bower_components\angular-loader\angular-loader.js" />

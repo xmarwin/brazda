@@ -33,6 +33,7 @@ angular.module('myApp', [
     //App
     'myApp.rules',
     'myApp.contact',
+    'myApp.bonuses',
     'myApp.posts',
     'myApp.postDetail',
     'myApp.postNote',
