@@ -59,8 +59,24 @@ class Posts extends Base
 
     public function view(array $filter = [], array $order = [ 'pt.rank' => 'ASC', 'p.color' => 'ASC', 'p.name' => 'ASC' ], array $limit = [])
     {
-
-        $filter = $this->normalizeFilter($filter);
+        $filter = $this->normalizeFilter($filter, [
+            'post'       => 'p.post',
+            'size_name'  => 'cs.size',
+            'cache_name' => 'ct.name',
+            'color_name' => 'pc.name',
+            'color_code' => 'pc.code',
+            'type_name'  => 'pt.name',
+            'type_rank'  => 'pt.rank',
+            'rank'       => 'pt.rank',
+            'post_note'  => 'pn.note',
+            'note'       => 'pn.note',
+            'shibboleth' => 'p.shibboleth',
+            'bonus_code' => 'p.bonus_code',
+            'help'       => 'p.help',
+            'log_out_moment'   => 'lo.moment',
+            'log_bonus_moment' => 'lb.moment',
+            'log_help_moment'  => 'lh.moment'
+        ]);
         $order  = $this->normalizeOrder($order);
         $limit  = $this->normalizeLimit($limit);
         list($limit, $offset) = each($limit);
@@ -81,22 +97,28 @@ class Posts extends Base
                 p.difficulty,
                 p.terrain,
                 p.cache_size,
-                cs.name AS size_name,
                 p.description,
                 p.cache_type,
-                ct.name AS cache_name,
                 p.max_score,
                 p.with_staff,
-                to_char(p.open_from, 'HH24:MI') AS open_from,
-                to_char(p.open_to, 'HH24:MI') AS open_to,
                 p.latitude,
                 p.longitude,
+                p.hint,
+                to_char(p.open_from, 'HH24:MI') AS open_from,
+                to_char(p.open_to, 'HH24:MI') AS open_to,
+                CASE WHEN p.help NOT LIKE '' THEN TRUE ELSE FALSE END AS has_help,
+
+                cs.name AS size_name,
+                ct.name AS cache_name,
+
                 pc.name AS color_name,
                 pc.code AS color_code,
+
                 pt.name AS type_name,
                 pt.rank AS type_rank,
-                p.hint,
-                CASE WHEN p.help NOT LIKE '' THEN TRUE ELSE FALSE END AS has_help,
+
+                coalesce(pn.note, NULL) AS post_note,
+
             %if", isset($team) && $role == Teams::COMPETITORS, "
                 CASE WHEN lo.moment IS NOT NULL THEN p.shibboleth ELSE NULL END AS shibboleth,
                 CASE WHEN lb.moment IS NOT NULL THEN p.bonus_code ELSE NULL END AS bonus_code,
@@ -105,7 +127,7 @@ class Posts extends Base
                 CASE WHEN lo.moment IS NOT NULL THEN TRUE ELSE FALSE END AS is_done,
                 lo.moment AS log_out_moment,
                 lb.moment AS log_bonus_moment,
-                lh.moment AS log_help_moment
+                lh.moment AS log_help_moment,
             %else
                 p.shibboleth,
                 p.bonus_code,
@@ -116,7 +138,7 @@ class Posts extends Base
              JOIN post_types pt USING (post_type)
              LEFT JOIN cache_sizes cs USING (cache_size)
              LEFT JOIN cache_types ct USING (cache_type)
-             %if", isset($team) && $role == Teams::COMPETITORS, "
+        %if", isset($team) && $role == Teams::COMPETITORS, "
              LEFT JOIN (
                 SELECT post, moment
                 FROM logs
@@ -135,10 +157,13 @@ class Posts extends Base
                 WHERE log_type = 'HLP'
                   AND team = %i", $team, "
              ) lh USING (post)
-             %end
-             %if", !empty($filter), "WHERE %and", $filter, "%end",
-            "%if", !empty($order), " ORDER BY %by", $order, " %end",
-            "%if", !empty($limit), " LIMIT %lmt", $limit, " %ofs", $offset
+        %end
+        %if", isset($team), "
+             LEFT JOIN post_notes pn ON pn.post = p.post AND pn.team = %i", $team, "
+        %end
+            %if", !empty($filter), "WHERE %and", $filter, "%end",
+           "%if", !empty($order), " ORDER BY %by", $order, " %end",
+           "%if", !empty($limit), " LIMIT %lmt", $limit, " %ofs", $offset
         );
     } // view()
 
