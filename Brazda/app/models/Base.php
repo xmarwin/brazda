@@ -37,9 +37,22 @@ class Base extends Nette\Object
         return $this->inTransaction;
     } // isInTransaction()
 
-    protected function normalizeFilter(array $filter)
+    protected function normalizeFilter(array $filter, array $map = [])
     {
-        return $filter;
+        if (empty($map)) return $filter;
+
+        $newFilter = [];
+        foreach ($filter as $key => $value) {
+            if (!array_key_exists($key, $map)) {
+                $newFilter[$key] = $value;
+                continue;
+            } // if
+
+            $newKey = $map[$key];
+            $newFilter[$newKey] = $value;
+        } // foreach
+
+        return $newFilter;
     } // normalizeFilter()
 
     protected function normalizeOrder(array $order)
