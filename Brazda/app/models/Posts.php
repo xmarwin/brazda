@@ -57,7 +57,7 @@ class Posts extends Base
         )->fetch();
     } // find()
 
-    public function view(array $filter = [], array $order = [ 'pt.type_rank' => 'ASC', 'p.color' => 'ASC', 'p.name' => 'ASC' ], array $limit = [])
+    public function view(array $filter = [], array $order = [ 'pt.rank' => 'ASC', 'p.color' => 'ASC', 'p.name' => 'ASC' ], array $limit = [])
     {
 
         $filter = $this->normalizeFilter($filter);
