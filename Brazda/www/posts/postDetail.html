@@ -101,7 +101,7 @@
     </div>
     <div class="row">
         <a href="#/postNote/{{ctrl.post.post}}" class="btn btn-primary">Poznámka</a>
-        <button ng-click="ctrl.downloadGpx()" class="btn btn-primary">Stáhnout GPX</button>
+        <a type="button" ng-href="/api/gpx/post?securityToken={{ctrl.securityToken}}&post={{ctrl.post.post}}" class="btn btn-primary" target="_blank"><i class="fa fa-download" aria-hidden="true"></i> GPX</a>
         <button ng-click="ctrl.getHelp()" ng-show="ctrl.post.hasHelp === true" class="btn btn-primary" ng-disabled="ctrl.post.help !== null">Nápověda</button>
         <a href="#/bonusUnlock/{{ctrl.post.post}}" class="btn btn-primary" ng-show="ctrl.post.postType==='BON'" ng-disabled="ctrl.post.isUnlocked === true">Odemknout</a>
         <a href="#/postLog/{{ctrl.post.post}}" class="btn btn-primary" ng-disabled="ctrl.post.isDone === true || (ctrl.post.postType==='BON' && ctrl.post.isUnlocked === false)">Zalogovat</a>
