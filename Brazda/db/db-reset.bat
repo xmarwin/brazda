@@ -10,7 +10,6 @@ SET PGDATABASE=brazda_test
 
 ECHO Ruším starou databázi BRAZDA...
 "C:\Program Files\PostgreSQL\9.5\bin\dropdb.exe" brazda
-if errorLevel 1 ( exit /b %errorLevel%; )
 
 ECHO Vytvářím novou databázi BRAZDA...
 "C:\Program Files\PostgreSQL\9.5\bin\createdb.exe" -O brazda -E UTF8 -T template0
