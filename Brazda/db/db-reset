@@ -2,7 +2,7 @@
 
 PGHOST="dbserver"
 PGPORT="5432"
-PGDATABASE="brazda:"
+PGDATABASE="brazda"
 
 echo ""
 echo "Ruším starou databázi BRAZDA..."
