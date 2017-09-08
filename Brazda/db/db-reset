@@ -2,12 +2,11 @@
 
 PGHOST="dbserver"
 PGPORT="5432"
-PGDATABASE="brazda_test"
+PGDATABASE="brazda:"
 
 echo ""
 echo "Ruším starou databázi BRAZDA..."
 /usr/bin/dropdb -h $PGHOST -p $PGPORT -U postgres $PGDATABASE
-if [ $? -gt 0 ]; then exit; fi
 
 echo ""
 echo "Vytvářím novou databázi BRAZDA..."
@@ -80,11 +79,6 @@ if [ $? -gt 0 ]; then exit; fi
 echo ""
 echo "Importuji data o stanovištích..."
 /usr/bin/psql -h $PGHOST -p $PGPORT -f posts.sql
-if [ $? -gt 0 ]; then exit; fi
-
-echo ""
-echo "Importuji data z posledního závodu..."
-/usr/bin/psql -h $PGHOST -p $PGPORT -f results.sql
 if [ $? -gt 0 ]; then exit; fi
 
 echo 'Hotovo!'
