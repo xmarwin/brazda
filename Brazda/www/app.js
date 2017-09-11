@@ -26,6 +26,7 @@ angular.module('myApp', [
     'myApp.postService',
     'myApp.downloadService',
     'myApp.trackingService',
+    'myApp.resultService',
 
     // directives
     'myApp.waitDirective',
@@ -48,6 +49,8 @@ angular.module('myApp', [
     'myApp.admin.posts',
     'myApp.admin.addPost',
     'myApp.admin.editPost',
+
+    'myApp.admin.result',
 
     //Common
     'myApp.nav',
