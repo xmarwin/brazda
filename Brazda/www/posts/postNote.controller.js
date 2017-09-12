@@ -18,7 +18,6 @@ function PostNoteController(postService, $routeParams, $filter, notification, $l
     var vm = this;
     vm.password = "";
     vm.post = {};
-    vm.note = "";
 
     var init = function () {
         vm.postId = $routeParams.postId;
@@ -35,11 +34,15 @@ function PostNoteController(postService, $routeParams, $filter, notification, $l
 
         postService.createNote(data)
             .then(function (response) {
-                $location.path("#/post/" + vm.postDetail.post);
+                $location.path("postDetail/" + vm.postId);
                 notification.success('Poznámka byla uložena.');
             }, function (err) {
                 notification.error(err.data.message);
             });
+    }
+
+    vm.cancel = function () {
+        $location.path("postDetail/" + vm.postId);
     }
 
     init();

@@ -47,6 +47,7 @@
             <tr>
                 <td rowspan="2" style="width: 36px">
                     <i class="fa fa-check fa-2x" style="color: green" aria-hidden="true" ng-show="postItem.isDone===true"></i>
+                    <i class="fa fa-unlock-alt fa-2x" style="color: green" aria-hidden="true" ng-show="postItem.isUnlocked===true && postItem.isDone===false"></i>
                 </td>
 
                 <td rowspan="2" style="width: 36px" class="{{postItem.color}}">
