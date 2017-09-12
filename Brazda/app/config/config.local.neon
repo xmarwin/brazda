@@ -4,6 +4,6 @@ parameters:
 		host: 127.0.0.1
 		user: brazda
 		password: FzwtMS/jq.XSQ
-		database: brazda_test
+		database: brazda
 		resultDetectTypes: true
 		profiler: true
