@@ -67,4 +67,8 @@ echo "Importuji data o stanovištích..."
 /usr/bin/psql -q -h $PGHOST -p $PGPORT -f posts.sql
 if [ $? -gt 0 ]; then exit; fi
 
+echo "Importuji data z posledního závodu..."
+/usr/bin/psql -q -h $PGHOST -p $PGPORT -f results.sql
+if [ $? -gt 0 ]; then exit; fi
+
 echo 'Hotovo!'
