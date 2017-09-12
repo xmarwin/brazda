@@ -46,7 +46,9 @@ class PostPresenter extends SecuredBasePresenter
 		} // if
 
 		$this->resource = (array) $this->posts->view($viewFilter, $order)->fetchAll();
+		$rank = 0;
 		foreach ($this->resource as $id => $post) {
+            $this->resource[$id]['rank'] = $rank++;
             $this->resource[$id]['waypoints'] = $this->waypoints->view([
                 'post' => (int) $post['post'],
                 'team' => (int) $this->team['team']
