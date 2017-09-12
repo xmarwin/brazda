@@ -20,6 +20,7 @@ function ResultController(notification, resultService, postService, teamService,
     vm.logs = {};
     vm.posts = {};
     vm.teams = {};
+    vm.results = [];
     vm.stepDown = 3;
     vm.startTime = new Date("2016-10-01 08:00:00");
     vm.endTime = new Date("2016-10-01 19:00:00");
@@ -70,7 +71,7 @@ function ResultController(notification, resultService, postService, teamService,
     function getTeams() {
         teamService.getTeamsFull()
             .then(function successCallback(response) {
-                vm.teams = response.data;
+                vm.teams = $filter("filter")(response.data, { role: 'COM' }, true);
                 teamsLoaded = true;
             }, function errorCallback(err) {
                 notification.error(err.data.message);
@@ -81,8 +82,10 @@ function ResultController(notification, resultService, postService, teamService,
         for (var i = 0; i < vm.posts.length; i++) {
             var post = vm.posts[i];
             post.logs = []
+
+            // upravi timestamp tymum, ktere si braly napovedu.
             for (var j = 0; j < vm.logs.length; j++) {
-                var postTemp = $filter('filter')(vm.logs[j].logs, { post: post.post }, true)[0];
+                var postTemp = $filter('filter')(vm.logs[j].logs, { post: post.post, logType: 'OUT' }, true)[0];
                 if (!angular.isUndefined(postTemp)) {
                     var validMoment = angular.isUndefined(postTemp.logOutMoment) ? postTemp.moment : postTemp.logOutMoment;
 
@@ -95,16 +98,74 @@ function ResultController(notification, resultService, postService, teamService,
                 post.logs.push(postTemp);
             }
 
+            // seradi podle toho upraveneho timestampu
             post.logs.sort(function (a, b) {
                 return a.fakeMoment - b.fakeMoment;
             });
 
+            // spocita skore
             var maxScore = post.maxScore;
             for (var j = 0; j < post.logs.length; j++) {
                 if (!angular.isUndefined(post.logs[j])) {
                     post.logs[j].score = Math.max(maxScore - j * vm.stepDown, 0);
                 }
             }
+        }
+
+
+        //spocita celkovy pocet bodu
+        for (var i = 0; i < vm.logs.length; i++) {
+            vm.logs[i].totalPoints = 0;
+
+            for (var j = 0; j < vm.logs[i].logs.length; j++) {
+                if (!angular.isUndefined(vm.logs[i].logs[j]) && (vm.logs[i].logs[j].logType !== 'BON' && vm.logs[i].logs[j].logType !== 'FIN' && vm.logs[i].logs[j].logType !== 'STR')) {
+                    vm.logs[i].totalPoints += vm.logs[i].logs[j].score;
+                }
+            }
+        }
+
+        for (var i = 0; i < vm.logs.length; i++) {
+            var result = {};
+            var teamLog = vm.logs[i];
+
+            result.team = teamLog.team;
+            result.teamName = teamLog.name;
+            result.totalPoints = teamLog.totalPoints;
+            result.posts = [];
+
+            for (var j = 0; j < teamLog.logs.length; j++) {
+                if (teamLog.logs[j].logType === 'OUT') {
+                    result.posts.push({ post: teamLog.logs[j].post, postName: teamLog.logs[j].postName, score: teamLog.logs[j].score });
+                }
+            }
+
+            vm.results.push(result);
+        }
+    }
+
+    vm.getScore = function (teamId, postId) {
+        var team = $filter("filter")(vm.results, { team: teamId }, true)[0];
+
+        if (angular.isUndefined(team)) {
+            return "-";
+        } else {
+            var log = $filter("filter")(team.posts, { post: postId }, true)[0];
+
+            if (angular.isUndefined(log)) {
+                return "-";
+            } else {
+                return log.score;
+            }
+        }
+    }
+
+    vm.getTotal = function (teamId) {
+        var retval = $filter("filter")(vm.results, { team: teamId }, true)[0];
+
+        if (angular.isUndefined(retval) || retval.totalPoints == null) {
+            return "-";
+        } else {
+            return retval.totalPoints;
         }
     }
 
