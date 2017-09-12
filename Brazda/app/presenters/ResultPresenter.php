@@ -33,7 +33,7 @@ class ResultPresenter extends SecuredBasePresenter
                 'logs' => []
             ];
             $team['logs'] = $this->logs->resultView([
-                'team' => $teamItem->team,
+                'team' => $teamItem->team
             ])->fetchAll();
 
             $teams[] = $team;
