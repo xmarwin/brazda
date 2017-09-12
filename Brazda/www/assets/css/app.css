@@ -107,3 +107,7 @@ th div {
     position: absolute;
     top: -5px;
 }
+
+.bonus {
+    height: 60px;
+}

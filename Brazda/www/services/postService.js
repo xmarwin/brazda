@@ -12,7 +12,7 @@ function PostService(webApiService, $filter) {
         return webApiService.get('post/list');
     }
 
-    // https://brazda/api/post/bonus-list?securityToken=e46e72c51750843d8827f91d6c3b2ff0
+    // https://brazda/api/post/bonus-list?securityToken=<security token>
     vm.getBonuses = function () {
         return webApiService.get('post/bonus-list');
     }
