@@ -93,3 +93,17 @@ table.post-list {
     background-position: center center;
     background-repeat: no-repeat;
 }
+
+th {
+    -ms-transform: rotate(-90deg); /* IE 9 */
+    -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+    transform: rotate(-90deg);
+    transform-origin: left top 0;
+    width: 25px !important;
+    table-layout: fixed
+}
+
+th div {
+    position: absolute;
+    top: -5px;
+}
