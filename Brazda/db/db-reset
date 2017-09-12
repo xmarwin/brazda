@@ -6,7 +6,6 @@ PGDATABASE="brazda_test"
 
 echo "Ruším starou databázi BRAZDA..."
 /usr/bin/dropdb -h $PGHOST -p $PGPORT -U postgres $PGDATABASE
-if [ $? -gt 0 ]; then exit; fi
 
 echo "Vytvářím novou databázi BRAZDA..."
 /usr/bin/createdb -h $PGHOST -p $PGPORT -U postgres -O brazda -E UTF-8 -T template0 $PGDATABASE
