@@ -1,0 +1,70 @@
+#!/bin/bash
+
+PGHOST="dbserver"
+PGPORT="5432"
+PGDATABASE="brazda"
+
+echo "Ruším starou databázi BRAZDA..."
+/usr/bin/dropdb -h $PGHOST -p $PGPORT -U postgres $PGDATABASE
+
+echo "Vytvářím novou databázi BRAZDA..."
+/usr/bin/createdb -h $PGHOST -p $PGPORT -U postgres -O brazda -E UTF-8 -T template0 $PGDATABASE
+if [ $? -gt 0 ]; then exit; fi
+
+DIR="$(dirname "$0")"
+source "$DIR/config"
+
+echo ""
+echo "Importuji schéma..."
+/usr/bin/psql -q -h $PGHOST -p $PGPORT -f schema.sql
+if [ $? -gt 0 ]; then exit; fi
+
+echo "Importuji základní data..."
+/usr/bin/psql -q -h $PGHOST -p $PGPORT -f data.sql
+if [ $? -gt 0 ]; then exit; fi
+
+echo "Aplikuji patch 001..."
+/usr/bin/psql -q -h $PGHOST -p $PGPORT -f p001.sql
+if [ $? -gt 0 ]; then exit; fi
+
+echo "Aplikuji patch 002..."
+/usr/bin/psql -q -h $PGHOST -p $PGPORT -f p002.sql
+if [ $? -gt 0 ]; then exit; fi
+
+echo "Aplikuji patch 003..."
+/usr/bin/psql -q -h $PGHOST -p $PGPORT -f p003.sql
+if [ $? -gt 0 ]; then exit; fi
+
+echo "Aplikuji patch 004..."
+/usr/bin/psql -q -h $PGHOST -p $PGPORT -f p004.sql
+if [ $? -gt 0 ]; then exit; fi
+
+echo "Aplikuji patch 005..."
+/usr/bin/psql -q -h $PGHOST -p $PGPORT -f p005.sql
+if [ $? -gt 0 ]; then exit; fi
+
+echo "Aplikuji patch 006..."
+/usr/bin/psql -q -h $PGHOST -p $PGPORT -f p006.sql
+if [ $? -gt 0 ]; then exit; fi
+
+echo "Aplikuji patch 007..."
+/usr/bin/psql -q -h $PGHOST -p $PGPORT -f p007.sql
+if [ $? -gt 0 ]; then exit; fi
+
+echo "Aplikuji patch 008..."
+/usr/bin/psql -q -h $PGHOST -p $PGPORT -f p008.sql
+if [ $? -gt 0 ]; then exit; fi
+
+echo "Aplikuji patch 009..."
+/usr/bin/psql -q -h $PGHOST -p $PGPORT -f p009.sql
+if [ $? -gt 0 ]; then exit; fi
+
+echo "Aplikuji patch 010..."
+/usr/bin/psql -q -h $PGHOST -p $PGPORT -f p010.sql
+if [ $? -gt 0 ]; then exit; fi
+
+echo "Importuji data o stanovištích..."
+/usr/bin/psql -q -h $PGHOST -p $PGPORT -f posts.sql
+if [ $? -gt 0 ]; then exit; fi
+
+echo 'Hotovo!'
