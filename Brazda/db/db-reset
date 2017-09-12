@@ -2,7 +2,7 @@
 
 PGHOST="dbserver"
 PGPORT="5432"
-PGDATABASE="brazda_test"
+PGDATABASE="brazda"
 
 echo "Ruším starou databázi BRAZDA..."
 /usr/bin/dropdb -h $PGHOST -p $PGPORT -U postgres $PGDATABASE
