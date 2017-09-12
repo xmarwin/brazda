@@ -82,6 +82,7 @@
     <Content Include="db\p009.sql" />
     <Content Include="db\p010.sql" />
     <Content Include="db\posts.sql" />
+    <Content Include="db\results.sql" />
     <Content Include="db\schema.sql" />
     <Content Include="doc\api.txt" />
     <Content Include="node_modules\.staging\accepts-f9de678930350e1c53c73b7bf665201c\index.js" />

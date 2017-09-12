@@ -8,15 +8,23 @@
                     &nbsp;
                 </th>
                 <th ng-repeat="post in ctrl.posts">
-                    {{post.name}}
+                    <div>
+                        <nobr>{{ post.name }}</nobr>
+                    </div>
+                </th>
+                <th>
+                    Celkem
                 </th>
             </tr>
             <tr ng-repeat="team in ctrl.teams">
                 <td>
-                    {{team.name}}
+                    {{ team.name }}
                 </td>
                 <td ng-repeat="post in ctrl.posts">
-                    {{ ((ctrl.posts | filter: {post : post.post} : true)[0].logs | filter : {team : team.team} : true)[0].score }}
+                    {{ ctrl.getScore(team.team, post.post) }}
+                </td>
+                <td>
+                    {{ ctrl.getTotal(team.team) }}
                 </td>
             </tr>
         </table>
