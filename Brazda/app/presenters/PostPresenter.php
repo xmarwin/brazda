@@ -71,16 +71,29 @@ class PostPresenter extends SecuredBasePresenter
         $this->resource = [];
         foreach ($bonusPosts as $bonusPost) {
             $bonus = [
-                'post'     => $bonusPost->post,
-                'name'     => $bonusPost->name,
-                'color'    => [
-                    'name' => $bonusPost->color_name,
-                    'code' => $bonusPost->color_code
+                'post'        => $bonusPost->post,
+                'name'        => $bonusPost->name,
+                'is_unlocked' => $bonusPost->is_unlocked,
+                'is_done'     => $bonusPost->is_done,
+                'unlocked_moment' => $bonusPost->log_bonus_moment,
+                'done_moment'     => $bonusPost->log_out_moment,
+                'color'       => [
+                    'name'    => $bonusPost->color_name,
+                    'code'    => $bonusPost->color_code
                 ],
-                'indicies' => []
+                'indicies'    => []
             ];
+            if ($bonusPost->is_unlocked) {
+                $bonus['bonus_code'] = $bonusPost->bonus_code;
+            } // if
+            if ($bonusPost->is_done) {
+                $bonus['shibboleth'] = $bonusPost->shibboleth;
+            } // if
             foreach ($allPosts as $post) {
-                if ($post->color != $bonusPost->color || !isset($post->is_done) || $post->is_done == false) continue;
+                if ($post->color != $bonusPost->color
+                || !isset($post->is_done)
+                || $post->is_done == false
+                || $post->post_type == Models\Posts::BONUS) continue;
 
                 $bonus['indicies'][] = [
                     'post' => $post->post,
