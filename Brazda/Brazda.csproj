@@ -5113,6 +5113,8 @@
     <Content Include="www\admin\posts\deletePostConfirmation.html" />
     <Content Include="www\admin\posts\postsAdmin.controller.js" />
     <Content Include="www\admin\posts\postsAdmin.html" />
+    <Content Include="www\admin\result\result.controller.js" />
+    <Content Include="www\admin\result\result.html" />
     <Content Include="www\admin\teams\addTeam.controller.js" />
     <Content Include="www\admin\teams\addTeam.html" />
     <Content Include="www\admin\teams\deleteTeamConfirmation.html" />
@@ -5639,6 +5641,7 @@
     <Content Include="www\rules\rules.html" />
     <Content Include="www\rules\rules.js" />
     <Content Include="www\rules\rules_test.js" />
+    <Content Include="www\services\resultService.js" />
     <Content Include="www\services\trackingService.js" />
     <Content Include="www\services\webApi.interceptor2.js" />
     <Content Include="www\services\webApi.interceptor.js" />
