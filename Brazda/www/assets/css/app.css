@@ -67,10 +67,11 @@
 
 table.post-list {
     width: 100%;
+    border-collapse: collapse;
 }
 
-    table.post-list > tr {
-        border-bottom: thin 1px grey;
+    table.post-list tbody tr td {
+        padding: 3px;
     }
 
 .waipoint-type-icon {
