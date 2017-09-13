@@ -112,3 +112,11 @@ th {
 .bonus {
     height: 60px;
 }
+
+.results-table {
+    margin-top: 200px;
+}
+
+    .results-table td {
+        padding: 3px;
+    }

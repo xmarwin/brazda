@@ -2,7 +2,7 @@
 <div>
     <h1>Výsledky</h1>
     <div>
-        <table>
+        <table class="results-table">
             <tr>
                 <th>
                     &nbsp;
@@ -13,15 +13,21 @@
                     </div>
                 </th>
                 <th>
+                    Penalizace
+                </th>
+                <th>
                     Celkem
                 </th>
             </tr>
-            <tr ng-repeat="team in ctrl.teams">
-                <td>
-                    {{ team.name }}
+            <tr ng-repeat="team in ctrl.results | orderBy: '-totalPoints'">
+                <td style="width: 200px; text-align: right;">
+                    {{ team.teamName }}
                 </td>
                 <td ng-repeat="post in ctrl.posts">
                     {{ ctrl.getScore(team.team, post.post) }}
+                </td>
+                <td>
+                    {{ ctrl.getPenalty(team.team) }}
                 </td>
                 <td>
                     {{ ctrl.getTotal(team.team) }}
