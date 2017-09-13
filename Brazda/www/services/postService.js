@@ -67,6 +67,11 @@ function PostService(webApiService, $filter) {
         return webApiService.get('note/delete', [{ 'post': id }]);
     }
 
+    // http://brazda/api/note/save?securityToken=...
+    vm.saveNote  = function (data) {
+        return webApiService.get('note/save', data, 'POST');
+    }
+
     vm.getCacheTypes = function () {
         return [
             { "cacheType": "TRA", "name": "Tradiční keš" },

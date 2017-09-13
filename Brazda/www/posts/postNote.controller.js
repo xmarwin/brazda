@@ -30,9 +30,9 @@ function PostNoteController(postService, $routeParams, $filter, notification, $l
     }
 
     vm.saveNote = function () {
-        var data = { post: vm.postId, note: vm.note }
+        var data = { post: vm.postId, note: vm.post.postNote }
 
-        postService.createNote(data)
+        postService.saveNote(data)
             .then(function (response) {
                 $location.path("postDetail/" + vm.postId);
                 notification.success('Poznámka byla uložena.');
