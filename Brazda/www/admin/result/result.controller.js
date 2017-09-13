@@ -25,6 +25,8 @@ function ResultController(notification, resultService, postService, teamService,
     vm.startTime = new Date("2016-10-01 08:00:00");
     vm.endTime = new Date("2016-10-01 19:00:00");
     vm.helpUsedPenalisation = 24 * 60 * 60 * 1000; // adds this amount of hours to timestamp of teams that used help (just for sake of ordering)
+    vm.delayPenalisation = 10; // points/min
+    vm.delayDisc = 20; // mins
 
     var logsLoaded = false;
     var postsLoaded = false;
@@ -121,6 +123,16 @@ function ResultController(notification, resultService, postService, teamService,
                 if (!angular.isUndefined(vm.logs[i].logs[j]) && (vm.logs[i].logs[j].logType !== 'BON' && vm.logs[i].logs[j].logType !== 'FIN' && vm.logs[i].logs[j].logType !== 'STR')) {
                     vm.logs[i].totalPoints += vm.logs[i].logs[j].score;
                 }
+
+                if (vm.logs[i].logs[j].logType === 'STR') {
+                    var moment = new Date(vm.logs[i].logs[j].moment);
+                    vm.logs[i].logs[j].score = moment.getHours() + ":" + padLeft2(moment.getMinutes()) + ":" + padLeft2(moment.getSeconds());
+                }
+
+                if (vm.logs[i].logs[j].logType === 'FIN') {
+                    var moment = new Date(vm.logs[i].logs[j].moment);
+                    vm.logs[i].logs[j].score = moment.getHours() + ":" + padLeft2(moment.getMinutes()) + ":" + padLeft2(moment.getSeconds());
+                }
             }
         }
 
@@ -130,14 +142,28 @@ function ResultController(notification, resultService, postService, teamService,
 
             result.team = teamLog.team;
             result.teamName = teamLog.name;
-            result.totalPoints = teamLog.totalPoints;
             result.posts = [];
+            result.penalty = 0;
 
             for (var j = 0; j < teamLog.logs.length; j++) {
-                if (teamLog.logs[j].logType === 'OUT') {
+                if (teamLog.logs[j].logType === 'OUT' || teamLog.logs[j].logType === 'STR' || teamLog.logs[j].logType === 'FIN') {
                     result.posts.push({ post: teamLog.logs[j].post, postName: teamLog.logs[j].postName, score: teamLog.logs[j].score });
                 }
+
+                if (teamLog.logs[j].logType === 'FIN') {
+                    var finished = new Date(teamLog.logs[j].moment);
+                    if (vm.endTime < finished) {
+                        var difference = (finished - vm.endTime) / 1000 / 60;
+
+                        if (difference > vm.delayDisc) {
+                            result.penalty = 9999;
+                        } else {
+                            result.penalty = Math.ceil(difference) * vm.delayPenalisation;
+                        }
+                    }
+                }
             }
+            result.totalPoints = Math.max(teamLog.totalPoints - result.penalty, 0);
 
             vm.results.push(result);
         }
@@ -167,6 +193,21 @@ function ResultController(notification, resultService, postService, teamService,
         } else {
             return retval.totalPoints;
         }
+    }
+
+    vm.getPenalty = function (teamId) {
+        var retval = $filter("filter")(vm.results, { team: teamId }, true)[0];
+
+        if (angular.isUndefined(retval)) {
+            return "-";
+        } else {
+            return retval.penalty;
+        }
+    }
+
+    function padLeft2(str) {
+        var x = '0000' + str
+        return x.substr(x.length-2, 2);
     }
 
     init();
