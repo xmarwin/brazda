@@ -81,7 +81,6 @@
     <Content Include="db\p008.sql" />
     <Content Include="db\p009.sql" />
     <Content Include="db\p010.sql" />
-    <Content Include="db\posts.sql" />
     <Content Include="db\results.sql" />
     <Content Include="db\schema.sql" />
     <Content Include="doc\api.txt" />
