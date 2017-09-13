@@ -6,10 +6,10 @@ chcp 65001
 SET PGCLIENTENCODING=UTF-8
 SET PGUSER=postgres
 SET PGPASSWORD=
-SET PGDATABASE=brazda_test
+SET PGDATABASE=brazda
 
 ECHO Ruším starou databázi BRAZDA...
-"C:\Program Files\PostgreSQL\9.5\bin\dropdb.exe" brazda_test
+"C:\Program Files\PostgreSQL\9.5\bin\dropdb.exe" brazda
 
 ECHO Vytvářím novou databázi BRAZDA...
 "C:\Program Files\PostgreSQL\9.5\bin\createdb.exe" -O brazda -E UTF8 -T template0
@@ -17,7 +17,7 @@ if errorLevel 1 ( exit /b %errorLevel%; )
 
 SET PGUSER=brazda
 SET PGPASSWORD=FzwtMS/jq.XSQ
-SET PGDATABASE=brazda_test
+SET PGDATABASE=brazda
 
 ECHO Importuji schéma...
 "C:\Program Files\PostgreSQL\9.5\bin\psql.exe" -f schema.sql

@@ -6,7 +6,7 @@ source "$DIR/config"
 PGHOST="127.0.0.1"
 
 echo "Generating database documentation for database '$PGDATABASE'..."
-java -jar schemaSpy_6.0.0-rc1.jar \
+java -jar ../schemaSpy_6.0.0-rc1.jar \
 	-t pgsql \
 	-dp /usr/share/jdbc-postgresql/lib/jdbc-postgresql.jar \
 	-host $PGHOST \
@@ -14,7 +14,7 @@ java -jar schemaSpy_6.0.0-rc1.jar \
 	-u $PGUSER \
 	-p $PGPASSWORD \
 	-s public \
-	-o ../doc/db
+	-o ../../doc/db
 
 if [ $? -ne 0 ]; then
 	echo -e "\nPokud si schemaSpy stěžuje, že nemůže najít JDBC ovladač,\nje potřeba jej doinstalovat (dev-java/jdbc-postgresql).\nPro svůj běh potřebuje rovněž GraphViz (media-gfx/graphviz)."
