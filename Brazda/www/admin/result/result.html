@@ -4,29 +4,33 @@
     <div>
         <table class="results-table">
             <tr>
-                <th>
+                <th style="border-right: 1px solid lightgrey">
                     &nbsp;
                 </th>
-                <th ng-repeat="post in ctrl.posts">
+                <th ng-repeat="post in ctrl.posts" style="border-right: 1px solid lightgrey">
                     <div>
                         <nobr>{{ post.name }}</nobr>
                     </div>
                 </th>
-                <th>
-                    Penalizace
+                <th style="border-right: 1px solid lightgrey">
+                    <div>
+                        Penalizace
+                    </div>
                 </th>
                 <th>
-                    Celkem
+                    <div>
+                        Celkem
+                    </div>
                 </th>
             </tr>
-            <tr ng-repeat="team in ctrl.results | orderBy: '-totalPoints'">
-                <td style="width: 200px; text-align: right;">
-                    {{ team.teamName }}
+            <tr ng-repeat="team in ctrl.results | orderBy: '-totalPoints'" style="border-top: 1px solid lightgrey">
+                <td style="width: 200px; text-align: right; border-right: 1px solid lightgrey">
+                    <nobr>{{ team.teamName }}</nobr>
                 </td>
-                <td ng-repeat="post in ctrl.posts">
+                <td ng-repeat="post in ctrl.posts" style="border-right: 1px solid lightgrey">
                     {{ ctrl.getScore(team.team, post.post) }}
                 </td>
-                <td>
+                <td style="border-right: 1px solid lightgrey">
                     {{ ctrl.getPenalty(team.team) }}
                 </td>
                 <td>

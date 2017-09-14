@@ -100,13 +100,13 @@ th {
     -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
     transform: rotate(-90deg);
     transform-origin: left top 0;
-    width: 25px !important;
     table-layout: fixed
 }
 
     th div {
         position: absolute;
-        top: -5px;
+        left: -15px;
+        top: -1px;
     }
 
 .bonus {
@@ -119,4 +119,5 @@ th {
 
     .results-table td {
         padding: 3px;
+        width: 50px!important;
     }
