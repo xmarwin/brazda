@@ -34,6 +34,8 @@ function AuthService(webApiService, localStorageService, $q, trackingService) {
         var deferred = $q.defer();
         var deviceId = getDeviceId();
 
+        removeTeam();
+
         webApiService.get('sign/in', [{ 'team': team.team }, { 'password': password }, { 'deviceId': deviceId }])
             .then(function (data) {
                 if (data.data.status === 'error') {
