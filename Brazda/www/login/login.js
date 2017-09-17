@@ -20,7 +20,7 @@ LoginController.$inject = ['$location', 'AuthService', 'TeamService', 'Notificat
 
 function LoginController($location, authService, teamService, notification) {
     var vm = this;
-    vm.password = 'Mocn8Klika'; //TODO: pred zavodem odstranit
+    //vm.password = 'Mocn8Klika'; //TODO: pred zavodem odstranit
 
     var init = function () {
         teamService.getTeamsLight()

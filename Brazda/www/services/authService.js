@@ -47,7 +47,7 @@ function AuthService(webApiService, localStorageService, $q, trackingService) {
                 }
             },
             function (err) {
-                if (err.status == 401) {
+                if (err.status === 401) {
                     deferred.reject({ 'status': 'Error', 'message': 'Špatné heslo.' });
                 } else {
                     deferred.reject({ 'status': 'Error', 'message': 'Nepodařilo se ověřit heslo. Obnovte stránku a zkuste to za chvilku znova.' });
