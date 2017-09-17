@@ -67,11 +67,11 @@
                     T<span class="hidden-xs">erén</span>: {{postItem.terrain}}
                 </td>
 
-                <td ng-show="postItem.sizeName === 'Mikro'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/micro.gif" title="Micro" /></td>
-                <td ng-show="postItem.sizeName === 'Malá'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/small.gif" title="Small" /></td>
-                <td ng-show="postItem.sizeName === 'Střední'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/regular.gif" title="Regular" /></td>
-                <td ng-show="postItem.sizeName === 'Velká'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/large.gif" title="Large" /></td>
-                <td ng-show="postItem.sizeName === 'Jiná'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/other.gif" title="Other" /></td>
+                <td ng-show="postItem.cacheSize === 'M'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/micro.gif" title="Micro" /></td>
+                <td ng-show="postItem.cacheSize === 'S'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/small.gif" title="Small" /></td>
+                <td ng-show="postItem.cacheSize === 'R'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/regular.gif" title="Regular" /></td>
+                <td ng-show="postItem.cacheSize === 'L'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/large.gif" title="Large" /></td>
+                <td ng-show="postItem.cacheSize === 'O'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/other.gif" title="Other" /></td>
 
                 <td>B<span class="hidden-xs">ody</span>: {{postItem.maxScore}}</td>
             </tr>
@@ -82,6 +82,7 @@
 
                 <td style="border-bottom: 1px solid lightgrey;" ng-show="postItem.cacheType === 'TRA'">T<span class="hidden-xs">yp</span>: <img src="../assets/images/traditional_16.gif"></td>
                 <td style="border-bottom: 1px solid lightgrey;" ng-show="postItem.cacheType === 'MLT'">T<span class="hidden-xs">yp</span>: <img src="../assets/images/multi_16.gif"></td>
+                <td style="border-bottom: 1px solid lightgrey;" ng-show="postItem.cacheType === 'LET'">T<span class="hidden-xs">yp</span>: <img src="../assets/images/letterbox_16.gif"></td>
                 <td style="border-bottom: 1px solid lightgrey;" ng-show="postItem.cacheType === 'MYS'">T<span class="hidden-xs">yp</span>: <img src="../assets/images/unknown_16.gif"></td>
                 <td style="border-bottom: 1px solid lightgrey;" ng-show="postItem.cacheType === 'ERT'">T<span class="hidden-xs">yp</span>: <img src="../assets/images/earthcache_16.gif"></td>
                 <td style="border-bottom: 1px solid lightgrey;" ng-show="postItem.cacheType === 'WIG'">T<span class="hidden-xs">yp</span>: <img src="../assets/images/wherigo_16.gif"></td>

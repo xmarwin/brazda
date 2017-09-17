@@ -5143,6 +5143,7 @@
     <Content Include="www\assets\images\earthcache_16.gif" />
     <Content Include="www\assets\images\finish.png" />
     <Content Include="www\assets\images\large.gif" />
+    <Content Include="www\assets\images\letterbox_16.gif" />
     <Content Include="www\assets\images\logo.png" />
     <Content Include="www\assets\images\micro.gif" />
     <Content Include="www\assets\images\multi_16.gif" />
