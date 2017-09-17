@@ -121,3 +121,15 @@ th {
         padding: 3px;
         width: 50px!important;
     }
+
+.result-1 {
+    background-color: red;
+}
+
+.result-2 {
+    background-color: #ff4b4b;
+}
+
+.result-3 {
+    background-color: #ff8282;
+}
