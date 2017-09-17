@@ -78,7 +78,8 @@ function PostService(webApiService, $filter) {
             { "cacheType": "MLT", "name": "Multi keš" },
             { "cacheType": "MYS", "name": "Mystery keš" },
             { "cacheType": "ERT", "name": "Earth keš" },
-            { "cacheType": "WIG", "name": "Where I Go keš" }
+            { "cacheType": "WIG", "name": "Where I Go keš" },
+            { "cacheType": "LET", "name": "Letterbox" }
         ];
     }
 
@@ -100,7 +101,8 @@ function PostService(webApiService, $filter) {
             { "color": "YEL", "name": "Žlutá", "code": "rgb(255, 255, 153)" },
             { "color": "GRN", "name": "Zelená", "code": "rgb(146, 208, 80)" },
             { "color": "BLU", "name": "Modrá", "code": "rgb(66, 133, 244)" },
-            { "color": "WHT", "name": "Bílá", "code": "rgb(255, 255, 255)" }
+            { "color": "WHT", "name": "Bílá", "code": "rgb(255, 255, 255)" },
+            { "color": "VIO", "name": "Fialová", "code": "rgb(139, 0, 255)" }
         ];
     }
 

@@ -49,7 +49,7 @@ function EditPostController($routeParams, $location, notification, authService, 
                 vm.post.color = $filter('filter')(vm.postColors, { 'color': vm.post.color }, true)[0];
                 vm.post.difficulty = $filter('filter')(vm.postDifficulties, { 'value': vm.post.difficulty.toString() }, true)[0];
                 vm.post.terrain = $filter('filter')(vm.postTerrains, { 'value': vm.post.terrain.toString() }, true)[0];
-                vm.post.postSize = $filter('filter')(vm.postSizes, { 'size': vm.post.postSize }, true)[0];
+                vm.post.postSize = $filter('filter')(vm.postSizes, { 'size': vm.post.cacheSize }, true)[0];
                 vm.post.cacheType = $filter('filter')(vm.cacheTypes, { 'cacheType': vm.post.cacheType }, true)[0];
                 if (vm.post.openFrom !== null) {
                     vm.post.openFrom = new Date("2017-01-01 " + vm.post.openFrom + ":00");
