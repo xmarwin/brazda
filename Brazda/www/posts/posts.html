@@ -67,11 +67,11 @@
                     T<span class="hidden-xs">erén</span>: {{postItem.terrain}}
                 </td>
 
-                <td ng-show="postItem.sizeName === 'Mikro'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/micro.gif" title="Micro" /></td>
-                <td ng-show="postItem.sizeName === 'Malá'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/small.gif" title="Small" /></td>
-                <td ng-show="postItem.sizeName === 'Střední'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/regular.gif" title="Regular" /></td>
-                <td ng-show="postItem.sizeName === 'Velká'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/large.gif" title="Large" /></td>
-                <td ng-show="postItem.sizeName === 'Jiná'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/other.gif" title="Other" /></td>
+                <td ng-show="postItem.cacheSize === 'M'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/micro.gif" title="Micro" /></td>
+                <td ng-show="postItem.cacheSize === 'S'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/small.gif" title="Small" /></td>
+                <td ng-show="postItem.cacheSize === 'R'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/regular.gif" title="Regular" /></td>
+                <td ng-show="postItem.cacheSize === 'L'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/large.gif" title="Large" /></td>
+                <td ng-show="postItem.cacheSize === 'O'">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/other.gif" title="Other" /></td>
 
                 <td>B<span class="hidden-xs">ody</span>: {{postItem.maxScore}}</td>
             </tr>
