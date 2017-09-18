@@ -12,7 +12,7 @@ function PostService(webApiService, $filter) {
         return webApiService.get('post/list');
     }
 
-    // https://brazda/api/post/bonus-list?securityToken=e46e72c51750843d8827f91d6c3b2ff0
+    // https://brazda/api/post/bonus-list?securityToken=<security token>
     vm.getBonuses = function () {
         return webApiService.get('post/bonus-list');
     }
@@ -67,13 +67,19 @@ function PostService(webApiService, $filter) {
         return webApiService.get('note/delete', [{ 'post': id }]);
     }
 
+    // http://brazda/api/note/save?securityToken=...
+    vm.saveNote  = function (data) {
+        return webApiService.get('note/save', data, 'POST');
+    }
+
     vm.getCacheTypes = function () {
         return [
             { "cacheType": "TRA", "name": "Tradiční keš" },
             { "cacheType": "MLT", "name": "Multi keš" },
             { "cacheType": "MYS", "name": "Mystery keš" },
             { "cacheType": "ERT", "name": "Earth keš" },
-            { "cacheType": "WIG", "name": "Where I Go keš" }
+            { "cacheType": "WIG", "name": "Where I Go keš" },
+            { "cacheType": "LET", "name": "Letterbox" }
         ];
     }
 
@@ -95,7 +101,8 @@ function PostService(webApiService, $filter) {
             { "color": "YEL", "name": "Žlutá", "code": "rgb(255, 255, 153)" },
             { "color": "GRN", "name": "Zelená", "code": "rgb(146, 208, 80)" },
             { "color": "BLU", "name": "Modrá", "code": "rgb(66, 133, 244)" },
-            { "color": "WHT", "name": "Bílá", "code": "rgb(255, 255, 255)" }
+            { "color": "WHT", "name": "Bílá", "code": "rgb(255, 255, 255)" },
+            { "color": "VIO", "name": "Fialová", "code": "rgb(139, 0, 255)" }
         ];
     }
 

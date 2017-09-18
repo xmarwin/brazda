@@ -24,8 +24,24 @@ function AddTeamController($routeParams, $location, notification, authService, t
     }
 
     vm.addTeam = function (team) {
-        notification.success("Tým " + vm.team.name + " byl přidán.");
-        $location.path("admin/teams");
+        var input = {
+            "name": vm.team.name,
+            "shibboleth": vm.team.shibboleth,
+            "role": "COM", //vm.team.type,
+            "isActive": vm.team.active,
+            "allowTracking": vm.team.allowTracking,
+            "description": vm.team.description,
+            "telephone": vm.team.phone,
+            "email": vm.team.email
+        }
+
+        teamService.addTeam(input)
+            .then(function (data) {
+                $location.path("admin/teams");
+                notification.success("Tým " + vm.team.name + " byl upraven.");
+            }, function (err) {
+                notification.error(err.data.message);
+            });
     }
 
     init();

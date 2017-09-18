@@ -1,7 +1,7 @@
 ﻿<please-wait></please-wait>
 <div>
-    <div class="row">
-        <div class="col-xs-2 col-sm-1 col-md-1 col-xl-1 {{postItem.color}}">
+    <div class="row" style="background-color:{{ctrl.post.colorCode}}">
+        <div class="col-xs-2 col-sm-1 col-md-1 col-xl-1">
             <i class="fa fa-question-circle-o fa-4x" aria-hidden="true" ng-show="ctrl.post.postType==='CIP'"></i>
             <i class="fa fa-compass fa-4x" aria-hidden="true" ng-show="ctrl.post.postType==='ACT'"></i>
             <i class="fa fa-archive fa-4x" aria-hidden="true" ng-show="ctrl.post.postType==='CGC'"></i>
@@ -10,6 +10,10 @@
             <i class="fa fa-flag-checkered fa-4x" aria-hidden="true" ng-show="ctrl.post.postType==='END'"></i>
         </div>
         <h1 class="col-xs-10 col-sm-11 col-md-11 col-xl-11">{{ctrl.post.name}}</h1>
+    </div>
+    <div class="row">
+        <strong class="col-xs-6 col-sm-6 col-md-6 col-xl-6">Barva:</strong>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6">{{ctrl.post.colorName}}</div>
     </div>
     <div class="row">
         <strong class="col-xs-6 col-sm-6 col-md-6 col-xl-6">Terén:</strong>
@@ -27,6 +31,7 @@
         <strong class="col-xs-6 col-sm-6 col-md-6 col-xl-6">Typ:</strong>
         <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.cacheType === 'TRA'"><img alt="{{ctrl.post.cacheName}}" title="{{ctrl.post.cacheName}}" src="../assets/images/traditional_16.gif"></div>
         <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.cacheType === 'MLT'"><img alt="{{ctrl.post.cacheName}}" title="{{ctrl.post.cacheName}}" src="../assets/images/multi_16.gif"></div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.cacheType === 'LET'"><img alt="{{ctrl.post.cacheName}}" title="{{ctrl.post.cacheName}}" src="../assets/images/letterbox_16.gif"></div>
         <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.cacheType === 'MYS'"><img alt="{{ctrl.post.cacheName}}" title="{{ctrl.post.cacheName}}" src="../assets/images/unknown_16.gif"></div>
         <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.cacheType === 'ERT'"><img alt="{{ctrl.post.cacheName}}" title="{{ctrl.post.cacheName}}" src="../assets/images/earthcache_16.gif"></div>
         <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.cacheType === 'WIG'"><img alt="{{ctrl.post.cacheName}}" title="{{ctrl.post.cacheName}}" src="../assets/images/wherigo_16.gif"></div>
@@ -34,11 +39,11 @@
     </div>
     <div class="row" ng-show="ctrl.post.postType==='BON' || ctrl.post.postType==='CGC'">
         <strong class="col-xs-6 col-sm-6 col-md-6 col-xl-6">Velikost:</strong>
-        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.size === 'M'"><img src="../assets/images/micro.gif" title="{{ctrl.post.sizeName}}" alt="{{ctrl.post.sizeName}}" /></div>
-        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.size === 'S'"><img src="../assets/images/small.gif" title="{{ctrl.post.sizeName}}" alt="{{ctrl.post.sizeName}}" /></div>
-        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.size === 'R'"><img src="../assets/images/regular.gif" title="{{ctrl.post.sizeName}}" alt="{{ctrl.post.sizeName}}" /></div>
-        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.size === 'L'"><img src="../assets/images/large.gif" title="{{ctrl.post.sizeName}}" alt="{{ctrl.post.sizeName}}" /></div>
-        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.size === 'O'"><img src="../assets/images/other.gif" title="{{ctrl.post.sizeName}}" alt="{{ctrl.post.sizeName}}" /></div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.cacheSize === 'M'"><img src="../assets/images/micro.gif" title="{{ctrl.post.sizeName}}" alt="{{ctrl.post.sizeName}}" /></div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.cacheSize === 'S'"><img src="../assets/images/small.gif" title="{{ctrl.post.sizeName}}" alt="{{ctrl.post.sizeName}}" /></div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.cacheSize === 'R'"><img src="../assets/images/regular.gif" title="{{ctrl.post.sizeName}}" alt="{{ctrl.post.sizeName}}" /></div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.cacheSize === 'L'"><img src="../assets/images/large.gif" title="{{ctrl.post.sizeName}}" alt="{{ctrl.post.sizeName}}" /></div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.cacheSize === 'O'"><img src="../assets/images/other.gif" title="{{ctrl.post.sizeName}}" alt="{{ctrl.post.sizeName}}" /></div>
     </div>
     <div class="row">
         <h2 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Popis</h2>
@@ -60,6 +65,14 @@
     <div class="row" ng-show="ctrl.post.hasHelp === true && (ctrl.post.help !== '' && ctrl.post.help !== null)">
         <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12">
             {{ctrl.post.help}}
+        </div>
+    </div>
+    <div class="row" ng-show="ctrl.post.postNote !== null">
+        <h2 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Poznámka</h2>
+    </div>
+    <div class="row" ng-show="ctrl.post.postNote !== null">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12">
+            {{ctrl.post.postNote}}
         </div>
     </div>
     <div class="row" ng-show="ctrl.post.isDone === true && ctrl.post.postType !== 'BON'">
