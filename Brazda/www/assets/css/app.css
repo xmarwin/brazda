@@ -67,10 +67,11 @@
 
 table.post-list {
     width: 100%;
+    border-collapse: collapse;
 }
 
-    table.post-list > tr {
-        border-bottom: thin 1px grey;
+    table.post-list tbody tr td {
+        padding: 3px;
     }
 
 .waipoint-type-icon {
@@ -92,4 +93,43 @@ table.post-list {
     background-image: url("/assets/images/wait.gif");
     background-position: center center;
     background-repeat: no-repeat;
+}
+
+th {
+    -ms-transform: rotate(-90deg); /* IE 9 */
+    -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+    transform: rotate(-90deg);
+    transform-origin: left top 0;
+    table-layout: fixed
+}
+
+    th div {
+        position: absolute;
+        left: -15px;
+        top: -1px;
+    }
+
+.bonus {
+    height: 60px;
+}
+
+.results-table {
+    margin-top: 200px;
+}
+
+    .results-table td {
+        padding: 3px;
+        width: 50px!important;
+    }
+
+.result-1 {
+    background-color: red;
+}
+
+.result-2 {
+    background-color: #ff4b4b;
+}
+
+.result-3 {
+    background-color: #ff8282;
 }

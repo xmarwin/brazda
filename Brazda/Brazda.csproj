@@ -69,20 +69,31 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="db\data.sql" />
-    <Content Include="db\demo.sql" />
-    <Content Include="db\p001.sql" />
-    <Content Include="db\p002.sql" />
-    <Content Include="db\p003.sql" />
-    <Content Include="db\p004.sql" />
-    <Content Include="db\p005.sql" />
-    <Content Include="db\p006.sql" />
-    <Content Include="db\p007.sql" />
-    <Content Include="db\p008.sql" />
-    <Content Include="db\p009.sql" />
-    <Content Include="db\p010.sql" />
-    <Content Include="db\posts.sql" />
-    <Content Include="db\schema.sql" />
+    <Content Include="db\prod\data.sql" />
+    <Content Include="db\prod\p001.sql" />
+    <Content Include="db\prod\p002.sql" />
+    <Content Include="db\prod\p003.sql" />
+    <Content Include="db\prod\p004.sql" />
+    <Content Include="db\prod\p005.sql" />
+    <Content Include="db\prod\p006.sql" />
+    <Content Include="db\prod\p007.sql" />
+    <Content Include="db\prod\posts.sql" />
+    <Content Include="db\prod\schema.sql" />
+    <Content Include="db\test\data.sql" />
+    <Content Include="db\test\demo.sql" />
+    <Content Include="db\test\p001.sql" />
+    <Content Include="db\test\p002.sql" />
+    <Content Include="db\test\p003.sql" />
+    <Content Include="db\test\p004.sql" />
+    <Content Include="db\test\p005.sql" />
+    <Content Include="db\test\p006.sql" />
+    <Content Include="db\test\p007.sql" />
+    <Content Include="db\test\p008.sql" />
+    <Content Include="db\test\p009.sql" />
+    <Content Include="db\test\p010.sql" />
+    <Content Include="db\test\posts.sql" />
+    <Content Include="db\test\results.sql" />
+    <Content Include="db\test\schema.sql" />
     <Content Include="doc\api.txt" />
     <Content Include="node_modules\.staging\accepts-f9de678930350e1c53c73b7bf665201c\index.js" />
     <Content Include="node_modules\.staging\adm-zip-a4c082ba10f1327df90ca01c5ea43336\.idea\scopes\scope_settings.xml" />
@@ -5113,6 +5124,8 @@
     <Content Include="www\admin\posts\deletePostConfirmation.html" />
     <Content Include="www\admin\posts\postsAdmin.controller.js" />
     <Content Include="www\admin\posts\postsAdmin.html" />
+    <Content Include="www\admin\result\result.controller.js" />
+    <Content Include="www\admin\result\result.html" />
     <Content Include="www\admin\teams\addTeam.controller.js" />
     <Content Include="www\admin\teams\addTeam.html" />
     <Content Include="www\admin\teams\deleteTeamConfirmation.html" />
@@ -5127,9 +5140,11 @@
     <Content Include="www\assets\images\bonus.png" />
     <Content Include="www\assets\images\cache.png" />
     <Content Include="www\assets\images\cipher.png" />
+    <Content Include="www\assets\images\cito_16.gif" />
     <Content Include="www\assets\images\earthcache_16.gif" />
     <Content Include="www\assets\images\finish.png" />
     <Content Include="www\assets\images\large.gif" />
+    <Content Include="www\assets\images\letterbox_16.gif" />
     <Content Include="www\assets\images\logo.png" />
     <Content Include="www\assets\images\micro.gif" />
     <Content Include="www\assets\images\multi_16.gif" />
@@ -5622,7 +5637,6 @@
     <Content Include="www\index.php" />
     <Content Include="www\login\login.html" />
     <Content Include="www\login\login.js" />
-    <Content Include="www\login\login_test.js" />
     <Content Include="www\login\logout.html" />
     <Content Include="www\posts\postNote.controller.js" />
     <Content Include="www\posts\postNote.html" />
@@ -5639,6 +5653,7 @@
     <Content Include="www\rules\rules.html" />
     <Content Include="www\rules\rules.js" />
     <Content Include="www\rules\rules_test.js" />
+    <Content Include="www\services\resultService.js" />
     <Content Include="www\services\trackingService.js" />
     <Content Include="www\services\webApi.interceptor2.js" />
     <Content Include="www\services\webApi.interceptor.js" />
@@ -5684,9 +5699,6 @@
     <Content Include="app\presenters\templates\Homepage\default.latte" />
     <Content Include="app\router\.RouterFactory.php.swp" />
     <Content Include="app\router\RouterFactory.php" />
-    <Content Include="db\db-reset" />
-    <Content Include="db\psql" />
-    <Content Include="db\psql.bat" />
     <Content Include="node_modules\%40types\jasmine\LICENSE" />
     <Content Include="node_modules\%40types\jasmine\package.json" />
     <Content Include="node_modules\%40types\jasmine\README.md" />
@@ -7689,8 +7701,17 @@
     <Content Include="app\modules\Api\SignPresenter.php" />
     <Content Include="app\models\Logins.php" />
     <Content Include="app\models\Positions.php" />
-    <Content Include="db\db-reset.bat" />
     <Content Include="tsconfig.json" />
+    <Content Include="db\prod\config" />
+    <Content Include="db\prod\db-reset" />
+    <Content Include="db\prod\db-reset.bat" />
+    <Content Include="db\prod\docgen" />
+    <Content Include="db\test\config" />
+    <Content Include="db\test\db-reset" />
+    <Content Include="db\test\db-reset.bat" />
+    <Content Include="db\test\docgen" />
+    <Content Include="db\test\psql" />
+    <Content Include="db\test\psql.bat" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
