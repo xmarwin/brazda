@@ -5140,6 +5140,7 @@
     <Content Include="www\assets\images\bonus.png" />
     <Content Include="www\assets\images\cache.png" />
     <Content Include="www\assets\images\cipher.png" />
+    <Content Include="www\assets\images\cito_16.gif" />
     <Content Include="www\assets\images\earthcache_16.gif" />
     <Content Include="www\assets\images\finish.png" />
     <Content Include="www\assets\images\large.gif" />
