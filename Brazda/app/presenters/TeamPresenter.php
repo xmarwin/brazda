@@ -134,7 +134,7 @@ class TeamPresenter extends SecuredBasePresenter
         try {
             $this->teams->delete($filter);
         } catch (\Exception $e) {
-            $this->sendErrorResource($this->outputType);
+            $this->sendErrorResource($e, $this->outputType);
         } // if
 
         $this->resource = [
