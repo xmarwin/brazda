@@ -4,7 +4,8 @@ angular.module('myApp.bonuses', ['ngRoute'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/bonuses', {
             templateUrl: 'bonuses/bonuses.html',
-            controller: 'BonusesCtrl'
+            controller: 'BonusesCtrl',
+            controllerAs: 'ctrl'
         });
     }])
 

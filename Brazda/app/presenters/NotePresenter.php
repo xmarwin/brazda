@@ -77,6 +77,37 @@ class NotePresenter extends SecuredBasePresenter
         $this->sendResource($this->outputType);
     } // actionUpdate()
 
+    public function actionSave()
+    {
+        $filter = [
+            'post' => (int) $this->input->post,
+            'team' => (int) $this->team['team']
+        ];
+
+        $values = [
+            'last_change' => date('Y-m-d H:i:s'),
+            'note'        => $this->input->note
+        ];
+
+        try {
+            $note = $this->notes->find($filter);
+
+            if (empty($note)) {
+                $this->notes->insert($values + $filter);
+            } else {
+                $this->notes->update($values, $filter);
+            } // of
+        } catch (\Exception $e) {
+            $this->sendErrorResource($e, $this->outputType);
+        } // try
+
+        $this->resource = [
+            'status' => 'OK',
+            'code'   => 201
+        ];
+        $this->sendResource($this->outputType);
+    } // actionSave()
+
     public function actionDelete()
     {
         $filter = [];
