@@ -79,7 +79,8 @@ function PostService(webApiService, $filter) {
             { "cacheType": "MYS", "name": "Mystery keš" },
             { "cacheType": "ERT", "name": "Earth keš" },
             { "cacheType": "WIG", "name": "Where I Go keš" },
-            { "cacheType": "LET", "name": "Letterbox" }
+            { "cacheType": "LTB", "name": "Letterbox" },
+            { "cacheType": "CIT", "name": "CITO" }
         ];
     }
 
