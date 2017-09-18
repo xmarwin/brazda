@@ -16,15 +16,15 @@ function TrackingService($interval, geolocation, WebApiService, localStorageServ
     //////////////////////////////////
 
     function startTracking() {
-        var team = getTeam();
+        //var team = getTeam();
 
-        if (team !== null && team.allowTracking) {
-            vm.deviceId = getDeviceId();
+        //if (team !== null && team.allowTracking) {
+        //    vm.deviceId = getDeviceId();
 
-            if (vm.deviceId !== null) {
-                vm.instance = $interval(track, 5000);
-            }
-        }
+        //    if (vm.deviceId !== null) {
+        //        vm.instance = $interval(track, 5000);
+        //    }
+        //}
     }
 
     function stopTracking() {

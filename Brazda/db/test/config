@@ -1,0 +1,7 @@
+#!/bin/bash
+
+export PGHOST="dbserver"
+export PGPORT="5432"
+export PGDATABASE="brazda_test"
+export PGUSER="brazda"
+export PGPASSWORD="FzwtMS/jq.XSQ"

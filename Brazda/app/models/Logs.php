@@ -120,7 +120,7 @@ class Logs extends Base
                 WHERE log_type = 'HLP'
                 ORDER BY moment
              ) lh USING (team, post)
-             WHERE l.log_type NOT IN ('ERR', 'HLP')
+             WHERE l.log_type NOT IN ('ERR', 'HLP', 'BON')
              %if", !empty($filter), " AND %and", $filter, "%end
              %if", !empty($order), "ORDER BY %by", $order, "%end
              %if", !empty($limit), "LIMIT %lmt", $limit, " %ofs", $offset, "%end"
