@@ -138,7 +138,8 @@ class Teams extends Base
         self::checkType($values['team_type']);
 
         $values['is_active'] = $this->prepareBoolean($values['is_active']);
-        $values['allow_tracking'] = $this->prepareBoolean($values['allow_tracking']);
+        if (isset($values['tracking_allowed']))
+            $values['tracking_allowed'] = $this->prepareBoolean($values['tracking_allowed']);
 
         return $this->db->query(
             "INSERT INTO teams %v", $values,
@@ -162,7 +163,7 @@ class Teams extends Base
 
     public function delete(array $filter)
     {
-        if (empty($values))
+        if (empty($filter))
             throw new \Exception('Chybí specifikace týmu pro smazání.');
 
         return $this->db->query(
