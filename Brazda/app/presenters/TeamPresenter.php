@@ -63,7 +63,7 @@ class TeamPresenter extends SecuredBasePresenter
             'name'           => $this->input->name,
             'shibboleth'     => $this->input->shibboleth,
             'team_type'      => strtoupper($this->input->role),
-            'is_active'      => $this->input->active,
+            'is_active'      => $this->input->isActive,
             'tracking_allowed' => $this->input->allowTracking,
         ];
 
