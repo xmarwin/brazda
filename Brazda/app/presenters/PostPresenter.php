@@ -315,10 +315,11 @@ class PostPresenter extends SecuredBasePresenter
                 'waypoint_visibility' => strtoupper($wp['waypointVisibility']),
                 'post'                => $result['post'],
                 'name'                => $wp['name'],
-                'description'         => $wp['description'],
                 'latitude'            => (float) $wp['latitude'],
                 'longitude'           => (float) $wp['longitude']
             ];
+            if (isset($wp['description']) &&  !empty($wp['description']))
+                $waypointValues['description'] = $wp['description'];
 
             try {
                 $result['waypoints'][] = (int) $this->waypoints->insert($waypointValues);
@@ -408,10 +409,11 @@ class PostPresenter extends SecuredBasePresenter
                     'waypoint_visibility' => strtoupper($wp['waypointVisibility']),
                     'post'                => $post,
                     'name'                => $wp['name'],
-                    'description'         => $wp['description'],
                     'latitude'            => (float) $wp['latitude'],
                     'longitude'           => (float) $wp['longitude']
                 ];
+                if (isset($wp['description']) &&  !empty($wp['description']))
+                    $waypointValues['description'] = $wp['description'];
 
                 $result[] = (int) $this->waypoints->insert($values);
             } catch (\Exception $e) {
