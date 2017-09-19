@@ -56,7 +56,7 @@
             <groundspeak:name>{$post->name}{if !in_array($post->type, [ \Brazda\Models\Posts::BEGIN, \Brazda\Models\Posts::END, \Brazda\Models\Posts::ORGANIZATION, \Brazda\Models\Posts::CACHE ])} ({$post->type_name}){/if}</groundspeak:name>
             <groundspeak:placed_by>BRAZDAteam</groundspeak:placed_by>
             <groundspeak:owner>BRAZDAteam</groundspeak:owner>
-            {if in_array($post->type, [ \Brazda\Models\Posts::CACHE, \Brazda\Models\Posts::BONUS, \Brazda\Models\Posts::CIPHER ])}
+            {if in_array($post->post_type, [ \Brazda\Models\Posts::CACHE, \Brazda\Models\Posts::BONUS, \Brazda\Models\Posts::CIPHER ])}
             <groundspeak:type>{block |strip}{if $post->post_type == \Brazda\Models\Posts::ACTIVITY}
                 {*Activity*}
             {elseif $post->post_type == \Brazda\Models\Posts::CIPHER}
