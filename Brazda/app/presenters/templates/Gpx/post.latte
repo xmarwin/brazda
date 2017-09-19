@@ -12,7 +12,7 @@
     {foreach $posts as $postId => $post}
     <wpt lat="{$post->latitude}" lon="{$post->longitude}">
         <time>{date('c')}</time>
-        <name>P{$post->post}</name>
+        <name>GCP{$post->post}</name>
         <desc>{$post->name}, {$post->type_name} ({$post->difficulty}/{$post->terrain})</desc>
         <url>https://app.brazda-gc.cz/#/postDetail/{$post->post}</url>
         <urlname>{$post->name}</urlname>
@@ -37,16 +37,22 @@
             Geocache|{if $post->cache_type == \Brazda\Models\Posts::TRADITIONAL}
             Traditional Cache
             {elseif $post->cache_type == \Brazda\Models\Posts::MULTICACHE}
-            Multi-Cache
+            Multi-cache
             {elseif $post->cache_type == \Brazda\Models\Posts::MYSTERY}
-            Mystery
+            Unknown Cache
             {elseif $post->cache_type == \Brazda\Models\Posts::EARTHCACHE}
-            Earth Cache
+            Earthcache
             {elseif $post->cache_type == \Brazda\Models\Posts::WHEREIGO}
-            Where I Go
+            Wherigo Cache
+            {elseif $post->cache_type == \Brazda\Models\Posts::LETTERBOX}
+            Letterbox Hybrid
+            {elseif $post->cache_type == \Brazda\Models\Posts::CITO}
+            Cache In Trash Out Event
             {/if}
         {elseif $post->post_type == \Brazda\Models\Posts::BONUS}
             Geocache
+        {else}
+            Organization
         {/if}{/block}</type>
         <groundspeak:cache id="{$post->post}" available="True" archived="False" xmlns:groundspeak="http://www.groundspeak.com/cache/1/0">
             <groundspeak:name>{$post->name}</groundspeak:name>
@@ -68,18 +74,22 @@
             <groundspeak:type>{block |strip}{if $post->post_type == \Brazda\Models\Posts::ACTIVITY}
                 Activity
             {elseif $post->post_type == \Brazda\Models\Posts::CIPHER}
-                Mystery
+                Unknown Cache
             {elseif $post->post_type == \Brazda\Models\Posts::CACHE}
                 {if $post->cache_type == \Brazda\Models\Posts::TRADITIONAL}
                 Traditional Cache
                 {elseif $post->cache_type == \Brazda\Models\Posts::MULTICACHE}
-                Multi-Cache
+                Multi-cache
                 {elseif $post->cache_type == \Brazda\Models\Posts::MYSTERY}
-                Mystery
+                Unknown Cache
                 {elseif $post->cache_type == \Brazda\Models\Posts::EARTHCACHE}
-                Earth Cache
+                Earthcache
                 {elseif $post->cache_type == \Brazda\Models\Posts::WHEREIGO}
-                Where I Go
+                Wherigo Cache
+                {elseif $post->cache_type == \Brazda\Models\Posts::LETTERBOX}
+                Letterbox Hybrid
+                {elseif $post->cache_type == \Brazda\Models\Posts::CITO}
+                Cache In Trash Out Event
                 {/if}
             {elseif $post->post_type == \Brazda\Models\Posts::BONUS}
                 Mystery
@@ -120,9 +130,11 @@
          && !in_array($post->post_type, [ \Brazda\Models\Posts::BEGIN, \Brazda\Models\Posts::END, \Brazda\Models\Posts::ORGANIZATION ])}
     <wpt lat="{if $waypoint->waypoint_visibility == \Brazda\Models\Waypoints::VISIBLE}{$waypoint->latitude}{/if}" lon="{if $waypoint->waypoint_visibility == \Brazda\Models\Waypoints::VISIBLE}{$waypoint->longitude}{/if}">
         <time>{date('c')}</time>
-        <name>{$waypoint->name}</name>
+        <name>W{$waypoint->waypoint}P{$post->post} {$waypoint->name}</name>
         <cmt />
         <desc>{$waypoint->description}</desc>
+        <url>https://app.brazda-gc.cz/#/postDetail/{$waypoint->post}</url>
+        <urlname>{$waypoint->name}</urlname>
             {if $waypoint->waypoint_type == \Brazda\Models\Waypoints::FINALE}
         <sym>Geocache</sym>
         <type>Geocache</type>
