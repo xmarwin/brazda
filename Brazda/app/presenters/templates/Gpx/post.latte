@@ -33,6 +33,7 @@
             {*Activity*}
         {elseif $post->post_type == \Brazda\Models\Posts::CIPHER}
             {*Cipher*}
+            Geocache|Unknown Cache
         {elseif $post->post_type == \Brazda\Models\Posts::CACHE}
             Geocache|{block|strip}{if $post->cache_type == \Brazda\Models\Posts::TRADITIONAL}
             Traditional Cache
