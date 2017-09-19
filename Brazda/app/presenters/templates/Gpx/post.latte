@@ -30,11 +30,11 @@
             Geocache
         {/if}{/block}</sym>
         <type>{block |strip}{if $post->post_type == \Brazda\Models\Posts::ACTIVITY}
-            Activity
+            {*Activity*}
         {elseif $post->post_type == \Brazda\Models\Posts::CIPHER}
-            Cipher
-            {elseif $post->post_type == \Brazda\Models\Posts::CACHE}
-            Geocache|{if $post->cache_type == \Brazda\Models\Posts::TRADITIONAL}
+            {*Cipher*}
+        {elseif $post->post_type == \Brazda\Models\Posts::CACHE}
+            Geocache|{block|strip}{if $post->cache_type == \Brazda\Models\Posts::TRADITIONAL}
             Traditional Cache
             {elseif $post->cache_type == \Brazda\Models\Posts::MULTICACHE}
             Multi-cache
@@ -48,7 +48,7 @@
             Letterbox Hybrid
             {elseif $post->cache_type == \Brazda\Models\Posts::CITO}
             Cache In Trash Out Event
-            {/if}
+            {/if}{/block}
         {elseif $post->post_type == \Brazda\Models\Posts::BONUS}
             Geocache
         {/if}{/block}</type>
@@ -70,7 +70,7 @@
                 Puzzle Cache
             {/if}{/block}</groundspeak:sym>
             <groundspeak:type>{block |strip}{if $post->post_type == \Brazda\Models\Posts::ACTIVITY}
-                Activity
+                {*Activity*}
             {elseif $post->post_type == \Brazda\Models\Posts::CIPHER}
                 Unknown Cache
             {elseif $post->post_type == \Brazda\Models\Posts::CACHE}
@@ -90,7 +90,7 @@
                 Cache In Trash Out Event
                 {/if}
             {elseif $post->post_type == \Brazda\Models\Posts::BONUS}
-                Mystery
+                Geocache
             {/if}{/block}</groundspeak:type>
             <groundspeak:container>{block |strip}{if $post->post_type == \Brazda\Models\Posts::BEGIN}
                 Other

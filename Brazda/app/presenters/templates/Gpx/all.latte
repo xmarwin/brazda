@@ -30,9 +30,9 @@
             Geocache
         {/if}{/block}</sym>
         <type>{block |strip}{if $post->post_type == \Brazda\Models\Posts::ACTIVITY}
-            Activity
+            {*Activity*}
         {elseif $post->post_type == \Brazda\Models\Posts::CIPHER}
-            Cipher
+            {*Cipher*}
         {elseif $post->post_type == \Brazda\Models\Posts::CACHE}
             Geocache|{block|strip}{if $post->cache_type == \Brazda\Models\Posts::TRADITIONAL}
             Traditional Cache
@@ -57,7 +57,7 @@
             <groundspeak:placed_by>BRAZDAteam</groundspeak:placed_by>
             <groundspeak:owner>BRAZDAteam</groundspeak:owner>
             <groundspeak:type>{block |strip}{if $post->post_type == \Brazda\Models\Posts::ACTIVITY}
-                Activity
+                {*Activity*}
             {elseif $post->post_type == \Brazda\Models\Posts::CIPHER}
                 Unknown Cache
             {elseif $post->post_type == \Brazda\Models\Posts::CACHE}
@@ -77,7 +77,7 @@
                 Cache In Trash Out Event
                 {/if}
             {elseif $post->post_type == \Brazda\Models\Posts::BONUS}
-                Mystery
+                Geocache
             {/if}{/block}</groundspeak:type>
             <groundspeak:container>{block |strip}{if $post->post_type == \Brazda\Models\Posts::BEGIN}
                 Other
