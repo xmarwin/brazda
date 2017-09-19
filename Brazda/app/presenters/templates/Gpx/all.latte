@@ -53,7 +53,7 @@
             Geocache|Unknown Cache
         {/if}{/block}</type>
         <groundspeak:cache id="{$post->post}" available="True" archived="False" xmlns:groundspeak="http://www.groundspeak.com/cache/1/0">
-            <groundspeak:name>{$post->name}{if !in_array($post->type, [ \Brazda\Models\Posts::BEGIN, \Brazda\Models\Posts::END, \Brazda\Models\Posts::ORGANIZATION, \Brazda\Models\Posts::CACHE ])} ({$post->type_name}){/if}</groundspeak:name>
+            <groundspeak:name>{$post->name}{if !in_array($post->post_type, [ \Brazda\Models\Posts::BEGIN, \Brazda\Models\Posts::END, \Brazda\Models\Posts::ORGANIZATION, \Brazda\Models\Posts::CACHE ])} ({$post->type_name}){/if}</groundspeak:name>
             <groundspeak:placed_by>BRAZDAteam</groundspeak:placed_by>
             <groundspeak:owner>BRAZDAteam</groundspeak:owner>
             {if in_array($post->post_type, [ \Brazda\Models\Posts::CACHE, \Brazda\Models\Posts::BONUS, \Brazda\Models\Posts::CIPHER ])}
