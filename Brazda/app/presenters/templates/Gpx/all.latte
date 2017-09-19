@@ -15,7 +15,7 @@
         <name>GCP{$post->post}</name>
         <desc>{$post->name}, {$post->type_name} ({$post->difficulty}/{$post->terrain})</desc>
         <url>https://app.brazda-gc.cz/#/postDetail/{$post->post}</url>
-        <urlname>{$post->name}</urlname>
+        <urlname>{$post->name} ({$post->type_name})</urlname>
         <sym>{block |strip}{if $post->post_type == \Brazda\Models\Posts::BEGIN}
             Flag, Green
         {elseif $post->post_type == \Brazda\Models\Posts::END}
@@ -30,9 +30,10 @@
             Geocache
         {/if}{/block}</sym>
         <type>{block |strip}{if $post->post_type == \Brazda\Models\Posts::ACTIVITY}
-            {*Activity*}
+            Activity
         {elseif $post->post_type == \Brazda\Models\Posts::CIPHER}
             {*Cipher*}
+            Geocache|Unknown Cache
         {elseif $post->post_type == \Brazda\Models\Posts::CACHE}
             Geocache|{block|strip}{if $post->cache_type == \Brazda\Models\Posts::TRADITIONAL}
             Traditional Cache
@@ -57,10 +58,11 @@
             <groundspeak:placed_by>BRAZDAteam</groundspeak:placed_by>
             <groundspeak:owner>BRAZDAteam</groundspeak:owner>
             <groundspeak:type>{block |strip}{if $post->post_type == \Brazda\Models\Posts::ACTIVITY}
-                {*Activity*}
+                Activity
             {elseif $post->post_type == \Brazda\Models\Posts::CIPHER}
                 Unknown Cache
-            {elseif $post->post_type == \Brazda\Models\Posts::CACHE}
+            {elseif $post->post_type == \Brazda\Models\Posts::CACHE
+                 || $post->post_type == \Brazda\Models\Posts::BONUS}
                 {if $post->cache_type == \Brazda\Models\Posts::TRADITIONAL}
                 Traditional Cache
                 {elseif $post->cache_type == \Brazda\Models\Posts::MULTICACHE}
@@ -76,8 +78,6 @@
                 {elseif $post->cache_type == \Brazda\Models\Posts::CITO}
                 Cache In Trash Out Event
                 {/if}
-            {elseif $post->post_type == \Brazda\Models\Posts::BONUS}
-                Geocache
             {/if}{/block}</groundspeak:type>
             <groundspeak:container>{block |strip}{if $post->post_type == \Brazda\Models\Posts::BEGIN}
                 Other
