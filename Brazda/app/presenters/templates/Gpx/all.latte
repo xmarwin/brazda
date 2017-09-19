@@ -30,9 +30,8 @@
             Geocache
         {/if}{/block}</sym>
         <type>{block |strip}{if $post->post_type == \Brazda\Models\Posts::ACTIVITY}
-            Activity
+            {*Activity*}
         {elseif $post->post_type == \Brazda\Models\Posts::CIPHER}
-            {*Cipher*}
             Geocache|Unknown Cache
         {elseif $post->post_type == \Brazda\Models\Posts::CACHE}
             Geocache|{block|strip}{if $post->cache_type == \Brazda\Models\Posts::TRADITIONAL}
@@ -51,14 +50,15 @@
             Cache In Trash Out Event
             {/if}{/block}
         {elseif $post->post_type == \Brazda\Models\Posts::BONUS}
-            Geocache
+            Geocache|Unknown Cache
         {/if}{/block}</type>
         <groundspeak:cache id="{$post->post}" available="True" archived="False" xmlns:groundspeak="http://www.groundspeak.com/cache/1/0">
-            <groundspeak:name>{$post->name}</groundspeak:name>
+            <groundspeak:name>{$post->name}{if !in_array($post->type, [ \Brazda\Models\Posts::BEGIN, \Brazda\Models\Posts::END, \Brazda\Models\Posts::ORGANIZATION, \Brazda\Models\Posts::CACHE ])} ({$post->type_name}){/if}</groundspeak:name>
             <groundspeak:placed_by>BRAZDAteam</groundspeak:placed_by>
             <groundspeak:owner>BRAZDAteam</groundspeak:owner>
+            {if in_array($post->type, [ \Brazda\Models\Posts::CACHE, \Brazda\Models\Posts::BONUS, \Brazda\Models\Posts::CIPHER ])}
             <groundspeak:type>{block |strip}{if $post->post_type == \Brazda\Models\Posts::ACTIVITY}
-                Activity
+                {*Activity*}
             {elseif $post->post_type == \Brazda\Models\Posts::CIPHER}
                 Unknown Cache
             {elseif $post->post_type == \Brazda\Models\Posts::CACHE
@@ -79,6 +79,7 @@
                 Cache In Trash Out Event
                 {/if}
             {/if}{/block}</groundspeak:type>
+            {/if}
             <groundspeak:container>{block |strip}{if $post->post_type == \Brazda\Models\Posts::BEGIN}
                 Other
             {elseif $post->post_type == \Brazda\Models\Posts::END}
