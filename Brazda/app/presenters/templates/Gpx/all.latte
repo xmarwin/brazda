@@ -4,16 +4,18 @@
     <desc>Seznam stanovišť závodu BRAZDA vygenerovaný z brazda-gc.cz</desc>
     <author>Account "BRAZDAteam" From Geocaching.com</author>
     <email>info@brazda-gc.cz</email>
-    <url>http://www.brazda-gc.cz</url>
+    <url>https://app.brazda-gc.cz/#/posts</url>
     <urlname>BRAZDA - Brutální Rožnovský Závod Družstev Amatérů</urlname>
     <time>{date('c')}</time>
     <keywords>cache, geocache</keywords>
     <bounds minlat="49.5280778" minlon="17.9448169" maxlat="49.3806722" maxlon="18.3373956" />
-    {foreach $posts as $postId => $post}
+{foreach $posts as $postId => $post}
     <wpt lat="{$post->latitude}" lon="{$post->longitude}">
         <time>{date('c')}</time>
-        <name>{$post->type_name} {$post->name} ({$post->color_name})</name>
+        <name>P{$post->post}</name>
         <desc>{$post->name}, {$post->type_name} ({$post->difficulty}/{$post->terrain})</desc>
+        <url>https://app.brazda-gc.cz/#/postDetail/{$post->post}</url>
+        <urlname>{$post->name}</urlname>
         <sym>{block |strip}{if $post->post_type == \Brazda\Models\Posts::BEGIN}
             Flag, Green
         {elseif $post->post_type == \Brazda\Models\Posts::END}
@@ -52,23 +54,23 @@
             <groundspeak:owner>BRAZDAteam</groundspeak:owner>
             <groundspeak:sym>{block |strip}{if $post->post_type == \Brazda\Models\Posts::BEGIN}
                 Flag, Green
-                {elseif $post->post_type == \Brazda\Models\Posts::END}
+            {elseif $post->post_type == \Brazda\Models\Posts::END}
                 Flag, Red
-                {elseif $post->post_type == \Brazda\Models\Posts::ACTIVITY}
+            {elseif $post->post_type == \Brazda\Models\Posts::ACTIVITY}
                 Ball Park
-                {elseif $post->post_type == \Brazda\Models\Posts::CIPHER}
+            {elseif $post->post_type == \Brazda\Models\Posts::CIPHER}
                 Puzzle Cache
-                {elseif $post->post_type == \Brazda\Models\Posts::CACHE}
+            {elseif $post->post_type == \Brazda\Models\Posts::CACHE}
                 Geocache
-                {elseif $post->post_type == \Brazda\Models\Posts::BONUS}
+            {elseif $post->post_type == \Brazda\Models\Posts::BONUS}
                 Puzzle Cache
-                {/if}{/block}</groundspeak:sym>
+            {/if}{/block}</groundspeak:sym>
             <groundspeak:type>{block |strip}{if $post->post_type == \Brazda\Models\Posts::ACTIVITY}
                 Activity
-                {elseif $post->post_type == \Brazda\Models\Posts::CIPHER}
+            {elseif $post->post_type == \Brazda\Models\Posts::CIPHER}
                 Mystery
-                {elseif $post->post_type == \Brazda\Models\Posts::CACHE}
-                Geocache|{if $post->cache_type == \Brazda\Models\Posts::TRADITIONAL}
+            {elseif $post->post_type == \Brazda\Models\Posts::CACHE}
+                {if $post->cache_type == \Brazda\Models\Posts::TRADITIONAL}
                 Traditional Cache
                 {elseif $post->cache_type == \Brazda\Models\Posts::MULTICACHE}
                 Multi-Cache
@@ -78,20 +80,24 @@
                 Earth Cache
                 {elseif $post->cache_type == \Brazda\Models\Posts::WHEREIGO}
                 Where I Go
+                {elseif $post->cache_type == \Brazda\Models\Posts::LETTERBOX}
+                Letterbox Hybrid
+                {elseif $post->cache_type == \Brazda\Models\Posts::CITO}
+                Cache In Trash Out Event
                 {/if}
-                {elseif $post->post_type == \Brazda\Models\Posts::BONUS}
+            {elseif $post->post_type == \Brazda\Models\Posts::BONUS}
                 Mystery
-                {/if}{/block}</groundspeak:type>
+            {/if}{/block}</groundspeak:type>
             <groundspeak:container>{block |strip}{if $post->post_type == \Brazda\Models\Posts::BEGIN}
                 Other
-                {elseif $post->post_type == \Brazda\Models\Posts::END}
+            {elseif $post->post_type == \Brazda\Models\Posts::END}
                 Other
-                {elseif $post->post_type == \Brazda\Models\Posts::ACTIVITY}
+            {elseif $post->post_type == \Brazda\Models\Posts::ACTIVITY}
                 Other
-                {elseif $post->post_type == \Brazda\Models\Posts::CIPHER}
+            {elseif $post->post_type == \Brazda\Models\Posts::CIPHER}
                 Other
-                {elseif $post->post_type == \Brazda\Models\Posts::CACHE
-                || $post->post_type == \Brazda\Models\Posts::BONUS}
+            {elseif $post->post_type == \Brazda\Models\Posts::CACHE
+             || $post->post_type == \Brazda\Models\Posts::BONUS}
                 {if $post->cache_size == \Brazda\Models\Posts::MICRO}
                 Micro
                 {elseif $post->cache_size == \Brazda\Models\Posts::SMALL}
@@ -103,7 +109,7 @@
                 {else}
                 Other
                 {/if}
-                {/if}{/block}</groundspeak:container>
+            {/if}{/block}</groundspeak:container>
             <groundspeak:difficulty>{$post->difficulty}</groundspeak:difficulty>
             <groundspeak:terrain>{$post->terrain}</groundspeak:terrain>
             <groundspeak:country>Czech Republic</groundspeak:country>
@@ -113,31 +119,34 @@
             <groundspeak:encoded_hints>{$post->hint}</groundspeak:encoded_hints>
         </groundspeak:cache>
     </wpt>
-        {foreach $post->waypoints as $waypoint}
-        {if in_array($waypoint->waypoint_visibility, [ \Brazda\Models\Waypoints::VISIBLE, \Brazda\Models\Waypoints::HIDDEN_COORDINATES ])}
-        <wpt lat="{if $waypoint->waypoint_visibility == \Brazda\Models\Waypoints::VISIBLE}{$waypoint->latitude}{/if}" lon="{if $waypoint->waypoint_visibility == \Brazda\Models\Waypoints::VISIBLE}{$waypoint->longitude}{/if}">
-            <time>{date('c')}</time>
-            <name>{$waypoint->name}</name>
-            <cmt />
-            <desc>{$waypoint->description}</desc>
+    {foreach $post->waypoints as $waypoint}
+        {if in_array($waypoint->waypoint_visibility, [ \Brazda\Models\Waypoints::VISIBLE, \Brazda\Models\Waypoints::HIDDEN_COORDINATES ])
+         && !in_array($post->post_type, [ \Brazda\Models\Posts::BEGIN, \Brazda\Models\Posts::END, \Brazda\Models\Posts::ORGANIZATION ])}
+    <wpt lat="{if $waypoint->waypoint_visibility == \Brazda\Models\Waypoints::VISIBLE}{$waypoint->latitude}{/if}" lon="{if $waypoint->waypoint_visibility == \Brazda\Models\Waypoints::VISIBLE}{$waypoint->longitude}{/if}">
+        <time>{date('c')}</time>
+        <name>P{$post->post}W{$waypoint->waypoint}</name>
+        <cmt />
+        <desc>{$waypoint->description}</desc>
+        <url>https://app.brazda-gc.cz/#/postDetail/{$waypoint->post}</url>
+        <urlname>{$waypoint->name}</urlname>
             {if $waypoint->waypoint_type == \Brazda\Models\Waypoints::FINALE}
-            <sym>Geocache</sym>
-            <type>Geocache</type>
+        <sym>Geocache</sym>
+        <type>Geocache</type>
             {elseif $waypoint->waypoint_type == \Brazda\Models\Waypoints::STAGE}
-            <sym>Virtual Stage</sym>
-            <type>Waypoint|Virtual Stage</type>
+        <sym>Virtual Stage</sym>
+        <type>Waypoint|Virtual Stage</type>
             {elseif $waypoint->waypoint_type ==  \Brazda\Models\Waypoints::REFERENCE}
-            <sym>Reference Point</sym>
-            <type>Waypoint|Reference Point</type>
+        <sym>Reference Point</sym>
+        <type>Waypoint|Reference Point</type>
             {elseif $waypoint->waypoint_type ==  \Brazda\Models\Waypoints::PARKING}
-            <sym>Parking Area</sym>
-            <type>Waypoint|Parking Area</type>
+        <sym>Parking Area</sym>
+        <type>Waypoint|Parking Area</type>
             {elseif $waypoint->waypoint_type == \Brazda\Models\Waypoints::WAYPOINT}
-            <sym>Waypoint</sym>
-            <type>Waypoint|Trailhead</type>
+        <sym>Waypoint</sym>
+        <type>Waypoint|Trailhead</type>
             {/if}
-        </wpt>
+    </wpt>
         {/if}
-        {/foreach}
     {/foreach}
+{/foreach}
 </gpx>
