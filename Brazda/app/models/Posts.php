@@ -28,6 +28,8 @@ class Posts extends Base
     const MYSTERY     = 'MYS';
     const EARTHCACHE  = 'ERT';
     const WHEREIGO    = 'WIG';
+    const LETTERBOX   = 'LTB';
+    const CITO        = 'CIT';
 
     const TRANSPARENT = 'TRA';
     const RED         = 'RED';
