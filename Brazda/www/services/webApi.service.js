@@ -21,8 +21,8 @@ function WebApiService($http, $q, $rootScope, $log) {
         }
 
         $rootScope.$broadcast('app-start-loading');
-        
-            $log.log('broadcasting app-start-loading');
+
+        //$log.log('broadcasting app-start-loading');
 
         if (angular.isUndefined(method)) {
             method = 'GET';
@@ -41,11 +41,11 @@ function WebApiService($http, $q, $rootScope, $log) {
             data: data
         }).then(function successCallback(response) {
             $rootScope.$broadcast('app-finish-loading');
-            $log.log('broadcasting app-finish-loading');
+            //$log.log('broadcasting app-finish-loading');
             deferred.resolve(response);
         }, function errorCallback(err) {
             $rootScope.$broadcast('app-finish-loading');
-            $log.log('broadcasting app-finish-loading');
+            //$log.log('broadcasting app-finish-loading');
             deferred.reject(err);
         });
 
