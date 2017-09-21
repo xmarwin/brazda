@@ -26,7 +26,9 @@ function PostsController(authService, postService, $filter, notification) {
 
         vm.postTypes = postService.getPostTypes();
         vm.postColors = postService.getPostColors();
-        vm.securityToken = authService.team.securityToken;
+        setTimeout(function () {
+            vm.securityToken = authService.team.securityToken;
+        }, 1000);
     }
 
     vm.filter = function () {
@@ -54,10 +56,6 @@ function PostsController(authService, postService, $filter, notification) {
 
     vm.refresh = function () {
         loadPosts();
-    }
-
-    vm.downloadGpx = function () {
-        
     }
 
     var loadPosts = function () {
