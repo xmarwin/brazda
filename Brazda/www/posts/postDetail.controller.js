@@ -63,7 +63,7 @@ function PostDetailController(postService, $routeParams, $filter, downloadServic
             .then(function (data) {
                 notification.success('Stanoviště úspěšně odstraněno.');
             }, function (err) {
-
+                notification.error(err.message);
             });
     }
 

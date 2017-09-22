@@ -39,7 +39,7 @@ function PostLogController(postService, $routeParams, $filter, downloadService, 
                     notification.error({ message: "Stala se chyba: " + response.data.status, delay: null });
                 }
             }, function (err) {
-
+                notification.error(err.message);
             });
     }
 
