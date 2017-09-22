@@ -41,10 +41,10 @@ function LoginController($location, authService, teamService, notification) {
                     vm.showError = false;
                     $location.path('/posts');
                 } else {
-                    Notification.error(retval.message);
+                    notification.error(retval.message);
                 }
             }, function (err) {
-                notification.error(err.data.message);
+                notification.error(err.message);
             });      
     }
 
@@ -53,7 +53,7 @@ function LoginController($location, authService, teamService, notification) {
             .then(function (data) {
                 $location.path('/login');
             }, function (err) {
-                notification.error(err.data.message);
+                notification.error(err.message);
             });        
     }
 

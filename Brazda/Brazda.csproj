@@ -5638,6 +5638,8 @@
     <Content Include="www\login\login.html" />
     <Content Include="www\login\login.js" />
     <Content Include="www\login\logout.html" />
+    <Content Include="www\map\map.html" />
+    <Content Include="www\map\map.js" />
     <Content Include="www\posts\postNote.controller.js" />
     <Content Include="www\posts\postNote.html" />
     <Content Include="www\posts\getHelpConfirmation.html" />
