@@ -12,9 +12,9 @@ angular.module('myApp.bonusUnlock', ['ngRoute'])
 
     .controller('BonusUnlockCtrl', BonusUnlockController);
 
-BonusUnlockController.$inject = ['PostService', '$routeParams', '$filter', 'DownloadService', 'Notification'];
+BonusUnlockController.$inject = ['PostService', '$routeParams', '$filter', 'DownloadService', 'Notification', '$location'];
 
-function BonusUnlockController(postService, $routeParams, $filter, downloadService, notification) {
+function BonusUnlockController(postService, $routeParams, $filter, downloadService, notification, $location) {
     var vm = this;
     vm.password = "";
 
@@ -33,6 +33,7 @@ function BonusUnlockController(postService, $routeParams, $filter, downloadServi
                         message: "Další pokus o zadání heslo můžete udělat až v " + $filter('date')(response.data.nextAttempt, 'mediumTime'), delay: null
                     });
                 } else if (response.data.code === 200) {
+                    $location.path('#/posts');
                     notification.success('Gratulujeme, to je správná odpověď.');
                 } else {
                     notification.error({ message: "Stala se chyba: " + response.data.status, delay: null });
