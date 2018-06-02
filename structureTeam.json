@@ -1,0 +1,11 @@
+[
+  {
+    "name": "Název týmu",
+    "shibboleth": "Heslo",
+    "team_type": "COM",
+    "is_active": true,
+    "allow_tracking": true,
+    "description": "Popis týmu",
+    "telephone": "+420 123 456 789"
+  }
+]
