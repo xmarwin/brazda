@@ -59,7 +59,108 @@ class Posts extends Base
         )->fetch();
     } // find()
 
-    public function view(array $filter = [], array $order = [ 'pt.rank' => 'ASC', 'p.color' => 'ASC', 'p.name' => 'ASC' ], array $limit = [])
+public function listView(array $filter = [], array $order = [ 'pt.rank' => 'ASC', 'p.color' => 'ASC', 'p.name' => 'ASC' ], array $limit = [])
+    {
+        $filter = $this->normalizeFilter($filter, [
+            'post'       => 'p.post',
+            'size_name'  => 'cs.size',
+            'cache_name' => 'ct.name',
+            'color_name' => 'pc.name',
+            'color_code' => 'pc.code',
+            'type_name'  => 'pt.name',
+            'type_rank'  => 'pt.rank',
+            'rank'       => 'pt.rank',
+            'post_note'  => 'pn.note',
+            'note'       => 'pn.note',
+            'shibboleth' => 'p.shibboleth',
+            'bonus_code' => 'p.bonus_code',
+            'help'       => 'p.help',
+            'log_out_moment'   => 'lo.moment',
+            'log_bonus_moment' => 'lb.moment',
+            'log_help_moment'  => 'lh.moment'
+        ]);
+        $order  = $this->normalizeOrder($order);
+        $limit  = $this->normalizeLimit($limit);
+        list($limit, $offset) = each($limit);
+
+        if (isset($filter['team']) && !empty($filter['team'])) {
+            $team = (int) $filter['team'];
+
+            $role = $this->teams->find(['team' => $team])->role;
+
+            unset($filter['team']);
+        } // if
+        return $this->db->query(
+            "SELECT
+                p.post,
+                p.post_type,
+                p.color,
+                p.name,
+                p.difficulty,
+                p.terrain,
+                p.cache_size,
+                p.cache_type,
+                p.max_score,
+                p.hint,
+
+                cs.name AS size_name,
+                ct.name AS cache_name,
+
+                pc.name AS color_name,
+                pc.code AS color_code,
+
+                pt.name AS type_name,
+                pt.rank AS type_rank,
+
+            %if", isset($team) && $role == Teams::COMPETITORS, "
+                CASE WHEN lo.moment IS NOT NULL THEN p.shibboleth ELSE NULL END AS shibboleth,
+                CASE WHEN lb.moment IS NOT NULL THEN p.bonus_code ELSE NULL END AS bonus_code,
+                CASE WHEN lh.moment IS NOT NULL THEN p.help ELSE NULL END AS help,
+                CASE WHEN lb.moment IS NOT NULL THEN TRUE ELSE FALSE END as is_unlocked,
+                CASE WHEN lo.moment IS NOT NULL THEN TRUE ELSE FALSE END AS is_done,
+                lo.moment AS log_out_moment,
+                lb.moment AS log_bonus_moment,
+                lh.moment AS log_help_moment
+            %else
+                p.shibboleth,
+                p.bonus_code,
+                p.help
+            %end
+             FROM posts p
+             JOIN post_colors pc USING (color)
+             JOIN post_types pt USING (post_type)
+             LEFT JOIN cache_sizes cs USING (cache_size)
+             LEFT JOIN cache_types ct USING (cache_type)
+        %if", isset($team) && $role == Teams::COMPETITORS, "
+             LEFT JOIN (
+                SELECT post, moment
+                FROM logs
+                WHERE log_type = 'OUT'
+                  AND team = %i", $team, "
+             ) lo USING (post)
+             LEFT JOIN (
+                SELECT post, moment
+                FROM logs
+                WHERE log_type = 'BON'
+                  AND team = %i", $team, "
+             ) lb USING (post)
+             LEFT JOIN (
+                SELECT post, moment
+                FROM logs
+                WHERE log_type = 'HLP'
+                  AND team = %i", $team, "
+             ) lh USING (post)
+        %end
+        %if", isset($team), "
+             LEFT JOIN post_notes pn ON pn.post = p.post AND pn.team = %i", $team, "
+        %end
+            %if", !empty($filter), "WHERE %and", $filter, "%end",
+           "%if", !empty($order), " ORDER BY %by", $order, " %end",
+           "%if", !empty($limit), " LIMIT %lmt", $limit, " %ofs", $offset
+        );
+    } // listView()
+
+     public function view(array $filter = [], array $order = [ 'pt.rank' => 'ASC', 'p.color' => 'ASC', 'p.name' => 'ASC' ], array $limit = [])
     {
         $filter = $this->normalizeFilter($filter, [
             'post'       => 'p.post',
