@@ -30,7 +30,7 @@ function BonusUnlockController(postService, $routeParams, $filter, downloadServi
                     notification.error('Zadali jste špatné heslo.');
                 } else if (response.data.code === 408) {
                     notification.error({
-                        message: "Další pokus o zadání heslo můžete udělat až v " + $filter('date')(response.data.nextAttempt, 'mediumTime'), delay: null
+                        message: "Další pokus o zadání heslo můžete udělat až v " + $filter('date')(response.data.nextTimestamp, 'mediumTime'), delay: null
                     });
                 } else if (response.data.code === 200) {
                     $location.path('#/posts');
