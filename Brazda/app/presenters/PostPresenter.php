@@ -45,14 +45,16 @@ class PostPresenter extends SecuredBasePresenter
             $order = ['rank' => 'ASC', 'color' => 'ASC', 'name' => 'ASC'];
 		} // if
 
-		$this->resource = (array) $this->posts->view($viewFilter, $order)->fetchAll();
+		$this->resource = (array) $this->posts->listView($viewFilter, $order)->fetchAll();
 		$rank = 0;
 		foreach ($this->resource as $id => $post) {
             $this->resource[$id]['rank'] = $rank++;
+/*
             $this->resource[$id]['waypoints'] = $this->waypoints->view([
                 'post' => (int) $post['post'],
                 'team' => (int) $this->team['team']
             ])->fetchAll();
+*/
 		} // foreach
 		$this->sendResource($this->outputType);
 	} // actionList()
