@@ -14,3 +14,4 @@ node_modules/
 tmp
 .DS_Store
 .idea
+app/config/config.local.neon

@@ -25,7 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>2.6</TypeScriptToolsVersion>
     <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -7939,12 +7939,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="node_modules\.staging\selenium-webdriver-2a868ef7e18ddd26a7653efee2265bdf\lib\test\data\Page.aspx.cs">
-      <DependentUpon>Page.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="node_modules\.staging\selenium-webdriver-2a868ef7e18ddd26a7653efee2265bdf\lib\test\data\Redirect.aspx.cs">
-      <DependentUpon>Redirect.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

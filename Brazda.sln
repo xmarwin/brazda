@@ -7,7 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brazda", "Brazda\Brazda.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kompost", "Kompost", "{A978AB93-7348-4968-BF58-F3BB5EB647E1}"
 	ProjectSection(SolutionItems) = preProject
-		TextFile1.txt = TextFile1.txt
+		structurePosts.json = structurePosts.json
+		structureTeam.json = structureTeam.json
 	EndProjectSection
 EndProject
 Global
@@ -23,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7700F130-6D2A-46C6-876E-2D8FAA9E0F61}
 	EndGlobalSection
 EndGlobal

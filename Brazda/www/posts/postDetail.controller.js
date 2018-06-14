@@ -12,26 +12,33 @@ angular.module('myApp.postDetail', ['ngRoute'])
 
     .controller('PostDetailCtrl', PostDetailController);
 
-PostDetailController.$inject = ['PostService', '$routeParams', '$filter', 'DownloadService', 'ngDialog', 'AuthService'];
+PostDetailController.$inject = ['PostService', '$routeParams', '$filter', 'DownloadService', 'ngDialog', 'AuthService', '$location', 'Notification'];
 
-function PostDetailController(postService, $routeParams, $filter, downloadService, ngDialog, authService) {
+function PostDetailController(postService, $routeParams, $filter, downloadService, ngDialog, authService, $location, notification) {
     var vm = this;
     vm.postSizes = [];
     vm.cacheTypes = [];
     vm.waypointTypes = [];
     vm.post = [];
     vm.securityToken;
+    vm.disableHelpButton = true;
+    vm.disableLogButton = true;
 
     var init = function () {
         vm.postId = $routeParams.postId;
         vm.postSizes = postService.getPostSizes();
         vm.cacheTypes = postService.getCacheTypes();
+
         postService.getPost(vm.postId)
             .then(function (data) {
                 vm.post = data.data
+
+                vm.disableHelpButton = !vm.post.hasHelp || vm.post.isDone || vm.post.logHelpMoment !== null;
+                vm.disableLogButton = vm.post.isDone || (vm.post.postType === 'BON' && !vm.post.isUnlocked);                
             }, function (err) {
 
             });
+
         vm.waypointTypes = postService.getWaypointTypes();
 
         vm.post.postSize = $filter('filter')(vm.postSizes, { 'size': vm.post.postSize }, true)[0];
@@ -55,13 +62,23 @@ function PostDetailController(postService, $routeParams, $filter, downloadServic
             getHelpInt();
         }, function (err) {
 
-        });        
+        });
+    }
+
+    vm.logPost = function () {
+        $location.path("/postLog/" + vm.post.post);
+    }
+
+    vm.unlockBonus = function () {
+        $location.path("/bonusUnlock/" + vm.post.post);
     }
 
     function getHelpInt() {
         postService.getHelp(vm.postId)
             .then(function (data) {
-                notification.success('Stanoviště úspěšně odstraněno.');
+                notification.success('Nápověda použita.');
+                vm.post.help = data.data.help;
+                vm.disableHelpButton = true;
             }, function (err) {
                 notification.error(err.message);
             });
