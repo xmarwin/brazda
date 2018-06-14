@@ -99,16 +99,16 @@ class Posts extends Base
                 p.difficulty,
                 p.terrain,
                 p.cache_size,
-                p.description,
+                -- p.description,
                 p.cache_type,
                 p.max_score,
-                p.with_staff,
-                p.latitude,
-                p.longitude,
+                -- p.with_staff,
+                -- p.latitude,
+                -- p.longitude,
                 p.hint,
-                to_char(p.open_from, 'HH24:MI') AS open_from,
-                to_char(p.open_to, 'HH24:MI') AS open_to,
-                CASE WHEN p.help NOT LIKE '' THEN TRUE ELSE FALSE END AS has_help,
+                -- to_char(p.open_from, 'HH24:MI') AS open_from,
+                -- to_char(p.open_to, 'HH24:MI') AS open_to,
+                -- CASE WHEN p.help NOT LIKE '' THEN TRUE ELSE FALSE END AS has_help,
 
                 cs.name AS size_name,
                 ct.name AS cache_name,
@@ -119,7 +119,7 @@ class Posts extends Base
                 pt.name AS type_name,
                 pt.rank AS type_rank,
 
-                coalesce(pn.note, NULL) AS post_note,
+                -- coalesce(pn.note, NULL) AS post_note,
 
             %if", isset($team) && $role == Teams::COMPETITORS, "
                 CASE WHEN lo.moment IS NOT NULL THEN p.shibboleth ELSE NULL END AS shibboleth,
