@@ -67,6 +67,10 @@ echo "Aplikuji patch 011..."
 /usr/bin/psql -q -h $PGHOST -p $PGPORT -f p011.sql
 if [ $? -gt 0 ]; then exit; fi
 
+echo "Aplikuji patch 012..."
+/usr/bin/psql -q -h $PGHOST -p $PGPORT -f p012.sql
+if [ $? -gt 0 ]; then exit; fi
+
 echo "Importuji data o stanovištích..."
 /usr/bin/psql -q -h $PGHOST -p $PGPORT -f posts.sql
 if [ $? -gt 0 ]; then exit; fi

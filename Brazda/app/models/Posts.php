@@ -72,7 +72,6 @@ class Posts extends Base
             'rank'       => 'pt.rank',
             'post_note'  => 'pn.note',
             'note'       => 'pn.note',
-            'shibboleth' => 'p.shibboleth',
             'bonus_code' => 'p.bonus_code',
             'help'       => 'p.help',
             'log_out_moment'   => 'lo.moment',
@@ -113,7 +112,9 @@ class Posts extends Base
                 pt.rank AS type_rank,
 
             %if", isset($team) && $role == Teams::COMPETITORS, "
-                CASE WHEN lo.moment IS NOT NULL THEN p.shibboleth ELSE NULL END AS shibboleth,
+                bonusPassword(p.color, %i) AS password, ", $team,
+               "CASE WHEN lo.moment IS NOT NULL THEN p.password_character ELSE NULL END AS password_character,
+                CASE WHEN lo.moment IS NOT NULL THEN p.password_position ELSE NULL END AS password_position,
                 CASE WHEN lb.moment IS NOT NULL THEN p.bonus_code ELSE NULL END AS bonus_code,
                 CASE WHEN lh.moment IS NOT NULL THEN p.help ELSE NULL END AS help,
                 CASE WHEN lb.moment IS NOT NULL THEN TRUE ELSE FALSE END as is_unlocked,
@@ -122,6 +123,9 @@ class Posts extends Base
                 lb.moment AS log_bonus_moment,
                 lh.moment AS log_help_moment
             %else
+                bonusPassword(p.color, %i) AS password, ", $team,
+               "p.password_character,
+                p.password_position,
                 p.shibboleth,
                 p.bonus_code,
                 p.help
@@ -173,7 +177,6 @@ class Posts extends Base
             'rank'       => 'pt.rank',
             'post_note'  => 'pn.note',
             'note'       => 'pn.note',
-            'shibboleth' => 'p.shibboleth',
             'bonus_code' => 'p.bonus_code',
             'help'       => 'p.help',
             'log_out_moment'   => 'lo.moment',
@@ -223,7 +226,9 @@ class Posts extends Base
                 coalesce(pn.note, NULL) AS post_note,
 
             %if", isset($team) && $role == Teams::COMPETITORS, "
-                CASE WHEN lo.moment IS NOT NULL THEN p.shibboleth ELSE NULL END AS shibboleth,
+                bonusPassword(p.color, %i) AS password, ", $team,
+               "CASE WHEN lo.moment IS NOT NULL THEN p.password_character ELSE NULL END AS password_character,
+                CASE WHEN lo.moment IS NOT NULL THEN p.password_position ELSE NULL END AS password_position,
                 CASE WHEN lb.moment IS NOT NULL THEN p.bonus_code ELSE NULL END AS bonus_code,
                 CASE WHEN lh.moment IS NOT NULL THEN p.help ELSE NULL END AS help,
                 CASE WHEN lb.moment IS NOT NULL THEN TRUE ELSE FALSE END as is_unlocked,
@@ -232,6 +237,9 @@ class Posts extends Base
                 lb.moment AS log_bonus_moment,
                 lh.moment AS log_help_moment
             %else
+                bonusPassword(p.color, %i) AS password, ", $team,
+               "p.password_character,
+                p.password_position,
                 p.shibboleth,
                 p.bonus_code,
                 p.help
@@ -281,17 +289,31 @@ class Posts extends Base
         )->fetchSingle('help');
     } // getHelp()
 
+    public function getPassword($post, $team)
+    {
+        $post = (int) $post;
+
+        return $this->db->query(
+            "SELECT
+				bonusPassword(color, %i)", $team, " AS password,
+				password_character,
+				password_position
+             FROM posts
+             WHERE post = %i", $post
+        )->fetch();
+
+    } // getPassword()
+
     public function getShibboleth($post)
     {
         $post = (int) $post;
 
-        $shibboleth = $this->db->query(
+        return $this->db->query(
             "SELECT shibboleth
              FROM posts
              WHERE post = %i", $post
         )->fetchSingle('shibboleth');
 
-        return strtolower(self::toAscii($shibboleth));
     } // getShibboleth()
 
     public function getBonusCode($post)
