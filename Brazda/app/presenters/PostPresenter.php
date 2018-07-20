@@ -49,12 +49,6 @@ class PostPresenter extends SecuredBasePresenter
 		$rank = 0;
 		foreach ($this->resource as $id => $post) {
             $this->resource[$id]['rank'] = $rank++;
-/*
-            $this->resource[$id]['waypoints'] = $this->waypoints->view([
-                'post' => (int) $post['post'],
-                'team' => (int) $this->team['team']
-            ])->fetchAll();
-*/
 		} // foreach
 		$this->sendResource($this->outputType);
 	} // actionList()
@@ -198,7 +192,8 @@ class PostPresenter extends SecuredBasePresenter
         ]);
         $this->resource = [
             'status' => 'OK',
-            'code'   => 200
+            'code'   => 200,
+            'password' => (array) $this->posts->getPassword($post, $this->team['team'])
         ];
         $this->sendResource($this->outputType);
 	} // actionLog()
@@ -270,7 +265,6 @@ class PostPresenter extends SecuredBasePresenter
             'max_score'   => (int) $this->input->maxScore,
             'difficulty'  => $this->input->difficulty,
             'terrain'     => $this->input->terrain,
-            'shibboleth'  => $this->input->shibboleth,
             'latitude'    => $this->input->latitude,
             'longitude'   => $this->input->longitude
         ];
@@ -301,6 +295,15 @@ class PostPresenter extends SecuredBasePresenter
 
         if (isset($this->input->openTo) && !empty($this->input->openTo))
             $values['open_to'] = $this->input->openTo;
+
+		if (isset($this->input->shibboleth) && !empty($this->input->shibboleth))
+			$values['shibboleth'] = $this->input->shibboleth;
+
+		if (isset($this->input->passwordCharacter) && !empty($this->input->passwordCharacter))
+			$values['password_character'] = $this->input->passwordCharacter;
+
+		if (isset($this->input->passwordPosition) && !empty($this->input->passwordPosition))
+			$values['password_position'] = $this->input->passwordPosition;
 
         $result = [];
         $this->posts->begin();
@@ -353,7 +356,6 @@ class PostPresenter extends SecuredBasePresenter
             'max_score'   => (int) $this->input->maxScore,
             'difficulty'  => $this->input->difficulty,
             'terrain'     => $this->input->terrain,
-            'shibboleth'  => $this->input->shibboleth,
             'latitude'    => $this->input->latitude,
             'longitude'   => $this->input->longitude
         ];
@@ -384,6 +386,15 @@ class PostPresenter extends SecuredBasePresenter
 
         if (isset($this->input->openTo) && !empty($this->input->openTo))
             $values['open_to'] = $this->input->openTo;
+
+		if (isset($this->input->shibboleth) && !empty($this->input->shibboleth))
+			$values['shibboleth'] = $this->input->shibboleth;
+
+		if (isset($this->input->passwordCharacter) && !empty($this->input->passwordCharacter))
+			$values['password_character'] = $this->input->passwordCharacter;
+
+		if (isset($this->input->passwordPosition) && !empty($this->input->passwordPosition))
+			$values['password_position'] = $this->input->passwordPosition;
 
         $this->posts->begin();
         try {

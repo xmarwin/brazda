@@ -15,7 +15,7 @@ class MapPresenter extends BasePresenter
 
         $this->posts     = $this->context->getService('posts');
         $this->waypoints = $this->context->getService('waypoints');
-        $this->team      = $this->getUser()->getIdentity()->getData();
+        //$this->team      = $this->getUser()->getIdentity()->getData();
     } // startup()
 
     public function actionPoints(array $filter)
