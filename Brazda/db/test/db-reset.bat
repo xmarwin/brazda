@@ -71,6 +71,14 @@ ECHO Aplikuji patch 011...
 "C:\Program Files\PostgreSQL\9.5\bin\psql.exe" -f p011.sql
 if errorLevel 1 ( exit /b %errorLevel%; )
 
+ECHO Aplikuji patch 012...
+"C:\Program Files\PostgreSQL\9.5\bin\psql.exe" -f p012.sql
+if errorLevel 1 ( exit /b %errorLevel%; )
+
+ECHO Aplikuji patch 013...
+"C:\Program Files\PostgreSQL\9.5\bin\psql.exe" -f p013.sql
+if errorLevel 1 ( exit /b %errorLevel%; )
+
 ECHO Importuji data o stanovištích...
 "C:\Program Files\PostgreSQL\9.5\bin\psql.exe" -f posts.sql
 if errorLevel 1 ( exit /b %errorLevel%; )
