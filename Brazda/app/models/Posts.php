@@ -225,17 +225,20 @@ class Posts extends Base
 
                 coalesce(pn.note, NULL) AS post_note,
 
+                CASE WHEN lb.moment IS NOT NULL THEN TRUE ELSE FALSE END as is_unlocked,
+                CASE WHEN lo.moment IS NOT NULL THEN TRUE ELSE FALSE END AS is_done,
+
+                lo.moment AS log_out_moment,
+                lb.moment AS log_bonus_moment,
+                lh.moment AS log_help_moment,
+
             %if", isset($team) && $role == Teams::COMPETITORS, "
                 bonusPassword(p.color, %i) AS password, ", $team,
                "CASE WHEN lo.moment IS NOT NULL THEN p.password_character ELSE NULL END AS password_character,
                 CASE WHEN lo.moment IS NOT NULL THEN p.password_position ELSE NULL END AS password_position,
+                CASE WHEN lo.moment IS NOT NULL THEN p.shibboleth ELSE NULL END AS shibboleth,
                 CASE WHEN lb.moment IS NOT NULL THEN p.bonus_code ELSE NULL END AS bonus_code,
-                CASE WHEN lh.moment IS NOT NULL THEN p.help ELSE NULL END AS help,
-                CASE WHEN lb.moment IS NOT NULL THEN TRUE ELSE FALSE END as is_unlocked,
-                CASE WHEN lo.moment IS NOT NULL THEN TRUE ELSE FALSE END AS is_done,
-                lo.moment AS log_out_moment,
-                lb.moment AS log_bonus_moment,
-                lh.moment AS log_help_moment
+                CASE WHEN lh.moment IS NOT NULL THEN p.help ELSE NULL END AS help
             %else
                 bonusPassword(p.color, %i) AS password, ", $team,
                "p.password_character,
@@ -249,7 +252,6 @@ class Posts extends Base
              JOIN post_types pt USING (post_type)
              LEFT JOIN cache_sizes cs USING (cache_size)
              LEFT JOIN cache_types ct USING (cache_type)
-        %if", isset($team) && $role == Teams::COMPETITORS, "
              LEFT JOIN (
                 SELECT post, moment
                 FROM logs
@@ -268,10 +270,7 @@ class Posts extends Base
                 WHERE log_type = 'HLP'
                   AND team = %i", $team, "
              ) lh USING (post)
-        %end
-        %if", isset($team), "
-             LEFT JOIN post_notes pn ON pn.post = p.post AND pn.team = %i", $team, "
-        %end
+             LEFT JOIN post_notes pn ON (pn.post = p.post AND pn.team = %i", $team, ")
             %if", !empty($filter), "WHERE %and", $filter, "%end",
            "%if", !empty($order), " ORDER BY %by", $order, " %end",
            "%if", !empty($limit), " LIMIT %lmt", $limit, " %ofs", $offset
