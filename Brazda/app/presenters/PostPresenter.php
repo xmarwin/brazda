@@ -75,6 +75,7 @@ class PostPresenter extends SecuredBasePresenter
                 'is_done'     => $bonusPost->is_done,
                 'unlocked_moment' => $bonusPost->log_bonus_moment,
                 'done_moment'     => $bonusPost->log_out_moment,
+                'password'    => $bonusPost->password,
                 'color'       => [
                     'name'    => $bonusPost->color_name,
                     'code'    => $bonusPost->color_code
