@@ -65,9 +65,9 @@ class PostPresenter extends SecuredBasePresenter
             'team' => $this->team['team']
         ];
         $allPosts = $this->posts->view($viewPostsFilter)->fetchAll();
-
         $this->resource = [];
         foreach ($bonusPosts as $bonusPost) {
+
             $bonus = [
                 'post'        => $bonusPost->post,
                 'name'        => $bonusPost->name,
