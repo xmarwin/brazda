@@ -20,10 +20,12 @@ services:
 
 	logins: Brazda\Models\Logins(@container)
 	logs: Brazda\Models\Logs(@container)
-	positions: Brazda\Models\Positions($container)
+	messages: Brazda\Models\Messages(@container)
+	positions: Brazda\Models\Positions(@container)
 	postNotes: Brazda\Models\PostNotes(@container)
 	posts: Brazda\Models\Posts(@container)
 	postTypes: Brazda\Models\PostTypes(@container)
+	settings: Brazda\Models\Settings(@container)
 	teams: Brazda\Models\Teams(@container)
 	waypoints: Brazda\Models\Waypoints(@container)
 
