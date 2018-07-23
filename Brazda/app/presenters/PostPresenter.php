@@ -169,10 +169,16 @@ class PostPresenter extends SecuredBasePresenter
             $this->sendResource($this->outputType);
         } // if
 
-        $postShibboleth = $this->posts->getShibboleth($post);
-        $shibboleth     = strtolower(self::toAscii(urldecode($shibboleth)));
+        $postShibboleth  = $this->posts->getShibboleth($post);
 
-        if ($shibboleth != $postShibboleth) {
+        $postShibboleth1 = strtolower(self::toAscii($postShibboleth));
+        $shibboleth1     = strtolower(self::toAscii(urldecode($shibboleth)));
+
+        $postShibboleth2 = mb_strtolower($postShibboleth);
+        $shibboleth2     = mb_strtolower(urldecode($shibboleth));
+
+        if ($shibboleth1 != $postShibboleth1
+        ||  $shibboleth2 != $postShibboleth2) {
             $this->logs->insert([
                 'team'     => (int) $this->team['team'],
                 'post'     => (int) $post,
