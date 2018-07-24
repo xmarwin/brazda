@@ -8,6 +8,7 @@ ResponseObserver.$inject = ['$q', '$window'];
 function ResponseObserver($q, $window) {
     var responseObserver = {
         'responseError': function (errorResponse) {
+            debugger
             switch (errorResponse.status) {
                 case 403:
                     $window.location = '#/login';

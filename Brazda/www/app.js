@@ -27,6 +27,7 @@ angular.module('myApp', [
     'myApp.downloadService',
     'myApp.trackingService',
     'myApp.resultService',
+    'myApp.systemService',
 
     // directives
     'myApp.waitDirective',
@@ -93,8 +94,9 @@ angular.module('myApp', [
         $httpProvider.interceptors.push('ResponseObserver');
     })
 
-    .run(['TrackingService', function (trackingService) {
+    .run(['TrackingService', 'SystemService', function (trackingService, systemService) {
         trackingService.startTracking();
+        systemService.start();
     }])
 
     .run(function ($window, $rootScope) {
