@@ -5655,6 +5655,7 @@
     <Content Include="www\rules\rules.html" />
     <Content Include="www\rules\rules.js" />
     <Content Include="www\rules\rules_test.js" />
+    <Content Include="www\services\systemService.js" />
     <Content Include="www\services\resultService.js" />
     <Content Include="www\services\trackingService.js" />
     <Content Include="www\services\webApi.interceptor2.js" />

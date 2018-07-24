@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 angular.module('myApp.nav', ['ngRoute'])
     .config(['$routeProvider', function ($routeProvider) {
@@ -11,9 +11,9 @@ angular.module('myApp.nav', ['ngRoute'])
 
     .controller('NavCtrl', NavController);
 
-NavController.$inject = ['AuthService', '$rootScope'];
+NavController.$inject = ['AuthService', '$rootScope', '$scope', 'Notification'];
 
-function NavController(authService, $rootScope) {
+function NavController(authService, $rootScope, scope, notification) {
     var vm = this;
 
     vm.isAuthorized = authService.isAuthorized;
@@ -22,5 +22,9 @@ function NavController(authService, $rootScope) {
 
     $rootScope.$watch('online', function (newStatus) {
         vm.isOnline = newStatus;
+    });
+
+    scope.$on('oldCode', function () {
+        notification.warning({ message: "POZOR! Organizátoři vydali novou verzi aplikace, prosím obnovte co nejdříve stránku ve vašem prohlížeči.", title:"Varování", delay: 20000 });
     });
 };
