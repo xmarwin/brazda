@@ -5116,6 +5116,10 @@
     <Content Include="LICENSE" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="www\admin\messages\addMessage.controller.js" />
+    <Content Include="www\admin\messages\addMessage.html" />
+    <Content Include="www\admin\messages\messagesAdmin.controller.js" />
+    <Content Include="www\admin\messages\messagesAdmin.html" />
     <Content Include="www\admin\posts\addPost.controller.js" />
     <Content Include="www\admin\posts\addPost.html" />
     <Content Include="www\admin\posts\addWaypointModal.html" />
@@ -5657,6 +5661,7 @@
     <Content Include="www\rules\rules.html" />
     <Content Include="www\rules\rules.js" />
     <Content Include="www\rules\rules_test.js" />
+    <Content Include="www\services\messageService.js" />
     <Content Include="www\services\raceService.js" />
     <Content Include="www\services\systemService.js" />
     <Content Include="www\services\resultService.js" />
