@@ -89,11 +89,11 @@
         </div>
     </div>
     <div class="row" ng-show="ctrl.post.isDone === true && ctrl.post.postType !== 'BON'">
-        <h2 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Indicie</h2>
+        <h2 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Heslo k bonusu</h2>
     </div>
     <div class="row" ng-show="ctrl.post.isDone === true && ctrl.post.postType !== 'BON'">
         <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12">
-            {{ctrl.post.shibboleth}}
+            Na {{ctrl.post.passwordPosition}}. místě hesla k bonusu je písmeno {{ctrl.post.passwordCharacter | uppercase}}.
         </div>
     </div>
     <div class="row">
