@@ -28,6 +28,7 @@ angular.module('myApp', [
     'myApp.trackingService',
     'myApp.resultService',
     'myApp.systemService',
+    'myApp.raceService',
 
     // directives
     'myApp.waitDirective',
@@ -51,6 +52,8 @@ angular.module('myApp', [
     'myApp.admin.posts',
     'myApp.admin.addPost',
     'myApp.admin.editPost',
+
+    'myApp.admin.race',
 
     'myApp.admin.result',
 
