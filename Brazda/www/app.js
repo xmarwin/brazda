@@ -29,6 +29,7 @@ angular.module('myApp', [
     'myApp.resultService',
     'myApp.systemService',
     'myApp.raceService',
+    'myApp.messageService',
 
     // directives
     'myApp.waitDirective',
@@ -54,6 +55,9 @@ angular.module('myApp', [
     'myApp.admin.editPost',
 
     'myApp.admin.race',
+
+    'myApp.admin.messages',
+    'myApp.admin.addMessage',
 
     'myApp.admin.result',
 
