@@ -1,0 +1,12 @@
+﻿<please-wait></please-wait>
+<div>
+    <h1>Zprávy</h1>
+    <div class="list-group">
+        <div class="list-group-item" ng-repeat="message in ctrl.messages">
+            <div class="row" ng-click="ctrl.showMessage(message.message)" style="cursor: pointer">
+                <div class="col-lg-1 col-sm-1 col-md-1 col-xl-1">{{message.moment | date: 'mediumTime'}}</div>
+                <div class="col-lg-11 col-sm-11 col-md-11 col-xl-11">{{message.content | limitTo: 60 }}{{message.content.length > 60 ? '&hellip;' : ''}}</div>
+            </div>
+        </div>
+    </div>
+</div>

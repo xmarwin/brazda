@@ -19,12 +19,17 @@ function NavController(authService, $rootScope, scope, notification) {
     vm.isAuthorized = authService.isAuthorized;
     vm.isAdmin = authService.isAdmin;
     vm.isOnline;
+    vm.newMessagesCount;
 
     $rootScope.$watch('online', function (newStatus) {
         vm.isOnline = newStatus;
     });
 
     scope.$on('oldCode', function () {
-        notification.warning({ message: "POZOR! Organizátoři vydali novou verzi aplikace, prosím obnovte co nejdříve stránku ve vašem prohlížeči.", title:"Varování", delay: 20000 });
+        notification.warning({ message: "POZOR! Organizátoři vydali novou verzi aplikace, prosím obnovte co nejdříve stránku ve vašem prohlížeči.", title: "Varování", delay: 20000 });
+    });
+
+    scope.$on('messageUpdate', function (name, args) {
+        vm.newMessagesCount = args;
     });
 };

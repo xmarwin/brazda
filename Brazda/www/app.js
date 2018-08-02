@@ -44,6 +44,8 @@ angular.module('myApp', [
     'myApp.postNote',
     'myApp.postLog',
     'myApp.bonusUnlock',
+    'myApp.messages',
+    'myApp.messageDetail',
 
     //Admin
     'myApp.admin.teams',

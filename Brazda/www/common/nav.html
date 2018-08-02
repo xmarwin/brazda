@@ -9,11 +9,15 @@
             </button>
             <a class="navbar-brand" href="#">BRÁZDA</a>
             <img src="../assets/images/offline.png" ng-hide="nav.isOnline" />
+            <p class="navbar-text navbar-left">
+                <span class="glyphicon glyphicon-envelope" ng-class="{'text-danger': nav.newMessagesCount > 0}" style="font-size:large" aria-hidden="true"></span><span class="badge" ng-show="nav.newMessagesCount>0">{{nav.newMessagesCount}}</span>
+            </p>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li ng-show="nav.isAuthorized()"><a href="#/posts">Stanoviště</a></li>
                 <li ng-show="nav.isAuthorized()"><a href="#/bonuses">Bonusy</a></li>
+                <li ng-show="nav.isAuthorized()"><a href="#/messages">Zprávy</a></li>
                 <li><a href="#/map">Mapa</a></li>
                 <li><a href="#/rules">Pravidla</a></li>
                 <li><a href="#/contact">Kontakt</a></li>
