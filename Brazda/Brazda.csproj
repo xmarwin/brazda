@@ -5646,6 +5646,10 @@
     <Content Include="www\login\logout.html" />
     <Content Include="www\map\map.html" />
     <Content Include="www\map\map.js" />
+    <Content Include="www\messages\messageDetail.html" />
+    <Content Include="www\messages\messageDetail.controller.js" />
+    <Content Include="www\messages\messages.controller.js" />
+    <Content Include="www\messages\messages.html" />
     <Content Include="www\posts\postNote.controller.js" />
     <Content Include="www\posts\postNote.html" />
     <Content Include="www\posts\getHelpConfirmation.html" />
