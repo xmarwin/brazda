@@ -13,9 +13,9 @@ angular.module('myApp.messages', ['ngRoute'])
 
     .controller('MessagesCtrl', MessagesController);
 
-MessagesController.$inject = ['$routeParams', 'MessageService', '$location'];
+MessagesController.$inject = ['$routeParams', 'MessageService', '$location', '$rootScope'];
 
-function MessagesController($routeParams, messageService, $location) {
+function MessagesController($routeParams, messageService, $location, $rootScope) {
     var vm = this;
 
     var init = function () {
@@ -26,6 +26,7 @@ function MessagesController($routeParams, messageService, $location) {
         messageService.getAllMessages()
             .then(function successCallback(response) {
                 vm.messages = response.data;
+                $rootScope.$broadcast('messageUpdate', 0);
             }, function errorCallback(err) {
                 notification.error(err.data.message);
             });

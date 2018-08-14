@@ -34,7 +34,7 @@ function PostDetailController(postService, $routeParams, $filter, downloadServic
                 vm.post = data.data
 
                 vm.disableHelpButton = !vm.post.hasHelp || vm.post.isDone || vm.post.logHelpMoment !== null;
-                vm.disableLogButton = vm.post.isDone || (vm.post.postType === 'BON' && !vm.post.isUnlocked);                
+                vm.disableLogButton = vm.post.isDone || ((vm.post.postType === 'BON' || vm.post.postType === 'SBN') && !vm.post.isUnlocked);                
             }, function (err) {
 
             });
