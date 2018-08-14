@@ -152,7 +152,8 @@ function PostService(webApiService, $filter) {
             { "postType": "ACT", "name": "Aktivita" },
             { "postType": "CIP", "name": "Šifra" },
             { "postType": "CGC", "name": "Keš" },
-            { "postType": "BON", "name": "Bonus" }
+            { "postType": "BON", "name": "Bonus" },
+            { "postType": "SBN", "name": "Superbonus" }
         ];
     }
 
