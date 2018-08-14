@@ -18,6 +18,14 @@ function SystemService($interval, webApiService, localStorageService, $rootScope
                         saveSourceVersion(version);
                     }
                 });
+            } else {
+                vm.getVersionInfo().then(function (response) {
+                    var version = response.data.version;
+
+                    if (version && version !== '') {
+                        saveSourceVersion(version);
+                    }
+                });
             }
 
             vm.checkValidSource();
@@ -28,6 +36,10 @@ function SystemService($interval, webApiService, localStorageService, $rootScope
 
     vm.getSystemInfo = function () {
         return webApiService.get('system', '', '', false);
+    }
+
+    vm.getVersionInfo = function () {
+        return webApiService.get('version', '', '', false);
     }
 
     vm.checkValidSource = function () {
@@ -41,8 +53,16 @@ function SystemService($interval, webApiService, localStorageService, $rootScope
 
                 var newMessagesNumber = response.data.newMessages;
                 //if (newMessagesNumber > 0) {
-                    $rootScope.$broadcast('messageUpdate', newMessagesNumber);
+                $rootScope.$broadcast('messageUpdate', newMessagesNumber);
                 //}
+            });
+        } else {
+            vm.getVersionInfo().then(function (response) {
+                var version = response.data.version;
+
+                if (version && version !== '') {
+                    saveSourceVersion(version);
+                }
             });
         }
     }
