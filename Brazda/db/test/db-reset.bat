@@ -3,7 +3,7 @@ REM ECHO OFF
 
 REM chcp 65001
 
-SET PGVERSION=10
+SET PGVERSION=9.5
 SET PGCLIENTENCODING=UTF8
 SET PGUSER=postgres
 SET PGPASSWORD=
@@ -94,6 +94,10 @@ if errorLevel 1 ( exit /b %errorLevel%; )
 
 ECHO Aplikuji patch 017...
 "C:\Program Files\PostgreSQL\%PGVERSION%\bin\psql.exe" -f p017.sql
+if errorLevel 1 ( exit /b %errorLevel%; )
+
+ECHO Aplikuji patch 018...
+"C:\Program Files\PostgreSQL\%PGVERSION%\bin\psql.exe" -f p018.sql
 if errorLevel 1 ( exit /b %errorLevel%; )
 
 ECHO Importuji data o stanovištích...

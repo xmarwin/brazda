@@ -17,8 +17,6 @@ as $$
     rec record;
 
   begin
-raise notice 'inColor: %', inColor;
-raise notice 'inTeam: %', inTeam;
     for rec in
       select
         x.password_position,
@@ -50,10 +48,9 @@ raise notice 'inTeam: %', inTeam;
         order by password_position
       ) x
     loop
-raise notice 'passwordCharacter: %' rec.password_character;
       password := password || rec.password_character;
     end loop;
-raise notice 'password: %', password;
+
     return password;
   end;
 $$ language plpgsql;
