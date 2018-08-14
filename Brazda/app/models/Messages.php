@@ -32,7 +32,7 @@ class Messages extends Base
 
 		$this->db->query(
 			'INSERT INTO teams_has_messages
-			 VALUES %v', $record,
+			 %v', $record,
 			'ON CONFLICT (team, message) DO NOTHING'
 		); // query()
 
