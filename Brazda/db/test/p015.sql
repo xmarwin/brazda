@@ -1,7 +1,7 @@
 begin;
 
 create table "schema" (
-	"version"	integer	not null default 15;
+	"version"	integer	not null default 15
 );
 
 commit;

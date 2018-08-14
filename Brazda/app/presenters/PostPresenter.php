@@ -56,8 +56,8 @@ class PostPresenter extends SecuredBasePresenter
 	public function actionBonusList()
 	{
         $viewBonusesFilter = [
-            'team' => $this->team['team'],
-            'post_type' => Models\Posts::BONUS
+            'team'      => $this->team['team'],
+            [ 'post_type IN %in', [ Models\Posts::BONUS, Models\Posts::SUPERBONUS ] ]
         ];
         $bonusPosts = $this->posts->view($viewBonusesFilter)->fetchAll();
 

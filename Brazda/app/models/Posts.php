@@ -16,6 +16,7 @@ class Posts extends Base
     const CIPHER       = 'CIP';
     const CACHE        = 'CGC';
     const BONUS        = 'BON';
+    const SUPERBONUS   = 'SBN';
 
     const MICRO   = 'M';
     const SMALL   = 'S';
