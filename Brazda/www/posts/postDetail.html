@@ -5,7 +5,7 @@
             <i class="fa fa-question-circle-o fa-4x" aria-hidden="true" ng-show="ctrl.post.postType==='CIP'"></i>
             <i class="fa fa-compass fa-4x" aria-hidden="true" ng-show="ctrl.post.postType==='ACT'"></i>
             <i class="fa fa-archive fa-4x" aria-hidden="true" ng-show="ctrl.post.postType==='CGC'"></i>
-            <i class="fa fa-gift fa-4x" aria-hidden="true" ng-show="ctrl.post.postType==='BON'"></i>
+            <i class="fa fa-gift fa-4x" aria-hidden="true" ng-show="ctrl.post.postType==='BON' || ctrl.post.postType==='SBN'"></i>
             <i class="fa fa-play fa-4x" aria-hidden="true" ng-show="ctrl.post.postType==='BEG'"></i>
             <i class="fa fa-flag-checkered fa-4x" aria-hidden="true" ng-show="ctrl.post.postType==='END'"></i>
         </div>
@@ -50,7 +50,7 @@
         <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.cacheType === 'WIG'"><img alt="{{ctrl.post.cacheName}}" title="{{ctrl.post.cacheName}}" src="../assets/images/wherigo_16.gif"></div>
         <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.cacheType == null || ctrl.post.cacheType === ''">T<span class="hidden-xs">yp</span>: -</div>
     </div>
-    <div class="row" ng-show="ctrl.post.postType==='BON' || ctrl.post.postType==='CGC'">
+    <div class="row" ng-show="ctrl.post.postType==='BON' || ctrl.post.postType==='SBN' || ctrl.post.postType==='CGC'">
         <strong class="col-xs-6 col-sm-6 col-md-6 col-xl-6">Velikost:</strong>
         <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.cacheSize === 'M'"><img src="../assets/images/micro.gif" title="{{ctrl.post.sizeName}}" alt="{{ctrl.post.sizeName}}" /></div>
         <div class="col-xs-6 col-sm-6 col-md-6 col-xl-6" ng-show="ctrl.post.cacheSize === 'S'"><img src="../assets/images/small.gif" title="{{ctrl.post.sizeName}}" alt="{{ctrl.post.sizeName}}" /></div>
@@ -88,10 +88,10 @@
             {{ctrl.post.postNote}}
         </div>
     </div>
-    <div class="row" ng-show="ctrl.post.isDone === true && ctrl.post.postType !== 'BON'">
+    <div class="row" ng-show="ctrl.post.isDone === true && (ctrl.post.postType !== 'BON' || ctrl.post.postType==='SBN')">
         <h2 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Heslo k bonusu</h2>
     </div>
-    <div class="row" ng-show="ctrl.post.isDone === true && ctrl.post.postType !== 'BON'">
+    <div class="row" ng-show="ctrl.post.isDone === true && (ctrl.post.postType !== 'BON' || ctrl.post.postType==='SBN')">
         <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12">
             Na {{ctrl.post.passwordPosition}}. místě hesla k bonusu je písmeno {{ctrl.post.passwordCharacter | uppercase}}.
         </div>
@@ -130,7 +130,7 @@
             <a href="#/postNote/{{ctrl.post.post}}" class="btn btn-primary">Poznámka</a>
             <a type="button" ng-href="/api/gpx/post?securityToken={{ctrl.securityToken}}&post={{ctrl.post.post}}" class="btn btn-primary" target="_blank"><i class="fa fa-download" aria-hidden="true"></i> GPX</a>
             <button ng-click="ctrl.getHelp()" ng-show="ctrl.post.hasHelp" class="btn btn-primary" ng-disabled="ctrl.disableHelpButton">Nápověda</button>
-            <button ng-click="ctrl.unlockBonus()" class="btn btn-primary" ng-show="ctrl.post.postType==='BON'" ng-disabled="ctrl.post.isUnlocked">Odemknout</button>
+            <button ng-click="ctrl.unlockBonus()" class="btn btn-primary" ng-show="ctrl.post.postType==='BON' || ctrl.post.postType==='SBN'" ng-disabled="ctrl.post.isUnlocked">Odemknout</button>
             <button ng-click="ctrl.logPost()" class="btn btn-primary" ng-disabled="ctrl.disableLogButton">Zalogovat</button>
             <a href="#/posts" class="btn btn-primary">Zpět</a>
         </div>

@@ -70,7 +70,7 @@ angular.module('myApp', [
 ])
     .config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
         $locationProvider.hashPrefix('');
-        $routeProvider.otherwise({ redirectTo: 'posts' });
+        $routeProvider.otherwise({ redirectTo: 'login' });
     }])
 
     .config(function (localStorageServiceProvider) {
