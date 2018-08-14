@@ -27,7 +27,7 @@ function MessageDetailController($routeParams, messageService) {
     vm.getMessage = function (id) {
         messageService.getMessageById(id)
             .then(function successCallback(response) {
-                vm.message = response.data[id - 1];
+                vm.message = response.data;
             }, function errorCallback(err) {
                 notification.error(err.data.message);
             });

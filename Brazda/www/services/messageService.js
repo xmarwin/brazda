@@ -20,7 +20,7 @@ function MessageService($interval, webApiService, localStorageService, $rootScop
         return webApiService.get('message/new', data, 'GET');
     }
 
-    vm.getMessageById = function (data) {
-        return webApiService.get('message/all', data, 'GET');
+    vm.getMessageById = function (id) {
+        return webApiService.get('message/show', [{ 'message': id }], 'GET');
     }
 }
