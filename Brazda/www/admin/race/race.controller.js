@@ -1,4 +1,4 @@
-'use strict';
+Ôªø'use strict';
 
 angular.module('myApp.admin.race', ['ngRoute'])
 
@@ -13,13 +13,18 @@ angular.module('myApp.admin.race', ['ngRoute'])
 
     .controller('RaceCtrl', RaceController);
 
-RaceController.$inject = ['Notification', 'RaceService', '$filter'];
+RaceController.$inject = ['Notification', 'RaceService', '$filter', 'SystemService'];
 
-function RaceController(notification, raceService, $filter) {
+function RaceController(notification, raceService, $filter, systemService) {
     var vm = this;
 
     var init = function () {
-        vm.raceDuration = 10;
+        systemService.getSystemInfo()
+            .then(function (data) {
+                vm.raceDuration = data.data.raceDuration;
+            }, function (err) {
+                notification.error(err.data.message);
+            });
     }
 
     vm.setRaceDuration = function () {
@@ -27,7 +32,7 @@ function RaceController(notification, raceService, $filter) {
 
         raceService.setRaceDuration()
             .then(function (data) {
-                notification.success("NastavenÌ uloûeno.");
+                notification.success("Nastaven√≠ ulo≈æeno.");
             }, function (err) {
                 notification.error(err.data.message);
             });
@@ -36,7 +41,7 @@ function RaceController(notification, raceService, $filter) {
     vm.startRace = function () {
         raceService.startRace()
             .then(function (data) {
-                notification.success("Z·vod zah·jen.");
+                notification.success("Z√°vod zah√°jen.");
             }, function (err) {
                 notification.error(err.data.message);
             });
