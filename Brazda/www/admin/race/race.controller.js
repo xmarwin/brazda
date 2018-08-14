@@ -28,9 +28,7 @@ function RaceController(notification, raceService, $filter, systemService) {
     }
 
     vm.setRaceDuration = function () {
-        var data = { "raceDuration": vm.raceDuration };
-
-        raceService.setRaceDuration()
+        raceService.setRaceDuration(vm.raceDuration)
             .then(function (data) {
                 notification.success("Nastavení uloženo.");
             }, function (err) {
