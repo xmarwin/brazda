@@ -3,7 +3,11 @@
     <h1>Admin - zprávy</h1>
     <a href="#/admin/messages/add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Vytvořit zprávu</a>
     <div class="list-group">
-        <div class="list-group-item" ng-repeat="message in ctrl.messages">
+        <div ng-show="ctrl.messages.length === 0 || ctrl.messages[0] === null">
+            <br />
+            Zatím žádné odeslané zprávy.
+        </div>
+        <div class="list-group-item" ng-repeat="message in ctrl.messages" ng-show="ctrl.messages.length > 0 && ctrl.messages[0] !== null">
             <div class="row">
                 <div class="col-lg-1 col-sm-1 col-md-1 col-xl-1">{{message.message}}</div>
                 <div class="col-lg-2 col-sm-2 col-md-2 col-xl-2">{{message.moment | date: 'medium'}}</div>
