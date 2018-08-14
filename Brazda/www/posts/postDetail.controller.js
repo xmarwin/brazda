@@ -34,7 +34,7 @@ function PostDetailController(postService, $routeParams, $filter, downloadServic
                 vm.post = data.data
 
                 vm.disableHelpButton = !vm.post.hasHelp || vm.post.isDone || vm.post.logHelpMoment !== null;
-                vm.disableLogButton = vm.post.isDone || ((vm.post.postType === 'BON' || vm.post.postType === 'SBN') && !vm.post.isUnlocked);                
+                vm.disableLogButton = vm.post.isDone || ((vm.post.postType === 'BON' || vm.post.postType === 'SBN') && !vm.post.isUnlocked);
             }, function (err) {
 
             });
@@ -48,7 +48,17 @@ function PostDetailController(postService, $routeParams, $filter, downloadServic
             value.waypoint_type = $filter('filter')(vm.waypointTypes, { 'waypointType': value.waypoint_type }, true)[0];
         });
 
-        vm.securityToken = authService.team.securityToken;
+        getSecurityToken();
+    }
+
+    var getSecurityToken = function () {
+        if (authService.team) {
+            vm.securityToken = authService.team.securityToken;
+        } else {
+            setTimeout(function () {
+                getSecurityToken();
+            }, 100);
+        }
     }
 
     vm.downloadGpx = function () {
