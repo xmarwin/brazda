@@ -27,6 +27,16 @@ class MessagePresenter extends SecuredBasePresenter
 		$this->sendResource($this->outputType);
 	} // actionDefault()
 
+	public function actionShow($message)
+	{
+		$this->resource = (array) $this->messages->show(
+			$this->team['team'],
+			$message
+		); // show()
+
+		$this->sendResource($this->outputType);
+	} // actionShow()
+
 	public function actionNew()
 	{
 		$this->actionDefault();
