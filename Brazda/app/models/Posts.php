@@ -226,7 +226,7 @@ class Posts extends Base
 
                 coalesce(pn.note, NULL) AS post_note,
 
-                CASE WHEN lb.moment IS NOT NULL THEN TRUE ELSE FALSE END as is_unlocked,
+                CASE WHEN lb.moment IS NOT NULL THEN TRUE ELSE FALSE END AS is_unlocked,
                 CASE WHEN lo.moment IS NOT NULL THEN TRUE ELSE FALSE END AS is_done,
 
                 lo.moment AS log_out_moment,

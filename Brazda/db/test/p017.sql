@@ -1,15 +1,5 @@
 begin;
 
-alter table posts
-alter column shibboleth
-drop not null;
-
-alter table posts
-add password_character character varying (2) not null default '_';
-
-alter table posts
-add password_position smallint not null default 0;
-
 create or replace function bonusPassword(inColor character (3), inTeam integer) returns character varying (20)
 as $$
   declare
@@ -17,8 +7,6 @@ as $$
     rec record;
 
   begin
-raise notice 'inColor: %', inColor;
-raise notice 'inTeam: %', inTeam;
     for rec in
       select
         x.password_position,
@@ -50,12 +38,14 @@ raise notice 'inTeam: %', inTeam;
         order by password_position
       ) x
     loop
-raise notice 'passwordCharacter: %' rec.password_character;
-      password := password || rec.password_character;
+      password := concat(password, rec.password_character);
     end loop;
-raise notice 'password: %', password;
+
     return password;
   end;
 $$ language plpgsql;
+
+update "schema"
+set "version" = 17;
 
 commit;
