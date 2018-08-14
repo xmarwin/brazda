@@ -241,8 +241,8 @@ class Posts extends Base
                 CASE WHEN lb.moment IS NOT NULL THEN p.bonus_code ELSE NULL END AS bonus_code,
                 CASE WHEN lh.moment IS NOT NULL THEN p.help ELSE NULL END AS help
             %else
-                bonusPassword(p.color, %i) AS password, ", $team,
-               "p.password_character,
+                adminBonusPassword(p.color) AS password,
+                p.password_character,
                 p.password_position,
                 p.shibboleth,
                 p.bonus_code,
