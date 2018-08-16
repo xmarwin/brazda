@@ -2,18 +2,11 @@ BEGIN;
 
 COPY teams (team, team_type, name, shibboleth, description, is_active, team_status, tracking_allowed, telephone, email) FROM stdin;
 1	ORG	BRAZDA	Mocn8Klika	Organizační tým	t	STR	t	\N	\N
-2	COM	Přes mrtvoly	8Omerta.		t	STR	t	\N	\N
-3	COM	Tři chlapi	Bajkonur3!		t	STR	t	\N	\N
-4	COM	Perun s náma	5Hoříme?		t	STR	t	\N	\N
-5	COM	Ušaté myši	Bééčka12!		t	STR	t	\N	\N
-6	COM	BO!!!	4Banýk!!!		t	STR	t	\N	\N
-7	COM	Ptakopysk	1Pterodaktyl.		t	STR	t	\N	\N
-8	COM	KaNaVo	Wakata8!		t	STR	t	\N	\N
-9	COM	Fantastické čtyřkY	Pentagon6.		t	STR	t	\N	\N
-10	COM	Radegastova rota	2Rychlost?		t	STR	t	\N	\N
-11	COM	Geokvočny	1Zeměřváč!		t	STR	t	\N	\N
-12	COM	Hanáci	Montenegro4?		t	STR	t	\N	\N
-13	COM	Čuňoši	Kolaloka?		t	STR	t	\N	\N
+2	COM	Přes mrtvoly	koruna.		t	STR	t	\N	\N
+3	COM	Čtyři chlapi	provaz		t	STR	t	\N	\N
+4	COM	Ušaté myši	kyvadlo		t	STR	t	\N	\N
+5	COM	tree	jablko		t	STR	t	\N	\N
+6	COM	Hanácké hóf	sekera		t	STR	t	\N	\N
 \.
 
 SELECT pg_catalog.setval('teams_team_seq', 13, true);
@@ -30,44 +23,15 @@ COPY players (player, team, name) FROM stdin;
 9	3	mara biker
 10	3	Ekharon
 11	3	h-Vipet
-12	4	2pírko
-13	4	Consolador
-14	4	Wi-Li
-15	4	?Perun?
-16	5	kenod
-17	5	markubz
-18	5	janule90
-19	5	patrick
-20	6	Frenkonix
-21	6	Stepan81
-22	7	Apsalar
-23	7	ZCh
-24	7	soukmenovci
-25	7	karlllik
-26	8	Chillie-M
-27	8	KaNaVo
-28	8	MalyPlch
-29	9	Kate.schumacher
-30	9	Brumbambulinka
-31	9	Asterix
-32	9	Obelix
-33	10	kačkafibi
-34	10	Cholísektom
-35	10	Yoki X
-36	10	Yoki XY
-37	10	xfibi
-38	11	Yoki5
-39	11	mamča
-40	11	Kačka fibi
-41	11	1. yokiholka
-42	11	2. yokiholka
-43	12	Robiczech
-44	12	Pekyesp
-45	12	Macistfman
-46	12	DuffKrabica
-47	13	morsky_konik
-48	13	sotlinka
-49	13	XiXao02
+12	4	kenod
+13	4	markubz
+14	4	janule90
+15	5	Frenkonix
+16	5	Stepan81
+17	6	Robiczech
+18	6	Pekyesp
+19	6	Macistfman
+20	6	DuffKrabica
 \.
 
 SELECT pg_catalog.setval('players_player_seq', 49, true);
