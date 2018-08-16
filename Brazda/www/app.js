@@ -27,6 +27,9 @@ angular.module('myApp', [
     'myApp.downloadService',
     'myApp.trackingService',
     'myApp.resultService',
+    'myApp.systemService',
+    'myApp.raceService',
+    'myApp.messageService',
 
     // directives
     'myApp.waitDirective',
@@ -41,6 +44,8 @@ angular.module('myApp', [
     'myApp.postNote',
     'myApp.postLog',
     'myApp.bonusUnlock',
+    'myApp.messages',
+    'myApp.messageDetail',
 
     //Admin
     'myApp.admin.teams',
@@ -51,6 +56,11 @@ angular.module('myApp', [
     'myApp.admin.addPost',
     'myApp.admin.editPost',
 
+    'myApp.admin.race',
+
+    'myApp.admin.messages',
+    'myApp.admin.addMessage',
+
     'myApp.admin.result',
 
     //Common
@@ -60,7 +70,7 @@ angular.module('myApp', [
 ])
     .config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
         $locationProvider.hashPrefix('');
-        $routeProvider.otherwise({ redirectTo: 'posts' });
+        $routeProvider.otherwise({ redirectTo: 'login' });
     }])
 
     .config(function (localStorageServiceProvider) {
@@ -93,8 +103,9 @@ angular.module('myApp', [
         $httpProvider.interceptors.push('ResponseObserver');
     })
 
-    .run(['TrackingService', function (trackingService) {
+    .run(['TrackingService', 'SystemService', function (trackingService, systemService) {
         trackingService.startTracking();
+        systemService.start();
     }])
 
     .run(function ($window, $rootScope) {

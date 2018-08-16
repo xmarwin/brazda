@@ -30,13 +30,13 @@
                 Typ keše:
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <select ng-options="cacheType.name for cacheType in ctrl.cacheTypes" ng-model="ctrl.post.cacheType" class="form-control" ng-disabled="ctrl.post.postType.postType !== 'CGC' && ctrl.post.postType.postType !== 'BON'"></select>
+                <select ng-options="cacheType.name for cacheType in ctrl.cacheTypes" ng-model="ctrl.post.cacheType" class="form-control" ng-disabled="ctrl.post.postType.postType !== 'CGC' && ctrl.post.postType.postType !== 'BON' && ctrl.post.postType.postType !== 'SBN'"></select>
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 Velikost keše:
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <select ng-options="postSize.name for postSize in ctrl.postSizes" ng-model="ctrl.post.postSize" class="form-control" ng-disabled="ctrl.post.postType.postType !== 'CGC' && ctrl.post.postType.postType !== 'BON'"></select>
+                <select ng-options="postSize.name for postSize in ctrl.postSizes" ng-model="ctrl.post.postSize" class="form-control" ng-disabled="ctrl.post.postType.postType !== 'CGC' && ctrl.post.postType.postType !== 'BON' && ctrl.post.postType.postType !== 'SBN'"></select>
             </div>
         </div>
         <div class="row form-group">
@@ -67,27 +67,27 @@
                 <input type="number" ng-model="ctrl.post.maxScore" id="maxScore" name="maxScore" class="form-control" />
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                Indicie:
+                <abbr title="Heslo pro zalogování stanoviště">Heslo:</abbr>
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 <input type="text" ng-model="ctrl.post.shibboleth" id="shibboleth" name="shibboleth" class="form-control" />
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                Bonusový kód:
+                <abbr title="Kód, kterým se stanoviště odemkne k zalogování (bonus a superbonus)">Bonusový kód:</abbr>
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <input type="text" ng-model="ctrl.post.bonusCode" id="bonusCode" name="bonusCode" class="form-control" ng-disabled="ctrl.post.postType.postType !== 'BON'" />
+                <input type="text" ng-model="ctrl.post.bonusCode" id="bonusCode" name="bonusCode" class="form-control" ng-disabled="ctrl.post.postType.postType !== 'BON' && ctrl.post.postType.postType !== 'SBN'" />
             </div>
         </div>
         <div class="row form-group">
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                Hint:
+                <abbr title="Totéž, co hint v GC">Hint:</abbr>
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 <input type="text" ng-model="ctrl.post.hint" id="hint" name="hint" class="form-control" />
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                Nápověda:
+                <abbr title="Používá zejména se u šifer - promítne se do bodování">Nápověda:</abbr>
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 <input type="text" ng-model="ctrl.post.help" id="help" name="help" class="form-control" />
@@ -112,6 +112,12 @@
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 <input type="number" ng-model="ctrl.post.longitude" class="form-control" />
             </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <abbr title="Písmeno, které tým získá po zalogování stanoviště">Písmeno (super)bonusu:</abbr>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <input type="text" ng-model="ctrl.post.passwordCharacter" id="passwordCharacter" name="passwordCharacter" class="form-control" ng-disabled="ctrl.post.postType.postType === 'SBN'" />
+            </div>
         </div>
         <div class="row form-group">
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
@@ -125,6 +131,12 @@
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 <input type="time" ng-model="ctrl.post.openTo" id="openTo" name="openTo" class="form-control" />
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <abbr title="Pozice písmene, které tým získá po zalogování stanoviště">Pozice písmene (super)bonusu:</abbr>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <input type="number" ng-model="ctrl.post.passwordPosition" id="passwordPosition" name="passwordPosition" class="form-control" ng-disabled="ctrl.post.postType.postType === 'SBN'" />
             </div>
         </div>
         <div class="row form-group">

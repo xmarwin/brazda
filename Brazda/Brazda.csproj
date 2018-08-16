@@ -5116,6 +5116,10 @@
     <Content Include="LICENSE" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="www\admin\messages\addMessage.controller.js" />
+    <Content Include="www\admin\messages\addMessage.html" />
+    <Content Include="www\admin\messages\messagesAdmin.controller.js" />
+    <Content Include="www\admin\messages\messagesAdmin.html" />
     <Content Include="www\admin\posts\addPost.controller.js" />
     <Content Include="www\admin\posts\addPost.html" />
     <Content Include="www\admin\posts\addWaypointModal.html" />
@@ -5124,6 +5128,8 @@
     <Content Include="www\admin\posts\deletePostConfirmation.html" />
     <Content Include="www\admin\posts\postsAdmin.controller.js" />
     <Content Include="www\admin\posts\postsAdmin.html" />
+    <Content Include="www\admin\race\race.controller.js" />
+    <Content Include="www\admin\race\race.html" />
     <Content Include="www\admin\result\result.controller.js" />
     <Content Include="www\admin\result\result.html" />
     <Content Include="www\admin\teams\addTeam.controller.js" />
@@ -5640,6 +5646,10 @@
     <Content Include="www\login\logout.html" />
     <Content Include="www\map\map.html" />
     <Content Include="www\map\map.js" />
+    <Content Include="www\messages\messageDetail.html" />
+    <Content Include="www\messages\messageDetail.controller.js" />
+    <Content Include="www\messages\messages.controller.js" />
+    <Content Include="www\messages\messages.html" />
     <Content Include="www\posts\postNote.controller.js" />
     <Content Include="www\posts\postNote.html" />
     <Content Include="www\posts\getHelpConfirmation.html" />
@@ -5655,6 +5665,9 @@
     <Content Include="www\rules\rules.html" />
     <Content Include="www\rules\rules.js" />
     <Content Include="www\rules\rules_test.js" />
+    <Content Include="www\services\messageService.js" />
+    <Content Include="www\services\raceService.js" />
+    <Content Include="www\services\systemService.js" />
     <Content Include="www\services\resultService.js" />
     <Content Include="www\services\trackingService.js" />
     <Content Include="www\services\webApi.interceptor2.js" />

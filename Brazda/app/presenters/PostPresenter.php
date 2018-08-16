@@ -56,8 +56,8 @@ class PostPresenter extends SecuredBasePresenter
 	public function actionBonusList()
 	{
         $viewBonusesFilter = [
-            'team' => $this->team['team'],
-            'post_type' => Models\Posts::BONUS
+            'team'      => $this->team['team'],
+            [ 'post_type IN %in', [ Models\Posts::BONUS, Models\Posts::SUPERBONUS ] ]
         ];
         $bonusPosts = $this->posts->view($viewBonusesFilter)->fetchAll();
 
@@ -76,11 +76,12 @@ class PostPresenter extends SecuredBasePresenter
                 'unlocked_moment' => $bonusPost->log_bonus_moment,
                 'done_moment'     => $bonusPost->log_out_moment,
                 'password'    => $bonusPost->password,
+                'password_character' => $bonusPost->password_character,
+                'password_position' => $bonusPost->password_position,
                 'color'       => [
                     'name'    => $bonusPost->color_name,
                     'code'    => $bonusPost->color_code
-                ],
-                'indicies'    => []
+                ]
             ];
             if ($bonusPost->is_unlocked) {
                 $bonus['bonus_code'] = $bonusPost->bonus_code;
@@ -88,18 +89,7 @@ class PostPresenter extends SecuredBasePresenter
             if ($bonusPost->is_done) {
                 $bonus['shibboleth'] = $bonusPost->shibboleth;
             } // if
-            foreach ($allPosts as $post) {
-                if ($post->color != $bonusPost->color
-                || !isset($post->is_done)
-                || $post->is_done == false
-                || $post->post_type == Models\Posts::BONUS) continue;
 
-                $bonus['indicies'][] = [
-                    'post' => $post->post,
-                    'name' => $post->name,
-                    'shibboleth' => $post->shibboleth
-                ];
-            } // foreach
             $this->resource[] = $bonus;
         } // foreach
 
