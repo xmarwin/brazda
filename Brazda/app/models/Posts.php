@@ -60,7 +60,7 @@ class Posts extends Base
         )->fetch();
     } // find()
 
-	public function listView(array $filter = [], array $order = [ 'pt.rank' => 'ASC', 'p.color' => 'ASC', 'p.name' => 'ASC' ], array $limit = [])
+    public function listView(array $filter = [], array $order = [ 'pt.rank' => 'ASC', 'p.color' => 'ASC', 'p.name' => 'ASC' ], array $limit = [])
     {
         $filter = $this->normalizeFilter($filter, [
             'post'       => 'p.post',
@@ -165,7 +165,7 @@ class Posts extends Base
         );
     } // listView()
 
-     public function view(array $filter = [], array $order = [ 'pt.rank' => 'ASC', 'p.color' => 'ASC', 'p.name' => 'ASC' ], array $limit = [])
+    public function view(array $filter = [], array $order = [ 'pt.rank' => 'ASC', 'p.color' => 'ASC', 'p.name' => 'ASC' ], array $limit = [])
     {
         $filter = $this->normalizeFilter($filter, [
             'post'       => 'p.post',
