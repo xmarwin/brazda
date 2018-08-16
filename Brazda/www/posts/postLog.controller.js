@@ -33,7 +33,7 @@ function PostLogController(postService, $routeParams, $filter, downloadService, 
                         message: "Další pokus o zadání heslo můžete udělat až v " + $filter('date')(response.data.nextTimestamp, 'mediumTime'), delay: null
                     });
                 } else if (response.data.code === 200) {
-                    $location.path('#/posts');
+                    $location.path('posts');
                     notification.success('Gratulujeme, to je správná odpověď.');
                 } else {
                     notification.error({ message: "Stala se chyba: " + response.data.status, delay: null });

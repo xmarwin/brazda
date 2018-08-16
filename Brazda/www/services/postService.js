@@ -7,7 +7,7 @@ PostService.$inject = ['WebApiService', '$filter'];
 
 function PostService(webApiService, $filter) {
     var vm = this;
-    
+
     vm.getPosts = function (teamId) {
         return webApiService.get('post/list');
     }
@@ -53,22 +53,22 @@ function PostService(webApiService, $filter) {
     }
 
     // http://brazda/api/note/create?securityToken=...
-    vm.createNote  = function (data) {
+    vm.createNote = function (data) {
         return webApiService.get('note/create', data, 'POST');
     }
 
     // http://brazda/api/note/update?securityToken=...
-    vm.updateNote  = function (data) {
+    vm.updateNote = function (data) {
         return webApiService.get('note/update', data, 'POST');
     }
 
     // http://brazda/api/note/delete?securityToken=...
-    vm.deleteNote  = function (id) {
+    vm.deleteNote = function (id) {
         return webApiService.get('note/delete', [{ 'post': id }]);
     }
 
     // http://brazda/api/note/save?securityToken=...
-    vm.saveNote  = function (data) {
+    vm.saveNote = function (data) {
         return webApiService.get('note/save', data, 'POST');
     }
 
@@ -102,7 +102,8 @@ function PostService(webApiService, $filter) {
             { "color": "YEL", "name": "Žlutá", "code": "rgb(255, 255, 153)" },
             { "color": "GRN", "name": "Zelená", "code": "rgb(146, 208, 80)" },
             { "color": "BLU", "name": "Modrá", "code": "rgb(66, 133, 244)" },
-            { "color": "VLT", "name": "Fialová", "code": "rgb(139, 0, 255)" }
+            { "color": "VLT", "name": "Fialová", "code": "rgb(139, 0, 255)" },
+            { "color": "GLD", "name": "Zlatá", "code": "rgb(255, 215, 0)" }
         ];
     }
 
@@ -152,7 +153,8 @@ function PostService(webApiService, $filter) {
             { "postType": "ACT", "name": "Aktivita" },
             { "postType": "CIP", "name": "Šifra" },
             { "postType": "CGC", "name": "Keš" },
-            { "postType": "BON", "name": "Bonus" }
+            { "postType": "BON", "name": "Bonus" },
+            { "postType": "SBN", "name": "Superbonus" }
         ];
     }
 

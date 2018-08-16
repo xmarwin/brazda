@@ -19,13 +19,20 @@ class MessagePresenter extends SecuredBasePresenter
 		$messages = $this->messages->enumeration($this->team['team']);
 		$this->resource = !empty($messages)
 			? $messages
-			: [
-				'status' => 'OK',
-				'code'   => 200
-			];
+			: [ null ];
 
 		$this->sendResource($this->outputType);
 	} // actionDefault()
+
+	public function actionShow($message)
+	{
+		$this->resource = (array) $this->messages->show(
+			$this->team['team'],
+			$message
+		); // show()
+
+		$this->sendResource($this->outputType);
+	} // actionShow()
 
 	public function actionNew()
 	{
@@ -37,10 +44,7 @@ class MessagePresenter extends SecuredBasePresenter
 		$messages = $this->messages->enumeration($this->team['team'], true);
 		$this->resource = !empty($messages)
 			? $messages
-			: [
-				'status' => 'OK',
-				'code'   => 200
-			];
+			: [ null ];
 
 		$this->sendResource($this->outputType);
 	} // if

@@ -131,7 +131,9 @@ function EditPostController($routeParams, $location, notification, authService, 
             "withStaff": post.withStaff,
             "waypoints": waypoints,
             "openFrom": $filter("date")(post.openFrom, "shortTime"),
-            "openTo": $filter("date")(post.openTo, "shortTime")
+            "openTo": $filter("date")(post.openTo, "shortTime"),
+            "passwordCharacter": post.passwordCharacter,
+            "passwordPosition": post.passwordPosition
         }
 
         postService.updatePost(input)

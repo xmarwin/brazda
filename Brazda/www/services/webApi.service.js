@@ -9,10 +9,12 @@ function WebApiService($http, $q, $rootScope, $log) {
     var vm = this;
     vm.online;
 
-    vm.get = function (endpointName, parameters, method) {
+    vm.get = function (endpointName, parameters, method, showLoader) {
         var deferred = $q.defer();
         var data;
         var url;
+
+        showLoader = showLoader && true;
 
         if (!vm.online) {
             var data = {}
@@ -20,11 +22,13 @@ function WebApiService($http, $q, $rootScope, $log) {
             deferred.reject(data)
         }
 
-        $rootScope.$broadcast('app-start-loading');
+        if (showLoader) {
+            $rootScope.$broadcast('app-start-loading');
+        }
 
         //$log.log('broadcasting app-start-loading');
 
-        if (angular.isUndefined(method)) {
+        if (angular.isUndefined(method) || method === '') {
             method = 'GET';
         }
 
@@ -40,11 +44,15 @@ function WebApiService($http, $q, $rootScope, $log) {
             url: url,
             data: data
         }).then(function successCallback(response) {
-            $rootScope.$broadcast('app-finish-loading');
+            if (showLoader) {
+                $rootScope.$broadcast('app-finish-loading');
+            }
             //$log.log('broadcasting app-finish-loading');
             deferred.resolve(response);
         }, function errorCallback(err) {
-            $rootScope.$broadcast('app-finish-loading');
+            if (showLoader) {
+                $rootScope.$broadcast('app-finish-loading');
+            }
             //$log.log('broadcasting app-finish-loading');
             deferred.reject(err);
         });

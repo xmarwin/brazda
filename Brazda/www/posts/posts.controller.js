@@ -26,9 +26,18 @@ function PostsController(authService, postService, $filter, notification) {
 
         vm.postTypes = postService.getPostTypes();
         vm.postColors = postService.getPostColors();
-        setTimeout(function () {
+
+        getSecurityToken();
+    }
+
+    var getSecurityToken = function () {
+        if (authService.team) {
             vm.securityToken = authService.team.securityToken;
-        }, 1000);
+        } else {
+            setTimeout(function () {
+                getSecurityToken();
+            }, 100);
+        }
     }
 
     vm.filter = function () {

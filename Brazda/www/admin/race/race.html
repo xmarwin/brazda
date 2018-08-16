@@ -1,0 +1,20 @@
+﻿<please-wait></please-wait>
+<div>
+    <h1>Nastavení parametrů závodu</h1>
+    <div class="row form-group">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            Délka závodu (v hodinách):
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <input type="text" name="raceDuration" ng-model="ctrl.raceDuration" class="form-control" />
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <button ng-click="ctrl.setRaceDuration()" class="btn btn-default">Nastavit</button>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <button ng-click="ctrl.startRace()" class="btn btn-danger">Zahájit závod</button>
+        </div>
+    </div>
+</div>
