@@ -5,16 +5,15 @@ INSERT INTO teams (team, team_type, name, shibboleth, description) VALUES
 	(2, 'COM','Přes mrtvoly', 'koruna', ''),
 	(3, 'COM','Čtyři chlapi', 'provaz', ''),
 	(4, 'COM','Perun s náma', '5Hoříme?', ''),
-	(5, 'COM','Ušaté myši', 'Bééčka12!', ''),
+	(5, 'COM','Ušaté myši', 'kyvadlo', ''),
 	(6, 'COM','tree', 'jablko', ''),
 	(7, 'COM','Ptakopysk', '1Pterodaktyl.', ''),
 	(8, 'COM','KaNaVo', 'Wakata8!', ''),
 	(9, 'COM','Fantastické čtyřkY', 'Pentagon6.', ''),
-	(10, 'COM','Ušaté myši', 'kyvadlo', ''),
-	(11, 'COM','Geokvočny', '1Zeměřváč!', ''),
-	(12, 'COM', 'Hanácké Hóf', 'sekera', ''),
-	(13, 'COM','Čuňoši', 'Kolaloka?', '');
---	(14, 'COM','(ještě se poradíme)', 'nevímdál.', '');
+	(10, 'COM','Geokvočny', '1Zeměřváč!', ''),
+	(11, 'COM', 'Hanácké Hóf', 'sekera', ''),
+	(12, 'COM','Čuňoši', 'Kolaloka?', '');
+--	(13, 'COM','(ještě se poradíme)', 'nevímdál.', '');
 
 
 ---------------------------------------------
