@@ -2,7 +2,7 @@ BEGIN;
 
 COPY teams (team, team_type, name, shibboleth, description, is_active, team_status, tracking_allowed, telephone, email) FROM stdin;
 1	ORG	BRAZDA	Mocn8Klika	Organizační tým	t	STR	t	\N	\N
-2	COM	Přes mrtvoly	koruna.		t	STR	t	\N	\N
+2	COM	Přes mrtvoly	koruna		t	STR	t	\N	\N
 3	COM	Čtyři chlapi	provaz		t	STR	t	\N	\N
 4	COM	Ušaté myši	kyvadlo		t	STR	t	\N	\N
 5	COM	tree	jablko		t	STR	t	\N	\N
