@@ -29,18 +29,18 @@ function SystemService($interval, webApiService, localStorageService, $rootScope
             }
 
             vm.checkValidSource();
-            //vm.instance = $interval(vm.checkValidSource, 1000 * 60 * 3);
-            vm.instance = $interval(vm.checkValidSource, 1000 * 10);
+            vm.instance = $interval(vm.checkValidSource, 1000 * 60 * 3);
+            //vm.instance = $interval(vm.checkValidSource, 1000 * 10);
         }, 100);
-    }
+    };
 
     vm.getSystemInfo = function () {
         return webApiService.get('system', '', '', false);
-    }
+    };
 
     vm.getVersionInfo = function () {
         return webApiService.get('version', '', '', false);
-    }
+    };
 
     vm.checkValidSource = function () {
         if (authService.isAuthorized()) {
@@ -65,7 +65,7 @@ function SystemService($interval, webApiService, localStorageService, $rootScope
                 }
             });
         }
-    }
+    };
 
     function saveSourceVersion(sourceVersion) {
         return localStorageService.set('sourceVersion', sourceVersion);
