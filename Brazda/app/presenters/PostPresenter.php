@@ -130,10 +130,26 @@ class PostPresenter extends SecuredBasePresenter
         $post = $this->posts->find($post);
         $this->resource['help'] = $post['help'];
         $this->sendResource($this->outputType);
-	} // actionHelp()
+    } // actionHelp()
 
-	public function actionLog($post, $shibboleth)
-	{
+    public function actionLog($post, $shibboleth)
+    {
+        if (!$this->logs->isStarted($this->team['team'], $post)) {
+            $this->resource = [
+                'status' => 'Not started',
+                'code'   => 401
+            ];
+            $this->sendResource($this->outputType);
+        } // if
+
+        if ($this->logs->isFinished($this->team['team'])) {
+            $this->resource = [
+                'status' => 'Already finished',
+                'code'   => 403
+            ];
+            $this->sendResource($this->outputType);
+        } // if
+
         $lastLog = $this->logs->find([
             'team'     => (int) $this->team['team'],
             'post'     => (int) $post,
