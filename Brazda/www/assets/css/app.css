@@ -1,5 +1,9 @@
 ﻿/* app css stylesheet */
 
+.ng-scope .navbar {
+    margin-bottom: 0;
+}
+
 .menu {
     list-style: none;
     border-bottom: 0.1em solid black;
@@ -7,22 +11,22 @@
     padding: 0 0 0.5em;
 }
 
-    .menu:before {
-        content: "[";
-    }
+.menu:before {
+    content: "[";
+}
 
-    .menu:after {
-        content: "]";
-    }
+.menu:after {
+    content: "]";
+}
 
-    .menu > li {
-        display: inline;
-    }
+.menu > li {
+    display: inline;
+}
 
-        .menu > li + li:before {
-            content: "|";
-            padding-right: 0.3em;
-        }
+.menu > li + li:before {
+    content: "|";
+    padding-right: 0.3em;
+}
 
 .postItem {
     border: 1px solid black;
@@ -107,11 +111,11 @@ th {
     table-layout: fixed
 }
 
-    th div {
-        position: absolute;
-        left: -15px;
-        top: -1px;
-    }
+th div {
+    position: absolute;
+    left: -15px;
+    top: -1px;
+}
 
 .bonus {
     height: 60px;
@@ -121,10 +125,10 @@ th {
     margin-top: 200px;
 }
 
-    .results-table td {
-        padding: 3px;
-        width: 50px!important;
-    }
+.results-table td {
+    padding: 3px;
+    width: 50px!important;
+}
 
 .result-1 {
     background-color: red;
@@ -136,4 +140,16 @@ th {
 
 .result-3 {
     background-color: #ff8282;
+}
+
+.content {
+    text-align: justify;
+}
+
+.actions {
+    line-height: 300%;
+}
+
+.btn.custom {
+    min-width: 111px;
 }
