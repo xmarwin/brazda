@@ -38,6 +38,7 @@ class Posts extends Base
     const GREEN       = 'GRN';
     const BLUE        = 'BLU';
     const VIOLET      = 'VLT';
+    const GOLD        = 'GLD';
 
     protected
         $teams;

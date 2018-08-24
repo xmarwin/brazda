@@ -165,17 +165,66 @@ class Logs extends Base
             &&   time() < $lastErrorLogs[0]->expire->getTimestamp());
     } // canLog()
 
+    public function isStarted($team, $post)
+    {
+        $postData = $this->db->query(
+            "SELECT *
+             FROM posts
+             WHERE post = %i", $post
+        )->fetch();
+
+        if ($postData->post_type == Posts::BEGIN) {
+            return true;
+        } // if
+
+        $beginLog = $this->db->query(
+            "SELECT p.*
+             FROM posts p
+             LEFT JOIN logs l USING (post)
+             WHERE p.post_type LIKE 'BEG'
+             AND l.team = %i", $team,
+            "AND l.log_type LIKE 'OUT'"
+        )->fetch();
+
+        return !empty($beginLog);
+    } // isStarted()
+
+    public function isFinished($team)
+    {
+        $endLog = $this->db->query(
+			"SELECT p.*
+			 FROM posts p
+			 LEFT JOIN logs l USING (post)
+			 WHERE p.post_type LIKE 'END'
+			 AND l.team = %i", $team,
+			"AND l.log_type LIKE 'OUT'"
+        )->fetch();
+
+        return !empty($endLog);
+    } // isFinished()
+
     public function canBonusLog($team, $post)
     {
         $team = (int) $team;
         $post = (int) $post;
 
-        $parameters = $this->context->getParameters();
-        $interval = "{$parameters['bonusInterval']} minutes";
+        $bonusPost = $this->db->query(
+            "SELECT *
+             FROM posts
+             WHERE post = %i", $post
+        )->fetch();
+
+        if ($bonusPost->post_type == Posts::SUPERBONUS) {
+            $parameters = $this->context->getParameters();
+            $interval = "{$parameters['superbonusInterval']} minutes";
+        } else {
+            $parameters = $this->context->getParameters();
+            $interval = "{$parameters['bonusInterval']} minutes";
+        } // if
 
         $lastErrorLogs = $this->db->query(
             "SELECT *,
-                (moment::timestamp + %s::interval", $interval, ") AS expire
+                 (moment::timestamp + %s::interval", $interval, ") AS expire
              FROM logs
              WHERE team = %i", $team,
             "AND post = %i", $post,
