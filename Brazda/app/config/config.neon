@@ -1,6 +1,7 @@
 parameters:
     logInterval: 5 # minutes
     bonusInterval: 10 # minutes
+    superbonusInterval: 30 # minutes
 
 
 application:
