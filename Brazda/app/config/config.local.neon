@@ -1,9 +1,0 @@
-parameters:
-	database:
-		driver: postgre
-		host: 127.0.0.1
-		user: brazda
-		password: FzwtMS/jq.XSQ
-		database: brazda_test
-		resultDetectTypes: true
-		profiler: true
