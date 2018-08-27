@@ -31,10 +31,10 @@ function PostDetailController(postService, $routeParams, $filter, downloadServic
 
         postService.getPost(vm.postId)
             .then(function (data) {
-                vm.post = data.data
+                vm.post = data.data;
 
                 vm.disableHelpButton = !vm.post.hasHelp || vm.post.isDone || vm.post.logHelpMoment !== null;
-                vm.disableLogButton = vm.post.isDone || ((vm.post.postType === 'BON' || vm.post.postType === 'SBN') && !vm.post.isUnlocked);
+                vm.disableLogButton = vm.post.isDone || (vm.post.postType === 'BON' || vm.post.postType === 'SBN') && !vm.post.isUnlocked;
             }, function (err) {
 
             });
@@ -49,7 +49,7 @@ function PostDetailController(postService, $routeParams, $filter, downloadServic
         });
 
         getSecurityToken();
-    }
+    };
 
     var getSecurityToken = function () {
         if (authService.team) {
@@ -59,11 +59,11 @@ function PostDetailController(postService, $routeParams, $filter, downloadServic
                 getSecurityToken();
             }, 100);
         }
-    }
+    };
 
     vm.downloadGpx = function () {
         downloadService.getGpx(vm.post.post);
-    }
+    };
 
     vm.getHelp = function () {
         ngDialog.openConfirm({
@@ -73,15 +73,15 @@ function PostDetailController(postService, $routeParams, $filter, downloadServic
         }, function (err) {
 
         });
-    }
+    };
 
     vm.logPost = function () {
         $location.path("/postLog/" + vm.post.post);
-    }
+    };
 
     vm.unlockBonus = function () {
         $location.path("/bonusUnlock/" + vm.post.post);
-    }
+    };
 
     function getHelpInt() {
         postService.getHelp(vm.postId)
@@ -89,6 +89,9 @@ function PostDetailController(postService, $routeParams, $filter, downloadServic
                 notification.success('Nápověda použita.');
                 vm.post.help = data.data.help;
                 vm.disableHelpButton = true;
+
+                $('#helpContainerLabel').effect("highlight", {}, 3000);
+                $('#helpContainer').effect("highlight", {}, 3000);
             }, function (err) {
                 notification.error(err.message);
             });

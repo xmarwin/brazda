@@ -5493,6 +5493,7 @@
     <Content Include="www\bower_components\html5-boilerplate\test\file_existence.js" />
     <Content Include="www\bower_components\jquery\AUTHORS.txt" />
     <Content Include="www\bower_components\jquery\dist\core.js" />
+    <Content Include="www\bower_components\jquery\dist\jquery-ui.min.js" />
     <Content Include="www\bower_components\jquery\dist\jquery.js" />
     <Content Include="www\bower_components\jquery\dist\jquery.min.js" />
     <Content Include="www\bower_components\jquery\dist\jquery.slim.js" />
