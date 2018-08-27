@@ -27,7 +27,9 @@ class SecuredBasePresenter extends SecuredResourcePresenter
         $this->logins = $this->context->getService('logins');
 
         $this->checkSecurityToken();
-        $this->team = $this->getUser()->getIdentity()->getData();
+        $this->team = !empty($this->getUser()->getIdentity())
+			? $this->getUser()->getIdentity()->getData()
+			: [];
 
 		$this->input = $this->getInput();
     } // startup()
