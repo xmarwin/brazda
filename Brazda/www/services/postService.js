@@ -1,76 +1,76 @@
 ﻿"use strict";
 
 angular.module("myApp.postService", [])
-    .service("PostService", PostService)
+    .service("PostService", PostService);
 
-PostService.$inject = ['WebApiService', '$filter'];
+PostService.$inject = ['WebApiService', '$filter', 'localStorageService'];
 
-function PostService(webApiService, $filter) {
+function PostService(webApiService, $filter, localStorageService) {
     var vm = this;
 
     vm.getPosts = function (teamId) {
         return webApiService.get('post/list');
-    }
+    };
 
     // https://brazda/api/post/bonus-list?securityToken=<security token>
     vm.getBonuses = function () {
         return webApiService.get('post/bonus-list');
-    }
+    };
 
     // http://brazda/api/post/detail?securityToken=<security token>&post=<id postu>
     vm.getPost = function (id) {
         return webApiService.get('post/detail', [{ 'post': id }]);
-    }
+    };
 
     // http://brazda/api/post/help?securityToken=<security token>&post=<id postu>
     vm.getHelp = function (id) {
         return webApiService.get('post/help', [{ 'post': id }]);
-    }
+    };
 
     // http://brazda/api/post/log?securityToken=<security token>&post=<id postu>&shibboleth=<heslo>
     vm.log = function (id, shibboleth) {
         return webApiService.get('post/log', [{ 'post': id }, { 'shibboleth': shibboleth }]);
-    }
+    };
 
     // http://brazda/api/post/bonus?securityToken=<security token>&post=<id postu>&bonusCode=<bonus kód>
     vm.bonus = function (id, bonusCode) {
         return webApiService.get('post/bonus', [{ 'post': id }, { 'bonusCode': bonusCode }]);
-    }
+    };
 
     // http://brazda/api/post/create?securityToken=<...>
     vm.addPost = function (data) {
         return webApiService.get('post/create', data, 'POST');
-    }
+    };
 
     // http://brazda/api/post/update?securityToken=<...>
     vm.updatePost = function (data) {
         return webApiService.get('post/update', data, 'POST');
-    }
+    };
 
     // http://brazda/api/post/delete?securityToken=<...>&post=35
     vm.deletePost = function (id) {
         return webApiService.get('post/delete', [{ 'post': id }]);
-    }
+    };
 
     // http://brazda/api/note/create?securityToken=...
     vm.createNote = function (data) {
         return webApiService.get('note/create', data, 'POST');
-    }
+    };
 
     // http://brazda/api/note/update?securityToken=...
     vm.updateNote = function (data) {
         return webApiService.get('note/update', data, 'POST');
-    }
+    };
 
     // http://brazda/api/note/delete?securityToken=...
     vm.deleteNote = function (id) {
         return webApiService.get('note/delete', [{ 'post': id }]);
-    }
+    };
 
     // http://brazda/api/note/save?securityToken=...
     vm.saveNote = function (data) {
         return webApiService.get('note/save', data, 'POST');
-    }
+    };
 
     vm.getCacheTypes = function () {
         return [
@@ -82,7 +82,7 @@ function PostService(webApiService, $filter) {
             { "cacheType": "LTB", "name": "Letterbox" },
             { "cacheType": "CIT", "name": "CITO" }
         ];
-    }
+    };
 
     vm.getLogTypes = function () {
         return [
@@ -93,7 +93,7 @@ function PostService(webApiService, $filter) {
             { "logType": "ERR", "name": "Chyba" },
             { "logType": "HLP", "name": "Nápověda" }
         ];
-    }
+    };
 
     vm.getPostColors = function () {
         return [
@@ -105,7 +105,7 @@ function PostService(webApiService, $filter) {
             { "color": "VLT", "name": "Fialová", "code": "rgb(139, 0, 255)" },
             { "color": "GLD", "name": "Zlatá", "code": "rgb(255, 215, 0)" }
         ];
-    }
+    };
 
     vm.getTerrains = function () {
         return [
@@ -117,9 +117,9 @@ function PostService(webApiService, $filter) {
             { "name": "3,5", "value": "3.5" },
             { "name": "4", "value": "4" },
             { "name": "4,5", "value": "4.5" },
-            { "name": "5", "value": "5" },
+            { "name": "5", "value": "5" }
         ];
-    }
+    };
 
     vm.getDifficulties = function () {
         return [
@@ -131,9 +131,9 @@ function PostService(webApiService, $filter) {
             { "name": "3,5", "value": "3.5" },
             { "name": "4", "value": "4" },
             { "name": "4,5", "value": "4.5" },
-            { "name": "5", "value": "5" },
+            { "name": "5", "value": "5" }
         ];
-    }
+    };
 
     vm.getPostSizes = function () {
         return [
@@ -143,7 +143,7 @@ function PostService(webApiService, $filter) {
             { "size": "L", "name": "Velká" },
             { "size": "O", "name": "Jiná" }
         ];
-    }
+    };
 
     vm.getPostTypes = function () {
         return [
@@ -156,7 +156,7 @@ function PostService(webApiService, $filter) {
             { "postType": "BON", "name": "Bonus" },
             { "postType": "SBN", "name": "Superbonus" }
         ];
-    }
+    };
 
     vm.getWaypointTypes = function () {
         return [
@@ -166,7 +166,7 @@ function PostService(webApiService, $filter) {
             { "waypointType": "PAR", "rank": "4", "name": "Parkoviště" },
             { "waypointType": "WAY", "rank": "5", "name": "Stezka" }
         ];
-    }
+    };
 
     vm.getWaypointVisibilities = function () {
         return [
@@ -174,5 +174,29 @@ function PostService(webApiService, $filter) {
             { "waypointVisibility": "HC", "name": "Skryté souřadnice" },
             { "waypointVisibility": "HW", "name": "Skrytá" }
         ];
-    }
+    };
+
+    vm.saveFilterStatus = function (value) {
+        localStorageService.set('filterStatus', value);
+    };
+
+    vm.getFilterStatus = function () {
+        return localStorageService.get('filterStatus');
+    };
+
+    vm.saveFilterType = function (value) {
+        localStorageService.set('filterType', value);
+    };
+
+    vm.getFilterType = function () {
+        return localStorageService.get('filterType');
+    };
+
+    vm.saveFilterColor = function (value) {
+        localStorageService.set('filterColor', value);
+    };
+
+    vm.getFilterColor = function () {
+        return localStorageService.get('filterColor');
+    };
 }

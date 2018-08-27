@@ -28,7 +28,14 @@ function PostsController(authService, postService, $filter, notification) {
         vm.postColors = postService.getPostColors();
 
         getSecurityToken();
-    }
+
+        var filterType = postService.getFilterType();
+        var filterColor = postService.getFilterColor();
+
+        vm.filter.state = postService.getFilterStatus();
+        vm.filter.postType = $filter('filter')(vm.postTypes, { "postType": filterType }, true)[0];
+        vm.filter.color = $filter('filter')(vm.postColors, { "color": filterColor }, true)[0];
+    };
 
     var getSecurityToken = function () {
         if (authService.team) {
@@ -38,7 +45,7 @@ function PostsController(authService, postService, $filter, notification) {
                 getSecurityToken();
             }, 100);
         }
-    }
+    };
 
     vm.filter = function () {
         var postTypeFilter = (angular.isUndefined(vm.filter.postType) || vm.filter.postType === null) ? "" : angular.isUndefined(vm.filter.postType.postType) ? "" : vm.filter.postType.postType;
@@ -49,11 +56,15 @@ function PostsController(authService, postService, $filter, notification) {
         if (!(angular.isUndefined(vm.filter.state) || vm.filter.state === '')) {
             vm.postsFiltered = $filter('filter')(vm.postsFiltered, { "isDone": vm.filter.state === 'found' });
         }
-    }
+
+        postService.saveFilterStatus(vm.filter.state);
+        postService.saveFilterType(postTypeFilter);
+        postService.saveFilterColor(postColorFilter);
+    };
 
     vm.toggleFilter = function () {
         vm.showFilter = !vm.showFilter;
-    }
+    };
 
     vm.resetFilter = function () {
         vm.filter.postType = null;
@@ -61,11 +72,11 @@ function PostsController(authService, postService, $filter, notification) {
         vm.filter.state = '';
 
         vm.filter();
-    }
+    };
 
     vm.refresh = function () {
         loadPosts();
-    }
+    };
 
     var loadPosts = function () {
         postService.getPosts()
@@ -75,7 +86,7 @@ function PostsController(authService, postService, $filter, notification) {
             }, function errorCallback(err) {
                 notification.error(err.data.message);
             });
-    }
+    };
 
     vm.init();
 }
