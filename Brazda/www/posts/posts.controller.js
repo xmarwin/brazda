@@ -32,14 +32,14 @@ function PostsController(authService, postService, $filter, notification) {
         var filterType = postService.getFilterType();
         var filterColor = postService.getFilterColor();
 
-        vm.filter.state = postService.getFilterStatus();
+        vm.filter.state = postService.getFilterStatus() || '';
         vm.filter.postType = $filter('filter')(vm.postTypes, { "postType": filterType }, true)[0];
         vm.filter.color = $filter('filter')(vm.postColors, { "color": filterColor }, true)[0];
     };
 
     var getSecurityToken = function () {
-        if (authService.team) {
-            vm.securityToken = authService.team.securityToken;
+        if (authService.getTeam()) {
+            vm.securityToken = authService.getTeam().securityToken;
         } else {
             setTimeout(function () {
                 getSecurityToken();
