@@ -52,8 +52,8 @@ function PostDetailController(postService, $routeParams, $filter, downloadServic
     };
 
     var getSecurityToken = function () {
-        if (authService.team) {
-            vm.securityToken = authService.team.securityToken;
+        if (authService.getTeam()) {
+            vm.securityToken = authService.getTeam().securityToken;
         } else {
             setTimeout(function () {
                 getSecurityToken();
