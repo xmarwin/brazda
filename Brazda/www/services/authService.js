@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 angular.module('myApp.authService', [])
-    .service('AuthService', AuthService)
+    .service('AuthService', AuthService);
 
 AuthService.$inject = ['WebApiService', 'localStorageService', '$q', 'TrackingService'];
 
@@ -13,8 +13,8 @@ function AuthService(webApiService, localStorageService, $q, trackingService) {
         isAdmin: isAdmin,
         login: login,
         logout: logout,
-        team: getTeam()
-    }
+        getTeam: getTeam
+    };
 
     //////////////////////////////////
 
