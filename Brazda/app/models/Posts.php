@@ -141,7 +141,7 @@ class Posts extends Base
              LEFT JOIN (
                 SELECT post, moment
                 FROM logs
-                WHERE log_type = 'OUT'
+                WHERE log_type IN ('OUT', 'STR', 'FIN')
                   AND team = %i", $team, "
              ) lo USING (post)
              LEFT JOIN (

@@ -1,21 +1,17 @@
 ﻿<please-wait></please-wait>
 <div>
-    <form name="unlockBonusForm">
+    <form name="unlockBonusForm form-inline">
         <div class="row">
             <h1 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Odemknout bonus {{ctrl.post.name}}</h1>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Zadejte klíč k tomuto bonusu:</div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12">
-                <input type="text" class="form-control" ng-model="ctrl.password" required />
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12">
-                <button ng-click="ctrl.unlock()" ng-disabled="unlockBonusForm.$invalid" class="btn btn-primary">Odemknout</button>
+            <div class="form-group">
+                <div class="col-xs-12 col-sm-8 col-md-10 col-xl-10">
+                    <input type="text" class="form-control" ng-model="ctrl.password" required placeholder="Zadejte heslo pro odemknutí bonusu"/>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-2 col-xl-2">
+                    <button ng-click="ctrl.unlock()" ng-disabled="unlockBonusForm.  $invalid" class="form-control btn btn-success"><i class="fa fa-unlock"></i> Odemknout</button>
+                </div>
             </div>
         </div>
     </form>

@@ -1,57 +1,52 @@
 ﻿<please-wait></please-wait>
 <div>
-    <div class="row form-group">
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <div class="row">
+        <div class="col-xs-7 col-sm-6 col-md-6 col-lg-6">
             <h1>Stanoviště</h1>
         </div>
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right" style="padding-top: 17px!important">
-            <a type="button" class="btn btn-primary" target="_blank" ng-href="/api/gpx/all?securityToken={{ctrl.securityToken}}"><i class="fa fa-download" aria-hidden="true"></i><span class="hidden-xs"> GPX všech stanovišť</span></a>
-            <button type="button" ng-click="ctrl.toggleFilter()" class="btn btn-primary" ng-class="{ 'active': ctrl.showFilter }"><i class="fa fa-filter" aria-hidden="true"></i><span class="hidden-xs"> Filtr</span></button>
-            <button type="button" ng-click="ctrl.refresh()" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i><span class="hidden-xs"> Aktualizovat</span></button>
+        <div class="col-xs-5 col-sm-6 col-md-6 col-lg-6 text-right" style="padding-top: 17px !important">
+            <button type="button" ng-click="ctrl.refresh()" class="btn btn-success"><i class="fa fa-refresh" aria-hidden="true"></i><span class="hidden-xs"> Aktualizovat</span></button>
+            <a type="button" class="btn btn-primary" target="_blank" ng-href="/api/gpx/all?securityToken={{ctrl.securityToken}}"><i class="fa fa-download" aria-hidden="true"></i><span class="hidden-xs"> GPX všeho</span></a>
+            <button type="button" ng-click="ctrl.toggleFilter()" class="btn btn-default" ng-class="{ 'active': ctrl.showFilter }"><i class="fa fa-filter" aria-hidden="true"></i><span class="hidden-xs"> Filtr</span></button>
         </div>
     </div>
-    <div ng-show="ctrl.showFilter">
+    <div ng-show="ctrl.showFilter" class="form-horizontal">
         <div class="row form-group">
-            <div class="col-xs-3 col-sm-1 col-md-1 col-lg-1">
-                Stav:
-            </div>
-            <div class="col-xs-9 col-sm-2 col-md-2 col-lg-2">
-                <select ng-model="ctrl.filter.state" class="form-control" ng-change="ctrl.filter()">
+
+            <label for="filter-state" class="hidden-xs col-sm-1 col-md-1 col-lg-1 control-label">Stav:</label>
+            <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
+                <select ng-model="ctrl.filter.state" class="form-control" ng-change="ctrl.filter()" id="filter-state">
                     <option value="">Vše</option>
                     <option value="notFound">Nenalezené</option>
                     <option value="found">Nalezené</option>
                 </select>
             </div>
-            <div class="col-xs-3 col-sm-1 col-md-1 col-lg-1">
-                Typ:
-            </div>
-            <div class="col-xs-9 col-sm-2 col-md-2 col-lg-2">
-                <select ng-options="postType.name for postType in ctrl.postTypes" ng-model="ctrl.filter.postType" class="form-control" ng-change="ctrl.filter()">
+
+            <label for="filter-type" class="hidden-xs col-sm-1 col-md-1 col-lg-1 control-label">Typ:</label>
+            <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
+                <select ng-options="postType.name for postType in ctrl.postTypes" ng-model="ctrl.filter.postType" class="form-control" ng-change="ctrl.filter()" id="filter-type">
                     <option value="">Vše</option>
                 </select>
             </div>
-            <div class="col-xs-3 col-sm-1 col-md-1 col-lg-1">
-                Barva:
-            </div>
-            <div class="col-xs-9 col-sm-2 col-md-2 col-lg-2">
-                <select ng-options="postColor.name for postColor in ctrl.postColors" ng-model="ctrl.filter.color" class="form-control" ng-change="ctrl.filter()">
+
+            <label for="filter-color" class="hidden-xs col-sm-1 col-md-1 col-lg-1 control-label">Barva:</label>
+            <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
+                <select ng-options="postColor.name for postColor in ctrl.postColors" ng-model="ctrl.filter.color" class="form-control" ng-change="ctrl.filter()" id="filter-color">
                     <option value="">Vše</option>
                 </select>
             </div>
-            <div class="col-xs-9 col-sm-2 col-md-2 col-lg-2">
-                <button type="button" ng-click="ctrl.resetFilter()" class="btn btn-default"><i class="fa fa-eraser" aria-hidden="true"></i><span class="hidden-xs"> Odstranit filtry</span></button>
+
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <button type="button" ng-click="ctrl.resetFilter()" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i><span class="hidden-xs"> Odstranit filtry</span></button>
             </div>
+
         </div>
     </div>
     <table class="post-list">
         <tbody ng-repeat="postItem in ctrl.postsFiltered">
             <tr>
-                <td rowspan="2" style="width: 36px">
-                    <i class="fa fa-check fa-2x" style="color: green" aria-hidden="true" ng-show="postItem.isDone"></i>
-                    <i class="fa fa-unlock-alt fa-2x" style="color: green" aria-hidden="true" ng-show="postItem.isUnlocked && !postItem.isDone"></i>
-                </td>
 
-                <td rowspan="2" style="width: 36px; background-color: {{postItem.colorCode}}; text-align: center; border-bottom: 1px solid lightgrey;">
+                <td style="width: 36px; background-color: {{postItem.colorCode}}; text-align: center">
                     <i class="fa fa-2x fa-question-circle-o" aria-hidden="true" ng-show="postItem.postType==='CIP'"></i>
                     <i class="fa fa-2x fa-child" aria-hidden="true" ng-show="postItem.postType==='ACT'"></i>
                     <i class="fa fa-2x fa-archive" aria-hidden="true" ng-show="postItem.postType==='CGC'"></i>
@@ -60,15 +55,25 @@
                     <i class="fa fa-2x fa-flag-checkered" aria-hidden="true" ng-show="postItem.postType==='END'"></i>
                 </td>
 
-                <td colspan="3">
+                <td colspan="5">
                     <h4>
+                        <span ng-show="postItem.cacheType === 'TRA'"><img src="../assets/images/traditional.png" alt="{{postItem.cacheName}}" title="{{postItem.cacheName}}"></span>
+                        <span ng-show="postItem.cacheType === 'MLT'"><img src="../assets/images/multi.png" alt="{{postItem.cacheName}}" title="{{postItem.cacheName}}"></span>
+                        <span ng-show="postItem.cacheType === 'LTB'"><img src="../assets/images/letterbox.png" alt="{{postItem.cacheName}}" title="{{postItem.cacheName}}"></span>
+                        <span ng-show="postItem.cacheType === 'CIT'"><img src="../assets/images/cito.png" alt="{{postItem.cacheName}}" title="{{postItem.cacheName}}"></span>
+                        <span ng-show="postItem.cacheType === 'MYS'"><img src="../assets/images/unknown.png" alt="{{postItem.cacheName}}" title="{{postItem.cacheName}}"></span>
+                        <span ng-show="postItem.cacheType === 'ERT'"><img src="../assets/images/earthcache.png" alt="{{postItem.cacheName}}" title="{{postItem.cacheName}}"></span>
+                        <span ng-show="postItem.cacheType === 'WIG'"><img src="../assets/images/wherigo.png" alt="{{postItem.cacheName}}" title="{{postItem.cacheName}}"></span>
                         <a href="#/postDetail/{{postItem.post}}">{{postItem.name}}</a>
                     </h4>
                 </td>
 
-                <td>H<span class="hidden-xs">eslo</span>: {{postItem.isDone ? postItem.passwordCharacter + ' (' + postItem.passwordPosition + ')': '-'}}</td>
             </tr>
             <tr>
+                <td style="width: 36px">
+                    <i class="fa fa-check fa-2x" style="color: green" aria-hidden="true" ng-show="postItem.isDone"></i>
+                    <i class="fa fa-unlock-alt fa-2x" style="color: green" aria-hidden="true" ng-show="postItem.isUnlocked && !postItem.isDone"></i>
+                </td>
                 <td style="border-bottom: 1px solid lightgrey;">
                     B<span class="hidden-xs">ody</span>: {{postItem.maxScore}}
                 </td>
@@ -86,14 +91,7 @@
                 <td ng-show="postItem.cacheSize === 'L'" style="border-bottom: 1px solid lightgrey; min-width: 70px">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/large.gif" title="Large" /></td>
                 <td ng-show="postItem.cacheSize === 'O'" style="border-bottom: 1px solid lightgrey; min-width: 70px">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/other.gif" title="Other" /></td>
 
-                <td style="border-bottom: 1px solid lightgrey; min-width: 39px" ng-show="postItem.cacheType === 'TRA'">T<span class="hidden-xs">yp</span>: <img src="../assets/images/traditional.png"></td>
-                <td style="border-bottom: 1px solid lightgrey; min-width: 39px" ng-show="postItem.cacheType === 'MLT'">T<span class="hidden-xs">yp</span>: <img src="../assets/images/multi.png"></td>
-                <td style="border-bottom: 1px solid lightgrey; min-width: 39px" ng-show="postItem.cacheType === 'LTB'">T<span class="hidden-xs">yp</span>: <img src="../assets/images/letterbox.png"></td>
-                <td style="border-bottom: 1px solid lightgrey; min-width: 39px" ng-show="postItem.cacheType === 'CIT'">T<span class="hidden-xs">yp</span>: <img src="../assets/images/cito.png"></td>
-                <td style="border-bottom: 1px solid lightgrey; min-width: 39px" ng-show="postItem.cacheType === 'MYS'">T<span class="hidden-xs">yp</span>: <img src="../assets/images/unknown.png"></td>
-                <td style="border-bottom: 1px solid lightgrey; min-width: 39px" ng-show="postItem.cacheType === 'ERT'">T<span class="hidden-xs">yp</span>: <img src="../assets/images/earthcache.png"></td>
-                <td style="border-bottom: 1px solid lightgrey; min-width: 39px" ng-show="postItem.cacheType === 'WIG'">T<span class="hidden-xs">yp</span>: <img src="../assets/images/wherigo.png"></td>
-                <td style="border-bottom: 1px solid lightgrey; min-width: 39px" ng-show="postItem.cacheType == null || postItem.cacheType === ''">T<span class="hidden-xs">yp</span>: -</td>
+                <td ng-show="postItem.postType !== 'BEG' && postItem.postType !== 'END' && postItem.postType !== 'SBN'">H<span class="hidden-xs">eslo</span>: {{postItem.isDone ? postItem.passwordCharacter + ' (' + postItem.passwordPosition + ')': '-'}}</td>
             </tr>
         </tbody>
     </table>
