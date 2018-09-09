@@ -21,7 +21,7 @@
                 <li ng-show="nav.isAuthorized()"><a href="#/posts"><span class="fa fa-map-pin" aria-hidden="true"></span> Stanoviště</a></li>
                 <li ng-show="nav.isAuthorized()"><a href="#/bonuses"><span class="fa fa-gift" aria-hidden="true"></span> Bonusy</a></li>
                 <li ng-show="nav.isAuthorized()"><a href="#/messages"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Zprávy</a></li>
-                <li><a href="#/map"><span class="fa fa-map" aria-hidden="true"></span> Mapa</a></li>
+                <li ng-show="nav.isAuthorized()"><a href="#/map"><span class="fa fa-map" aria-hidden="true"></span> Mapa</a></li>
                 <li><a href="#/rules"><span class="fa fa-file" aria-hidden="true"></span> Pravidla</a></li>
                 <li><a href="#/contact"><span class="fa fa-id-card" aria-hidden="true"></span> Kontakt</a></li>
                 <li ng-show="nav.isAdmin()" class="dropdown">
