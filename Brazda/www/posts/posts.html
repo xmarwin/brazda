@@ -90,6 +90,7 @@
                 <td ng-show="postItem.cacheSize === 'R'" style="border-bottom: 1px solid lightgrey; min-width: 70px">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/regular.gif" title="Regular" /></td>
                 <td ng-show="postItem.cacheSize === 'L'" style="border-bottom: 1px solid lightgrey; min-width: 70px">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/large.gif" title="Large" /></td>
                 <td ng-show="postItem.cacheSize === 'O'" style="border-bottom: 1px solid lightgrey; min-width: 70px">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/other.gif" title="Other" /></td>
+                <td ng-show="postItem.cacheSize === null" style="border-bottom: 1px solid lightgrey; min-width: 70px">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/other.gif" title="Other" /></td>
 
                 <td ng-show="postItem.postType !== 'BEG' && postItem.postType !== 'END' && postItem.postType !== 'SBN'">H<span class="hidden-xs">eslo</span>: {{postItem.isDone ? postItem.passwordCharacter + ' (' + postItem.passwordPosition + ')': '-'}}</td>
             </tr>
