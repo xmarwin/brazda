@@ -134,22 +134,25 @@ class PostPresenter extends SecuredBasePresenter
 
     public function actionLog($post, $shibboleth)
     {
+        // Odstartoval tým závod?
         if (!$this->logs->isStarted($this->team['team'], $post)) {
             $this->resource = [
-                'status' => 'Not started',
+                'status' => 'nelze logovat stanoviště dokud jste neodstartovali',
                 'code'   => 401
             ];
             $this->sendResource($this->outputType);
         } // if
 
+        // Neskončil zatím tým závod?
         if ($this->logs->isFinished($this->team['team'])) {
             $this->resource = [
-                'status' => 'Already finished',
+                'status' => 'nelze logovat stanoviště po skončení závodu',
                 'code'   => 403
             ];
             $this->sendResource($this->outputType);
         } // if
 
+        // Nemá stanoviště už zalogované?
         $lastLog = $this->logs->find([
             'team'     => (int) $this->team['team'],
             'post'     => (int) $post,
@@ -157,18 +160,19 @@ class PostPresenter extends SecuredBasePresenter
         ]); // find()
         if (!empty($lastLog)) {
             $this->resource = [
-                'status' => 'Already logged',
+                'status' => 'stanoviště jste už zalogovali',
                 'code'   => 304
             ];
             $this->sendResource($this->outputType);
         } // if
 
+        // Nesnaží se tým logovat příliš brzy po minulém nezdařeném pokusu?
         if (!$this->logs->canLog($this->team['team'], $post)) {
             $nextAttempt   = $this->logs->nextLog($this->team['team'], $post);
             $nextTimestamp = (int) $nextAttempt->getTimestamp();
             $nextTimeout   = $nextTimestamp - time();
             $this->resource = [
-                'status' => 'Waiting period',
+                'status' => 'musíte počkat',
                 'code'   => 408,
                 'next_timestamp' => date('H:i:s', $nextTimestamp),
                 'next_interval'  => $nextTimeout
@@ -176,32 +180,49 @@ class PostPresenter extends SecuredBasePresenter
             $this->sendResource($this->outputType);
         } // if
 
-        $postShibboleth  = $this->posts->getShibboleth($post);
+        // Zjistíme heslo stanoviště a připravíme jej na porovnání
+        $postShibboleth = mb_strtolower($this->posts->getShibboleth($post));
+        $shibboleth     = mb_strtolower(urldecode($shibboleth));
 
-        $postShibboleth1 = strtolower(self::toAscii($postShibboleth));
-        $shibboleth1     = strtolower(self::toAscii(urldecode($shibboleth)));
-
-        $postShibboleth2 = mb_strtolower($postShibboleth);
-        $shibboleth2     = mb_strtolower(urldecode($shibboleth));
-
-        if ($shibboleth1 != $postShibboleth1
-        ||  $shibboleth2 != $postShibboleth2) {
+        // Je heslo stanoviště správné?
+        if ($shibboleth != $postShibboleth) {
             $this->logs->insert([
                 'team'     => (int) $this->team['team'],
                 'post'     => (int) $post,
                 'log_type' => Models\Logs::ERROR
             ]); // insert()
             $this->resource = [
-                'status' => 'Wrong shibboleth',
+                'status' => 'špatné heslo stanoviště',
                 'code'   => 404
             ];
             $this->sendResource($this->outputType);
         } // if
 
+        $postData = $this->posts->find($post);
+        switch ($postData->post_type) {
+            case Models\Posts::BEGIN:
+                $logType = Models\Logs::START;
+                break;
+
+            case Models\Posts::END:
+                $logType = Models\Logs::FINISH;
+                break;
+
+            default:
+            case Models\Posts::ACTIVITY:
+            case Models\Posts::CIPHER:
+            case Models\Posts::CACHE:
+            case Models\Posts::BONUS:
+            case Models\Posts::SUPERBONUS:
+                $logType = Models\Logs::DONE;
+                break;
+        } // switch
+
+        // Zalogujeme stanoviště jako hotové
         $this->logs->insert([
             'team'     => (int) $this->team['team'],
             'post'     => (int) $post,
-            'log_type' => Models\Logs::DONE
+            'log_type' => $logType
         ]);
         $this->resource = [
             'status' => 'OK',
@@ -213,6 +234,25 @@ class PostPresenter extends SecuredBasePresenter
 
 	public function actionBonus($post, $bonusCode)
 	{
+        // Odstartoval tým závod?
+        if (!$this->logs->isStarted($this->team['team'], $post)) {
+            $this->resource = [
+                'status' => 'Not started',
+                'code'   => 401
+            ];
+            $this->sendResource($this->outputType);
+        } // if
+
+        // Neskončil zatím tým závod?
+        if ($this->logs->isFinished($this->team['team'])) {
+            $this->resource = [
+                'status' => 'Already finished',
+                'code'   => 403
+            ];
+            $this->sendResource($this->outputType);
+        } // if
+
+        // Nemá stanoviště už zalogované?
         $lastLog = $this->logs->find([
             'team'     => (int) $this->team['team'],
             'post'     => (int) $post,
@@ -226,6 +266,7 @@ class PostPresenter extends SecuredBasePresenter
             $this->sendResource($this->outputType);
         } // if
 
+        // Nesnaží se tým logovat příliš brzy po minulém nezdařeném pokusu?
         if (!$this->logs->canBonusLog($this->team['team'], $post)) {
             $nextAttempt   = $this->logs->nextBonusLog($this->team['team'], $post);
             $nextTimestamp = (int) $nextAttempt->getTimestamp();
@@ -239,9 +280,11 @@ class PostPresenter extends SecuredBasePresenter
             $this->sendResource($this->outputType);
         } // if
 
-        $postBonusCode = $this->posts->getBonusCode($post);
-        $bonusCode     = strtolower(urldecode(self::toAscii($bonusCode)));
+        // Zjistíme bonusový kód stanoviště a připravíme jej na porovnání
+        $postBonusCode = mb_strtolower($this->posts->getBonusCode($post));
+        $bonusCode     = mb_strtolower(urldecode(self::toAscii($bonusCode)));
 
+        // Je bonusový kód stanoviště správné?
         if ($bonusCode != $postBonusCode) {
             $this->logs->insert([
                 'team'     => (int) $this->team['team'],
@@ -255,6 +298,7 @@ class PostPresenter extends SecuredBasePresenter
             $this->sendResource($this->outputType);
         } // if
 
+        // Zalogujeme stanoviště jako odemčené
         $this->logs->insert([
             'team'     => (int) $this->team['team'],
             'post'     => (int) $post,

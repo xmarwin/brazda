@@ -181,9 +181,9 @@ class Logs extends Base
             "SELECT p.*
              FROM posts p
              LEFT JOIN logs l USING (post)
-             WHERE p.post_type LIKE 'BEG'
-             AND l.team = %i", $team,
-            "AND l.log_type LIKE 'OUT'"
+             WHERE p.post_type LIKE %s", Posts::BEGIN,
+            "AND l.team = %i", $team,
+            "AND l.log_type LIKE %s", self::START
         )->fetch();
 
         return !empty($beginLog);
@@ -195,9 +195,9 @@ class Logs extends Base
 			"SELECT p.*
 			 FROM posts p
 			 LEFT JOIN logs l USING (post)
-			 WHERE p.post_type LIKE 'END'
-			 AND l.team = %i", $team,
-			"AND l.log_type LIKE 'OUT'"
+			 WHERE p.post_type LIKE %s", Posts::END,
+            "AND l.team = %i", $team,
+			"AND l.log_type LIKE %s", self::FINISH
         )->fetch();
 
         return !empty($endLog);
