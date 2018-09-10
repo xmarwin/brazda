@@ -65,8 +65,7 @@ angular.module('myApp', [
 
     //Common
     'myApp.nav',
-    'myApp.login',
-    'myApp.version'
+    'myApp.login'
 ])
     .config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
         $locationProvider.hashPrefix('');
@@ -76,7 +75,7 @@ angular.module('myApp', [
     .config(function (localStorageServiceProvider) {
         localStorageServiceProvider
             .setPrefix('brazda')
-            .setNotify(false, false)
+            .setNotify(false, false);
     })
 
     .config(function (NotificationProvider) {

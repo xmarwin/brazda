@@ -12,16 +12,20 @@ angular.module('myApp.postLog', ['ngRoute'])
 
     .controller('PostLogCtrl', PostLogController);
 
-PostLogController.$inject = ['PostService', '$routeParams', '$filter', 'DownloadService', 'Notification', '$location'];
+PostLogController.$inject = ['PostService', '$routeParams', '$filter', 'Notification', '$location'];
 
-function PostLogController(postService, $routeParams, $filter, downloadService, notification, $location) {
+function PostLogController(postService, $routeParams, $filter, notification, $location) {
     var vm = this;
     vm.shibboleth = "";
 
     var init = function () {
         vm.postId = $routeParams.postId;
-        vm.post = postService.getPost(parseInt(vm.postId));
-    }
+
+        postService.getPost(parseInt(vm.postId))
+            .then(function (response) {
+                vm.post = response.data;
+            });
+    };
 
     vm.log = function () {
         postService.log(vm.postId, vm.shibboleth)
@@ -41,7 +45,7 @@ function PostLogController(postService, $routeParams, $filter, downloadService, 
             }, function (err) {
                 notification.error(err.message);
             });
-    }
+    };
 
     init();
 }
