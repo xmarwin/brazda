@@ -22,11 +22,12 @@ function ResultController(notification, resultService, postService, teamService,
     vm.teams = {};
     vm.results = [];
     vm.stepDown = 3;
-    vm.startTime = new Date("2016-10-01 08:00:00");
-    vm.endTime = new Date("2016-10-01 19:00:00");
+    //vm.startTime = new Date("2018-09-15 08:00:00");
+    vm.endTime = new Date("2018-09-15 20:00:00");
     vm.helpUsedPenalisation = 24 * 60 * 60 * 1000; // adds this amount of hours to timestamp of teams that used help (just for sake of ordering)
     vm.delayPenalisation = 10; // points/min
     vm.delayDisc = 20; // mins
+    vm.stats = [];
 
     var logsLoaded = false;
     var postsLoaded = false;
@@ -38,14 +39,15 @@ function ResultController(notification, resultService, postService, teamService,
         getLogs();
 
         checkForData();
-    }
+    };
 
     function checkForData() {
         if (logsLoaded && postsLoaded && teamsLoaded) {
-            processResultData();
+            getTeamsResult();
+            //getStats();
         } else {
             setTimeout(function () { // nasty but works
-                checkForData()
+                checkForData();
             }, 500);
         }
     }
@@ -54,7 +56,7 @@ function ResultController(notification, resultService, postService, teamService,
         resultService.getResult()
             .then(function successCallback(response) {
                 vm.logs = response.data;
-                logsLoaded = true
+                logsLoaded = true;
             }, function errorCallback(err) {
                 notification.error(err.data.message);
             });
@@ -80,14 +82,14 @@ function ResultController(notification, resultService, postService, teamService,
             });
     }
 
-    function processResultData() {
-        for (var i = 0; i < vm.posts.length; i++) {
-            var post = vm.posts[i];
-            post.logs = []
+    function getTeamsResult() {
+        for (let i = 0; i < vm.posts.length; i++) {
+            let post = vm.posts[i];
+            post.logs = [];
 
             // upravi timestamp tymum, ktere si braly napovedu.
-            for (var j = 0; j < vm.logs.length; j++) {
-                var postTemp = $filter('filter')(vm.logs[j].logs, { post: post.post, logType: 'OUT' }, true)[0];
+            for (let j = 0; j < vm.logs.length; j++) {
+                let postTemp = $filter('filter')(vm.logs[j].logs, { post: post.post, logType: 'OUT' }, true)[0];
                 if (!angular.isUndefined(postTemp)) {
                     var validMoment = angular.isUndefined(postTemp.logOutMoment) ? postTemp.moment : postTemp.logOutMoment;
 
@@ -107,53 +109,65 @@ function ResultController(notification, resultService, postService, teamService,
 
             // spocita skore
             var maxScore = post.maxScore;
-            for (var j = 0; j < post.logs.length; j++) {
+            for (let j = 0; j < post.logs.length; j++) {
                 if (!angular.isUndefined(post.logs[j])) {
                     post.logs[j].score = Math.max(maxScore - j * vm.stepDown, 0);
                 }
             }
         }
 
-
         //spocita celkovy pocet bodu
-        for (var i = 0; i < vm.logs.length; i++) {
+        for (let i = 0; i < vm.logs.length; i++) {
             vm.logs[i].totalPoints = 0;
 
-            for (var j = 0; j < vm.logs[i].logs.length; j++) {
+            for (let j = 0; j < vm.logs[i].logs.length; j++) {
                 if (!angular.isUndefined(vm.logs[i].logs[j]) && (vm.logs[i].logs[j].logType !== 'BON' && vm.logs[i].logs[j].logType !== 'FIN' && vm.logs[i].logs[j].logType !== 'STR')) {
                     vm.logs[i].totalPoints += vm.logs[i].logs[j].score;
                 }
 
                 if (vm.logs[i].logs[j].logType === 'STR') {
-                    var moment = new Date(vm.logs[i].logs[j].moment);
+                    let moment = new Date(vm.logs[i].logs[j].moment);
                     vm.logs[i].logs[j].score = moment.getHours() + ":" + padLeft2(moment.getMinutes()) + ":" + padLeft2(moment.getSeconds());
                 }
 
                 if (vm.logs[i].logs[j].logType === 'FIN') {
-                    var moment = new Date(vm.logs[i].logs[j].moment);
+                    let moment = new Date(vm.logs[i].logs[j].moment);
                     vm.logs[i].logs[j].score = moment.getHours() + ":" + padLeft2(moment.getMinutes()) + ":" + padLeft2(moment.getSeconds());
                 }
             }
         }
 
-        for (var i = 0; i < vm.logs.length; i++) {
-            var result = {};
-            var teamLog = vm.logs[i];
+        for (let i = 0; i < vm.logs.length; i++) {
+            let result = {};
+            let teamLog = vm.logs[i];
 
             result.team = teamLog.team;
             result.teamName = teamLog.name;
             result.posts = [];
             result.penalty = 0;
 
-            for (var j = 0; j < teamLog.logs.length; j++) {
+            for (let j = 0; j < teamLog.logs.length; j++) {
+                //if (teamLog.logs[j].logType === 'OUT' && (!vm.stats.firstStart || vm.stats.firstStart.moment > teamLog.logs[j].moment)) {
+                //    vm.stats.firstStart = teamLog.logs[j];
+                //}
+                //if (teamLog.logs[j].logType === 'OUT' && (!vm.stats.lastStart || vm.stats.lastStart.moment < teamLog.logs[j].moment)) {
+                //    vm.stats.lastStart = teamLog.logs[j];
+                //}
+                //if (teamLog.logs[j].logType === 'FIN' && (!vm.stats.firstEnd || vm.stats.firstEnd.moment > teamLog.logs[j].moment)) {
+                //    vm.stats.firstEnd = teamLog.logs[j];
+                //}
+                //if (teamLog.logs[j].logType === 'FIN' && (!vm.stats.lastEnd || vm.stats.lastEnd.moment < teamLog.logs[j].moment)) {
+                //    vm.stats.lastEnd = teamLog.logs[j];
+                //}
+
                 if (teamLog.logs[j].logType === 'OUT' || teamLog.logs[j].logType === 'STR' || teamLog.logs[j].logType === 'FIN') {
                     result.posts.push({ post: teamLog.logs[j].post, postName: teamLog.logs[j].postName, score: teamLog.logs[j].score });
                 }
 
                 if (teamLog.logs[j].logType === 'FIN') {
-                    var finished = new Date(teamLog.logs[j].moment);
+                    let finished = new Date(teamLog.logs[j].moment);
                     if (vm.endTime < finished) {
-                        var difference = (finished - vm.endTime) / 1000 / 60;
+                        let difference = (finished - vm.endTime) / 1000 / 60;
 
                         if (difference > vm.delayDisc) {
                             result.penalty = 9999;
@@ -163,10 +177,24 @@ function ResultController(notification, resultService, postService, teamService,
                     }
                 }
             }
-            result.totalPoints = Math.max(teamLog.totalPoints - result.penalty, 0);
 
+            result.totalPoints = Math.max(teamLog.totalPoints - result.penalty, 0);
             vm.results.push(result);
         }
+    }
+
+    function getStats() {
+        //for (let i = 0; i < vm.logs.length; i++) {
+        //    for()
+        //}
+
+
+        //var starts = $filter('orderBy')($filter('filter')(vm.logs, { logType: 'OUT' }, true), 'moment');
+        //vm.stats.firstStart = starts[0];
+        //vm.stats.lastStart = starts[starts.length - 1];
+
+
+        
     }
 
     vm.getScore = function (teamId, postId) {
@@ -183,17 +211,17 @@ function ResultController(notification, resultService, postService, teamService,
                 return log.score;
             }
         }
-    }
+    };
 
     vm.getTotal = function (teamId) {
         var retval = $filter("filter")(vm.results, { team: teamId }, true)[0];
 
-        if (angular.isUndefined(retval) || retval.totalPoints == null) {
+        if (angular.isUndefined(retval) || retval.totalPoints === null) {
             return "-";
         } else {
             return retval.totalPoints;
         }
-    }
+    };
 
     vm.getPenalty = function (teamId) {
         var retval = $filter("filter")(vm.results, { team: teamId }, true)[0];
@@ -203,11 +231,11 @@ function ResultController(notification, resultService, postService, teamService,
         } else {
             return retval.penalty;
         }
-    }
+    };
 
     function padLeft2(str) {
-        var x = '0000' + str
-        return x.substr(x.length-2, 2);
+        var x = '0000' + str;
+        return x.substr(x.length - 2, 2);
     }
 
     init();

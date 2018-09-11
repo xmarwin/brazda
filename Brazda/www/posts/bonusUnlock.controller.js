@@ -20,8 +20,11 @@ function BonusUnlockController(postService, $routeParams, $filter, downloadServi
 
     var init = function () {
         vm.postId = $routeParams.postId;
-        vm.post = postService.getPost(parseInt(vm.postId));
-    }
+        postService.getPost(parseInt(vm.postId))
+            .then(function (response) {
+                vm.post = response.data;
+            });
+    };
 
     vm.unlock = function () {
         postService.bonus(vm.postId, vm.password)
@@ -41,7 +44,7 @@ function BonusUnlockController(postService, $routeParams, $filter, downloadServi
             }, function (err) {
                 notification.error(err.data.message);
             });
-    }
+    };
 
     init();
 }
