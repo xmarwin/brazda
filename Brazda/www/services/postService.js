@@ -102,7 +102,7 @@ function PostService(webApiService, $filter, localStorageService) {
             { "color": "YEL", "name": "Žlutá", "code": "rgb(255, 255, 153)" },
             { "color": "GRN", "name": "Zelená", "code": "rgb(146, 208, 80)" },
             { "color": "BLU", "name": "Modrá", "code": "rgb(66, 133, 244)" },
-            { "color": "VLT", "name": "Fialová", "code": "rgb(139, 0, 255)" },
+            //{ "color": "VLT", "name": "Fialová", "code": "rgb(139, 0, 255)" },
             { "color": "GLD", "name": "Zlatá", "code": "rgb(255, 215, 0)" }
         ];
     };
