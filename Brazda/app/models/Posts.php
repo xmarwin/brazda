@@ -102,6 +102,8 @@ class Posts extends Base
                 p.cache_size,
                 p.cache_type,
                 p.max_score,
+                p.open_from,
+                p.open_to,
                 p.hint,
 
                 cs.name AS size_name,
@@ -208,6 +210,8 @@ class Posts extends Base
                 p.description,
                 p.cache_type,
                 p.max_score,
+                p.open_from,
+                p.open_to,
                 p.with_staff,
                 p.latitude,
                 p.longitude,
