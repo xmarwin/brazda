@@ -1,6 +1,6 @@
 # Apache configuration file (see https://httpd.apache.org/docs/current/mod/quickreference.html)
-#Allow from all
-Require all granted
+Allow from all
+#Require all granted
 
 DirectoryIndex index.html index.php
 

@@ -1,6 +1,6 @@
 ﻿<please-wait></please-wait>
 <div>
-    <form name="unlockBonusForm form-inline">
+    <form name="unlockBonusForm" class="form-inline">
         <div class="row">
             <h1 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Odemknout {{ctrl.post.name}}</h1>
         </div>
@@ -9,7 +9,10 @@
                 <div class="col-xs-12 col-sm-8 col-md-10 col-xl-10">
                     <input type="text" class="form-control" ng-model="ctrl.password" required placeholder="Zadejte heslo pro odemknutí bonusu"/>
                 </div>
-                <div class="col-xs-12 col-sm-4 col-md-2 col-xl-2">
+                <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2 text-right">
+                    <a ng-href="#/postDetail/{{ctrl.post.post}}" class="btn btn-default custom"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Zpět</a>
+                </div>
+                <div class="col-xs-6 col-sm-3 col-md-2 col-xl-2">
                     <button ng-click="ctrl.unlock()" ng-disabled="unlockBonusForm.  $invalid" class="form-control btn btn-success"><i class="fa fa-unlock"></i> Odemknout</button>
                 </div>
             </div>
