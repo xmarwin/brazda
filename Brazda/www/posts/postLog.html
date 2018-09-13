@@ -2,14 +2,17 @@
 <div>
     <form name="logPostForm" class="form-inline">
         <div class="row">
-            <h1 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Zalogovat stanoviště {{ctrl.post.name}}</h1>
+        <h1 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Zalogovat stanoviště {{ctrl.post.name}}</h1>
         </div>
         <div class="row">
             <div class="form-group">
-                <div class="col-xs-12 col-sm-8 col-md-10 col-xl-10">
+                <div class="col-xs-12 col-sm-6 col-md-8 col-xl-8">
                     <input type="text" class="form-control" ng-model="ctrl.shibboleth" required placeholder="Zadejte heslo stanoviště" />
                 </div>
-                <div class="col-xs-12 col-sm-4 col-md-2 col-xl-2">
+                <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2 text-right">
+                    <a ng-href="#/postDetail/{{ctrl.post.post}}" class="btn btn-default custom"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Zpět</a>
+                </div>
+                <div class="col-xs-6 col-sm-3 col-md-2 col-xl-2">
                     <button ng-click="ctrl.log()" ng-disabled="logPostForm.$invalid" class="form-control btn btn-success"><i class="fa fa-check"></i> Zalogovat</button>
                 </div>
             </div>
