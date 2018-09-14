@@ -56,7 +56,7 @@
                 </td>
 
                 <td colspan="5">
-                    <h4>
+                    <h4 style="display: inline">
                         <span ng-show="postItem.cacheType === 'TRA'"><img src="../assets/images/traditional.png" alt="{{postItem.cacheName}}" title="{{postItem.cacheName}}"></span>
                         <span ng-show="postItem.cacheType === 'MLT'"><img src="../assets/images/multi.png" alt="{{postItem.cacheName}}" title="{{postItem.cacheName}}"></span>
                         <span ng-show="postItem.cacheType === 'LTB'"><img src="../assets/images/letterbox.png" alt="{{postItem.cacheName}}" title="{{postItem.cacheName}}"></span>
@@ -66,6 +66,9 @@
                         <span ng-show="postItem.cacheType === 'WIG'"><img src="../assets/images/wherigo.png" alt="{{postItem.cacheName}}" title="{{postItem.cacheName}}"></span>
                         <a href="#/postDetail/{{postItem.post}}">{{postItem.name}}</a>
                     </h4>
+                    <span ng-show="postItem.openFrom !== null">
+                        &nbsp;({{postItem.openFrom | date: "shortTime"}} - {{postItem.openTo | date: "shortTime"}})
+                    </span>
                 </td>
 
             </tr>
