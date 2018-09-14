@@ -103,7 +103,7 @@ table.post-list tbody tr td {
     background-repeat: no-repeat;
 }
 
-.results-table th {
+table.results-table th {
     -ms-transform: rotate(-90deg); /* IE 9 */
     -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
     transform: rotate(-90deg);
@@ -111,7 +111,7 @@ table.post-list tbody tr td {
     table-layout: fixed
 }
 
-.results-table th div {
+table.results-table th div {
     position: absolute;
     left: -15px;
     top: -1px;
@@ -165,4 +165,13 @@ table.post-list tbody tr td {
 	width: 1.35em;
 	height: 1.35em;
 	vertical-align: middle;
+}
+
+table.table td,
+table.table th {
+	padding: 1ex;
+}
+
+table.table th {
+	background-color: #eee;
 }
