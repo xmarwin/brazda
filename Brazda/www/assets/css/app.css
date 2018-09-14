@@ -167,11 +167,11 @@ table.results-table th div {
 	vertical-align: middle;
 }
 
-table.table td,
-table.table th {
+table.content-table td,
+table.content-table th {
 	padding: 1ex;
 }
 
-table.table th {
+table.content-table th {
 	background-color: #eee;
 }
