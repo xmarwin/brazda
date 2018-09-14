@@ -78,9 +78,9 @@ table.post-list {
     border-collapse: collapse;
 }
 
-    table.post-list tbody tr td {
-        padding: 3px;
-    }
+table.post-list tbody tr td {
+    padding: 3px;
+}
 
 .waipoint-type-icon {
     width: 32px;
@@ -103,7 +103,7 @@ table.post-list {
     background-repeat: no-repeat;
 }
 
-th {
+.results-table th {
     -ms-transform: rotate(-90deg); /* IE 9 */
     -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
     transform: rotate(-90deg);
@@ -111,7 +111,7 @@ th {
     table-layout: fixed
 }
 
-th div {
+.results-table th div {
     position: absolute;
     left: -15px;
     top: -1px;
