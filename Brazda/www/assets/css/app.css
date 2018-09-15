@@ -131,15 +131,19 @@ table.results-table th div {
 }
 
 .result-1 {
-    background-color: red;
+    /*background-color: red;*/
+    background-color: gold;
 }
 
 .result-2 {
-    background-color: #ff4b4b;
+    /*background-color: #ff4b4b;*/
+    background-color: silver;
 }
 
 .result-3 {
-    background-color: #ff8282;
+    /*background-color: #ff8282;*/
+    background-color: #cd7f32;
+    color: #fff;
 }
 
 .content {
