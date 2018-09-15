@@ -142,8 +142,12 @@ table.results-table th div {
 
 .result-3 {
     /*background-color: #ff8282;*/
-    background-color: #cd7f32;
+    background-color: #b08d57;
     color: #fff;
+}
+
+.result-4 {
+    background-color: #ecd574;
 }
 
 .content {
