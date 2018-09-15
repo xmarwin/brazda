@@ -42,17 +42,17 @@ class Waypoints extends Base
                 wv.name AS waypoint_visibility_name,
                 %if", isset($team), "
                 CASE WHEN w.waypoint_visibility = 'VW' THEN w.latitude
-                     WHEN w.waypoint_visibility = 'HC' AND p.post_type != 'BON' AND lo.moment IS NOT NULL THEN w.latitude
-                     WHEN w.waypoint_visibility = 'HC' AND p.post_type  = 'BON' AND lb.moment IS NOT NULL THEN w.latitude
-                     WHEN w.waypoint_visibility = 'HW' AND p.post_type != 'BON' AND lo.moment IS NOT NULL THEN w.latitude
-                     WHEN w.waypoint_visibility = 'HW' AND p.post_type  = 'BON' AND lb.moment IS NOT NULL THEN w.latitude
-                     ELSE NULL END AS latitude,
+                    WHEN w.waypoint_visibility = 'HC' AND p.post_type NOT IN ('BON', 'SBN') AND lo.moment IS NOT NULL THEN w.latitude
+                    WHEN w.waypoint_visibility = 'HC' AND p.post_type IN ('BON', 'SBN') AND lb.moment IS NOT NULL THEN w.latitude
+                    WHEN w.waypoint_visibility = 'HW' AND p.post_type NOT IN ('BON', 'SBN') AND lo.moment IS NOT NULL THEN w.latitude
+                    WHEN w.waypoint_visibility = 'HW' AND p.post_type IN ('BON', 'SBN') AND lb.moment IS NOT NULL THEN w.latitude
+                    ELSE NULL END AS latitude,
                 CASE WHEN w.waypoint_visibility = 'VW' THEN w.longitude
-                     WHEN w.waypoint_visibility = 'HC' AND p.post_type != 'BON' AND lo.moment IS NOT NULL THEN w.longitude
-                     WHEN w.waypoint_visibility = 'HC' AND p.post_Type  = 'BON' AND lb.moment IS NOT NULL THEN w.longitude
-                     WHEN w.waypoint_visibility = 'HW' AND p.post_type != 'BON' AND lo.moment IS NOT NULL THEN w.longitude
-                     WHEN w.waypoint_visibility = 'HW' AND p.post_type  = 'BON' AND lb.moment IS NOT NULL THEN w.longitude
-                     ELSE NULL END AS longitude
+                    WHEN w.waypoint_visibility = 'HC' AND p.post_type NOT IN ('BON', 'SBN') AND lo.moment IS NOT NULL THEN w.longitude
+                    WHEN w.waypoint_visibility = 'HC' AND p.post_Type IN ('BON', 'SBN') AND lb.moment IS NOT NULL THEN w.longitude
+                    WHEN w.waypoint_visibility = 'HW' AND p.post_type NOT IN ('BON', 'SBN') AND lo.moment IS NOT NULL THEN w.longitude
+                    WHEN w.waypoint_visibility = 'HW' AND p.post_type IN ('BON', 'SBN') AND lb.moment IS NOT NULL THEN w.longitude
+                    ELSE NULL END AS longitude
                 %else
                 CASE waypoint_visibility WHEN 'VW' THEN w.latitude  ELSE NULL END AS latitude,
                 CASE waypoint_visibility WHEN 'VW' THEN w.longitude ELSE NULL END AS longitude
