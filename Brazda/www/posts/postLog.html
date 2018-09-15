@@ -2,19 +2,17 @@
 <div>
     <form name="logPostForm" class="form-inline">
         <div class="row">
-        <h1 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Zalogovat stanoviště {{ctrl.post.name}}</h1>
+			<h1 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Zalogovat stanoviště {{ctrl.post.name}}</h1>
         </div>
         <div class="row">
-            <div class="form-group">
-                <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8">
-                    <input type="text" class="form-control" ng-model="ctrl.shibboleth" required placeholder="Zadejte heslo stanoviště" />
-                </div>
-                <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2 text-right">
-                    <a ng-href="#/postDetail/{{ctrl.post.post}}" class="btn btn-default custom"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Zpět</a>
-                </div>
-                <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2">
-                    <button ng-click="ctrl.log()" ng-disabled="logPostForm.$invalid" class="form-control btn btn-success"><i class="fa fa-check"></i> Zalogovat</button>
-                </div>
+            <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8" style="margin-bottom: 1ex">
+                <input type="text" class="form-control" ng-model="ctrl.shibboleth" required placeholder="Zadejte heslo stanoviště" style="width: 100%" />
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2 text-right">
+                <a ng-href="#/postDetail/{{ctrl.post.post}}" class="btn btn-default custom" style="width: 100%"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Zpět</a>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2">
+                <button ng-click="ctrl.log()" ng-disabled="logPostForm.$invalid" class="form-control btn btn-success" style="width: 100%"><i class="fa fa-check"></i> Zalogovat</button>
             </div>
         </div>
     </form>
