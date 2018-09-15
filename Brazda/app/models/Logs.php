@@ -265,11 +265,22 @@ class Logs extends Base
             : null;
     } // nextLog()
 
-    public function nextBonusLogTimeout()
+    public function nextBonusLogTimeout($post)
     {
-        $parameters = $this->context->getParameters();
+        $bonusPost = $this->db->query(
+            "SELECT post_type
+             FROM posts
+             WHERE post = %i", $post
+        )->fetch();
 
-        return "{$parameters['bonusInterval']} minutes";
+        $parameters = $this->context->getParameters();
+        if ($bonusPost->post_type == Posts::SUPERBONUS) {
+            $interval = $parameters['superbonusInterval'];
+        } else {
+            $interval = $parameters['bonusInterval'];
+        } // if
+
+        return "{$interval} minutes";
     } // nextBonusLogTimeout()
 
     public function nextBonusLog($team, $post)
@@ -277,7 +288,7 @@ class Logs extends Base
         $team = (int) $team;
         $post = (int) $post;
 
-        $interval = $this->nextBonusLogTimeout();
+        $interval = $this->nextBonusLogTimeout($post);
 
         $lastErrorLogs = $this->db->query(
             "SELECT *,
