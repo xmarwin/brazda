@@ -78,7 +78,8 @@ class Posts extends Base
             'help'       => 'p.help',
             'log_out_moment'   => 'lo.moment',
             'log_bonus_moment' => 'lb.moment',
-            'log_help_moment'  => 'lh.moment'
+            'log_help_moment'  => 'lh.moment',
+            'time_estimate'    => 'p.tiime_estimate'
         ]);
         $order  = $this->normalizeOrder($order);
         $limit  = $this->normalizeLimit($limit);
@@ -105,6 +106,7 @@ class Posts extends Base
                 p.open_from,
                 p.open_to,
                 p.hint,
+                p.time_estimate,
 
                 cs.name AS size_name,
                 ct.name AS cache_name,
@@ -185,7 +187,8 @@ class Posts extends Base
             'help'       => 'p.help',
             'log_out_moment'   => 'lo.moment',
             'log_bonus_moment' => 'lb.moment',
-            'log_help_moment'  => 'lh.moment'
+            'log_help_moment'  => 'lh.moment',
+            'time_estimate'    => 'p.time_estimate'
         ]);
         $order  = $this->normalizeOrder($order);
         $limit  = $this->normalizeLimit($limit);
@@ -216,6 +219,7 @@ class Posts extends Base
                 p.latitude,
                 p.longitude,
                 p.hint,
+                p.time_estimate,
                 to_char(p.open_from, 'HH24:MI') AS open_from,
                 to_char(p.open_to, 'HH24:MI') AS open_to,
                 CASE WHEN p.help NOT LIKE '' THEN TRUE ELSE FALSE END AS has_help,

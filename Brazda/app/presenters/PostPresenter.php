@@ -73,11 +73,12 @@ class PostPresenter extends SecuredBasePresenter
                 'name'        => $bonusPost->name,
                 'is_unlocked' => $bonusPost->is_unlocked,
                 'is_done'     => $bonusPost->is_done,
-                'unlocked_moment' => $bonusPost->log_bonus_moment,
-                'done_moment'     => $bonusPost->log_out_moment,
-                'password'    => $bonusPost->password,
+                'unlocked_moment'    => $bonusPost->log_bonus_moment,
+                'done_moment'        => $bonusPost->log_out_moment,
+                'password'           => $bonusPost->password,
                 'password_character' => $bonusPost->password_character,
-                'password_position' => $bonusPost->password_position,
+                'password_position'  => $bonusPost->password_position,
+				'time_estimate'      => $bonusPost->time_estimate,
                 'color'       => [
                     'name'    => $bonusPost->color_name,
                     'code'    => $bonusPost->color_code
@@ -362,6 +363,9 @@ class PostPresenter extends SecuredBasePresenter
 		if (isset($this->input->passwordPosition) && !empty($this->input->passwordPosition))
 			$values['password_position'] = $this->input->passwordPosition;
 
+		if (isset($this->input->timeEstimate) && !empty($this->input->timeEstimate))
+			$values['time_estimate'] = $this->input->time_estimate;
+
         $result = [];
         $this->posts->begin();
         try {
@@ -452,6 +456,9 @@ class PostPresenter extends SecuredBasePresenter
 
 		if (isset($this->input->passwordPosition) && !empty($this->input->passwordPosition))
 			$values['password_position'] = $this->input->passwordPosition;
+
+		if (isset($this->input->timeEstimate) && !empty($this->input->timeEstimate))
+			$values['time_estimate'] = $this->input->time_estimate;
 
         $this->posts->begin();
         try {
