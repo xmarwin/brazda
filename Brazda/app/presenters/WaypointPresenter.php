@@ -3,7 +3,8 @@
 namespace Brazda\Presenters;
 
 use Nette\Security,
-    Brazda\Models;
+    Brazda\Models,
+    Dibi;
 
 class WaypointPresenter extends SecuredBasePresenter
 {
@@ -19,25 +20,30 @@ class WaypointPresenter extends SecuredBasePresenter
 
     public function actionList(array $filter = [], array $order = [])
     {
-        $viewFilter = [
-            'team' => $this->team['team']
-        ];
+	try {
+		$viewFilter = [
+		    'team' => $this->team['team']
+		];
 
-        if (isset($filter['post']) && !empty($filter['post'])) {
-            $viewFilter[] = [ 'w.post = %i', (int) $filter['post'] ];
-        } // if
+		if (isset($filter['post']) && !empty($filter['post'])) {
+		    $viewFilter[] = [ 'w.post = %i', (int) $filter['post'] ];
+		} // if
 
-        if (isset($filter['type']) && !empty($filter['type'])) {
-            $types = explode(',', $filter['type']);
-            $viewFilter[] = [ 'w.waypoint_type IN %in', $types ];
-        } // if
+		if (isset($filter['type']) && !empty($filter['type'])) {
+		    $types = explode(',', $filter['type']);
+		    $viewFilter[] = [ 'w.waypoint_type IN %in', $types ];
+		} // if
 
-        if (isset($filter['visibility']) && !empty($filter['visibility'])) {
-            $visibilities = explode(',', $filter['visibilities']);
-            $viewFilter[] = [ 'w.waypoint_visibility IN %in', $visibilities ];
-        } // if
+		if (isset($filter['visibility']) && !empty($filter['visibility'])) {
+		    $visibilities = explode(',', $filter['visibilities']);
+		    $viewFilter[] = [ 'w.waypoint_visibility IN %in', $visibilities ];
+		} // if
 
-        $this->resource = (array) $this->waypoints->view($viewFilter, $order)->fetchAll();
+		$this->resource = (array) $this->waypoints->view($viewFilter, $order)->fetchAll();
+	} catch (Dibi\Exception $e) {
+		$this->sendErrorResource($e);
+	} // try
+
         $this->sendResource();
     } // actionList()
 

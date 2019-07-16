@@ -2,7 +2,8 @@
 
 namespace Brazda\Presenters;
 
-use Brazda\Models;
+use Brazda\Models,
+    Dibi;
 
 class NotePresenter extends SecuredBasePresenter
 {
@@ -18,12 +19,17 @@ class NotePresenter extends SecuredBasePresenter
 
     public function actionDetail($post)
     {
-        $viewFilter = [
-            'team' => (int) $this->team['team'],
-            'post' => (int) $post
-        ];
+	try {
+		$viewFilter = [
+		    'team' => (int) $this->team['team'],
+		    'post' => (int) $post
+		];
 
-        $this->resource = (array) $this->notes->find($viewFilter);
+		$this->resource = (array) $this->notes->find($viewFilter);
+	} catch (Dibi\Exception $e) {
+		$this->sendErrorResource($e);
+	} // try
+
         $this->sendResource();
     } // actionDetail()
 
