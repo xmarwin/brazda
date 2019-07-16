@@ -104,8 +104,8 @@ ECHO Aplikuji patch 019...
 "C:\Program Files\PostgreSQL\%PGVERSION%\bin\psql.exe" -f p019.sql
 if errorLevel 1 ( exit /b %errorLevel%; )
 
-ECHO Importuji data o stanovištích...
-"C:\Program Files\PostgreSQL\%PGVERSION%\bin\psql.exe" -f posts.sql
+ECHO Importuji základní data...
+"C:\Program Files\PostgreSQL\%PGVERSION%\bin\psql.exe" -f default.sql
 if errorLevel 1 ( exit /b %errorLevel%; )
 
 ECHO Hotovo!

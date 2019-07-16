@@ -99,8 +99,8 @@ echo "Aplikuji patch 019..."
 /usr/bin/psql -q -h $PGHOST -p $PGPORT -f p019.sql
 
 if [ $? -gt 0 ]; then exit; fi
-echo "Importuji data o stanovištích..."
-/usr/bin/psql -q -h $PGHOST -p $PGPORT -f posts.sql
+echo "Importuji základní data..."
+/usr/bin/psql -q -h $PGHOST -p $PGPORT -f default.sql
 if [ $? -gt 0 ]; then exit; fi
 
 echo 'Hotovo!'
