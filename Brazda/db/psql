@@ -1,0 +1,6 @@
+#!/bin/bash
+
+DIR="$(dirname "$0")"
+source "$DIR/config"
+
+/usr/bin/psql -h $PGHOST -p $PGPORT $PGDATABASE

@@ -1,0 +1,11 @@
+ECHO OFF
+
+chcp 65001
+
+SET PGVERSION=9.5
+SET PGCLIENTENCODING=UTF8
+SET PGUSER=brazda
+SET PGPASSWORD=FzwtMS/jq.XSQ
+SET PGDATABASE=brazda_test
+
+"C:\Program Files\PostgreSQL\%PGVERSION%\bin\psql.exe"
