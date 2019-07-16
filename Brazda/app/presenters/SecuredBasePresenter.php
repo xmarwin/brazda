@@ -2,18 +2,12 @@
 
 namespace Brazda\Presenters;
 
-use Drahak\Restful\IResource,
-    Drahak\Restful\Application\UI\SecuredResourcePresenter,
-    Nette\Security;
+use Nette\Security;
 
-class SecuredBasePresenter extends SecuredResourcePresenter
+class SecuredBasePresenter extends BasePresenter
 {
 	protected
-		$typeMap = [
-			'json' => IResource::JSON,
-			'xml'  => IResource::XML
-		],
-		$outputType = IResource::JSON,
+		$resource,
 		$input,
 
 		$logins,
@@ -44,8 +38,7 @@ class SecuredBasePresenter extends SecuredResourcePresenter
 				new Security\AuthenticationException(
 					'Prázdný securityToken, nelze ověřit uživatele.',
 					403
-				), // AuthenticationException()
-				$this->outputType
+				) // AuthenticationException()
 			); // sendErrorResource()
 		} // if
 		$securityToken = $parameters['securityToken'];
@@ -56,8 +49,7 @@ class SecuredBasePresenter extends SecuredResourcePresenter
 				new Security\AuthenticationException(
 					'SecurityToken nebyl nalezen.',
 					403
-				), // AuthenticationException()
-				$this->outputType
+				) // AuthenticationException()
 			); // sendErrorResource()
 		} // if
 
@@ -73,8 +65,7 @@ class SecuredBasePresenter extends SecuredResourcePresenter
                 new Security\AuthenticationException(
                     'Nemáte oprávnění pro volání této metody.',
                     401
-                ), // AuthenticationException()
-                $this->outputType
+                ) // AuthenticationException()
             ); // sendErrorResource()
         } // if
 

@@ -24,7 +24,7 @@ class NotePresenter extends SecuredBasePresenter
         ];
 
         $this->resource = (array) $this->notes->find($viewFilter);
-        $this->sendResource($this->outputType);
+        $this->sendResource();
     } // actionDetail()
 
     public function actionCreate()
@@ -38,7 +38,7 @@ class NotePresenter extends SecuredBasePresenter
         try {
             $result = $this->notes->insert($values);
         } catch (\Exception $e) {
-            $this->sendErrorResource($e, $this->outputType);
+            $this->sendErrorResource($e, );
         } // try
 
         $this->resource = [
@@ -46,7 +46,7 @@ class NotePresenter extends SecuredBasePresenter
             'code'   => 201,
             'data'   => $result
         ];
-        $this->sendResource($this->outputType);
+        $this->sendResource();
     } // actionCreate()
 
     public function actionUpdate()
@@ -67,14 +67,14 @@ class NotePresenter extends SecuredBasePresenter
         try {
             $this->notes->update($values, $filter);
         } catch (\Exception $e) {
-            $this->sendErrorResource($e, $this->outputType);
+            $this->sendErrorResource($e, );
         } // try
 
         $this->resource = [
             'status' => 'OK',
             'code'   => 201
         ];
-        $this->sendResource($this->outputType);
+        $this->sendResource();
     } // actionUpdate()
 
     public function actionSave()
@@ -98,14 +98,14 @@ class NotePresenter extends SecuredBasePresenter
                 $this->notes->update($values, $filter);
             } // of
         } catch (\Exception $e) {
-            $this->sendErrorResource($e, $this->outputType);
+            $this->sendErrorResource($e, );
         } // try
 
         $this->resource = [
             'status' => 'OK',
             'code'   => 201
         ];
-        $this->sendResource($this->outputType);
+        $this->sendResource();
     } // actionSave()
 
     public function actionDelete()
@@ -122,14 +122,14 @@ class NotePresenter extends SecuredBasePresenter
         try {
             $this->notes->delete($filter);
         } catch (\Exception $e) {
-            $this->sendErrorResource($e, $this->outputType);
+            $this->sendErrorResource($e, );
         } // try
 
         $this->resource = [
             'status' => 'OK',
             'code'   => 200
         ];
-        $this->sendResource($this->outputType);
+        $this->sendResource();
     } // actionDelete()
 
 } // NotePresenter

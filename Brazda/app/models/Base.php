@@ -5,8 +5,10 @@ namespace Brazda\Models;
 use Nette,
     Nette\DI;
 
-class Base extends Nette\Object
+class Base
 {
+    use Nette\SmartObject;
+
     protected
         $context,
         $db;

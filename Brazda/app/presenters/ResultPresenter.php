@@ -40,6 +40,6 @@ class ResultPresenter extends SecuredBasePresenter
         } // foreach
 
         $this->resource = $teams;
-        $this->sendResource($this->outputType);
+        $this->sendResource();
     } // actionList()
 } // ResultPresenter

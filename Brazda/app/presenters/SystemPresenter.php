@@ -35,7 +35,7 @@ class SystemPresenter extends SecuredBasePresenter
 
 		$this->resource = $settings;
 
-		$this->sendResource($this->outputType);
+		$this->sendResource();
 	} // actionDefault()
 
 	public function actionStart()
@@ -47,7 +47,7 @@ class SystemPresenter extends SecuredBasePresenter
 
 		$this->resource = [ 'raceStart' => $raceStart ];
 
-		$this->sendResource($this->outputType);
+		$this->sendResource();
 	} // actionStart()
 
 	public function actionSet()
@@ -65,7 +65,7 @@ class SystemPresenter extends SecuredBasePresenter
 			'status' => 'OK',
 			'code'   => 201
 		];
-		$this->sendResource($this->outputType);
+		$this->sendResource();
 	} // actionSet()
 
 } // SystemPresenter

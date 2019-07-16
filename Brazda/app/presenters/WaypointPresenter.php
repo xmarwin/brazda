@@ -38,7 +38,7 @@ class WaypointPresenter extends SecuredBasePresenter
         } // if
 
         $this->resource = (array) $this->waypoints->view($viewFilter, $order)->fetchAll();
-        $this->sendResource($this->outputType);
+        $this->sendResource();
     } // actionList()
 
     public function actionCreate()
@@ -59,7 +59,7 @@ class WaypointPresenter extends SecuredBasePresenter
         try {
             $result['waypoints'] = (int) $this->waypoints->insert($values);
         } catch (Exception $e) {
-            $this->sendErrorResource($e, $this->outputType);
+            $this->sendErrorResource($e, );
         } // try
 
         $this->resource = [
@@ -67,7 +67,7 @@ class WaypointPresenter extends SecuredBasePresenter
             'code'   => 201,
             'data'   => $result
         ];
-        $this->sendResource($this->outputType);
+        $this->sendResource();
     } // actionCreate()
 
     public function actionUpdate()
@@ -90,14 +90,14 @@ class WaypointPresenter extends SecuredBasePresenter
         try {
             $this->waypoints->update($values, $filter);
         } catch (Exception $e) {
-            $this->sendErrorResource($e, $this->outputType);
+            $this->sendErrorResource($e, );
         } // try
 
         $this->resource = [
             'status' => 'OK',
             'code'   => 201
         ];
-        $this->sendResource($this->outputType);
+        $this->sendResource();
     } // actionUpdate()
 
     public function actionDelete()
@@ -108,14 +108,14 @@ class WaypointPresenter extends SecuredBasePresenter
         try {
             $this->waypoints->delete($filter);
         } catch (Exception $e) {
-            $this->sendErrorResource($e, $this->outputType);
+            $this->sendErrorResource($e, );
         } // try
 
         $this->resource = [
             'status' => 'OK',
             'code'   => 200
         ];
-        $this->sendResource($this->outputType);
+        $this->sendResource();
     } // actionDelete()
 
 } // WaypointPresenter

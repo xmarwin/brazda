@@ -50,7 +50,7 @@ class PostPresenter extends SecuredBasePresenter
 		foreach ($this->resource as $id => $post) {
             $this->resource[$id]['rank'] = $rank++;
 		} // foreach
-		$this->sendResource($this->outputType);
+		$this->sendResource();
 	} // actionList()
 
 	public function actionBonusList()
@@ -94,7 +94,7 @@ class PostPresenter extends SecuredBasePresenter
             $this->resource[] = $bonus;
         } // foreach
 
-        $this->sendResource($this->outputType);
+        $this->sendResource();
 	} // actionBonusList()
 
 	public function actionDetail($post)
@@ -111,7 +111,7 @@ class PostPresenter extends SecuredBasePresenter
             'post' => (int) $post,
             'team' => (int) $this->team['team']
         ])->fetchPairs('team', 'moment');
-        $this->sendResource($this->outputType);
+        $this->sendResource();
 	} // actionDetail()
 
 	public function actionHelp($post)
@@ -130,7 +130,7 @@ class PostPresenter extends SecuredBasePresenter
         } // if
         $post = $this->posts->find($post);
         $this->resource['help'] = $post['help'];
-        $this->sendResource($this->outputType);
+        $this->sendResource();
     } // actionHelp()
 
     public function actionLog($post, $shibboleth)
@@ -141,7 +141,7 @@ class PostPresenter extends SecuredBasePresenter
                 'status' => 'nelze logovat stanoviště dokud jste neodstartovali',
                 'code'   => 401
             ];
-            $this->sendResource($this->outputType);
+            $this->sendResource();
         } // if
 
         // Neskončil zatím tým závod?
@@ -150,7 +150,7 @@ class PostPresenter extends SecuredBasePresenter
                 'status' => 'nelze logovat stanoviště po skončení závodu',
                 'code'   => 403
             ];
-            $this->sendResource($this->outputType);
+            $this->sendResource();
         } // if
 
         // Nemá stanoviště už zalogované?
@@ -164,7 +164,7 @@ class PostPresenter extends SecuredBasePresenter
                 'status' => 'stanoviště jste už zalogovali',
                 'code'   => 304
             ];
-            $this->sendResource($this->outputType);
+            $this->sendResource();
         } // if
 
         // Nesnaží se tým logovat příliš brzy po minulém nezdařeném pokusu?
@@ -178,7 +178,7 @@ class PostPresenter extends SecuredBasePresenter
                 'next_timestamp' => date('H:i:s', $nextTimestamp),
                 'next_interval'  => $nextTimeout
             ];
-            $this->sendResource($this->outputType);
+            $this->sendResource();
         } // if
 
         // Zjistíme heslo stanoviště a připravíme jej na porovnání
@@ -196,7 +196,7 @@ class PostPresenter extends SecuredBasePresenter
                 'status' => 'špatné heslo stanoviště',
                 'code'   => 404
             ];
-            $this->sendResource($this->outputType);
+            $this->sendResource();
         } // if
 
         $postData = $this->posts->find($post);
@@ -230,7 +230,7 @@ class PostPresenter extends SecuredBasePresenter
             'code'   => 200,
             'password' => (array) $this->posts->getPassword($post, $this->team['team'])
         ];
-        $this->sendResource($this->outputType);
+        $this->sendResource();
 	} // actionLog()
 
 	public function actionBonus($post, $bonusCode)
@@ -241,7 +241,7 @@ class PostPresenter extends SecuredBasePresenter
                 'status' => 'Not started',
                 'code'   => 401
             ];
-            $this->sendResource($this->outputType);
+            $this->sendResource();
         } // if
 
         // Neskončil zatím tým závod?
@@ -250,7 +250,7 @@ class PostPresenter extends SecuredBasePresenter
                 'status' => 'Already finished',
                 'code'   => 403
             ];
-            $this->sendResource($this->outputType);
+            $this->sendResource();
         } // if
 
         // Nemá stanoviště už zalogované?
@@ -264,7 +264,7 @@ class PostPresenter extends SecuredBasePresenter
                 'status' => 'Already logged',
                 'code'   => 304
             ];
-            $this->sendResource($this->outputType);
+            $this->sendResource();
         } // if
 
         // Nesnaží se tým logovat příliš brzy po minulém nezdařeném pokusu?
@@ -278,7 +278,7 @@ class PostPresenter extends SecuredBasePresenter
                 'next_timestamp' => date('H:i:s', $nextTimestamp),
                 'next_interval'  => $nextTimeout
             ];
-            $this->sendResource($this->outputType);
+            $this->sendResource();
         } // if
 
         // Zjistíme bonusový kód stanoviště a připravíme jej na porovnání
@@ -296,7 +296,7 @@ class PostPresenter extends SecuredBasePresenter
                 'status' => 'Wrong bonus code',
                 'code'   => 404
             ];
-            $this->sendResource($this->outputType);
+            $this->sendResource();
         } // if
 
         // Zalogujeme stanoviště jako odemčené
@@ -309,7 +309,7 @@ class PostPresenter extends SecuredBasePresenter
             'status' => 'OK',
             'code'   => 200
         ];
-        $this->sendResource($this->outputType);
+        $this->sendResource();
 	} // actionBonus()
 
     public function actionCreate()
@@ -372,7 +372,7 @@ class PostPresenter extends SecuredBasePresenter
             $result['post'] = (int) $this->posts->insert($values);
         } catch (\Exception $e) {
             $this->posts->rollback();
-            $this->sendErrorResource($e, $this->outputType);
+            $this->sendErrorResource($e, );
         } // try
 
         foreach ($this->input->waypoints as $wp) {
@@ -391,7 +391,7 @@ class PostPresenter extends SecuredBasePresenter
                 $result['waypoints'][] = (int) $this->waypoints->insert($waypointValues);
             } catch (\Exception $e) {
                 $this->posts->rollback();
-                $this->sendErrorResource($e, $this->outputType);
+                $this->sendErrorResource($e, );
             } // try
         } // foreach
         $this->posts->commit();
@@ -401,7 +401,7 @@ class PostPresenter extends SecuredBasePresenter
             'code'   => 201,
             'data'   => $result
         ];
-        $this->sendResource($this->outputType);
+        $this->sendResource();
     } // actionCreate()
 
     public function actionUpdate()
@@ -465,14 +465,14 @@ class PostPresenter extends SecuredBasePresenter
             $this->posts->update($values, $filter);
         } catch (\Exception $e) {
             $this->posts->rollback();
-            $this->sendErrorResource($e, $this->outputType);
+            $this->sendErrorResource($e, );
         } // try
 
         try {
             $this->waypoints->delete(['post' => $filter['post']]);
         } catch (\Exception $e) {
             $this->posts->rollback();
-            $this->sendErrorResource($e, $this->outputType);
+            $this->sendErrorResource($e, );
         } // try
 
         $result = [];
@@ -495,7 +495,7 @@ class PostPresenter extends SecuredBasePresenter
                 $result[] = (int) $this->waypoints->insert($values);
             } catch (\Exception $e) {
                 $this->posts->rollback();
-                $this->sendErrorResource($e, $this->outputType);
+                $this->sendErrorResource($e, );
             } // try
         } // foreach
         $this->posts->commit();
@@ -505,7 +505,7 @@ class PostPresenter extends SecuredBasePresenter
             'code'   => 201,
             'data'   => $result
         ];
-        $this->sendResource($this->outputType);
+        $this->sendResource();
     } // actionUpdate()
 
     public function actionDelete()
@@ -516,14 +516,14 @@ class PostPresenter extends SecuredBasePresenter
         try {
             $this->posts->delete($filter);
         } catch (\Exception $e) {
-            $this->sendErrorResource($e, $this->outputType);
+            $this->sendErrorResource($e, );
         } // try
 
         $this->resource = [
             'status' => 'OK',
             'code'   => 200
         ];
-        $this->sendResource($this->outputType);
+        $this->sendResource();
     } // actionDelete()
 
 } // PostPresenter

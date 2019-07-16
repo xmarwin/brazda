@@ -49,14 +49,14 @@ class SignPresenter extends BasePresenter
                 $this->getUser()->logout();
                 $this->logins->logout($identity->securityToken);
 			} // if
-			$this->sendErrorResource($e, $this->outputType);
+			$this->sendErrorResource($e);
 		} // try
 
 		$data  = (array) $identity->getData();
 		$data += (array) $login;
 
 		$this->resource = $data;
-		$this->sendResource($this->outputType);
+		$this->sendResource();
 	} // actionIn()
 
 	public function actionOut($securityToken)
@@ -65,7 +65,7 @@ class SignPresenter extends BasePresenter
 		$this->logins->logout($securityToken);
 
 		$this->resource = [ 'logout' => true ];
-		$this->sendResource($this->outputType);
+		$this->sendResource();
 	} // actionOut()
 
 	public function actionTeamsList()
@@ -81,7 +81,7 @@ class SignPresenter extends BasePresenter
 			];
 		} // foreach
 
-		$this->sendResource($this->outputType);
+		$this->sendResource();
 	} // actionTeamsList()
 
 } // SignPresenter

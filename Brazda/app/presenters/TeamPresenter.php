@@ -31,7 +31,7 @@ class TeamPresenter extends SecuredBasePresenter
 
         $this->resource = $this->teams->view($viewFilter, $order);
 
-        $this->sendResource($this->outputType);
+        $this->sendResource();
 	} // actionList()
 
 	public function actionDetail($team)
@@ -52,7 +52,7 @@ class TeamPresenter extends SecuredBasePresenter
             unset($teamResource->shibboleth);
         } // if
 
-        $this->sendResource($this->outputType);
+        $this->sendResource();
 	} // actionDetail()
 
 	public function actionCreate()
@@ -81,7 +81,7 @@ class TeamPresenter extends SecuredBasePresenter
         try {
             $result['team'] = $this->teams->insert($values);
         } catch (\Exception $e) {
-            $this->sendErrorResource($e, $this->outputType);
+            $this->sendErrorResource($e, );
         } // try
 
         $this->resource = [
@@ -89,7 +89,7 @@ class TeamPresenter extends SecuredBasePresenter
             'code'   => 201,
             'data'   => $result
         ];
-        $this->sendResource($this->outputType);
+        $this->sendResource();
 	} // actionCreate()
 
 	public function actionUpdate()
@@ -120,14 +120,14 @@ class TeamPresenter extends SecuredBasePresenter
         try {
             $this->teams->update($values, $filter);
         } catch (\Exception $e) {
-            $this->sendErrorResource($e, $this->outputType);
+            $this->sendErrorResource($e, );
         } // try
 
         $this->resource = [
             'status' => 'OK',
             'code'   => 201
         ];
-        $this->sendResource($this->outputType);
+        $this->sendResource();
 	} // actionCreate()
 
 	public function actionDelete()
@@ -138,14 +138,14 @@ class TeamPresenter extends SecuredBasePresenter
         try {
             $this->teams->delete($filter);
         } catch (\Exception $e) {
-            $this->sendErrorResource($e, $this->outputType);
+            $this->sendErrorResource($e, );
         } // if
 
         $this->resource = [
             'status' => 'OK',
             'code'   => 200
         ];
-        $this->sendResource($this->outputType);
+        $this->sendResource();
 	} // actionDelete()
 
 } // TeamPresenter

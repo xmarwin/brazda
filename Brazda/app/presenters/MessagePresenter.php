@@ -21,7 +21,7 @@ class MessagePresenter extends SecuredBasePresenter
 			? $messages
 			: [ null ];
 
-		$this->sendResource($this->outputType);
+		$this->sendResource();
 	} // actionDefault()
 
 	public function actionShow($message)
@@ -31,7 +31,7 @@ class MessagePresenter extends SecuredBasePresenter
 			$message
 		); // show()
 
-		$this->sendResource($this->outputType);
+		$this->sendResource();
 	} // actionShow()
 
 	public function actionNew()
@@ -46,7 +46,7 @@ class MessagePresenter extends SecuredBasePresenter
 			? $messages
 			: [ null ];
 
-		$this->sendResource($this->outputType);
+		$this->sendResource();
 	} // if
 
 	public function actionCreate()
@@ -59,7 +59,7 @@ class MessagePresenter extends SecuredBasePresenter
 				'code'   => 400
 			];
 
-			$this->sendResource($this->outputType);
+			$this->sendResource();
 		} // if
 
 		$values = [ 'content' => $this->input->message ];
@@ -72,7 +72,7 @@ class MessagePresenter extends SecuredBasePresenter
 				'code'   => 500,
 				'error'  => $e->getMessage()
 			];
-			$this->sendResource($this->outputType);
+			$this->sendResource();
 		} // try
 
 		$this->resource = [
@@ -80,7 +80,7 @@ class MessagePresenter extends SecuredBasePresenter
 			'code'   => 201,
 			'data'   => $result
 		];
-		$this->sendResource($this->outputType);
+		$this->sendResource();
 	} // actionCreate()
 
 } // MessagePresenter()

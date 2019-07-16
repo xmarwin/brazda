@@ -16,7 +16,7 @@ class VersionPresenter extends BasePresenter
 			? [ 'version' => trim(Utils\FileSystem::read($versionFile)) ]
 			: [ 'version' => null ];
 
-		$this->sendResource($this->outputType);
+		$this->sendResource();
 	} // actionDefault()
 
 } // VersionPresenter

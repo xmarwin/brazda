@@ -17,7 +17,7 @@ class PositionPresenter extends SecuredBasePresenter
     public function actionList(array $filter = [], array $order = [])
     {
         $this->resource = (array) $this->positions->view($filter, $order)->fetchAll();
-        $this->sendResource($this->outputType);
+        $this->sendResource();
     } // actionList()
 
     public function actionReport()
@@ -31,7 +31,7 @@ class PositionPresenter extends SecuredBasePresenter
                     'Neznámý formát dat. Prosím posílejte buďto JSON literal, nebo pole JSON literálů.',
                     400
                 ), // Exception()
-                $this->outputType
+                
             );
         } // if
 
@@ -49,7 +49,7 @@ class PositionPresenter extends SecuredBasePresenter
                 $result[] = (int) $this->positions->insert($values);
             } catch (\Exception $e) {
                 $this->positions->rollback();
-                $this->sendErrorResource($e, $this->outputType);
+                $this->sendErrorResource($e, );
             } // try
         } // foreach()
         $this->positions->commit();
@@ -59,7 +59,7 @@ class PositionPresenter extends SecuredBasePresenter
             'code'   => 201,
             'data'   => $result
         ];
-        $this->sendResource($this->outputType);
+        $this->sendResource();
     } // actionReport()
 
 } // PositionPresenter

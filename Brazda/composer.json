@@ -1,13 +1,11 @@
 {
 	"name": "brazda/application",
 	"description": "BRAZDA competition application",
+	"keywords": ["nette"],
 	"type": "project",
 	"license": ["MIT", "BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
 	"require": {
-		"php": ">= 5.6",
-        "ext-mbstring": "*",
-        "ext-curl": "*",
-        "ext-fileinfo": "*",
+		"php": ">=7.2",
 		"nette/application": "^2.4",
 		"nette/bootstrap": "^2.4.2",
 		"nette/caching": "^2.5",
@@ -17,18 +15,21 @@
 		"nette/forms": "^2.4",
 		"nette/http": "^2.4",
 		"nette/mail": "^2.4",
-		"nette/robot-loader": "^2.4",
+		"nette/robot-loader": "^2.4 || ^3.0",
 		"nette/security": "^2.4",
 		"nette/utils": "^2.4",
 		"latte/latte": "^2.4",
 		"tracy/tracy": "^2.4",
 		"dibi/dibi": "^3.0",
-		"drahak/restful": "dev-master",
-		"sentry/sentry": "^1.6",
 		"league/geotools": "^0.7.0"
 	},
 	"require-dev": {
 		"nette/tester": "^2.0"
 	},
-	"minimum-stability": "dev"
+	"minimum-stability": "stable",
+	"config": {
+		"platform": {
+			"php": "7.2"
+		}
+	}
 }
