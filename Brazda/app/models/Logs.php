@@ -16,6 +16,8 @@ class Logs extends Base
 
     public function find(array $filter)
     {
+        $filter = $this->normalizeFilter($filter);
+
         $logType = self::checkLogType($filter['log_type']);
 
         return $this->db->query(
@@ -46,7 +48,8 @@ class Logs extends Base
         $filter = $this->normalizeFilter($filter);
         $order  = $this->normalizeOrder($order);
         $limit  = $this->normalizeLimit($limit);
-        list($limit, $offset) = each($limit);
+        $limit  = $limit['limit'];
+        $offset = $limit['offset'];
 
         return $this->db->query(
             "SELECT
@@ -77,7 +80,8 @@ class Logs extends Base
         $filter = $this->normalizeFilter($filter);
         $order  = $this->normalizeOrder($order);
         $limit  = $this->normalizeLimit($limit);
-        list($limit, $offset) = each($limit);
+        $limit  = $limit['limit'];
+        $offset = $limit['offset'];
 
         return $this->db->query(
             "SELECT

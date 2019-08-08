@@ -13,6 +13,7 @@ class PostPresenter extends SecuredBasePresenter
 	protected
         $logs,
 		$posts,
+        $postAttributes,
 		$postTypes,
 		$waypoints;
 
@@ -20,40 +21,51 @@ class PostPresenter extends SecuredBasePresenter
 	{
 		parent::startup();
 
-		$this->logs      = $this->context->getService('logs');
-		$this->posts     = $this->context->getService('posts');
-		$this->postTypes = $this->context->getService('postTypes');
-		$this->waypoints = $this->context->getService('waypoints');
+		$this->logs           = $this->context->getService('logs');
+		$this->posts          = $this->context->getService('posts');
+		$this->postAttributes = $this->context->getService('postAttributes');
+		$this->postTypes      = $this->context->getService('postTypes');
+		$this->waypoints      = $this->context->getService('waypoints');
 	} // startup()
 
 	public function actionList(array $filter = [], array $order = [])
 	{
+        /** Vždy filtrujeme podle týmu */
 		$viewFilter = [
 			'team' => $this->team['team']
 		];
+
+		/** Pokud je nastaven filtr typu stanoviště nastavíme jej ve view */
 		if (isset($filter['type']) && !empty($filter['type'])) {
 			$types = explode(',', $filter['type']);
 			$viewFilter[] = [ 'p.post_type IN %in', $types ];
 		} // if
 
+		/** Pokud je nastaven filtr barvy stanoviště, nastavíme jej ve view */
 		if (isset($filter['color']) && !empty($filter['color'])) {
 			$colors = explode(',', $filter['color']);
 			$viewFilter[] = [ 'p.color IN %in', $colors ];
 		} // if
 
+		/** Pokud není nastaveno pořadí, nastavíme jej na rank, color, name */
 		if (empty($order)) {
 			$order = ['rank' => 'ASC', 'color' => 'ASC', 'name' => 'ASC'];
 		} // if
 
 		try {
+            /** Vybereme data seznamu stanovišť */
 			$this->resource = (array) $this->posts->listView($viewFilter, $order)->fetchAll();
 			$rank = 0;
+
+			/** Doplníme proměnnou rank pro přirozené řazení */
 			foreach ($this->resource as $id => $post) {
 				$this->resource[$id]['rank'] = $rank++;
 			} // foreach
 		} catch (Dibi\Exception $e) {
 			$this->sendErrorResource($e);
 		} // try
+
+		/** Odešleme data */
 		$this->sendResource();
 	} // actionList()
 
@@ -74,48 +86,69 @@ class PostPresenter extends SecuredBasePresenter
 			foreach ($bonusPosts as $bonusPost) {
 
 			    $bonus = [
-				'post'        => $bonusPost->post,
-				'name'        => $bonusPost->name,
-				'is_unlocked' => $bonusPost->is_unlocked,
-				'is_done'     => $bonusPost->is_done,
-				'unlocked_moment'    => $bonusPost->log_bonus_moment,
-				'done_moment'        => $bonusPost->log_out_moment,
-				'password'           => $bonusPost->password,
-				'password_character' => $bonusPost->password_character,
-				'password_position'  => $bonusPost->password_position,
-				'time_estimate'      => $bonusPost->time_estimate,
-				'color'       => [
-				    'name'    => $bonusPost->color_name,
-				    'code'    => $bonusPost->color_code
-				]
-			    ];
-			    if ($bonusPost->is_unlocked) {
-				$bonus['bonus_code'] = $bonusPost->bonus_code;
-			    } // if
-			    if ($bonusPost->is_done) {
-				$bonus['shibboleth'] = $bonusPost->shibboleth;
-			    } // if
+                    'post'        => $bonusPost->post,
+                    'name'        => $bonusPost->name,
+                    'is_unlocked' => $bonusPost->is_unlocked,
+                    'is_done'     => $bonusPost->is_done,
+                    'unlocked_moment'    => $bonusPost->log_bonus_moment,
+                    'done_moment'        => $bonusPost->log_out_moment,
+                    'password'           => $bonusPost->password,
+                    'password_character' => $bonusPost->password_character,
+                    'password_position'  => $bonusPost->password_position,
+                    'time_estimate'      => $bonusPost->time_estimate,
+                    'color'       => [
+                        'name'    => $bonusPost->color_name,
+                        'code'    => $bonusPost->color_code
+                    ]
+                ];
+                if ($bonusPost->is_unlocked) {
+                    $bonus['bonus_code'] = $bonusPost->bonus_code;
+                } // if
+                if ($bonusPost->is_done) {
+                    $bonus['shibboleth'] = $bonusPost->shibboleth;
+                } // if
 
-			    $this->resource[] = $bonus;
-			} // foreach
-		} catch (Dibi\Exception $e) {
-			$this->sendErrorResource($e);
-		} // try
+                $this->resource[] = $bonus;
+            } // foreach
+        } catch (Dibi\Exception $e) {
+            $this->sendErrorResource($e);
+        } // try
 
-		$this->sendResource();
-	} // actionBonusList()
+        /** Odešleme data */
+        $this->sendResource();
+    } // actionBonusList()
 
-	public function actionDetail($post)
-	{
-		try {
-			$this->resource = (array) $this->posts->view([
-			    'team' => (int) $this->team['team'],
-			    'post' => (int) $post
-			])->fetch();
+    public function actionDetail($post)
+    {
+        try {
+            /** Vybereme informace o stanovišti pro tým */
+            $this->resource = (array) $this->posts->view([
+                'team' => (int) $this->team['team'],
+                'post' => (int) $post
+            ])->fetch();
+
+            /** Pokud je informace pro závodníky */
+            if (in_array($this->team['role'], [ Models\Teams::COMPETITORS, Models\Teams::KIDSCOMPETITORS ])) {
+                /** Vybereme informace o atributech stanoviště */
+                $this->resource['attributes'] = $this->postAttributes->view([
+                    'post' => (int) $post
+                ])->fetchAll();
+
+            /** jinak */
+            } else {
+                /** Vybereme informace o všech možných a nastavených atributech stanoviště */
+                $this->resource['attributes'] = $this->postAttributes->viewAll([
+                    'post' => (int) $post
+                ])->fetchAll();
+            } // if
+
+			/** Vybereme informace o waypointech stanoviště pro tým */
 			$this->resource['waypoints'] = $this->waypoints->view([
 			    'post' => (int) $post,
 			    'team' => (int) $this->team['team']
 			])->fetchAll();
+
+                /** Vybereme informací o lozích stanoviště pro tým */
 			$this->resource['visits'] = $this->logs->view([
 			    'post' => (int) $post,
 			    'team' => (int) $this->team['team']
@@ -123,6 +156,8 @@ class PostPresenter extends SecuredBasePresenter
 		} catch (Dibi\Exception $e) {
 			$this->sendErrorResource($e);
 		} // try
+
+		/** Odešleme data */
 		$this->sendResource();
 	} // actionDetail()
 
@@ -395,31 +430,38 @@ class PostPresenter extends SecuredBasePresenter
         $this->posts->begin();
         try {
             $result['post'] = (int) $this->posts->insert($values);
+
+            foreach ($this->input->waypoints as $wp) {
+                $waypointValues = [
+                    'waypoint_type'       => strtoupper($wp['waypointType']),
+                    'waypoint_visibility' => strtoupper($wp['waypointVisibility']),
+                    'post'                => $result['post'],
+                    'name'                => $wp['name'],
+                    'latitude'            => (float) $wp['latitude'],
+                    'longitude'           => (float) $wp['longitude']
+                ];
+
+                if (isset($wp['description']) &&  !empty($wp['description']))
+                    $waypointValues['description'] = $wp['description'];
+
+                $result['waypoints'][] = (int) $this->waypoints->insert($waypointValues);
+            } // foreach
+
+            foreach ($this->input->attributes as $attributeName => $attributeValue) {
+                $attributeValues = [
+                    'post'      => $post,
+                    'attribute' => $attributeName,
+                    'status'    => $attributeValue
+                ];
+
+                $result['attributes'][] = (int) $this->waypoints->save($attributeValues);
+            } // foreach
+
+            $this->posts->commit();
         } catch (Dibi\Exception $e) {
             $this->posts->rollback();
             $this->sendErrorResource($e);
         } // try
-
-        foreach ($this->input->waypoints as $wp) {
-            $waypointValues = [
-                'waypoint_type'       => strtoupper($wp['waypointType']),
-                'waypoint_visibility' => strtoupper($wp['waypointVisibility']),
-                'post'                => $result['post'],
-                'name'                => $wp['name'],
-                'latitude'            => (float) $wp['latitude'],
-                'longitude'           => (float) $wp['longitude']
-            ];
-            if (isset($wp['description']) &&  !empty($wp['description']))
-                $waypointValues['description'] = $wp['description'];
-
-            try {
-                $result['waypoints'][] = (int) $this->waypoints->insert($waypointValues);
-            } catch (Dibi\Exception $e) {
-                $this->posts->rollback();
-                $this->sendErrorResource($e);
-            } // try
-        } // foreach
-        $this->posts->commit();
 
         $this->resource = [
             'status' => 'OK',

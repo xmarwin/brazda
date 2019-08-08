@@ -42,4 +42,50 @@ class ResultPresenter extends SecuredBasePresenter
         $this->resource = $teams;
         $this->sendResource();
     } // actionList()
+
+    public function actionKidList()
+    {
+        $this->checkAdministrator();
+
+        $teams = [];
+        $teamsData = (array) $this->teams->view(['t.team_type' => 'KID']);
+        foreach ($teamsData as $teamItem) {
+            $team = [
+                'team' => $teamItem->team,
+                'name' => $teamItem->name,
+                'logs' => []
+            ];
+            $team['logs'] = $this->logs->resultView([
+                'team' => $teamItem->team
+            ])->fetchAll();
+
+            $teams[] = $team;
+        } // foreach
+
+        $this->resource = $teams;
+        $this->sendResource();
+    } // actionKidList()
+
+    public function actionAllList()
+    {
+        $this->checkAdministrator();
+
+        $teams = [];
+        $teamsData = (array) $this->teams->view([ ['t.team_type IN %n', [ 'COM', 'KID' ] ] ]);
+        foreach ($teamsData as $teamItem) {
+            $team = [
+                'team' => $teamItem->team,
+                'name' => $teamItem->name,
+                'logs' => []
+            ];
+            $team['logs'] = $this->logs->resultView([
+                'team' => $teamItem->team
+            ])->fetchAll();
+
+            $teams[] = $team;
+        } // foreach
+
+        $this->resource = $teams;
+        $this->sendResource();
+    } // actionKidList()
 } // ResultPresenter

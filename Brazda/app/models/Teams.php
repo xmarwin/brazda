@@ -9,6 +9,7 @@ class Teams extends Base
 {
     const ORGANIZATION = 'ORG';
     const COMPETITORS = 'COM';
+    const KIDSCOMPETITORS = 'KID';
 
     const START = 'STR';
     const COMPETITION = 'CMP';
@@ -59,7 +60,8 @@ class Teams extends Base
         $filter = $this->normalizeFilter($filter);
         $order  = $this->normalizeOrder($order);
         $limit  = $this->normalizeLimit($limit);
-        list($limit, $offset) = each($limit);
+        $limit  = $limit['limit'];
+        $offset = $limit['offset'];
 
         return $this->db->query(
            "SELECT
@@ -154,6 +156,8 @@ class Teams extends Base
 
         self::checkType($values['team_type']);
 
+        $filter = $this->normalizeFilter($filter);
+
         return $this->db->query(
             "UPDATE teams
              SET %a", $values,
@@ -166,6 +170,8 @@ class Teams extends Base
         if (empty($filter))
             throw new \Exception('Chybí specifikace týmu pro smazání.');
 
+        $filter = $this->normalizeFilter($filter);
+
         return $this->db->query(
             "DELETE FROM teams",
             "WHERE %and", $filter
@@ -176,7 +182,8 @@ class Teams extends Base
     {
         $validTypes = [
             self::ORGANIZATION,
-            self::COMPETITORS
+            self::COMPETITORS,
+            self::KIDSCOMPETITORS
         ];
 
         $value = strtoupper($value);

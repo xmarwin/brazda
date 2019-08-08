@@ -68,8 +68,19 @@ class Base
     protected function normalizeLimit(array $limit)
     {
         if (!$this->isAssoc($limit)) {
-            list($limit['limit'], $limit['offset']) = each($limit);
+            $limit['offset'] = isset($limit[1])
+                ? $limit[1]
+                : null;
+            $limit['limit']  = isset($limit[0])
+                ? $limit[0]
+                : null;
             unset($limit[0], $limit[1]);
+        } // if
+        if (empty($limit)) {
+            $limit = [
+                'limit' => null,
+                'offset' => null
+            ];
         } // if
 
         return $limit;
@@ -116,6 +127,10 @@ class Base
                 case 'F':
                 case 'FALSE':
                     $value = 0;
+                    break;
+
+                default:
+                    $value = null;
                     break;
             } // switch
         } // if

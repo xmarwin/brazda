@@ -113,7 +113,8 @@ class Messages extends Base
 		$filter = $this->normalizeFilter($filter);
 		$order  = $this->normalizeOrder($order);
 		$limit  = $this->normalizeLimit($limit);
-		list($limit, $offset) = each($limit);
+        $limit  = $limit['limit'];
+        $offset = $limit['offset'];
 
 		return $this->db->query(
 			"SELECT *

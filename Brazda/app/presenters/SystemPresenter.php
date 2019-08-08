@@ -31,7 +31,9 @@ class SystemPresenter extends SecuredBasePresenter
 			? trim(Utils\FileSystem::read($versionFile))
 			: null;
 
-		$settings['newMessages'] = $this->messages->count($this->team['team']);
+        $settings['newMessages'] = isset($this->team['team'])
+            ? $this->messages->count($this->team['team'])
+            : 0;
 
 		$this->resource = $settings;
 

@@ -8,6 +8,8 @@ class PostNotes extends Base
 {
     public function find(array $filter = [])
     {
+        $filter = $this->normalizeFilter($filter);
+
         return $this->db->query(
             "SELECT *
              FROM post_notes
@@ -19,6 +21,8 @@ class PostNotes extends Base
     {
         if (empty($values)) throw new \Exception('Chybí hodnoty pro zápis poznámky.');
 
+        $filter = $this->normalizeFilter($filter);
+
         return $this->db->query(
             "INSERT INTO post_notes %v", $values,
             "RETURNING post_note"
@@ -28,6 +32,8 @@ class PostNotes extends Base
     public function update(array $values, array $filter)
     {
         if (empty($values)) throw new \Exception('Chybí hodnoty pro úpravy poznámky.');
+
+        $filter = $this->normalizeFilter($filter);
 
         return $this->db->query(
             "UPDATE post_notes
@@ -39,6 +45,8 @@ class PostNotes extends Base
     public function delete(array $filter)
     {
         if (empty($filter)) throw new \Exception('Chybí specifikace poznámky pro smazání.');
+
+        $filter = $this->normalizeFilter($filter);
 
         return $this->db->query(
             "DELETE FROM post_notes

@@ -10,7 +10,8 @@ class Positions extends Base
         $filter = $this->normalizeFilter($filter);
         $order  = $this->normalizeOrder($order);
         $limit  = $this->noramlizeLimit($limit);
-        list($limit, $offset) = each($limit);
+        $limit  = $limit['limit'];
+        $offset = $limit['offset'];
 
         return $this->db->query(
             "SELECT *

@@ -63,6 +63,7 @@ class Posts extends Base
 
     public function listView(array $filter = [], array $order = [ 'pt.rank' => 'ASC', 'p.color' => 'ASC', 'p.name' => 'ASC' ], array $limit = [])
     {
+
         $filter = $this->normalizeFilter($filter, [
             'post'       => 'p.post',
             'size_name'  => 'cs.size',
@@ -83,7 +84,8 @@ class Posts extends Base
         ]);
         $order  = $this->normalizeOrder($order);
         $limit  = $this->normalizeLimit($limit);
-        list($limit, $offset) = each($limit);
+        $limit  = $limit['limit'];
+        $offset = $limit['offset'];
 
         if (isset($filter['team']) && !empty($filter['team'])) {
             $team = (int) $filter['team'];
@@ -117,7 +119,7 @@ class Posts extends Base
                 pt.name AS type_name,
                 pt.rank AS type_rank,
 
-            %if", isset($team) && $role == Teams::COMPETITORS, "
+            %if", isset($team) && in_array($role, [ Teams::COMPETITORS, Teams::KIDSCOMPETITORS ]), "
                 CASE WHEN p.post_type LIKE 'SBN' THEN superbonusPassword(%i)", $team, " ELSE bonusPassword(p.color, %i)", $team, " END AS password,
                 CASE WHEN lo.moment IS NOT NULL THEN p.password_character ELSE NULL END AS password_character,
                 CASE WHEN lo.moment IS NOT NULL THEN p.password_position ELSE NULL END AS password_position,
@@ -141,7 +143,7 @@ class Posts extends Base
              JOIN post_types pt USING (post_type)
              LEFT JOIN cache_sizes cs USING (cache_size)
              LEFT JOIN cache_types ct USING (cache_type)
-        %if", isset($team) && $role == Teams::COMPETITORS, "
+        %if", isset($team) && in_array($role, [ Teams::COMPETITORS, Teams::KIDSCOMPETITORS ]), "
              LEFT JOIN (
                 SELECT post, moment
                 FROM logs
@@ -192,7 +194,8 @@ class Posts extends Base
         ]);
         $order  = $this->normalizeOrder($order);
         $limit  = $this->normalizeLimit($limit);
-        list($limit, $offset) = each($limit);
+        $limit  = $limit['limit'];
+        $offset = $limit['offset'];
 
         if (isset($filter['team']) && !empty($filter['team'])) {
             $team = (int) $filter['team'];
@@ -242,7 +245,7 @@ class Posts extends Base
                 lb.moment AS log_bonus_moment,
                 lh.moment AS log_help_moment,
 
-            %if", isset($team) && $role == Teams::COMPETITORS, "
+            %if", isset($team) && in_array($role, [ Teams::COMPETITORS, Teams::KIDSCOMPETITORS ]), "
                 CASE WHEN p.post_type LIKE 'SBN' THEN superbonusPassword(%i)", $team, " ELSE bonusPassword(p.color, %i)", $team, " END AS password,
                 CASE WHEN lo.moment IS NOT NULL THEN p.password_character ELSE NULL END AS password_character,
                 CASE WHEN lo.moment IS NOT NULL THEN p.password_position ELSE NULL END AS password_position,

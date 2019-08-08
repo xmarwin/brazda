@@ -22,7 +22,8 @@ class Waypoints extends Base
         $filter = $this->normalizeFilter($filter);
         $order  = $this->normalizeOrder($order);
         $limit  = $this->normalizeLimit($limit);
-        list($limit, $offset) = each($limit);
+        $limit  = $limit['limit'];
+        $offset = $limit['offset'];
 
         if (isset($filter['team']) && !empty($filter['team'])) {
             $team = (int) $filter['team'];
@@ -98,6 +99,8 @@ class Waypoints extends Base
         if (empty($filter)) throw new \Exception('Missing filter for waypoint update.');
         self::checkType($values['waypoint_type']);
         self::checkVisibility($values['waypoint_visibility']);
+
+        $filter = $this->normalizeFilter($filter);
 
         return $this->db->query(
             "UPDATE waypoints

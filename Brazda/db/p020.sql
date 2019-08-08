@@ -2,12 +2,11 @@ begin;
 
 create table "attributes" (
 	"attribute"  character(3) not null,
-	name_on      character varying(20) not null,
-	name_off     character varying(20) not null,
+	name_on      text not null,
+	name_off     text,
 	icon         character varying(20) not null,
     status_count smallint not null,
-	primary key ("attribute"),
-	unique constraint (name)
+	primary key ("attribute")
 );
 
 insert into "attributes" values
@@ -16,7 +15,7 @@ insert into "attributes" values
 ('RAP', 'Nutná horolezecká výbava', null, 'rapelling', 2),
 ('BOT', 'Přístup lodí', null, 'boat', 2),
 ('SCB', 'Potápěčská výbava', null, 'scuba', 2),
-('KID', 'Vhodné pro děti', 'Nevhoné pro děti' 'kids', 3),
+('KID', 'Vhodné pro děti', 'Nevhoné pro děti', 'kids', 3),
 ('OHR', 'Zabere max. hodinu', 'Zabere více než hodinu', 'onehour', 3),
 ('SCN', 'Vyhlídka', 'Žádné vyhlídkové místo', 'scenic', 3),
 ('HIK', 'Dlouhý výšlap', 'Nenáročný výšlap', 'hiking', 3),
@@ -43,7 +42,8 @@ insert into "attributes" values
 ('CMP', 'Možnost táboření', 'Táboření zde není povoleno', 'camping', 3),
 ('BCL', 'dostupné na kole', 'Nejezdi sem na kole', 'bicycles', 3),
 ('QAD', 'Přístup na čtyřkolce', 'Nejezdi sem na čtyřkolce', 'quad', 3),
-('JEP', 'Přístup teréním autem', 'Nejezdi sem teréním autem', 'jeeps', 3),
+('JEP', 'Přístup teréním autem', 'Nejezdi sem teréním
+ autem', 'jeeps', 3),
 ('SNM', 'Přístup na sněžném skůtru', 'Nejezdi sem na sněžném skůtru', 'snowmobile', 3),
 ('HRS', 'Přístup na koni', 'Nejezdi sem na koni', 'horses', 3),
 ('CPF', 'Tábořiště', 'Táboření zde není povoleno', 'campfires', 3),
@@ -53,7 +53,7 @@ insert into "attributes" values
 ('COW', 'Pozor na zvěř', null, 'cow', 2),
 ('FLS', 'Nutná svítilna', null, 'flashlight', 2),
 ('RVA', 'Přístupné s přívěsem', 'Nejezdi sem s přívěsem', 'rv', 3),
-('UVN', 'Nutné UV světlo', null, 'uv, 2'),
+('UVN', 'Nutné UV světlo', null, 'uv', 2),
 ('SHS', 'Sněžnice', null, 'snowshoes', 2),
 ('SKI', 'Přístupné na běžkách', null, 'skiis', 2),
 ('STL', 'Nutná speciální výbava', null, 's-tool', 2),
@@ -68,10 +68,10 @@ insert into "attributes" values
 ('SSA', 'Sezóní přístup', 'Dostupné po celý rok', 'seasonal', 3),
 ('TOK', 'Turisticky atraktivní', 'Není ideální pro turisty', 'turist-ok', 3),
 ('TRC', 'Vyžaduje lezení po stromech', 'Není nutné lézt po stromech', 'treeclimbing', 3),
-('FRY', 'Na soukromém pozemku', 'Není umístěno na soukromém pozemku', 'frontyeard', 3),
+('FRY', 'Na soukromém pozemku', 'Není umístěno na soukromém pozemku', 'frontyard', 3),
 ('TMW', 'Vyžaduje týmovou spolupráci', 'Není vyžadována týmová spolupráce', 'teamwork', 3);
 
-create table post_attributes (
+create table posts_has_attributes (
 	post        integer not null,
 	"attribute" character(3) not null,
 	status      boolean not null default true,
@@ -80,29 +80,33 @@ create table post_attributes (
 	foreign key ("attribute") references "attributes"("attribute") on update cascade on delete restrict
 );
 
-create view post_attributes_view as
+create view posts_has_attributes_view as
 select
-	pa.post,
-	pa."attribute",
+	pha.post,
+	pha."attribute",
 	a.name_on,
 	a.name_off,
-	a.icon,
+	'/assets/images/attributes/' || a.icon || '.png' AS icon,
+	'/assets/images/attributes/' || a.icon || '-on.png' AS icon_on,
+	CASE WHEN a.status_count = 3 THEN '/assets/images/attributes/' || a.icon || '-off.png' ELSE NULL END AS icon_off,
 	a.status_count,
-	pa.status
-from post_attributes pa
+	pha.status
+from posts_has_attributes pha
 join "attributes" a using ("attribute");
 
-create view post_attributes_all_view as
+create view posts_has_attributes_all_view as
 select
     a."attribute",
     a.name_on,
     a.name_off,
-    a.icon,
+	'/assets/images/attributes/' || a.icon || '.png' AS icon,
+	'/assets/images/attributes/' || a.icon || '-on.png' AS icon_on,
+	CASE WHEN a.status_count = 3 THEN '/assets/images/attributes/' || a.icon || '-off.png' ELSE NULL END AS icon_off,
     a.status_count,
-    pa.post,
-    pa.status,
+    pha.post,
+    pha.status
 from "attributes" a
-left join post_attributes using ("attribute");
+left join posts_has_attributes pha using ("attribute");
 
 update "schema"
 set "version" = 20;
