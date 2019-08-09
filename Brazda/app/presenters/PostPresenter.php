@@ -431,31 +431,35 @@ class PostPresenter extends SecuredBasePresenter
         try {
             $result['post'] = (int) $this->posts->insert($values);
 
-            foreach ($this->input->waypoints as $wp) {
-                $waypointValues = [
-                    'waypoint_type'       => strtoupper($wp['waypointType']),
-                    'waypoint_visibility' => strtoupper($wp['waypointVisibility']),
-                    'post'                => $result['post'],
-                    'name'                => $wp['name'],
-                    'latitude'            => (float) $wp['latitude'],
-                    'longitude'           => (float) $wp['longitude']
-                ];
+            if (!empty($this->input->waypoints)) {
+                foreach ($this->input->waypoints as $wp) {
+                    $waypointValues = [
+                        'waypoint_type'       => strtoupper($wp->waypointType),
+                        'waypoint_visibility' => strtoupper($wp->waypointVisibility),
+                        'post'                => $result['post'],
+                        'name'                => $wp->name,
+                        'latitude'            => (float) $wp->latitude,
+                        'longitude'           => (float) $wp->longitude
+                    ];
 
-                if (isset($wp['description']) &&  !empty($wp['description']))
-                    $waypointValues['description'] = $wp['description'];
+                    if (isset($wp->description) &&  !empty($wp->description))
+                        $waypointValues['description'] = $wp->description;
 
-                $result['waypoints'][] = (int) $this->waypoints->insert($waypointValues);
-            } // foreach
+                    $result['waypoints'][] = (int) $this->waypoints->insert($waypointValues);
+                } // foreach
+            } // if
 
-            foreach ($this->input->attributes as $attributeName => $attributeValue) {
-                $attributeValues = [
-                    'post'      => $post,
-                    'attribute' => $attributeName,
-                    'status'    => $attributeValue
-                ];
+            if (!empty($this->input->attributes)) {
+                foreach ($this->input->attributes as $attributeName => $attributeValue) {
+                    $attributeValues = [
+                        'post'      => $post,
+                        'attribute' => $attributeName,
+                        'status'    => $attributeValue
+                    ];
 
-                $result['attributes'][] = (int) $this->waypoints->save($attributeValues);
-            } // foreach
+                    $result['attributes'][] = (int) $this->waypoints->save($attributeValues);
+                } // foreach
+            } // if
 
             $this->posts->commit();
         } catch (Dibi\Exception $e) {
