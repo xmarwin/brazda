@@ -16,3 +16,4 @@ tmp
 .idea
 app/config/config.local.neon
 version
+*.kate-swp
