@@ -17,3 +17,8 @@ tmp
 app/config/config.local.neon
 version
 *.kate-swp
+doc/*
+www/db
+app/config/config.test.neon
+composer.lock
+tester
