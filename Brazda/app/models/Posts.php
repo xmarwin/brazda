@@ -80,7 +80,7 @@ class Posts extends Base
             'log_out_moment'   => 'lo.moment',
             'log_bonus_moment' => 'lb.moment',
             'log_help_moment'  => 'lh.moment',
-            'time_estimate'    => 'p.tiime_estimate'
+            'time_estimate'    => 'p.time_estimate'
         ]);
         $order  = $this->normalizeOrder($order);
         $limit  = $this->normalizeLimit($limit);
