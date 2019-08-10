@@ -3,7 +3,8 @@
 namespace Brazda\Presenters;
 
 use Nette,
-    Nette\Application\UI;
+    Nette\Application\UI,
+    Nette\Utils;
 
 class BasePresenter extends UI\Presenter
 {
@@ -23,11 +24,11 @@ class BasePresenter extends UI\Presenter
 
 	public function getInput()
 	{
-		$postQuery = (array) $this->getHttpRequest()->getPost();
-		$urlQuery  = (array) $this->getHttpRequest()->getQuery();
-		$requestBody = $this->parseRequestBody();
+		$postQuery   = (array) $this->getHttpRequest()->getPost();
+		$urlQuery    = (array) $this->getHttpRequest()->getQuery();
+		$requestBody = (array) $this->parseRequestBody();
 
-		return array_merge($postQuery, $urlQuery, $requestBody);
+		return Utils\ArrayHash::from(array_merge($postQuery, $urlQuery, $requestBody));
 	} // getInput()
 
 	public function sendResource()
@@ -78,7 +79,7 @@ class BasePresenter extends UI\Presenter
 
 		switch ($contentType) {
 			case 'application/json':
-				$body = Nette\Utils\Json::decode($body);
+				$body = Nette\Utils\Json::decode($input);
 				break;
 
 			case 'query':
