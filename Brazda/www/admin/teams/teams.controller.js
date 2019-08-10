@@ -20,7 +20,7 @@ function TeamsController($routeParams, notification, authService, teamService, n
 
     var init = function () {
         getTeams();
-    }
+    };
 
     vm.deleteTeam = function (id) {
         ngDialog.openConfirm({
@@ -29,8 +29,8 @@ function TeamsController($routeParams, notification, authService, teamService, n
             deleteTeamInt(id);
         }, function (err) {
             notification.error(err.data.message);
-        })
-    }
+        });
+    };
 
     function getTeams() {
         teamService.getTeamsFull()

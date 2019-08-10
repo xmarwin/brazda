@@ -53,6 +53,18 @@
         </div>
         <div class="row form-group">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                Kategorie:
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <select id="category" name="category" ng-model="ctrl.team.role" class="form-control">
+                    <option value="COM">Dospělý</option>
+                    <option value="KID">Dětský</option>
+                    <option value="ORG">Organizátoři</option>
+                </select>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 Povolit sledování:
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -60,7 +72,7 @@
             </div>
         </div>
         <div class="row form-group">
-            <input type="submit" value="Přidat" ng-click="ctrl.addTeam(team)" ng-disabled="addTeamForm.$invalid"  class="btn btn-primary">
+            <input type="submit" value="Přidat" ng-click="ctrl.addTeam(team)" ng-disabled="addTeamForm.$invalid" class="btn btn-primary">
         </div>
     </form>
 </div>

@@ -45,40 +45,39 @@
     <table class="post-list">
         <tbody ng-repeat="postItem in ctrl.postsFiltered">
             <tr>
-
-                <td style="width: 40px; background-color: {{postItem.colorCode}}; text-align: center; border-radius: 6px;">
-                    <i class="fa fa-2x fa-question-circle-o" aria-hidden="true" ng-show="postItem.postType==='CIP'"></i>
-                    <i class="fa fa-2x fa-child" aria-hidden="true" ng-show="postItem.postType==='ACT'"></i>
-                    <i class="fa fa-2x fa-archive" aria-hidden="true" ng-show="postItem.postType==='CGC'"></i>
-                    <i class="fa fa-2x fa-gift" aria-hidden="true" ng-show="postItem.postType==='BON' || postItem.postType==='SBN'"></i>
-                    <i class="fa fa-2x fa-play" aria-hidden="true" ng-show="postItem.postType==='BEG'"></i>
-                    <i class="fa fa-2x fa-flag-checkered" aria-hidden="true" ng-show="postItem.postType==='END'"></i>
+                <td style="width: 40px; background-color: {{postItem.color_code}}; text-align: center; border-radius: 6px;">
+                    <i class="fa fa-2x fa-question-circle-o" aria-hidden="true" ng-show="postItem.post_type==='CIP'"></i>
+                    <i class="fa fa-2x fa-child" aria-hidden="true" ng-show="postItem.post_type==='ACT'"></i>
+                    <i class="fa fa-2x fa-archive" aria-hidden="true" ng-show="postItem.post_type==='CGC'"></i>
+                    <i class="fa fa-2x fa-gift" aria-hidden="true" ng-show="postItem.post_type==='BON' || postItem.post_type==='SBN'"></i>
+                    <i class="fa fa-2x fa-play" aria-hidden="true" ng-show="postItem.post_type==='BEG'"></i>
+                    <i class="fa fa-2x fa-flag-checkered" aria-hidden="true" ng-show="postItem.post_type==='END'"></i>
                 </td>
 
                 <td colspan="5">
                     <h4 style="display: inline">
-                        <span ng-show="postItem.cacheType === 'TRA'"><img src="../assets/images/traditional.png" alt="{{postItem.cacheName}}" title="{{postItem.cacheName}}"></span>
-                        <span ng-show="postItem.cacheType === 'MLT'"><img src="../assets/images/multi.png" alt="{{postItem.cacheName}}" title="{{postItem.cacheName}}"></span>
-                        <span ng-show="postItem.cacheType === 'LTB'"><img src="../assets/images/letterbox.png" alt="{{postItem.cacheName}}" title="{{postItem.cacheName}}"></span>
-                        <span ng-show="postItem.cacheType === 'CIT'"><img src="../assets/images/cito.png" alt="{{postItem.cacheName}}" title="{{postItem.cacheName}}"></span>
-                        <span ng-show="postItem.cacheType === 'MYS'"><img src="../assets/images/unknown.png" alt="{{postItem.cacheName}}" title="{{postItem.cacheName}}"></span>
-                        <span ng-show="postItem.cacheType === 'ERT'"><img src="../assets/images/earthcache.png" alt="{{postItem.cacheName}}" title="{{postItem.cacheName}}"></span>
-                        <span ng-show="postItem.cacheType === 'WIG'"><img src="../assets/images/wherigo.png" alt="{{postItem.cacheName}}" title="{{postItem.cacheName}}"></span>
+                        <span ng-show="postItem.cache_type === 'TRA'"><img src="/www/assets/images/traditional.png" alt="{{postItem.cache_name}}" title="{{postItem.cache_name}}"></span>
+                        <span ng-show="postItem.cache_type === 'MLT'"><img src="/www/assets/images/multi.png" alt="{{postItem.cache_name}}" title="{{postItem.cache_name}}"></span>
+                        <span ng-show="postItem.cache_type === 'LTB'"><img src="/www/assets/images/letterbox.png" alt="{{postItem.cache_name}}" title="{{postItem.cache_name}}"></span>
+                        <span ng-show="postItem.cache_type === 'CIT'"><img src="/www/assets/images/cito.png" alt="{{postItem.cache_name}}" title="{{postItem.cache_name}}"></span>
+                        <span ng-show="postItem.cache_type === 'MYS'"><img src="/www/assets/images/unknown.png" alt="{{postItem.cache_name}}" title="{{postItem.cache_name}}"></span>
+                        <span ng-show="postItem.cache_type === 'ERT'"><img src="/www/assets/images/earthcache.png" alt="{{postItem.cache_name}}" title="{{postItem.cache_name}}"></span>
+                        <span ng-show="postItem.cache_type === 'WIG'"><img src="/www/assets/images/wherigo.png" alt="{{postItem.cache_name}}" title="{{postItem.cache_name}}"></span>
                         <a href="#/postDetail/{{postItem.post}}">{{postItem.name}}</a>
                     </h4>
-                    <span ng-show="postItem.openFrom !== null">
-                        &nbsp;({{postItem.openFrom | date: "shortTime"}} - {{postItem.openTo | date: "shortTime"}})
+                    <span ng-show="postItem.open_from !== null">
+                        &nbsp;({{postItem.open_from | date:'shortTime'}} - {{postItem.open_to | date:'shortTime'}})
                     </span>
                 </td>
 
             </tr>
             <tr>
                 <td style="width: 40px; height: 35px;" class="text-center">
-                    <i class="fa fa-check fa-2x" style="color: green" aria-hidden="true" ng-show="postItem.isDone"></i>
-                    <i class="fa fa-unlock-alt fa-2x" style="color: green" aria-hidden="true" ng-show="postItem.isUnlocked && !postItem.isDone"></i>
+                    <i class="fa fa-check fa-2x" style="color: green" aria-hidden="true" ng-show="postItem.is_done"></i>
+                    <i class="fa fa-unlock-alt fa-2x" style="color: green" aria-hidden="true" ng-show="postItem.isUnlocked && !postItem.is_done"></i>
                 </td>
                 <td style="border-bottom: 1px solid lightgrey;">
-                    B<span class="hidden-xs">ody</span>: {{postItem.maxScore}}
+                    B<span class="hidden-xs">ody</span>: {{postItem.max_score}}
                 </td>
 
                 <td style="border-bottom: 1px solid lightgrey;">
@@ -88,14 +87,14 @@
                     O<span class="hidden-xs">btížnost</span>: {{postItem.difficulty}}
                 </td>
 
-                <td ng-show="postItem.cacheSize === 'M'" style="border-bottom: 1px solid lightgrey; min-width: 70px">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/micro.gif" title="Micro" /></td>
-                <td ng-show="postItem.cacheSize === 'S'" style="border-bottom: 1px solid lightgrey; min-width: 70px">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/small.gif" title="Small" /></td>
-                <td ng-show="postItem.cacheSize === 'R'" style="border-bottom: 1px solid lightgrey; min-width: 70px">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/regular.gif" title="Regular" /></td>
-                <td ng-show="postItem.cacheSize === 'L'" style="border-bottom: 1px solid lightgrey; min-width: 70px">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/large.gif" title="Large" /></td>
-                <td ng-show="postItem.cacheSize === 'O'" style="border-bottom: 1px solid lightgrey; min-width: 70px">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/other.gif" title="Other" /></td>
-                <td ng-show="postItem.cacheSize === null" style="border-bottom: 1px solid lightgrey; min-width: 70px">V<span class="hidden-xs">elikost</span>: <img src="../assets/images/other.gif" title="Other" /></td>
+                <td ng-show="postItem.cache_size === 'M'" style="border-bottom: 1px solid lightgrey; min-width: 70px">V<span class="hidden-xs">elikost</span>: <img src="/www/assets/images/micro.gif" title="Micro" /></td>
+                <td ng-show="postItem.cache_size === 'S'" style="border-bottom: 1px solid lightgrey; min-width: 70px">V<span class="hidden-xs">elikost</span>: <img src="/www/assets/images/small.gif" title="Small" /></td>
+                <td ng-show="postItem.cache_size === 'R'" style="border-bottom: 1px solid lightgrey; min-width: 70px">V<span class="hidden-xs">elikost</span>: <img src="/www/assets/images/regular.gif" title="Regular" /></td>
+                <td ng-show="postItem.cache_size === 'L'" style="border-bottom: 1px solid lightgrey; min-width: 70px">V<span class="hidden-xs">elikost</span>: <img src="/www/assets/images/large.gif" title="Large" /></td>
+                <td ng-show="postItem.cache_size === 'O'" style="border-bottom: 1px solid lightgrey; min-width: 70px">V<span class="hidden-xs">elikost</span>: <img src="/www/assets/images/other.gif" title="Other" /></td>
+                <td ng-show="postItem.cache_size === null" style="border-bottom: 1px solid lightgrey; min-width: 70px">V<span class="hidden-xs">elikost</span>: <img src="/www/assets/images/other.gif" title="Other" /></td>
 
-                <td ng-show="postItem.postType !== 'BEG' && postItem.postType !== 'END' && postItem.postType !== 'SBN'">H<span class="hidden-xs">eslo</span>: {{postItem.isDone ? postItem.passwordCharacter + ' (' + postItem.passwordPosition + ')': '-'}}</td>
+                <td ng-show="postItem.post_type !== 'BEG' && postItem.post_type !== 'END' && postItem.post_type !== 'SBN'">H<span class="hidden-xs">eslo</span>: {{postItem.is_done ? postItem.password_character + ' (' + postItem.password_position + ')': '-'}}</td>
             </tr>
         </tbody>
     </table>

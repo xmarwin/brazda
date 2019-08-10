@@ -42,10 +42,10 @@ function PostDetailController(postService, $routeParams, $filter, downloadServic
         vm.waypointTypes = postService.getWaypointTypes();
 
         vm.post.postSize = $filter('filter')(vm.postSizes, { 'size': vm.post.postSize }, true)[0];
-        vm.post.cacheType = $filter('filter')(vm.cacheTypes, { 'cacheType': vm.post.cacheType }, true)[0];
+        vm.post.cacheType = $filter('filter')(vm.cacheTypes, { 'cache_type': vm.post.cacheType }, true)[0];
 
         angular.forEach(vm.post.waypoints, function (value) {
-            value.waypoint_type = $filter('filter')(vm.waypointTypes, { 'waypointType': value.waypoint_type }, true)[0];
+            value.waypoint_type = $filter('filter')(vm.waypointTypes, { 'waypoint_type': value.waypoint_type }, true)[0];
         });
 
         getSecurityToken();

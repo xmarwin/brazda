@@ -45,18 +45,18 @@ function EditPostController($routeParams, $location, notification, authService, 
             .then(function (data) {
                 vm.post = data.data;
 
-                vm.post.postType = $filter('filter')(vm.postTypes, { 'postType': vm.post.postType }, true)[0];
+                vm.post.postType = $filter('filter')(vm.postTypes, { 'postType': vm.post.post_type }, true)[0];
                 vm.post.color = $filter('filter')(vm.postColors, { 'color': vm.post.color }, true)[0];
                 vm.post.difficulty = $filter('filter')(vm.postDifficulties, { 'value': vm.post.difficulty.toString() }, true)[0];
                 vm.post.terrain = $filter('filter')(vm.postTerrains, { 'value': vm.post.terrain.toString() }, true)[0];
-                vm.post.postSize = $filter('filter')(vm.postSizes, { 'size': vm.post.cacheSize }, true)[0];
-                vm.post.cacheType = $filter('filter')(vm.cacheTypes, { 'cacheType': vm.post.cacheType }, true)[0];
-                if (vm.post.openFrom !== null) {
-                    vm.post.openFrom = new Date("2017-01-01 " + vm.post.openFrom + ":00");
+                vm.post.postSize = $filter('filter')(vm.postSizes, { 'size': vm.post.cache_size }, true)[0];
+                vm.post.cacheType = $filter('filter')(vm.cacheTypes, { 'cacheType': vm.post.cache_type }, true)[0];
+                if (vm.post.open_from !== null) {
+                    vm.post.open_from = new Date("2017-01-01 " + vm.post.open_from + ":00");
                 }
 
-                if (vm.post.openTo !== null) {
-                    vm.post.openTo = new Date("2017-01-01 " + vm.post.openTo + ":00");
+                if (vm.post.open_to !== null) {
+                    vm.post.open_to = new Date("2017-01-01 " + vm.post.open_to + ":00");
                 }
 
                 angular.forEach(vm.post.waypoints, function (value) {
@@ -66,7 +66,7 @@ function EditPostController($routeParams, $location, notification, authService, 
             }, function (err) {
 
             });
-    }
+    };
 
     vm.addWaypoint = function () {
         ngDialog.openConfirm({
@@ -78,14 +78,14 @@ function EditPostController($routeParams, $location, notification, authService, 
             vm.post.waypoints.push(data);
         }, function (err) {
 
-        })
+        });
     };
 
     vm.removeWaypoint = function (wpt) {
         var index = vm.post.waypoints.indexOf(wpt);
         vm.post.waypoints.splice(index, 1);
         return false;
-    }
+    };
 
     vm.addWaypointOk = function () {
         $uibModalInstance.close($ctrl.selected.item);
@@ -104,8 +104,8 @@ function EditPostController($routeParams, $location, notification, authService, 
                 "waypoint": post.waypoints[i].waypoint,
                 "name": post.waypoints[i].name,
                 "description": post.waypoints[i].description,
-                "waypointType": post.waypoints[i].waypointType.waypointType,
-                "waypointVisibility": post.waypoints[i].waypointVisibility.waypointVisibility,
+                "waypoint_type": post.waypoints[i].waypointType.waypointType,
+                "waypoint_visibility": post.waypoints[i].waypointVisibility.waypointVisibility,
                 "latitude": post.waypoints[i].latitude,
                 "longitude": post.waypoints[i].longitude
             });
@@ -113,28 +113,29 @@ function EditPostController($routeParams, $location, notification, authService, 
 
         var input = {
             "post": post.post,
-            "postType": post.postType.postType,
+            "post_type": post.postType.postType,
             "color": angular.isUndefined(post.color) ? null : post.color.color,
             "name": post.name,
             "difficulty": angular.isUndefined(post.difficulty) ? null : post.difficulty.value,
             "terrain": angular.isUndefined(post.terrain) ? null : post.terrain.value,
-            "cacheSize": angular.isUndefined(post.postSize) ? null : post.postSize.size,
+            "cache_size": angular.isUndefined(post.postSize) ? null : post.postSize.size,
             "hint": post.hint,
             "help": post.help,
-            "bonusCode": post.bonusCode,
+            "bonus_code": post.bonusCode,
             "shibboleth": post.shibboleth,
             "description": post.description,
-            "cacheType": angular.isUndefined(post.cacheType) ? null : post.cacheType.cacheType,
-            "maxScore": post.maxScore,
+            "cache_type": angular.isUndefined(post.cacheType) ? null : post.cacheType.cacheType,
+            "max_score": post.maxScore,
             "latitude": post.latitude,
             "longitude": post.longitude,
-            "withStaff": post.withStaff,
+            "with_staff": post.withStaff,
             "waypoints": waypoints,
-            "openFrom": $filter("date")(post.openFrom, "shortTime"),
-            "openTo": $filter("date")(post.openTo, "shortTime"),
-            "passwordCharacter": post.passwordCharacter,
-            "passwordPosition": post.passwordPosition
-        }
+            "open_from": $filter("date")(post.openFrom, "shortTime"),
+            "open_to": $filter("date")(post.openTo, "shortTime"),
+            "password_character": post.passwordCharacter,
+            "password_position": post.passwordPosition,
+            "time_estimate": post.time_estimate
+        };
 
         postService.updatePost(input)
             .then(function (data) {
@@ -143,7 +144,7 @@ function EditPostController($routeParams, $location, notification, authService, 
             }, function (err) {
                 notification.error(err.data.message);
             });
-    }
+    };
 
     init();
 }

@@ -28,20 +28,20 @@ function EditTeamController($routeParams, $location, $filter, notification, auth
             }, function errorCallback(err) {
                 notification.error(err.data.message);
             });
-    }
+    };
 
     vm.editTeam = function (team) {
         var input = {
             "team": vm.team.team,
             "name": vm.team.name,
             "shibboleth": vm.team.shibboleth,
-            "role": "COM", //vm.team.type,
+            "role": vm.team.type,
             "isActive": vm.team.active,
             "allowTracking": vm.team.allowTracking,
             "description": vm.team.description,
             "telephone": vm.team.phone,
             "email": vm.team.email
-        }
+        };
 
         teamService.updateTeam(input)
             .then(function (data) {
@@ -50,7 +50,7 @@ function EditTeamController($routeParams, $location, $filter, notification, auth
             }, function (err) {
                 notification.error(err.data.message);
             });
-    }
+    };
 
     init();
 }

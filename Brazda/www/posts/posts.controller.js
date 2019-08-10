@@ -33,7 +33,7 @@ function PostsController(authService, postService, $filter, notification) {
         var filterColor = postService.getFilterColor();
 
         vm.filter.state = postService.getFilterStatus() || '';
-        vm.filter.postType = $filter('filter')(vm.postTypes, { "postType": filterType }, true)[0];
+        vm.filter.postType = $filter('filter')(vm.postTypes, { "post_type": filterType }, true)[0];
         vm.filter.color = $filter('filter')(vm.postColors, { "color": filterColor }, true)[0];
     };
 
@@ -51,10 +51,10 @@ function PostsController(authService, postService, $filter, notification) {
         var postTypeFilter = (angular.isUndefined(vm.filter.postType) || vm.filter.postType === null) ? "" : angular.isUndefined(vm.filter.postType.postType) ? "" : vm.filter.postType.postType;
         var postColorFilter = (angular.isUndefined(vm.filter.color) || vm.filter.color === null) ? "" : angular.isUndefined(vm.filter.color.color) ? "" : vm.filter.color.color;
 
-        vm.postsFiltered = $filter('filter')(vm.posts, { "postType": postTypeFilter, "color": postColorFilter });
-
+        vm.postsFiltered = $filter('filter')(vm.posts, { "post_type": postTypeFilter, "color": postColorFilter });
+        
         if (!(angular.isUndefined(vm.filter.state) || vm.filter.state === '')) {
-            vm.postsFiltered = $filter('filter')(vm.postsFiltered, { "isDone": vm.filter.state === 'found' });
+            vm.postsFiltered = $filter('filter')(vm.postsFiltered, { "is_done": vm.filter.state === 'found' });
         }
 
         postService.saveFilterStatus(vm.filter.state);
@@ -82,6 +82,17 @@ function PostsController(authService, postService, $filter, notification) {
         postService.getPosts()
             .then(function successCallback(response) {
                 vm.posts = response.data;
+
+                for (var i = 0; i < vm.posts.length; i++) {
+                    if (vm.posts[i].open_from) {
+                        vm.posts[i].open_from = new Date(vm.posts[i].open_from.date);
+                    }
+
+                    if (vm.posts[i].open_to) {
+                        vm.posts[i].open_to = new Date(vm.posts[i].open_to.date);
+                    }
+                }
+
                 vm.filter();
             }, function errorCallback(err) {
                 notification.error(err.data.message);

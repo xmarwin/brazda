@@ -41,7 +41,7 @@ function AddPostController($routeParams, $location, notification, authService, p
 
         vm.waypointTypes = postService.getWaypointTypes();
         vm.waypointVisibilities = postService.getWaypointVisibilities();
-    }
+    };
 
     vm.addWaypoint = function () {
         ngDialog.openConfirm({
@@ -54,14 +54,14 @@ function AddPostController($routeParams, $location, notification, authService, p
             vm.post.waypoints.push(data);
         }, function (err) {
 
-        })
+        });
     };
 
     vm.removeWaypoint = function (wpt) {
         var index = vm.post.waypoints.indexOf(wpt);
         vm.post.waypoints.splice(index, 1);
         return false;
-    }
+    };
 
     vm.addWaypointOk = function () {
         $uibModalInstance.close($ctrl.selected.item);
@@ -103,13 +103,12 @@ function AddPostController($routeParams, $location, notification, authService, p
             "longitude": post.longitude,
             "withStaff": post.withStaff,
             "waypoints": waypoints,
-            "latitude": post.latitude,
-            "longitude": post.longitude,
             "openFrom": $filter("date")(post.openFrom, "shortTime"),
             "openTo": $filter("date")(post.openTo, "shortTime"),
             "passwordCharacter": post.passwordCharacter,
-            "passwordPosition": post.passwordPosition
-        }
+            "passwordPosition": post.passwordPosition,
+            "time_estimate": post.time_estimate
+        };
 
         postService.addPost(input)
             .then(function (data) {
@@ -118,7 +117,7 @@ function AddPostController($routeParams, $location, notification, authService, p
             }, function (err) {
                 notification.error(err.data.message);
             });
-    }
+    };
 
     init();
 }

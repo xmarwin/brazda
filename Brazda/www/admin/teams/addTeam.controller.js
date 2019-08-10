@@ -21,19 +21,19 @@ function AddTeamController($routeParams, $location, notification, authService, t
 
     var init = function () {
 
-    }
+    };
 
     vm.addTeam = function (team) {
         var input = {
             "name": vm.team.name,
             "shibboleth": vm.team.shibboleth,
-            "role": "COM", //vm.team.type,
+            "role": vm.team.role,
             "isActive": vm.team.active,
             "allowTracking": vm.team.allowTracking,
             "description": vm.team.description,
             "telephone": vm.team.phone,
             "email": vm.team.email
-        }
+        };
 
         teamService.addTeam(input)
             .then(function (data) {
@@ -42,7 +42,7 @@ function AddTeamController($routeParams, $location, notification, authService, t
             }, function (err) {
                 notification.error(err.data.message);
             });
-    }
+    };
 
     init();
 }
