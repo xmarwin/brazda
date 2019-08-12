@@ -11,6 +11,7 @@ class SecuredBasePresenter extends BasePresenter
 		$input,
 
 		$logins,
+		$teams,
 
 		$team;
 
@@ -19,13 +20,23 @@ class SecuredBasePresenter extends BasePresenter
         parent::startup();
 
         $this->logins = $this->context->getService('logins');
+	$this->teams  = $this->context->getService('teams');
 
         $this->checkSecurityToken();
+/*
         $this->team = !empty($this->getUser()->getIdentity())
 			? $this->getUser()->getIdentity()->getData()
 			: [];
+*/
+	$parameters = $this->getRequest()->getParameters();
+	$login = $this->logins->find([ 'security_token' => $parameters['securityToken'] ]);
 
-		$this->input = $this->getInput();
+	$team = (array) $this->teams->find([ 'team' => $login['team'] ]);
+	$this->team = !empty($team)
+		? $team
+		: [];
+
+	$this->input = $this->getInput();
     } // startup()
 
     public function checkSecurityToken()
@@ -60,7 +71,7 @@ class SecuredBasePresenter extends BasePresenter
 
     public function checkAdministrator()
     {
-        if (!$this->getUser()->isInRole('ORG')) {
+        if ($this->team['role'] !== 'ORG') {
             $this->sendErrorResource(
                 new Security\AuthenticationException(
                     'Nemáte oprávnění pro volání této metody.',
