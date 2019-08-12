@@ -63,6 +63,26 @@ class BasePresenter extends UI\Presenter
 		$this->sendJson($resource);
 	} // sendErrorResource()
 
+	public function checkContentTypeJson()
+	{
+		if (strpos($this->getHttpRequest()->getHeader('Content-Type'), 'application/json') === FALSE) {
+			$this->sendErrorResource(
+				new \Exception('Content type not acceptable, JSON excpected.', 406)
+			); // sendErrorResource() 
+		} // if
+	} // checkJsonHeaders()
+
+	public function checkValuesExists($values, array $rules = [])
+	{
+		foreach ($rules as $rule) {
+			if (!isset($values[$rule])) {
+				$this->sendErrorResource(
+					new \Exception("Value {$rule} expected.", 400)
+				); // sendErrorResource|()
+			} // if
+		} // foreach
+	} // checkExpectedBodyValues()
+
 	protected function parseRequestBody()
 	{
 		$input = $this->getHttpRequest()->getRawBody();
