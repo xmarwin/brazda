@@ -1,6 +1,6 @@
 ﻿<please-wait></please-wait>
 <div>
-    <div class="row" style="background-color:{{ctrl.post.colorCode}}; margin-bottom: 10px;">
+    <div class="row" style="background-color:{{ctrl.post.color_code}}; margin-bottom: 10px;">
         <h1 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">
             <i class="fa fa-question-circle-o" aria-hidden="true" ng-show="ctrl.post.post_type==='CIP'"></i>
             <i class="fa fa-child" aria-hidden="true" ng-show="ctrl.post.post_type==='ACT'"></i>
@@ -43,13 +43,13 @@
             <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_type === 'WIG'"><img alt="{{ctrl.post.cache_name}}" title="{{ctrl.post.cache_name}}" src="/www/assets/images/wherigo.png"> ({{ctrl.post.cache_name}})</div>
             <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_type == null || ctrl.post.cache_type === ''">-</div>
         </div>
-        <div class="row" ng-show="ctrl.post.post_type==='BON' || ctrl.post.post_type==='SBN' ||     ctrl.post.post_type==='CGC'">
+        <div class="row" ng-show="ctrl.post.post_type==='BON' || ctrl.post.post_type==='SBN' || ctrl.post.post_type==='CGC'">
             <strong class="col-xs-5 col-sm-3 col-md-2 col-xl-2 text-right">Velikost:</strong>
-            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cacheSize === 'M'"><img src="/www/assets/images/micro.gif" title="{{ctrl.post.size_name}}" alt="{{ctrl.post.size_name}}" /> ({{ctrl.post.size_name}})</div>
-            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cacheSize === 'S'"><img src="/www/assets/images/small.gif" title="{{ctrl.post.size_name}}" alt="{{ctrl.post.size_name}}" /> ({{ctrl.post.size_name}})</div>
-            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cacheSize === 'R'"><img src="/www/assets/images/regular.gif" title="{{ctrl.post.size_name}}" alt="{{ctrl.post.size_name}}" /> ({{ctrl.post.size_name}})</div>
-            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cacheSize === 'L'"><img src="/www/assets/images/large.gif" title="{{ctrl.post.size_name}}" alt="{{ctrl.post.size_name}}" /> ({{ctrl.post.size_name}})</div>
-            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cacheSize === 'O'"><img src="/www/assets/images/other.gif" title="{{ctrl.post.size_name}}" alt="{{ctrl.post.size_name}}" /> ({{ctrl.post.size_name}})</div>
+            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_size === 'M'"><img src="/www/assets/images/micro.gif" title="{{ctrl.post.size_name}}" alt="{{ctrl.post.size_name}}" /> ({{ctrl.post.size_name}})</div>
+            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_size === 'S'"><img src="/www/assets/images/small.gif" title="{{ctrl.post.size_name}}" alt="{{ctrl.post.size_name}}" /> ({{ctrl.post.size_name}})</div>
+            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_size === 'R'"><img src="/www/assets/images/regular.gif" title="{{ctrl.post.size_name}}" alt="{{ctrl.post.size_name}}" /> ({{ctrl.post.size_name}})</div>
+            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_size === 'L'"><img src="/www/assets/images/large.gif" title="{{ctrl.post.size_name}}" alt="{{ctrl.post.size_name}}" /> ({{ctrl.post.size_name}})</div>
+            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_size === 'O'"><img src="/www/assets/images/other.gif" title="{{ctrl.post.size_name}}" alt="{{ctrl.post.size_name}}" /> ({{ctrl.post.size_name}})</div>
         </div>
         <div class="row">
             <strong class="col-xs-5 col-sm-3 col-md-2 col-xl-2 text-right">Barva:</strong>
@@ -63,7 +63,7 @@
     <div class="col-xs-4 col-sm-6 col-md-6 col-xs-6 text-right no-padding actions">
         <button ng-click="ctrl.unlockBonus()" class="btn btn-success custom" ng-show="ctrl.post.post_type==='BON' || ctrl.post.post_type==='SBN'" ng-disabled="ctrl.post.is_unlocked"><i class="fa fa-unlock" aria-hidden="true"></i> Odemknout</button>
         <button ng-click="ctrl.logPost()" class="btn btn-success custom" ng-disabled="ctrl.disableLogButton"><i class="fa fa-check" aria-hidden="true"></i> Zalogovat</button>
-        <button ng-click="ctrl.getHelp()" ng-show="ctrl.post.hasHelp" class="btn btn-info custom" ng-disabled="ctrl.disableHelpButton"><i class="fa fa-question-circle" aria-hidden="true"></i> Nápověda</button>
+        <button ng-click="ctrl.getHelp()" ng-show="ctrl.post.has_help" class="btn btn-info custom" ng-disabled="ctrl.disableHelpButton"><i class="fa fa-question-circle" aria-hidden="true"></i> Nápověda</button>
         <a type="button" ng-href="/api/gpx/post?securityToken={{ctrl.securityToken}}&post={{ctrl.post.post}}" class="btn btn-primary custom" target="_blank"><i class="fa fa-download" aria-hidden="true"></i> GPX</a>
         <a href="#/postNote/{{ctrl.post.post}}" class="btn btn-default custom"><i class="fa fa-edit" aria-hidden="true"></i> Poznámka</a>
         <a href="#/posts" class="btn btn-default custom"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Zpět</a>
@@ -82,10 +82,10 @@
             {{ctrl.post.hint}}
         </div>
     </div>
-    <div class="row" ng-show="ctrl.post.hasHelp && (ctrl.post.help !== '' && ctrl.post.help !== null)" id="helpContainerLabel">
+    <div class="row" ng-show="ctrl.post.has_help && (ctrl.post.help !== '' && ctrl.post.help !== null)" id="helpContainerLabel">
         <h2 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Nápověda</h2>
     </div>
-    <div class="row" ng-show="ctrl.post.hasHelp && (ctrl.post.help !== '' && ctrl.post.help !== null)" id="helpContainer">
+    <div class="row" ng-show="ctrl.post.has_help && (ctrl.post.help !== '' && ctrl.post.help !== null)" id="helpContainer">
         <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12">
             {{ctrl.post.help}}
         </div>

@@ -27,8 +27,8 @@ function MessagesController($routeParams, messageService, $location, $rootScope)
             .then(function successCallback(response) {
                 vm.messages = response.data;
 
-                for (var i = 0; i < vm.messages.length; i++) {
-                    vm.messages[i].moment.date = new Date(vm.messages[i].moment.date);
+                for (let i = 0; i < vm.messages.length; i++) {
+                    vm.messages[i].moment = new Date(vm.messages[i].moment.date);
                 }
 
                 $rootScope.$broadcast('messageUpdate', 0);

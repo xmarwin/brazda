@@ -6,23 +6,23 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12 postItemAdmin">
             <div class="row">
                 <div class="col-xs-1 col-sm-1 col-md-1 col-xl-1 {{post.color}}">
-                    <i class="fa fa-question-circle-o fa-4x" aria-hidden="true" ng-show="post.postType==='CIP'"></i>
-                    <i class="fa fa-compass fa-4x" aria-hidden="true" ng-show="post.postType==='ACT'"></i>
-                    <i class="fa fa-archive fa-4x" aria-hidden="true" ng-show="post.postType==='CGC'"></i>
-                    <i class="fa fa-gift fa-4x" aria-hidden="true" ng-show="post.postType==='BON' || post.postType==='SBN'"></i>
-                    <i class="fa fa-play fa-4x" aria-hidden="true" ng-show="post.postType==='BEG'"></i>
-                    <i class="fa fa-flag-checkered fa-4x" aria-hidden="true" ng-show="post.postType==='END'"></i>
+                    <i class="fa fa-question-circle-o fa-4x" aria-hidden="true" ng-show="post.post_type==='CIP'"></i>
+                    <i class="fa fa-compass fa-4x" aria-hidden="true" ng-show="post.post_type==='ACT'"></i>
+                    <i class="fa fa-archive fa-4x" aria-hidden="true" ng-show="post.post_type==='CGC'"></i>
+                    <i class="fa fa-gift fa-4x" aria-hidden="true" ng-show="post.post_type==='BON' || post.postType==='SBN'"></i>
+                    <i class="fa fa-play fa-4x" aria-hidden="true" ng-show="post.post_type==='BEG'"></i>
+                    <i class="fa fa-flag-checkered fa-4x" aria-hidden="true" ng-show="post.post_type==='END'"></i>
                 </div>
                 <h3 class="col-xs-3 col-sm-3 col-md-3 col-xl-3">{{post.name}}</h3>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-xl-2">
-                    <span ng-show="post.openFrom !== null">
-                        &nbsp;({{post.openFrom | date: "shortTime"}} - {{post.openTo | date: "shortTime"}})
+                    <span ng-show="post.open_from !== null">
+                        &nbsp;({{post.open_from | date: "shortTime"}} - {{post.open_to | date: "shortTime"}})
                     </span>
                 </div>
                 <div class="col-xs-4 col-sm-3 col-md-3 col-xl-3">
 
                 </div>
-                <div class="col-xs-2 col-sm-3 col-md-3 col-xl-3" ng-hide="teamItem.teamType === 'ORG'">
+                <div class="col-xs-2 col-sm-3 col-md-3 col-xl-3">
                     <a href="#/admin/posts/edit/{{post.post}}" class="btn btn-primary"><span class="fa fa-edit" aria-hidden="true"></span><span class="hidden-xs"> Upravit</span></a>
                     <button type="button" ng-click="ctrl.deletePost(post.post)" class="btn btn-danger"><i class="fa fa-remove" aria-hidden="true"></i><span class="hidden-xs"> Odstranit</span></button>
                 </div>
