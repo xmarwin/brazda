@@ -25,8 +25,8 @@ class SecuredBasePresenter extends BasePresenter
 		$this->checkSecurityToken();
 
 		$parameters = $this->getRequest()->getParameters();
-		$login      = (array) $this->logins->find([ 'security_token' => $parameters['securityToken'] ]);
-		$team       = $this->teams->find([ 'team' => $login['team'] ]);
+		$login      = $this->logins->find([ 'security_token' => $parameters['securityToken'] ]);
+		$team       = (array) $this->teams->find([ 'team' => $login->team ]);
 		$this->team = !empty($team)
 			? $team
 			: [];

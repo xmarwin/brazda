@@ -18,8 +18,8 @@ class Attributes extends Base
         return $this->db->query(
             "SELECT
                 *
-             FROM `attributes`
-             WHERE %and", $filters,
+             FROM `attributes_view`
+             WHERE %and", $filter,
             "%if", !empty($order), " ORDER BY %by", $order, "%end
              %if", !empty($limit), " LIMIT %lmt", $limit, " %ofs", $offset, "%end"
         ); // query()

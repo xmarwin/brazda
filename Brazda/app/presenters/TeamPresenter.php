@@ -59,6 +59,15 @@ class TeamPresenter extends SecuredBasePresenter
 	{
         $this->checkAdministrator();
 
+	$this->checkContentTypeJson();
+
+	$this->checkValuesExists($this->input, [
+		'name',
+		'shibboleth',
+		'role',
+		'isActive'
+	]); // checkValuesExists()
+
         $values = [
             'name'           => $this->input->name,
             'shibboleth'     => $this->input->shibboleth,
@@ -95,6 +104,16 @@ class TeamPresenter extends SecuredBasePresenter
 	public function actionUpdate()
 	{
         $this->checkAdministrator();
+
+	$this->checkContentTypeJson();
+
+	$this->checkValuesExists($this->input, [
+		'name',
+		'shibboleth',
+		'role',
+		'isActive'
+	]); // checkValuesExists()
+
 
         $team = (int) $this->input->team;
         $filter = [ 'team' => $team ];

@@ -376,6 +376,8 @@ class PostPresenter extends SecuredBasePresenter
     {
         $this->checkAdministrator();
 
+	$this->checkContentTypeJson();
+
         $values = [
             'post_type'   => strtoupper($this->input->postType),
             'color'       => strtoupper($this->input->color),
@@ -479,6 +481,20 @@ class PostPresenter extends SecuredBasePresenter
     {
         $this->checkAdministrator();
 
+	$this->checkContentTypeJson();
+
+	$this->checkValuesExists($this->input, [
+		'post',
+		'postType',
+		'color',
+		'name',
+		'maxScore',
+		'difficulty',
+		'terrain',
+		'latitude',
+		'longitude'
+	]); // checkValuesExists()
+
         $post = (int) $this->input->post;
         $filter = [ 'post' => $post ];
         $values = [
@@ -549,19 +565,19 @@ class PostPresenter extends SecuredBasePresenter
         $result = [];
         foreach ($this->input->waypoints as $wp) {
             try {
-                $filter = isset($wp['waypoint']) && !empty($wp['waypoint'])
-                        ? [ 'waypoint' => (int) $wp['waypoint'] ]
+                $filter = isset($wp->waypoint) && !empty($wp->waypoint)
+                        ? [ 'waypoint' => (int) $wp->waypoint ]
                         : null;
                 $values = [
-                    'waypoint_type'       => strtoupper($wp['waypointType']),
-                    'waypoint_visibility' => strtoupper($wp['waypointVisibility']),
+                    'waypoint_type'       => strtoupper($wp->waypointType),
+                    'waypoint_visibility' => strtoupper($wp->waypointVisibility),
                     'post'                => $post,
-                    'name'                => $wp['name'],
-                    'latitude'            => (float) $wp['latitude'],
-                    'longitude'           => (float) $wp['longitude']
+                    'name'                => $wp->name,
+                    'latitude'            => (float) $wp->latitude,
+                    'longitude'           => (float) $wp->longitude
                 ];
-                if (isset($wp['description']) &&  !empty($wp['description']))
-                    $waypointValues['description'] = $wp['description'];
+                if (isset($wp->description) &&  !empty($wp->description))
+                    $waypointValues['description'] = $wp->description;
 
                 $result[] = (int) $this->waypoints->insert($values);
             } catch (Dibi\Exception $e) {

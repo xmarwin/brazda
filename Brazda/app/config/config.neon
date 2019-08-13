@@ -12,7 +12,10 @@ application:
 
 
 session:
+	debugger: true
 	expiration: 14 days
+	savePath: %tempDir%/sessions
+	autoStart: smart
 
 
 services:
