@@ -78,8 +78,8 @@ class PostAttributes extends Base
             throw new \Exception('Chybí hodnoty pro zápis atributu stanoviště');
 
         return $this->db->query(
-            "INSERT INTO posts_has_attributes (post, `attribute`, status)
-             VALUES %v", $values
+            "INSERT INTO posts_has_attributes
+             %v", $values
         ); // query()
     } // insert()
 
