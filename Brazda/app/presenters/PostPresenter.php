@@ -554,7 +554,7 @@ class PostPresenter extends SecuredBasePresenter
 			$values['password_position'] = $this->input->passwordPosition;
 
 		if (isset($this->input->timeEstimate) && !empty($this->input->timeEstimate))
-			$values['time_estimate'] = $this->input->time_estimate;
+			$values['time_estimate'] = $this->input->timeEstimate;
 
         $this->posts->begin();
         try {
