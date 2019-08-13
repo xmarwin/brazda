@@ -438,8 +438,9 @@ class PostPresenter extends SecuredBasePresenter
 			$values['time_estimate'] = $this->input->timeEstimate;
 
         $result = [];
-        $this->posts->begin();
         try {
+            $this->posts->begin();
+
             $result['post'] = (int) $this->posts->insert($values);
 
             if (!empty($this->input->waypoints)) {
@@ -468,7 +469,7 @@ class PostPresenter extends SecuredBasePresenter
                         'status'    => $attributeValue
                     ];
 
-                    $result['attributes'][] = (int) $this->waypoints->save($attributeValues);
+                    $result['attributes'][] = (int) $this->attributes->save($attributeValues);
                 } // foreach
             } // if
 
@@ -556,50 +557,60 @@ class PostPresenter extends SecuredBasePresenter
 		if (isset($this->input->timeEstimate) && !empty($this->input->timeEstimate))
 			$values['time_estimate'] = $this->input->timeEstimate;
 
-        $this->posts->begin();
-        try {
-            $this->posts->update($values, $filter);
-        } catch (Dibi\Exception $e) {
-            $this->posts->rollback();
-            $this->sendErrorResource($e);
-        } // try
-
-        try {
-            $this->waypoints->delete(['post' => $filter['post']]);
-        } catch (Dibi\Exception $e) {
-            $this->posts->rollback();
-            $this->sendErrorResource($e);
-        } // try
-
         $result = [];
-        foreach ($this->input->waypoints as $wp) {
-            try {
-                $filter = isset($wp->waypoint) && !empty($wp->waypoint)
-                        ? [ 'waypoint' => (int) $wp->waypoint ]
-                        : null;
-                $values = [
-                    'waypoint_type'       => strtoupper($wp->waypointType),
-                    'waypoint_visibility' => strtoupper($wp->waypointVisibility),
-                    'post'                => $post,
-                    'name'                => $wp->name,
-                    'latitude'            => (float) $wp->latitude,
-                    'longitude'           => (float) $wp->longitude
-                ];
-                if (isset($wp->description) &&  !empty($wp->description))
-                    $waypointValues['description'] = $wp->description;
+        try {
+            $this->posts->begin();
 
-                $result[] = (int) $this->waypoints->insert($values);
-            } catch (Dibi\Exception $e) {
-                $this->posts->rollback();
-                $this->sendErrorResource($e);
-            } // try
-        } // foreach
-        $this->posts->commit();
+            $this->posts->update($values, $filter);
+
+            if (!empty($this->input->waypoints)) {
+                $this->waypoints->delete(['post' => $filter['post']]);
+
+                foreach ($this->input->waypoints as $wp) {
+                    try {
+                        $filter = isset($wp->waypoint) && !empty($wp->waypoint)
+                                ? [ 'waypoint' => (int) $wp->waypoint ]
+                                : null;
+                        $values = [
+                            'waypoint_type'       => strtoupper($wp->waypointType),
+                            'waypoint_visibility' => strtoupper($wp->waypointVisibility),
+                            'post'                => $post,
+                            'name'                => $wp->name,
+                            'latitude'            => (float) $wp->latitude,
+                            'longitude'           => (float) $wp->longitude
+                        ];
+                        if (isset($wp->description) &&  !empty($wp->description))
+                            $waypointValues['description'] = $wp->description;
+
+                        $result['waypoints'][] = (int) $this->waypoints->insert($values);
+                    } catch (Dibi\Exception $e) {
+                        $this->posts->rollback();
+                        $this->sendErrorResource($e);
+                    } // try
+                } // foreach
+            } // if
+
+            if (!empty($this->input->attributes)) {
+                foreach ($this->input->attributes as $attributeName => $attributeValue) {
+                    $attributeValues = [
+                        'post'      => $post,
+                        'attribute' => $attributeName,
+                        'status'    => $attributeValue
+                    ];
+
+                    $result['attributes'][] = (int) $this->postAttributes->save($attributeValues);
+                } // foreach
+            } // if
+
+            $this->posts->commit();
+        } catch (Dibi\Exception $e) {
+            $this->posts->rollback();
+            $this->sendErrorResource($e);
+        } // try
 
         $this->resource = [
             'status' => 'OK',
-            'code'   => 201,
-            'data'   => $result
+            'code'   => 201
         ];
         $this->sendResource();
     } // actionUpdate()
