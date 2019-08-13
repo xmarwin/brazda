@@ -51,11 +51,28 @@ class SignPresenter extends BasePresenter
 			} // if
 			$this->sendErrorResource($e);
 		} // try
-
+/*
 		$data  = (array) $identity->getData();
 		$data += (array) $login;
 
 		$this->resource = $data;
+*/
+        $identityData = $identity->getData();
+
+        $this->resource = [
+            'team'          => $identityData['team'],
+            'name'          => $identityData['name'],
+            'description'   => $identityData['description'],
+            'role'          => $identityData['role'],
+            'roleName'      => $identityData['role_name'],
+            'active'        => $identityData['is_active'],
+            'allowTracking' => $identityData['allow_tracking'],
+            'telephone'     => $identityData['telephone'],
+            'email'         => $identityData['email'],
+            'securityToken' => $login->security_token,
+            'deviceId'      => $login->device_id
+        ];
+
 		$this->sendResource();
 	} // actionIn()
 

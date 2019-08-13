@@ -3,6 +3,8 @@ temp/*
 !temp/.gitkeep
 temp/cache/*
 !temp/cache/.gitkeep
+temp/sessions/*
+!temp/sessions/.gitkeep
 logs/*
 log/*
 !log/.gitkeep

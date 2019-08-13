@@ -29,14 +29,14 @@ class Teams extends Base
                 t.name,
                 t.description,
                 t.team_type AS role,
-                tt.name AS roleName,
-                t.is_active AS active,
+                tt.name AS role_name,
+                t.is_active AS is_active,
                 t.tracking_allowed AS allow_tracking,
                 t.team_status,
                 t.shibboleth,
                 t.telephone,
                 t.email,
-                ts.name AS statusName,
+                ts.name AS status_name,
                 p.moment AS position_moment,
                 p.location AS position_location
             FROM teams t
