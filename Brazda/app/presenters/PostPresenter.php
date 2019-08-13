@@ -127,21 +127,30 @@ class PostPresenter extends SecuredBasePresenter
                 'post' => (int) $post
             ])->fetch();
 
-            /** Pokud je informace pro závodníky */
+            /** Vybereme atributy pro stanoviště */
+            $attributes = $this->postAttributes->view([ 'post' => (int) $post ]);
+            /** Pokud stanoviště žádné atributy nastaveny nemá, nebo je informace pro organizátora */
+            $this->resource['attributes'] = $attributes->count() == 0 || $this->team['role'] == Models\Teams::ORGANIZATION
+                /** Vrať všechny atributy */
+                ? $this->postAttributes->viewAll()->fetchAll()
+                /** Vrať vybrané atributy */
+                : $attributes->fetchAll();
+/*
+            /** Pokud je informace pro závodníky */ /*
             if (in_array($this->team['role'], [ Models\Teams::COMPETITORS, Models\Teams::KIDSCOMPETITORS ])) {
-                /** Vybereme informace o atributech stanoviště */
+                /** Vybereme informace o atributech stanoviště */ /*
                 $this->resource['attributes'] = $this->postAttributes->view([
                     'post' => (int) $post
                 ])->fetchAll();
 
-            /** jinak */
+            /** jinak */ /*
             } else {
-                /** Vybereme informace o všech možných a nastavených atributech stanoviště */
+                /** Vybereme informace o všech možných a nastavených atributech stanoviště */ /*
                 $this->resource['attributes'] = $this->postAttributes->viewAll([
                     'post' => (int) $post
                 ])->fetchAll();
             } // if
-
+*/
 			/** Vybereme informace o waypointech stanoviště pro tým */
 			$this->resource['waypoints'] = $this->waypoints->view([
 			    'post' => (int) $post,
@@ -376,7 +385,7 @@ class PostPresenter extends SecuredBasePresenter
     {
         $this->checkAdministrator();
 
-	$this->checkContentTypeJson();
+        $this->checkContentTypeJson();
 
         $values = [
             'post_type'   => strtoupper($this->input->postType),
@@ -426,7 +435,7 @@ class PostPresenter extends SecuredBasePresenter
 			$values['password_position'] = $this->input->passwordPosition;
 
 		if (isset($this->input->timeEstimate) && !empty($this->input->timeEstimate))
-			$values['time_estimate'] = $this->input->time_estimate;
+			$values['time_estimate'] = $this->input->timeEstimate;
 
         $result = [];
         $this->posts->begin();
