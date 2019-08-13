@@ -11,18 +11,24 @@ class SecuredBasePresenter extends BasePresenter
 		$input,
 
 		$logins,
+		$teams,
 
 		$team;
 
     public function startup()
     {
-        parent::startup();
+		parent::startup();
 
-        $this->logins = $this->context->getService('logins');
+		$this->logins = $this->context->getService('logins');
+		$this->teams  = $this->context->getService('teams');
 
-        $this->checkSecurityToken();
-        $this->team = !empty($this->getUser()->getIdentity())
-			? $this->getUser()->getIdentity()->getData()
+		$this->checkSecurityToken();
+
+		$parameters = $this->getRequest()->getParameters();
+		$login      = (array) $this->logins->find([ 'security_token' => $parameters['securityToken'] ]);
+		$team       = $this->teams->find([ 'team' => $login['team'] ]);
+		$this->team = !empty($team)
+			? $team
 			: [];
 
 		$this->input = $this->getInput();
@@ -58,18 +64,18 @@ class SecuredBasePresenter extends BasePresenter
 		return true;
     } // checkSecurityToken()
 
-    public function checkAdministrator()
-    {
-        if (!$this->getUser()->isInRole('ORG')) {
-            $this->sendErrorResource(
-                new Security\AuthenticationException(
-                    'Nemáte oprávnění pro volání této metody.',
-                    401
-                ) // AuthenticationException()
-            ); // sendErrorResource()
-        } // if
+	public function checkAdministrator()
+	{
+		if ($this->team['role'] !== 'ORG') {
+			$this->sendErrorResource(
+				new Security\AuthenticationException(
+					'Nemáte oprávnění pro volání této metody.',
+					401
+				) // AuthenticationException()
+			); // sendErrorResource()
+		} // if
 
-        return true;
-    } // checkAdministrator()
+		return true;
+	} // checkAdministrator()
 
 } // SecuredBasePresenter
