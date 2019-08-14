@@ -134,7 +134,7 @@ function EditPostController($routeParams, $location, notification, authService, 
             "openTo": $filter("date")(post.openTo, "shortTime"),
             "passwordCharacter": post.passwordCharacter,
             "passwordPosition": post.passwordPosition,
-            "time_estimate": post.time_estimate
+            "timeEstimate": post.time_estimate
         };
 
         postService.updatePost(input)

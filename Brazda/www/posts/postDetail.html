@@ -20,7 +20,7 @@
             <strong class="col-xs-5 col-sm-3 col-md-2 col-xl-2 text-right">E:</strong>
             <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10">{{ctrl.post.longitude | coordinate: 'E'}}</div>
         </div>
-            <div class="row">
+        <div class="row">
             <strong class="col-xs-5 col-sm-3 col-md-2 col-xl-2 text-right">Terén:</strong>
             <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10"><img alt="{{ctrl.post.cache_name}}" title="Terén {{ctrl.post.terrain}}" src="/www/assets/images/stars{{ctrl.post.terrain}}.gif" style="vertical-align: top"> {{ctrl.post.terrain}}</div>
         </div>
@@ -58,6 +58,10 @@
         <div class="row">
             <strong class="col-xs-5 col-sm-3 col-md-2 col-xl-2 text-right">Body:</strong>
             <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10">{{ctrl.post.max_score}}</div>
+        </div>
+        <div class="row">
+            <strong class="col-xs-5 col-sm-3 col-md-2 col-xl-2 text-right" ng-show="ctrl.post.time_estimate">Délka:</strong>
+            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10">{{ctrl.post.time_estimate}}</div>
         </div>
     </div>
     <div class="col-xs-4 col-sm-6 col-md-6 col-xs-6 text-right no-padding actions">
