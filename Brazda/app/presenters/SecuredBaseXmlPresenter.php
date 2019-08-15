@@ -17,8 +17,8 @@ class SecuredBaseXmlPresenter extends BaseXmlPresenter
     {
         parent::startup();
 
-        $this->logins = $this->context->getService('logins')
-        $this->teams  = $this->context->getService('teams')
+        $this->logins = $this->context->getService('logins');
+        $this->teams  = $this->context->getService('teams');
 
         $this->checkSecurityToken();
 
