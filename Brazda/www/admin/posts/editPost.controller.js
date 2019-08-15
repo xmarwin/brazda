@@ -110,7 +110,7 @@ function EditPostController($routeParams, $location, notification, authService, 
                 "longitude": post.waypoints[i].longitude
             });
         }
-        
+
         var input = {
             "post": post.post,
             "postType": post.postType.postType,
