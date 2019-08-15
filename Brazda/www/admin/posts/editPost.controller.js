@@ -95,6 +95,17 @@ function EditPostController($routeParams, $location, notification, authService, 
         $uibModalInstance.dismiss('cancel');
     };
 
+    vm.changeAttribute = function (att) {
+        let attribute = $filter('filter')(vm.post.attributes, { 'attribute': att }, true)[0];
+        if (angular.isUndefined(attribute.status) || attribute.status === null) {
+            attribute.status = true;
+        } else if (attribute.status === true && attribute.status_count === 2 || attribute.status === false && attribute.status_count === 3) {
+            attribute.status = null;
+        } else {
+            attribute.status = false;
+        }
+    };
+
     vm.editPost = function (post) {
         var waypoints = [];
 
@@ -109,6 +120,19 @@ function EditPostController($routeParams, $location, notification, authService, 
                 "latitude": post.waypoints[i].latitude,
                 "longitude": post.waypoints[i].longitude
             });
+        }
+
+        let atts = [];
+        for (let i = 0; i < vm.post.attributes.length; i++) {
+            let status = null;
+            if (angular.isUndefined(vm.post.attributes[i].status) || vm.post.attributes[i].status === null) {
+                status = null;
+            } else {
+                status = vm.post.attributes[i].status;
+            }
+
+            let att = "'" + vm.post.attributes[i].attribute + "': " + status;
+            atts.push(att);
         }
 
         var input = {
@@ -134,7 +158,8 @@ function EditPostController($routeParams, $location, notification, authService, 
             "openTo": $filter("date")(post.openTo, "shortTime"),
             "passwordCharacter": post.passwordCharacter,
             "passwordPosition": post.passwordPosition,
-            "timeEstimate": post.time_estimate
+            "timeEstimate": post.time_estimate,
+            "attributes": "{" + atts.join() + "}"
         };
 
         postService.updatePost(input)

@@ -73,30 +73,6 @@ function AddPostController($routeParams, $location, notification, authService, p
         $uibModalInstance.dismiss('cancel');
     };
 
-    vm.getAttributeSrc = function (att) {
-        let attribute = $filter('filter')(vm.attributes, { 'attribute': att }, true)[0];
-
-        if (angular.isUndefined(att.status) || att.status === null) {
-            return '/www' + attribute.icon;
-        } else if (att.status) {
-            return '/www' + attribute.icon_on;
-        } else {
-            return '/www' + attribute.icon_off;
-        }
-    };
-
-    vm.getAttributeTitle = function (att) {
-        let attribute = $filter('filter')(vm.attributes, { 'attribute': att }, true)[0];
-
-        if (angular.isUndefined(att.status) || att.status === null) {
-            return attribute.name_on;
-        } else if (att.status) {
-            return attribute.name_on;
-        } else {
-            return attribute.name_off;
-        }
-    };
-
     vm.changeAttribute = function (att) {
         let attribute = $filter('filter')(vm.attributes, { 'attribute': att }, true)[0];
         if (angular.isUndefined(attribute.status) || attribute.status === null) {
@@ -131,8 +107,8 @@ function AddPostController($routeParams, $location, notification, authService, p
                 status = vm.attributes[i].status;
             }
 
-            var att = '{"' + vm.attributes[i].attribute + '": ' + status + '}';
-            atts.push(JSON.parse(att));
+            let att = "'" + vm.attributes[i].attribute + "': " + status;
+            atts.push(att);
         }
 
         var input = {
@@ -158,7 +134,7 @@ function AddPostController($routeParams, $location, notification, authService, p
             "passwordCharacter": post.passwordCharacter,
             "passwordPosition": post.passwordPosition,
             "time_estimate": post.time_estimate,
-            "attributes": atts
+            "attributes": "{" + atts.join() + "}"
         };
 
         postService.addPost(input)
