@@ -15,7 +15,13 @@ class SecuredBaseXmlPresenter extends BaseXmlPresenter
         parent::startup();
 
         $this->checkSecurityToken();
-        $this->team = $this->getUser()->getIdentity()->getData();
+
+        $parameters = $this->getRequest()->getParameters();
+        $login      = $this->logins->find([ 'security_token' => $parameters['securityToken'] ]);
+        $team       = (array) $this->teams->find([ 'team' => $login->team ]);
+        $this->team = !empty($team)
+            ? $team
+            : [];
     } // startup()
 
     public function checkSecurityToken()
