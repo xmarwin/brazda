@@ -9,6 +9,7 @@ class GpxPresenter extends SecuredBaseXmlPresenter
 {
     protected
         $posts,
+        $postAttributes,
         $waypoints;
 
     private
@@ -18,8 +19,9 @@ class GpxPresenter extends SecuredBaseXmlPresenter
     {
         parent::startup();
 
-        $this->posts     = $this->context->getService('posts');
-        $this->waypoints = $this->context->getService('waypoints');
+        $this->posts          = $this->context->getService('posts');
+        $this->postAttributes = $this->context->getService('postAttributes');
+        $this->waypoints      = $this->context->getService('waypoints');
     } // startup()
 
     public function actionAll()
@@ -34,6 +36,15 @@ class GpxPresenter extends SecuredBaseXmlPresenter
                 'team' => (int) $this->team['team']
             ])->fetchAll();
         } // foreach
+
+        /** Vybereme atributy pro stanoviště */
+        $attributes = $this->postAttributes->view([ 'post' => (int) $post ]);
+        /** Pokud stanoviště žádné atributy nastaveny nemá */
+        $this->template->attributes = $attributes->count() == 0
+            /** Vrať prázdné pole */
+            ? []
+            /** Vrať vybrané atributy */
+            : $attributes->fetchAll();
 
         $this->template->posts = $posts;
 
@@ -62,6 +73,15 @@ class GpxPresenter extends SecuredBaseXmlPresenter
         ];
         $posts = $this->posts->view($viewFilter)->fetchAll();
         $posts[0]->waypoints = $this->waypoints->view($viewFilter)->fetchAll();
+
+        /** Vybereme atributy pro stanoviště */
+        $attributes = $this->postAttributes->view([ 'post' => (int) $post ]);
+        /** Pokud stanoviště žádné atributy nastaveny nemá */
+        $this->template->attributes = $attributes->count() == 0
+            /** Vrať prázdné pole */
+            ? []
+            /** Vrať vybrané atributy */
+            : $attributes->fetchAll();
 
         $this->template->posts = $posts;
 

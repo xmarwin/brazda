@@ -40,7 +40,7 @@ insert into "attributes" values
 ('PHN', 'Blízká telefonní budka', 'Žádná telefonní budka poblíž', 'phone', 3),
 ('PCN', 'Blízké piknikové místo', 'Piknikové stoly tady nenajdeš', 'picnic', 3),
 ('CMP', 'Možnost táboření', 'Táboření zde není povoleno', 'camping', 3),
-('BCL', 'dostupné na kole', 'Nejezdi sem na kole', 'bicycles', 3),
+('BCL', 'Dostupné na kole', 'Nejezdi sem na kole', 'bicycles', 3),
 ('QAD', 'Přístup na čtyřkolce', 'Nejezdi sem na čtyřkolce', 'quads', 3),
 ('JEP', 'Přístup teréním autem', 'Nejezdi sem teréním
  autem', 'jeeps', 3),
