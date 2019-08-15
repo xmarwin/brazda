@@ -72,6 +72,11 @@ function PostService(webApiService, $filter, localStorageService) {
         return webApiService.get('note/save', data, 'POST');
     };
 
+    // http://brazda/api/attributes?securityToken=...
+    vm.getAttributes = function (data) {
+        return webApiService.get('attributes', data);
+    };
+
     vm.getCacheTypes = function () {
         return [
             { "cacheType": "TRA", "name": "Tradiční keš" },

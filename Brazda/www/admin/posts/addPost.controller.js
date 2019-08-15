@@ -29,7 +29,7 @@ function AddPostController($routeParams, $location, notification, authService, p
     vm.modalInstance = [];
     vm.waypointTypes = [];
     vm.waypointVisibilities = [];
-
+    vm.attributes = [];
 
     var init = function () {
         vm.postTypes = postService.getPostTypes();
@@ -38,10 +38,12 @@ function AddPostController($routeParams, $location, notification, authService, p
         vm.postColors = postService.getPostColors();
         vm.postTerrains = postService.getTerrains();
         vm.postDifficulties = postService.getDifficulties();
-
+        postService.getAttributes().then(function (data) {
+            vm.attributes = data.data;
+        });
         vm.waypointTypes = postService.getWaypointTypes();
         vm.waypointVisibilities = postService.getWaypointVisibilities();
-    }
+    };
 
     vm.addWaypoint = function () {
         ngDialog.openConfirm({
@@ -54,14 +56,14 @@ function AddPostController($routeParams, $location, notification, authService, p
             vm.post.waypoints.push(data);
         }, function (err) {
 
-        })
+        });
     };
 
     vm.removeWaypoint = function (wpt) {
         var index = vm.post.waypoints.indexOf(wpt);
         vm.post.waypoints.splice(index, 1);
         return false;
-    }
+    };
 
     vm.addWaypointOk = function () {
         $uibModalInstance.close($ctrl.selected.item);
@@ -69,6 +71,41 @@ function AddPostController($routeParams, $location, notification, authService, p
 
     vm.addWaypointCancel = function () {
         $uibModalInstance.dismiss('cancel');
+    };
+
+    vm.getAttributeSrc = function (att) {
+        let attribute = $filter('filter')(vm.attributes, { 'attribute': att }, true)[0];
+
+        if (angular.isUndefined(att.status) || att.status === null) {
+            return '/www' + attribute.icon;
+        } else if (att.status) {
+            return '/www' + attribute.icon_on;
+        } else {
+            return '/www' + attribute.icon_off;
+        }
+    };
+
+    vm.getAttributeTitle = function (att) {
+        let attribute = $filter('filter')(vm.attributes, { 'attribute': att }, true)[0];
+
+        if (angular.isUndefined(att.status) || att.status === null) {
+            return attribute.name_on;
+        } else if (att.status) {
+            return attribute.name_on;
+        } else {
+            return attribute.name_off;
+        }
+    };
+
+    vm.changeAttribute = function (att) {
+        let attribute = $filter('filter')(vm.attributes, { 'attribute': att }, true)[0];
+        if (angular.isUndefined(attribute.status) || attribute.status === null) {
+            attribute.status = true;
+        } else if (attribute.status === true && attribute.status_count === 2 || attribute.status === false && attribute.status_count === 3) {
+            attribute.status = null;
+        } else {
+            attribute.status = false;
+        }
     };
 
     vm.addPost = function (post) {
@@ -85,8 +122,21 @@ function AddPostController($routeParams, $location, notification, authService, p
             });
         }
 
+        let atts = [];
+        for (let i = 0; i < vm.attributes.length; i++) {
+            let status = null;
+            if (angular.isUndefined(vm.attributes[i].status) || vm.attributes[i].status === null) {
+                status = null;
+            } else {
+                status = vm.attributes[i].status;
+            }
+
+            var att = '{"' + vm.attributes[i].attribute + '": ' + status + '}';
+            atts.push(JSON.parse(att));
+        }
+
         var input = {
-            "postType": post.postType.postType,
+            "postType": angular.isUndefined(post.postType) ? null : post.postType.postType,
             "color": angular.isUndefined(post.color) ? null : post.color.color,
             "name": post.name,
             "difficulty": angular.isUndefined(post.difficulty) ? null : post.difficulty.value,
@@ -103,13 +153,13 @@ function AddPostController($routeParams, $location, notification, authService, p
             "longitude": post.longitude,
             "withStaff": post.withStaff,
             "waypoints": waypoints,
-            "latitude": post.latitude,
-            "longitude": post.longitude,
             "openFrom": $filter("date")(post.openFrom, "shortTime"),
             "openTo": $filter("date")(post.openTo, "shortTime"),
             "passwordCharacter": post.passwordCharacter,
-            "passwordPosition": post.passwordPosition
-        }
+            "passwordPosition": post.passwordPosition,
+            "time_estimate": post.time_estimate,
+            "attributes": atts
+        };
 
         postService.addPost(input)
             .then(function (data) {
@@ -118,7 +168,7 @@ function AddPostController($routeParams, $location, notification, authService, p
             }, function (err) {
                 notification.error(err.data.message);
             });
-    }
+    };
 
     init();
 }

@@ -17,15 +17,15 @@
     <RootNamespace>Brazda</RootNamespace>
     <AssemblyName>Brazda</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>63007</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>3.5</TypeScriptToolsVersion>
     <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -5142,18 +5142,191 @@
     <Content Include="www\app.js" />
     <Content Include="www\assets\css\app.css" />
     <Content Include="www\assets\css\loading-bar.css" />
-    <Content Include="www\assets\images\activity.png" />
-    <Content Include="www\assets\images\bonus.png" />
-    <Content Include="www\assets\images\cache.png" />
-    <Content Include="www\assets\images\cipher.png" />
-    <Content Include="www\assets\images\cito_16.gif" />
-    <Content Include="www\assets\images\earthcache_16.gif" />
+    <Content Include="www\assets\images\attributes\abandonedbuilding-off.png" />
+    <Content Include="www\assets\images\attributes\abandonedbuilding-on.png" />
+    <Content Include="www\assets\images\attributes\abandonedbuilding.png" />
+    <Content Include="www\assets\images\attributes\attribute-blank.png" />
+    <Content Include="www\assets\images\attributes\available-off.png" />
+    <Content Include="www\assets\images\attributes\available-on.png" />
+    <Content Include="www\assets\images\attributes\available.png" />
+    <Content Include="www\assets\images\attributes\bicycles-off.png" />
+    <Content Include="www\assets\images\attributes\bicycles-on.png" />
+    <Content Include="www\assets\images\attributes\bicycles.png" />
+    <Content Include="www\assets\images\attributes\boat-off.png" />
+    <Content Include="www\assets\images\attributes\boat-on.png" />
+    <Content Include="www\assets\images\attributes\boat.png" />
+    <Content Include="www\assets\images\attributes\campfires-off.png" />
+    <Content Include="www\assets\images\attributes\campfires-on.png" />
+    <Content Include="www\assets\images\attributes\campfires.png" />
+    <Content Include="www\assets\images\attributes\camping-off.png" />
+    <Content Include="www\assets\images\attributes\camping-on.png" />
+    <Content Include="www\assets\images\attributes\camping.png" />
+    <Content Include="www\assets\images\attributes\cliff-off.png" />
+    <Content Include="www\assets\images\attributes\cliff-on.png" />
+    <Content Include="www\assets\images\attributes\cliff.png" />
+    <Content Include="www\assets\images\attributes\climbing-off.png" />
+    <Content Include="www\assets\images\attributes\climbing-on.png" />
+    <Content Include="www\assets\images\attributes\climbing.png" />
+    <Content Include="www\assets\images\attributes\cow-off.png" />
+    <Content Include="www\assets\images\attributes\cow-on.png" />
+    <Content Include="www\assets\images\attributes\cow.png" />
+    <Content Include="www\assets\images\attributes\danger-off.png" />
+    <Content Include="www\assets\images\attributes\danger-on.png" />
+    <Content Include="www\assets\images\attributes\danger.png" />
+    <Content Include="www\assets\images\attributes\dangerousanimals-off.png" />
+    <Content Include="www\assets\images\attributes\dangerousanimals-on.png" />
+    <Content Include="www\assets\images\attributes\dangerousanimals.png" />
+    <Content Include="www\assets\images\attributes\dogs-off.png" />
+    <Content Include="www\assets\images\attributes\dogs-on.png" />
+    <Content Include="www\assets\images\attributes\dogs.png" />
+    <Content Include="www\assets\images\attributes\fee-off.png" />
+    <Content Include="www\assets\images\attributes\fee-on.png" />
+    <Content Include="www\assets\images\attributes\fee.png" />
+    <Content Include="www\assets\images\attributes\flashlight-off.png" />
+    <Content Include="www\assets\images\attributes\flashlight-on.png" />
+    <Content Include="www\assets\images\attributes\flashlight.png" />
+    <Content Include="www\assets\images\attributes\frontyard-off.png" />
+    <Content Include="www\assets\images\attributes\frontyard-on.png" />
+    <Content Include="www\assets\images\attributes\frontyard.png" />
+    <Content Include="www\assets\images\attributes\fuel-off.png" />
+    <Content Include="www\assets\images\attributes\fuel-on.png" />
+    <Content Include="www\assets\images\attributes\fuel.png" />
+    <Content Include="www\assets\images\attributes\hike_long-off.png" />
+    <Content Include="www\assets\images\attributes\hike_long-on.png" />
+    <Content Include="www\assets\images\attributes\hike_long.png" />
+    <Content Include="www\assets\images\attributes\hike_med-off.png" />
+    <Content Include="www\assets\images\attributes\hike_med-on.png" />
+    <Content Include="www\assets\images\attributes\hike_med.png" />
+    <Content Include="www\assets\images\attributes\hike_short-off.png" />
+    <Content Include="www\assets\images\attributes\hike_short-on.png" />
+    <Content Include="www\assets\images\attributes\hike_short.png" />
+    <Content Include="www\assets\images\attributes\hiking-off.png" />
+    <Content Include="www\assets\images\attributes\hiking-on.png" />
+    <Content Include="www\assets\images\attributes\hiking.png" />
+    <Content Include="www\assets\images\attributes\horses-off.png" />
+    <Content Include="www\assets\images\attributes\horses-on.png" />
+    <Content Include="www\assets\images\attributes\horses.png" />
+    <Content Include="www\assets\images\attributes\hunting-off.png" />
+    <Content Include="www\assets\images\attributes\hunting-on.png" />
+    <Content Include="www\assets\images\attributes\hunting.png" />
+    <Content Include="www\assets\images\attributes\jeeps-off.png" />
+    <Content Include="www\assets\images\attributes\jeeps-on.png" />
+    <Content Include="www\assets\images\attributes\jeeps.png" />
+    <Content Include="www\assets\images\attributes\kids-off.png" />
+    <Content Include="www\assets\images\attributes\kids-on.png" />
+    <Content Include="www\assets\images\attributes\kids.png" />
+    <Content Include="www\assets\images\attributes\mine-off.png" />
+    <Content Include="www\assets\images\attributes\mine-on.png" />
+    <Content Include="www\assets\images\attributes\mine.png" />
+    <Content Include="www\assets\images\attributes\night-off.png" />
+    <Content Include="www\assets\images\attributes\night-on.png" />
+    <Content Include="www\assets\images\attributes\night.png" />
+    <Content Include="www\assets\images\attributes\nightcache-off.png" />
+    <Content Include="www\assets\images\attributes\nightcache-on.png" />
+    <Content Include="www\assets\images\attributes\nightcache.png" />
+    <Content Include="www\assets\images\attributes\onehour-off.png" />
+    <Content Include="www\assets\images\attributes\onehour-on.png" />
+    <Content Include="www\assets\images\attributes\onehour.png" />
+    <Content Include="www\assets\images\attributes\parking-off.png" />
+    <Content Include="www\assets\images\attributes\parking-on.png" />
+    <Content Include="www\assets\images\attributes\parking.png" />
+    <Content Include="www\assets\images\attributes\parkngrab-off.png" />
+    <Content Include="www\assets\images\attributes\parkngrab-on.png" />
+    <Content Include="www\assets\images\attributes\parkngrab.png" />
+    <Content Include="www\assets\images\attributes\phone-off.png" />
+    <Content Include="www\assets\images\attributes\phone-on.png" />
+    <Content Include="www\assets\images\attributes\phone.png" />
+    <Content Include="www\assets\images\attributes\picnic-off.png" />
+    <Content Include="www\assets\images\attributes\picnic-on.png" />
+    <Content Include="www\assets\images\attributes\picnic.png" />
+    <Content Include="www\assets\images\attributes\poisonoak-off.png" />
+    <Content Include="www\assets\images\attributes\poisonoak-on.png" />
+    <Content Include="www\assets\images\attributes\poisonoak.png" />
+    <Content Include="www\assets\images\attributes\public-off.png" />
+    <Content Include="www\assets\images\attributes\public-on.png" />
+    <Content Include="www\assets\images\attributes\public.png" />
+    <Content Include="www\assets\images\attributes\quads-off.png" />
+    <Content Include="www\assets\images\attributes\quads-on.png" />
+    <Content Include="www\assets\images\attributes\rappelling-off.png" />
+    <Content Include="www\assets\images\attributes\rappelling-on.png" />
+    <Content Include="www\assets\images\attributes\rappelling.png" />
+    <Content Include="www\assets\images\attributes\restrooms-off.png" />
+    <Content Include="www\assets\images\attributes\restrooms-on.png" />
+    <Content Include="www\assets\images\attributes\restrooms.png" />
+    <Content Include="www\assets\images\attributes\rv-off.png" />
+    <Content Include="www\assets\images\attributes\rv-on.png" />
+    <Content Include="www\assets\images\attributes\rv.png" />
+    <Content Include="www\assets\images\attributes\s-tool-off.png" />
+    <Content Include="www\assets\images\attributes\s-tool-on.png" />
+    <Content Include="www\assets\images\attributes\s-tool.png" />
+    <Content Include="www\assets\images\attributes\scenic-off.png" />
+    <Content Include="www\assets\images\attributes\scenic-on.png" />
+    <Content Include="www\assets\images\attributes\scenic.png" />
+    <Content Include="www\assets\images\attributes\scuba-off.png" />
+    <Content Include="www\assets\images\attributes\scuba-on.png" />
+    <Content Include="www\assets\images\attributes\scuba.png" />
+    <Content Include="www\assets\images\attributes\seasonal-off.png" />
+    <Content Include="www\assets\images\attributes\seasonal-on.png" />
+    <Content Include="www\assets\images\attributes\seasonal.png" />
+    <Content Include="www\assets\images\attributes\skiis-off.png" />
+    <Content Include="www\assets\images\attributes\skiis-on.png" />
+    <Content Include="www\assets\images\attributes\skiis.png" />
+    <Content Include="www\assets\images\attributes\snowmobiles-off.png" />
+    <Content Include="www\assets\images\attributes\snowmobiles-on.png" />
+    <Content Include="www\assets\images\attributes\snowmobiles.png" />
+    <Content Include="www\assets\images\attributes\snowshoes-off.png" />
+    <Content Include="www\assets\images\attributes\snowshoes-on.png" />
+    <Content Include="www\assets\images\attributes\snowshoes.png" />
+    <Content Include="www\assets\images\attributes\stealth-off.png" />
+    <Content Include="www\assets\images\attributes\stealth-on.png" />
+    <Content Include="www\assets\images\attributes\stealth.png" />
+    <Content Include="www\assets\images\attributes\stroller-off.png" />
+    <Content Include="www\assets\images\attributes\stroller-on.png" />
+    <Content Include="www\assets\images\attributes\stroller.png" />
+    <Content Include="www\assets\images\attributes\swimming-off.png" />
+    <Content Include="www\assets\images\attributes\swimming-on.png" />
+    <Content Include="www\assets\images\attributes\swimming.png" />
+    <Content Include="www\assets\images\attributes\teamwork-off.png" />
+    <Content Include="www\assets\images\attributes\teamwork-on.png" />
+    <Content Include="www\assets\images\attributes\teamwork.png" />
+    <Content Include="www\assets\images\attributes\thorn-off.png" />
+    <Content Include="www\assets\images\attributes\thorn-on.png" />
+    <Content Include="www\assets\images\attributes\thorn.png" />
+    <Content Include="www\assets\images\attributes\ticks-off.png" />
+    <Content Include="www\assets\images\attributes\ticks-on.png" />
+    <Content Include="www\assets\images\attributes\ticks.png" />
+    <Content Include="www\assets\images\attributes\touristOK-off.png" />
+    <Content Include="www\assets\images\attributes\touristOK-on.png" />
+    <Content Include="www\assets\images\attributes\touristOK.png" />
+    <Content Include="www\assets\images\attributes\treeclimbing-off.png" />
+    <Content Include="www\assets\images\attributes\treeclimbing-on.png" />
+    <Content Include="www\assets\images\attributes\treeclimbing.png" />
+    <Content Include="www\assets\images\attributes\uv-off.png" />
+    <Content Include="www\assets\images\attributes\uv-on.png" />
+    <Content Include="www\assets\images\attributes\uv.png" />
+    <Content Include="www\assets\images\attributes\wading-off.png" />
+    <Content Include="www\assets\images\attributes\wading-on.png" />
+    <Content Include="www\assets\images\attributes\wading.png" />
+    <Content Include="www\assets\images\attributes\water-off.png" />
+    <Content Include="www\assets\images\attributes\water-on.png" />
+    <Content Include="www\assets\images\attributes\water.png" />
+    <Content Include="www\assets\images\attributes\wheelchair-off.png" />
+    <Content Include="www\assets\images\attributes\wheelchair-on.png" />
+    <Content Include="www\assets\images\attributes\wheelchair.png" />
+    <Content Include="www\assets\images\attributes\winter-off.png" />
+    <Content Include="www\assets\images\attributes\winter-on.png" />
+    <Content Include="www\assets\images\attributes\winter.png" />
+    <Content Include="www\assets\images\attributes\wirelessbeacon-off.png" />
+    <Content Include="www\assets\images\attributes\wirelessbeacon-on.png" />
+    <Content Include="www\assets\images\attributes\wirelessbeacon.png" />
+    <Content Include="www\assets\images\cito.png" />
+    <Content Include="www\assets\images\earthcache.png" />
     <Content Include="www\assets\images\finish.png" />
     <Content Include="www\assets\images\large.gif" />
-    <Content Include="www\assets\images\letterbox_16.gif" />
+    <Content Include="www\assets\images\letterbox.png" />
     <Content Include="www\assets\images\logo.png" />
     <Content Include="www\assets\images\micro.gif" />
-    <Content Include="www\assets\images\multi_16.gif" />
+    <Content Include="www\assets\images\multi.png" />
     <Content Include="www\assets\images\offline.png" />
     <Content Include="www\assets\images\other.gif" />
     <Content Include="www\assets\images\parking.png" />
@@ -5164,11 +5337,19 @@
     <Content Include="www\assets\images\small.gif" />
     <Content Include="www\assets\images\stage.png" />
     <Content Include="www\assets\images\star-rating.icons.svg" />
-    <Content Include="www\assets\images\start.png" />
-    <Content Include="www\assets\images\traditional_16.gif" />
-    <Content Include="www\assets\images\unknown_16.gif" />
+    <Content Include="www\assets\images\stars1.5.gif" />
+    <Content Include="www\assets\images\stars1.gif" />
+    <Content Include="www\assets\images\stars2.5.gif" />
+    <Content Include="www\assets\images\stars2.gif" />
+    <Content Include="www\assets\images\stars3.5.gif" />
+    <Content Include="www\assets\images\stars3.gif" />
+    <Content Include="www\assets\images\stars4.5.gif" />
+    <Content Include="www\assets\images\stars4.gif" />
+    <Content Include="www\assets\images\stars5.gif" />
+    <Content Include="www\assets\images\traditional.png" />
+    <Content Include="www\assets\images\unknown.png" />
     <Content Include="www\assets\images\wait.gif" />
-    <Content Include="www\assets\images\wherigo_16.gif" />
+    <Content Include="www\assets\images\wherigo.png" />
     <Content Include="www\assets\scripts\angular-animate.min.js" />
     <Content Include="www\assets\scripts\loading-bar.js" />
     <Content Include="www\assets\scripts\ng-quill\demo.html" />
@@ -8180,11 +8361,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63007</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/Brazda</IISUrl>
+          <IISUrl>http://localhost:63007/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

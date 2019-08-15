@@ -98,7 +98,7 @@ table.post-list tbody tr td {
     position: absolute;
     z-index: 1000;
     opacity: 0.7;
-    background-image: url("/assets/images/wait.gif");
+    background-image: url("/www/assets/images/wait.gif");
     background-position: center center;
     background-repeat: no-repeat;
 }

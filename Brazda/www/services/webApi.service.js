@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 angular.module('myApp.webApiService', [])
-    .service('WebApiService', WebApiService)
+    .service('WebApiService', WebApiService);
 
 WebApiService.$inject = ['$http', '$q', '$rootScope', '$log'];
 
@@ -17,9 +17,9 @@ function WebApiService($http, $q, $rootScope, $log) {
         showLoader = showLoader && true;
 
         if (!vm.online) {
-            var data = {}
+            data = {};
             data.message = "Offline";
-            deferred.reject(data)
+            deferred.reject(data);
         }
 
         if (showLoader) {
@@ -34,7 +34,7 @@ function WebApiService($http, $q, $rootScope, $log) {
 
         if (method === 'POST') {
             data = JSON.stringify(parameters);
-            url = buildUrl(endpointName, [])
+            url = buildUrl(endpointName, []);
         } else {
             url = buildUrl(endpointName, parameters);
         }
@@ -58,11 +58,11 @@ function WebApiService($http, $q, $rootScope, $log) {
         });
 
         return deferred.promise;
-    }
+    };
 
     vm.isOnline = function () {
         return vm.online;
-    }
+    };
 
     $rootScope.$watch('online', function (newStatus) {
         vm.online = newStatus;
@@ -85,6 +85,6 @@ function WebApiService($http, $q, $rootScope, $log) {
             parameters = parameters.substr(0, parameters.length - 1);
         }
 
-        return '/api/' + endpointName + parameters;
+        return 'https://test.brazda-gc.cz/api/' + endpointName + parameters;
     }
 }

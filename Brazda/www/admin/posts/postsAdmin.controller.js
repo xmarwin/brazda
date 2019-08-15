@@ -17,7 +17,6 @@ PostsAdminController.$inject = ['$routeParams', 'Notification', 'AuthService', '
 
 function PostsAdminController($routeParams, notification, authService, postService, ngDialog) {
     var vm = this;
-    //var postId;
 
     vm.deletePost = function (id) {
         ngDialog.openConfirm({
@@ -26,21 +25,30 @@ function PostsAdminController($routeParams, notification, authService, postServi
             deletePostInt(id);
         }, function (err) {
             notification.error(err.data.message);
-        })
-    }
+        });
+    };
 
     var init = function () {
         getPosts();
-    }
+    };
 
     var getPosts = function () {
         postService.getPosts()
             .then(function successCallback(response) {
                 vm.posts = response.data;
+                for (var i = 0; i < vm.posts.length; i++) {
+                    if (vm.posts[i].open_from) {
+                        vm.posts[i].open_from = new Date(vm.posts[i].open_from.date);
+                    }
+
+                    if (vm.posts[i].open_to) {
+                        vm.posts[i].open_to = new Date(vm.posts[i].open_to.date);
+                    }
+                }
             }, function errorCallback(err) {
                 notification.error(err.data.message);
             });
-    }
+    };
 
     init();
 
@@ -51,5 +59,5 @@ function PostsAdminController($routeParams, notification, authService, postServi
             }, function errorCallback(err) {
                 notification.error(err.data.message);
             });
-    }
+    };
 }

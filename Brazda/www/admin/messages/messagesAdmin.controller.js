@@ -26,6 +26,10 @@ function MessagesAdminController($routeParams, notification, authService, messag
         messageService.getAllMessages()
             .then(function successCallback(response) {
                 vm.messages = response.data;
+
+                for (let i = 0; i < vm.messages.length; i++) {
+                    vm.messages[i].moment = new Date(vm.messages[i].moment.date);
+                }
             }, function errorCallback(err) {
                 notification.error(err.data.message);
             });

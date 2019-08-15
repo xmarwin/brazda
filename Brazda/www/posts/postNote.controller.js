@@ -27,10 +27,10 @@ function PostNoteController(postService, $routeParams, $filter, notification, $l
             }, function (err) {
                 notification.error(err.data.message);
             });
-    }
+    };
 
     vm.saveNote = function () {
-        var data = { post: vm.postId, note: vm.post.postNote }
+        var data = { post: vm.postId, note: vm.post.postNote };
 
         postService.saveNote(data)
             .then(function (response) {
@@ -39,11 +39,11 @@ function PostNoteController(postService, $routeParams, $filter, notification, $l
             }, function (err) {
                 notification.error(err.data.message);
             });
-    }
+    };
 
     vm.cancel = function () {
         $location.path("postDetail/" + vm.postId);
-    }
+    };
 
     init();
 }
