@@ -14,5 +14,6 @@ class Results extends Base
              FROM results
              ORDER BY score DESC"
         )->fetchAll();
-    }
-}
+    } // overview()
+
+} // Results

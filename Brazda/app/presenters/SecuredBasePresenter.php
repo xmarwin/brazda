@@ -6,76 +6,76 @@ use Nette\Security;
 
 class SecuredBasePresenter extends BasePresenter
 {
-	protected
-		$resource,
-		$input,
+    protected
+        $resource,
+        $input,
 
-		$logins,
-		$teams,
+        $logins,
+        $teams,
 
-		$team;
+        $team;
 
     public function startup()
     {
-		parent::startup();
+        parent::startup();
 
-		$this->logins = $this->context->getService('logins');
-		$this->teams  = $this->context->getService('teams');
+        $this->logins = $this->context->getService('logins');
+        $this->teams  = $this->context->getService('teams');
 
-		$this->checkSecurityToken();
+        $this->checkSecurityToken();
 
-		$parameters = $this->getRequest()->getParameters();
-		$login      = $this->logins->find([ 'security_token' => $parameters['securityToken'] ]);
-		$team       = (array) $this->teams->find([ 'team' => $login->team ]);
-		$this->team = !empty($team)
-			? $team
-			: [];
+        $parameters = $this->getRequest()->getParameters();
+        $login      = $this->logins->find([ 'security_token' => $parameters['securityToken'] ]);
+        $team       = (array) $this->teams->find([ 'team' => $login->team ]);
+        $this->team = !empty($team)
+            ? $team
+            : [];
 
-		$this->input = $this->getInput();
+        $this->input = $this->getInput();
     } // startup()
 
     public function checkSecurityToken()
     {
-		$parameters = $this->getRequest()->getParameters();
-		if (!isset($parameters['securityToken'])
-		||  empty($parameters['securityToken'])) {
+        $parameters = $this->getRequest()->getParameters();
+        if (!isset($parameters['securityToken'])
+        ||  empty($parameters['securityToken'])) {
 
-			$this->sendErrorResource(
-				new Security\AuthenticationException(
-					'Prázdný securityToken, nelze ověřit uživatele.',
-					403
-				) // AuthenticationException()
-			); // sendErrorResource()
-		} // if
-		$securityToken = $parameters['securityToken'];
+            $this->sendErrorResource(
+                new Security\AuthenticationException(
+                    'Prázdný securityToken, nelze ověřit uživatele.',
+                    403
+                ) // AuthenticationException()
+            ); // sendErrorResource()
+        } // if
+        $securityToken = $parameters['securityToken'];
 
-		$login = $this->logins->find([ 'security_token' => $securityToken ]);
-		if (empty($login)) {
-			$this->sendErrorResource(
-				new Security\AuthenticationException(
-					'SecurityToken nebyl nalezen.',
-					403
-				) // AuthenticationException()
-			); // sendErrorResource()
-		} // if
+        $login = $this->logins->find([ 'security_token' => $securityToken ]);
+        if (empty($login)) {
+            $this->sendErrorResource(
+                new Security\AuthenticationException(
+                    'SecurityToken nebyl nalezen.',
+                    403
+                ) // AuthenticationException()
+            ); // sendErrorResource()
+        } // if
 
-		$this->logins->touch($securityToken);
+        $this->logins->touch($securityToken);
 
-		return true;
+        return true;
     } // checkSecurityToken()
 
-	public function checkAdministrator()
-	{
-		if ($this->team['role'] !== 'ORG') {
-			$this->sendErrorResource(
-				new Security\AuthenticationException(
-					'Nemáte oprávnění pro volání této metody.',
-					401
-				) // AuthenticationException()
-			); // sendErrorResource()
-		} // if
+    public function checkAdministrator()
+    {
+        if ($this->team['role'] !== 'ORG') {
+            $this->sendErrorResource(
+                new Security\AuthenticationException(
+                    'Nemáte oprávnění pro volání této metody.',
+                    401
+                ) // AuthenticationException()
+            ); // sendErrorResource()
+        } // if
 
-		return true;
-	} // checkAdministrator()
+        return true;
+    } // checkAdministrator()
 
 } // SecuredBasePresenter

@@ -88,4 +88,5 @@ class ResultPresenter extends SecuredBasePresenter
         $this->resource = $teams;
         $this->sendResource();
     } // actionKidList()
+
 } // ResultPresenter

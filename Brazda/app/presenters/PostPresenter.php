@@ -10,82 +10,82 @@ class PostPresenter extends SecuredBasePresenter
 {
     use \Brazda\Encoding;
 
-	protected
+    protected
         $logs,
-		$posts,
+        $posts,
         $postAttributes,
-		$postTypes,
-		$waypoints;
+        $postTypes,
+        $waypoints;
 
-	public function startup()
-	{
-		parent::startup();
+    public function startup()
+    {
+        parent::startup();
 
-		$this->logs           = $this->context->getService('logs');
-		$this->posts          = $this->context->getService('posts');
-		$this->postAttributes = $this->context->getService('postAttributes');
-		$this->postTypes      = $this->context->getService('postTypes');
-		$this->waypoints      = $this->context->getService('waypoints');
-	} // startup()
+        $this->logs           = $this->context->getService('logs');
+        $this->posts          = $this->context->getService('posts');
+        $this->postAttributes = $this->context->getService('postAttributes');
+        $this->postTypes      = $this->context->getService('postTypes');
+        $this->waypoints      = $this->context->getService('waypoints');
+    } // startup()
 
-	public function actionList(array $filter = [], array $order = [])
-	{
+    public function actionList(array $filter = [], array $order = [])
+    {
         /** Vždy filtrujeme podle týmu */
-		$viewFilter = [
-			'team' => $this->team['team']
-		];
+        $viewFilter = [
+            'team' => $this->team['team']
+        ];
 
-		/** Pokud je nastaven filtr typu stanoviště nastavíme jej ve view */
-		if (isset($filter['type']) && !empty($filter['type'])) {
-			$types = explode(',', $filter['type']);
-			$viewFilter[] = [ 'p.post_type IN %in', $types ];
-		} // if
+        /** Pokud je nastaven filtr typu stanoviště nastavíme jej ve view */
+        if (isset($filter['type']) && !empty($filter['type'])) {
+            $types = explode(',', $filter['type']);
+            $viewFilter[] = [ 'p.post_type IN %in', $types ];
+        } // if
 
-		/** Pokud je nastaven filtr barvy stanoviště, nastavíme jej ve view */
-		if (isset($filter['color']) && !empty($filter['color'])) {
-			$colors = explode(',', $filter['color']);
-			$viewFilter[] = [ 'p.color IN %in', $colors ];
-		} // if
+        /** Pokud je nastaven filtr barvy stanoviště, nastavíme jej ve view */
+        if (isset($filter['color']) && !empty($filter['color'])) {
+            $colors = explode(',', $filter['color']);
+            $viewFilter[] = [ 'p.color IN %in', $colors ];
+        } // if
 
-		/** Pokud není nastaveno pořadí, nastavíme jej na rank, color, name */
-		if (empty($order)) {
-			$order = ['rank' => 'ASC', 'color' => 'ASC', 'name' => 'ASC'];
-		} // if
+        /** Pokud není nastaveno pořadí, nastavíme jej na rank, color, name */
+        if (empty($order)) {
+            $order = ['rank' => 'ASC', 'color' => 'ASC', 'name' => 'ASC'];
+        } // if
 
-		try {
+        try {
             /** Vybereme data seznamu stanovišť */
-			$this->resource = (array) $this->posts->listView($viewFilter, $order)->fetchAll();
-			$rank = 0;
+            $this->resource = (array) $this->posts->listView($viewFilter, $order)->fetchAll();
+            $rank = 0;
 
-			/** Doplníme proměnnou rank pro přirozené řazení */
-			foreach ($this->resource as $id => $post) {
-				$this->resource[$id]['rank'] = $rank++;
-			} // foreach
-		} catch (Dibi\Exception $e) {
-			$this->sendErrorResource($e);
-		} // try
+            /** Doplníme proměnnou rank pro přirozené řazení */
+            foreach ($this->resource as $id => $post) {
+                $this->resource[$id]['rank'] = $rank++;
+            } // foreach
+        } catch (Dibi\Exception $e) {
+            $this->sendErrorResource($e);
+        } // try
 
-		/** Odešleme data */
-		$this->sendResource();
-	} // actionList()
+        /** Odešleme data */
+        $this->sendResource();
+    } // actionList()
 
-	public function actionBonusList()
-	{
-		try {
-			$viewBonusesFilter = [
-				'team'      => $this->team['team'],
-				[ 'post_type IN %in', [ Models\Posts::BONUS, Models\Posts::SUPERBONUS ] ]
-			];
-			$bonusPosts = $this->posts->view($viewBonusesFilter)->fetchAll();
+    public function actionBonusList()
+    {
+        try {
+            $viewBonusesFilter = [
+                'team'      => $this->team['team'],
+                [ 'post_type IN %in', [ Models\Posts::BONUS, Models\Posts::SUPERBONUS ] ]
+            ];
+            $bonusPosts = $this->posts->view($viewBonusesFilter)->fetchAll();
 
-			$viewPostsFilter = [
-			    'team' => $this->team['team']
-			];
-			$allPosts = $this->posts->view($viewPostsFilter)->fetchAll();
-			$this->resource = [];
-			foreach ($bonusPosts as $bonusPost) {
+            $viewPostsFilter = [
+                'team' => $this->team['team']
+            ];
 
-			    $bonus = [
+            $allPosts = $this->posts->view($viewPostsFilter)->fetchAll();
+            $this->resource = [];
+            foreach ($bonusPosts as $bonusPost) {
+                $bonus = [
                     'post'        => $bonusPost->post,
                     'name'        => $bonusPost->name,
                     'is_unlocked' => $bonusPost->is_unlocked,
@@ -136,241 +136,257 @@ class PostPresenter extends SecuredBasePresenter
                 /** Vrať vybrané atributy */
                 : $attributes->fetchAll();
 
-			/** Vybereme informace o waypointech stanoviště pro tým */
-			$this->resource['waypoints'] = $this->waypoints->view([
-			    'post' => (int) $post,
-			    'team' => (int) $this->team['team']
-			])->fetchAll();
+            /** Vybereme informace o waypointech stanoviště pro tým */
+            $this->resource['waypoints'] = $this->waypoints->view([
+                'post' => (int) $post,
+                'team' => (int) $this->team['team']
+            ])->fetchAll();
 
             /** Vybereme informací o lozích stanoviště pro tým */
-			$this->resource['visits'] = $this->logs->view([
-			    'post' => (int) $post,
-			    'team' => (int) $this->team['team']
-			])->fetchPairs('team', 'moment');
-		} catch (Dibi\Exception $e) {
-			$this->sendErrorResource($e);
-		} // try
+            $this->resource['visits'] = $this->logs->view([
+                'post' => (int) $post,
+                'team' => (int) $this->team['team']
+            ])->fetchPairs('team', 'moment');
+        } catch (Dibi\Exception $e) {
+            $this->sendErrorResource($e);
+        } // try
 
-		/** Odešleme data */
-		$this->sendResource();
-	} // actionDetail()
+        /** Odešleme data */
+        $this->sendResource();
+    } // actionDetail()
 
-	public function actionHelp($post)
-	{
-		try {
-			$previousLog = $this->logs->find([
-			    'team'     => (int) $this->team['team'],
-			    'post'     => (int) $post,
-			    'log_type' => Models\Logs::HELP
-			]); // find()
-			if (empty($previousLog)) {
-			    $this->logs->insert([
-				'team'     => (int) $this->team['team'],
-				'post'     => (int) $post,
-				'log_type' => Models\Logs::HELP
-			    ]); // insert()
-			} // if
-			$post = $this->posts->find($post);
-			$this->resource['help'] = $post['help'];
-		} catch (Dibi\Exception $e) {
-			$this->sendErrorResource($e);
-		} // try
-		$this->sendResource();
-	} // actionHelp()
+    public function actionHelp($post)
+    {
+        try {
+            $previousLog = $this->logs->find([
+                'team'     => (int) $this->team['team'],
+                'post'     => (int) $post,
+                'log_type' => Models\Logs::HELP
+            ]); // find()
 
-	public function actionLog($post, $shibboleth)
-	{
-		try {
-			// Odstartoval tým závod?
-			if (!$this->logs->isStarted($this->team['team'], $post)) {
-			    $this->resource = [
-				'status' => 'nelze logovat stanoviště dokud jste neodstartovali',
-				'code'   => 401
-			    ];
-			    $this->sendResource();
-			} // if
+            if (empty($previousLog)) {
+                $this->logs->insert([
+                'team'     => (int) $this->team['team'],
+                'post'     => (int) $post,
+                'log_type' => Models\Logs::HELP
+                ]); // insert()
+            } // if
+            $post = $this->posts->find($post);
+        } catch (Dibi\Exception $e) {
+            $this->sendErrorResource($e);
+        } // try
 
-			// Neskončil zatím tým závod?
-			if ($this->logs->isFinished($this->team['team'])) {
-			    $this->resource = [
-				'status' => 'nelze logovat stanoviště po skončení závodu',
-				'code'   => 403
-			    ];
-			    $this->sendResource();
-			} // if
+        $this->resource['help'] = $post['help'];
+        $this->sendResource();
+    } // actionHelp()
 
-			// Nemá stanoviště už zalogované?
-			$lastLog = $this->logs->find([
-			    'team'     => (int) $this->team['team'],
-			    'post'     => (int) $post,
-			    'log_type' => Models\Logs::DONE
-			]); // find()
-			if (!empty($lastLog)) {
-			    $this->resource = [
-				'status' => 'stanoviště jste už zalogovali',
-				'code'   => 304
-			    ];
-			    $this->sendResource();
-			} // if
+    public function actionLog($post, $shibboleth)
+    {
+        try {
+            // Odstartoval tým závod?
+            if (!$this->logs->isStarted($this->team['team'], $post)) {
+                $this->resource = [
+                'status' => 'nelze logovat stanoviště dokud jste neodstartovali',
+                'code'   => 401
+                ];
+                $this->sendResource();
+            } // if
 
-			// Nesnaží se tým logovat příliš brzy po minulém nezdařeném pokusu?
-			if (!$this->logs->canLog($this->team['team'], $post)) {
-			    $nextAttempt   = $this->logs->nextLog($this->team['team'], $post);
-			    $nextTimestamp = (int) $nextAttempt->getTimestamp();
-			    $nextTimeout   = $nextTimestamp - time();
-			    $this->resource = [
-				'status' => 'musíte počkat',
-				'code'   => 408,
-				'next_timestamp' => date('H:i:s', $nextTimestamp),
-				'next_interval'  => $nextTimeout
-			    ];
-			    $this->sendResource();
-			} // if
+            // Neskončil zatím tým závod?
+            if ($this->logs->isFinished($this->team['team'])) {
+                $this->resource = [
+                'status' => 'nelze logovat stanoviště po skončení závodu',
+                'code'   => 403
+                ];
+                $this->sendResource();
+            } // if
 
-			// Zjistíme heslo stanoviště a připravíme jej na porovnání
-			$postShibboleth = mb_strtolower($this->posts->getShibboleth($post));
-			$shibboleth     = mb_strtolower(urldecode($shibboleth));
+            // Nemá stanoviště už zalogované?
+            $lastLog = $this->logs->find([
+                'team'     => (int) $this->team['team'],
+                'post'     => (int) $post,
+                'log_type' => Models\Logs::DONE
+            ]); // find()
+            if (!empty($lastLog)) {
+                $this->resource = [
+                    'status' => 'stanoviště jste už zalogovali',
+                    'code'   => 304
+                ];
+                $this->sendResource();
+            } // if
 
-			// Je heslo stanoviště správné?
-			if ($shibboleth != $postShibboleth) {
-			    $this->logs->insert([
-				'team'     => (int) $this->team['team'],
-				'post'     => (int) $post,
-				'log_type' => Models\Logs::ERROR
-			    ]); // insert()
-			    $this->resource = [
-				'status' => 'špatné heslo stanoviště',
-				'code'   => 404
-			    ];
-			    $this->sendResource();
-			} // if
+            // Nesnaží se tým logovat příliš brzy po minulém nezdařeném pokusu?
+            if (!$this->logs->canLog($this->team['team'], $post)) {
+                $nextAttempt   = $this->logs->nextLog($this->team['team'], $post);
+                $nextTimestamp = (int) $nextAttempt->getTimestamp();
+                $nextTimeout   = $nextTimestamp - time();
 
-			$postData = $this->posts->find($post);
-			switch ($postData->post_type) {
-			    case Models\Posts::BEGIN:
-				$logType = Models\Logs::START;
-				break;
+                $this->resource = [
+                    'status' => 'musíte počkat',
+                    'code'   => 408,
+                    'next_timestamp' => date('H:i:s', $nextTimestamp),
+                    'next_interval'  => $nextTimeout
+                ];
+                $this->sendResource();
+            } // if
 
-			    case Models\Posts::END:
-				$logType = Models\Logs::FINISH;
-				break;
+            // Zjistíme heslo stanoviště a připravíme jej na porovnání
+            $postShibboleth = mb_strtolower($this->posts->getShibboleth($post));
+            $shibboleth     = mb_strtolower(urldecode($shibboleth));
 
-			    default:
-			    case Models\Posts::ACTIVITY:
-			    case Models\Posts::CIPHER:
-			    case Models\Posts::CACHE:
-			    case Models\Posts::BONUS:
-			    case Models\Posts::SUPERBONUS:
-				$logType = Models\Logs::DONE;
-				break;
-			} // switch
+            // Je heslo stanoviště správné?
+            if ($shibboleth != $postShibboleth) {
+                $this->logs->insert([
+                    'team'     => (int) $this->team['team'],
+                    'post'     => (int) $post,
+                    'log_type' => Models\Logs::ERROR
+                ]); // insert()
 
-			// Zalogujeme stanoviště jako hotové
-			$this->logs->insert([
-			    'team'     => (int) $this->team['team'],
-			    'post'     => (int) $post,
-			    'log_type' => $logType
-			]);
-			$this->resource = [
-			    'status' => 'OK',
-			    'code'   => 200,
-			    'password' => (array) $this->posts->getPassword($post, $this->team['team'])
-			];
-		} catch (Dibi\Exception $e) {
-			$this->sendErrorResource($e);
-		} // try
-		$this->sendResource();
-	} // actionLog()
+                $this->resource = [
+                    'status' => 'špatné heslo stanoviště',
+                    'code'   => 404
+                ];
+                $this->sendResource();
+            } // if
 
-	public function actionBonus($post, $bonusCode)
-	{
-		try {
-			// Odstartoval tým závod?
-			if (!$this->logs->isStarted($this->team['team'], $post)) {
-			    $this->resource = [
-				'status' => 'Not started',
-				'code'   => 401
-			    ];
-			    $this->sendResource();
-			} // if
+            $postData = $this->posts->find($post);
+            switch ($postData->post_type) {
+                case Models\Posts::BEGIN:
+                    $logType = Models\Logs::START;
+                    break;
 
-			// Neskončil zatím tým závod?
-			if ($this->logs->isFinished($this->team['team'])) {
-			    $this->resource = [
-				'status' => 'Already finished',
-				'code'   => 403
-			    ];
-			    $this->sendResource();
-			} // if
+                case Models\Posts::END:
+                    $logType = Models\Logs::FINISH;
+                    break;
 
-			// Nemá stanoviště už zalogované?
-			$lastLog = $this->logs->find([
-			    'team'     => (int) $this->team['team'],
-			    'post'     => (int) $post,
-			    'log_type' => Models\Logs::BONUS
-			]); // find()
-			if (!empty($lastLog)) {
-			    $this->resource = [
-				'status' => 'Already logged',
-				'code'   => 304
-			    ];
-			    $this->sendResource();
-			} // if
+                default:
+                case Models\Posts::ACTIVITY:
+                case Models\Posts::CIPHER:
+                case Models\Posts::CACHE:
+                case Models\Posts::BONUS:
+                case Models\Posts::SUPERBONUS:
+                    $logType = Models\Logs::DONE;
+                    break;
+            } // switch
 
-			// Nesnaží se tým logovat příliš brzy po minulém nezdařeném pokusu?
-			if (!$this->logs->canBonusLog($this->team['team'], $post)) {
-			    $nextAttempt   = $this->logs->nextBonusLog($this->team['team'], $post);
-			    $nextTimestamp = (int) $nextAttempt->getTimestamp();
-			    $nextTimeout   = $nextTimestamp - time();
-			    $this->resource = [
-				'status' => 'Waiting period',
-				'code'   => 408,
-				'next_timestamp' => date('H:i:s', $nextTimestamp),
-				'next_interval'  => $nextTimeout
-			    ];
-			    $this->sendResource();
-			} // if
+            // Zalogujeme stanoviště jako hotové
+            $this->logs->insert([
+                'team'     => (int) $this->team['team'],
+                'post'     => (int) $post,
+                'log_type' => $logType
+            ]);
+        } catch (Dibi\Exception $e) {
+            $this->sendErrorResource($e);
+        } // try
 
-			// Zjistíme bonusový kód stanoviště a připravíme jej na porovnání
-			$postBonusCode = mb_strtolower($this->posts->getBonusCode($post));
-			$bonusCode     = mb_strtolower(urldecode(self::toAscii($bonusCode)));
+        $this->resource = [
+            'status' => 'OK',
+            'code'   => 200,
+            'password' => (array) $this->posts->getPassword($post, $this->team['team'])
+        ];
+        $this->sendResource();
+    } // actionLog()
 
-			// Je bonusový kód stanoviště správné?
-			if ($bonusCode != $postBonusCode) {
-			    $this->logs->insert([
-				'team'     => (int) $this->team['team'],
-				'post'     => (int) $post,
-				'log_type' => Models\Logs::ERROR
-			    ]); // insert()
-			    $this->resource = [
-				'status' => 'Wrong bonus code',
-				'code'   => 404
-			    ];
-			    $this->sendResource();
-			} // if
+    public function actionBonus($post, $bonusCode)
+    {
+        try {
+            // Odstartoval tým závod?
+            if (!$this->logs->isStarted($this->team['team'], $post)) {
+                $this->resource = [
+                    'status' => 'Not started',
+                    'code'   => 401
+                ];
+                $this->sendResource();
+            } // if
 
-			// Zalogujeme stanoviště jako odemčené
-			$this->logs->insert([
-			    'team'     => (int) $this->team['team'],
-			    'post'     => (int) $post,
-			    'log_type' => Models\Logs::BONUS
-			]);
-			$this->resource = [
-			    'status' => 'OK',
-			    'code'   => 200
-			];
-		} catch (Dibi\Exception $e) {
-			$this->sendErrorResource($e);
-		} // try
+            // Neskončil zatím tým závod?
+            if ($this->logs->isFinished($this->team['team'])) {
+                $this->resource = [
+                    'status' => 'Already finished',
+                    'code'   => 403
+                ];
+                $this->sendResource();
+            } // if
 
-		$this->sendResource();
-	} // actionBonus()
+            // Nemá stanoviště už zalogované?
+            $lastLog = $this->logs->find([
+                'team'     => (int) $this->team['team'],
+                'post'     => (int) $post,
+                'log_type' => Models\Logs::BONUS
+            ]); // find()
+            if (!empty($lastLog)) {
+                $this->resource = [
+                    'status' => 'Already logged',
+                    'code'   => 304
+                ];
+                $this->sendResource();
+            } // if
+
+            // Nesnaží se tým logovat příliš brzy po minulém nezdařeném pokusu?
+            if (!$this->logs->canBonusLog($this->team['team'], $post)) {
+                $nextAttempt   = $this->logs->nextBonusLog($this->team['team'], $post);
+                $nextTimestamp = (int) $nextAttempt->getTimestamp();
+                $nextTimeout   = $nextTimestamp - time();
+                $this->resource = [
+                    'status' => 'Waiting period',
+                    'code'   => 408,
+                    'next_timestamp' => date('H:i:s', $nextTimestamp),
+                    'next_interval'  => $nextTimeout
+                ];
+                $this->sendResource();
+            } // if
+
+            // Zjistíme bonusový kód stanoviště a připravíme jej na porovnání
+            $postBonusCode = mb_strtolower($this->posts->getBonusCode($post));
+            $bonusCode     = mb_strtolower(urldecode(self::toAscii($bonusCode)));
+
+            // Je bonusový kód stanoviště správné?
+            if ($bonusCode != $postBonusCode) {
+                $this->logs->insert([
+                    'team'     => (int) $this->team['team'],
+                    'post'     => (int) $post,
+                    'log_type' => Models\Logs::ERROR
+                ]); // insert()
+                $this->resource = [
+                    'status' => 'Wrong bonus code',
+                    'code'   => 404
+                ];
+                $this->sendResource();
+            } // if
+
+            // Zalogujeme stanoviště jako odemčené
+            $this->logs->insert([
+                'team'     => (int) $this->team['team'],
+                'post'     => (int) $post,
+                'log_type' => Models\Logs::BONUS
+            ]);
+            $this->resource = [
+                'status' => 'OK',
+                'code'   => 200
+            ];
+        } catch (Dibi\Exception $e) {
+            $this->sendErrorResource($e);
+        } // try
+
+        $this->sendResource();
+    } // actionBonus()
 
     public function actionCreate()
     {
         $this->checkAdministrator();
 
         $this->checkContentTypeJson();
+
+        $this->checkValuesExists($this->input, [
+            'postType',
+            'color',
+            'name',
+            'maxScore',
+            'difficulty',
+            'terrain',
+            'latitude',
+            'longitude'
+        ]); // checkValuesExists()
 
         $values = [
             'post_type'   => strtoupper($this->input->postType),
@@ -410,17 +426,17 @@ class PostPresenter extends SecuredBasePresenter
         if (isset($this->input->openTo) && !empty($this->input->openTo))
             $values['open_to'] = $this->input->openTo;
 
-		if (isset($this->input->shibboleth) && !empty($this->input->shibboleth))
-			$values['shibboleth'] = $this->input->shibboleth;
+        if (isset($this->input->shibboleth) && !empty($this->input->shibboleth))
+            $values['shibboleth'] = $this->input->shibboleth;
 
-		if (isset($this->input->passwordCharacter) && !empty($this->input->passwordCharacter))
-			$values['password_character'] = $this->input->passwordCharacter;
+        if (isset($this->input->passwordCharacter) && !empty($this->input->passwordCharacter))
+            $values['password_character'] = $this->input->passwordCharacter;
 
-		if (isset($this->input->passwordPosition) && !empty($this->input->passwordPosition))
-			$values['password_position'] = $this->input->passwordPosition;
+        if (isset($this->input->passwordPosition) && !empty($this->input->passwordPosition))
+            $values['password_position'] = $this->input->passwordPosition;
 
-		if (isset($this->input->timeEstimate) && !empty($this->input->timeEstimate))
-			$values['time_estimate'] = $this->input->timeEstimate;
+        if (isset($this->input->timeEstimate) && !empty($this->input->timeEstimate))
+            $values['time_estimate'] = $this->input->timeEstimate;
 
         $result = [];
         try {
@@ -476,19 +492,19 @@ class PostPresenter extends SecuredBasePresenter
     {
         $this->checkAdministrator();
 
-	$this->checkContentTypeJson();
+        $this->checkContentTypeJson();
 
-	$this->checkValuesExists($this->input, [
-		'post',
-		'postType',
-		'color',
-		'name',
-		'maxScore',
-		'difficulty',
-		'terrain',
-		'latitude',
-		'longitude'
-	]); // checkValuesExists()
+        $this->checkValuesExists($this->input, [
+            'post',
+            'postType',
+            'color',
+            'name',
+            'maxScore',
+            'difficulty',
+            'terrain',
+            'latitude',
+            'longitude'
+        ]); // checkValuesExists()
 
         $post = (int) $this->input->post;
         $filter = [ 'post' => $post ];
@@ -530,17 +546,17 @@ class PostPresenter extends SecuredBasePresenter
         if (isset($this->input->openTo) && !empty($this->input->openTo))
             $values['open_to'] = $this->input->openTo;
 
-		if (isset($this->input->shibboleth) && !empty($this->input->shibboleth))
-			$values['shibboleth'] = $this->input->shibboleth;
+        if (isset($this->input->shibboleth) && !empty($this->input->shibboleth))
+            $values['shibboleth'] = $this->input->shibboleth;
 
-		if (isset($this->input->passwordCharacter) && !empty($this->input->passwordCharacter))
-			$values['password_character'] = $this->input->passwordCharacter;
+        if (isset($this->input->passwordCharacter) && !empty($this->input->passwordCharacter))
+            $values['password_character'] = $this->input->passwordCharacter;
 
-		if (isset($this->input->passwordPosition) && !empty($this->input->passwordPosition))
-			$values['password_position'] = $this->input->passwordPosition;
+        if (isset($this->input->passwordPosition) && !empty($this->input->passwordPosition))
+            $values['password_position'] = $this->input->passwordPosition;
 
-		if (isset($this->input->timeEstimate) && !empty($this->input->timeEstimate))
-			$values['time_estimate'] = $this->input->timeEstimate;
+        if (isset($this->input->timeEstimate) && !empty($this->input->timeEstimate))
+            $values['time_estimate'] = $this->input->timeEstimate;
 
         $result = [];
         try {

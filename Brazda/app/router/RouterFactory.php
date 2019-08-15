@@ -9,17 +9,17 @@ use Nette\Application\Routers\Route;
 
 class RouterFactory
 {
-	use Nette\StaticClass;
+    use Nette\StaticClass;
 
-	/**
-	 * @return Nette\Application\IRouter
-	 */
-	public static function createRouter()
-	{
-		$router = new RouteList;
-		$router[] = new Route('api/<presenter>/<action>[/<id>]', 'Homepage:default');
+    /**
+     * @return Nette\Application\IRouter
+     */
+    public static function createRouter()
+    {
+        $router = new RouteList;
+        $router[] = new Route('api/<presenter>/<action>[/<id>]', 'Homepage:default');
 
-		return $router;
-	}
+        return $router;
+    } // createRouter()
 
-}
+} // RouterFactory

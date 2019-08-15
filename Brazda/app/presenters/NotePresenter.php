@@ -19,22 +19,32 @@ class NotePresenter extends SecuredBasePresenter
 
     public function actionDetail($post)
     {
-	try {
-		$viewFilter = [
-		    'team' => (int) $this->team['team'],
-		    'post' => (int) $post
-		];
+        try {
+            $viewFilter = [
+                'team' => (int) $this->team['team'],
+                'post' => (int) $post
+            ];
 
-		$this->resource = (array) $this->notes->find($viewFilter);
-	} catch (Dibi\Exception $e) {
-		$this->sendErrorResource($e);
-	} // try
+            $this->resource = (array) $this->notes->find($viewFilter);
+        } catch (Dibi\Exception $e) {
+            $this->sendErrorResource($e);
+        } // try
 
         $this->sendResource();
     } // actionDetail()
 
     public function actionCreate()
     {
+        $this->checkAdministrator();
+
+        $this->checkContentTypeJson();
+
+        $this->checkValuesExists($this->input, [
+            'team',
+            'post',
+            'note'
+        ]); // checkValuesExists()
+
         $values = [
             'team' => (int) $this->team['team'],
             'post' => (int) $this->input->post,
@@ -57,6 +67,14 @@ class NotePresenter extends SecuredBasePresenter
 
     public function actionUpdate()
     {
+        $this->checkAdministrator();
+
+        $this->checkContentTypeJson();
+
+        $this->checkValuesExists($this->input, [
+            'note'
+        ]); // checkValuesExists()
+
         $filter = [];
         if (isset($this->input->postNote) && !empty($this->input->postNote))
             $filter['post_note'] = (int) $this->input->postNote;
@@ -85,6 +103,14 @@ class NotePresenter extends SecuredBasePresenter
 
     public function actionSave()
     {
+        $this->checkAdministrator();
+
+        $this->checkContentTypeJson();
+
+        $this->checkValuesExists($this->input, [
+            'note'
+        ]); // checkValuesExists()
+
         $filter = [
             'post' => (int) $this->input->post,
             'team' => (int) $this->team['team']
@@ -116,6 +142,8 @@ class NotePresenter extends SecuredBasePresenter
 
     public function actionDelete()
     {
+        $this->checkAdministrator();
+
         $filter = [];
         if (isset($this->input->postNote) && !empty($this->input->postNote))
             $filter['post_note'] = (int) $this->input->postNote;

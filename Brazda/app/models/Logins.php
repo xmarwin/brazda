@@ -97,13 +97,6 @@ class Logins extends Base implements Security\IAuthenticator
         )->fetch();
 
         if (!empty($login)) {
-/*
-            throw new Security\AuthenticationException(sprintf(
-                    'Někdo se za tento tým zalogoval ze stejného zařízení již v %s.', date('j. n. Y H:i', strtotime($login->moment))
-                ), // sprintf()
-                200
-            ); // AuthenticationException()
-*/
             $this->db->query(
                 "DELETE FROM logins
                  WHERE team = %i", $team, "
@@ -147,6 +140,6 @@ class Logins extends Base implements Security\IAuthenticator
 			 SET last_activity_moment = now()
 			 WHERE security_token LIKE %s", $securityToken
 		); // query()
-    }
+    } // touch()
 
 } // Logins

@@ -34,8 +34,8 @@ class TeamPresenter extends SecuredBasePresenter
         $this->sendResource();
 	} // actionList()
 
-	public function actionDetail($team)
-	{
+    public function actionDetail($team)
+    {
         $isTeam = ($team === $this->team['team']);
         $isAdministrator = false;
 
@@ -53,20 +53,20 @@ class TeamPresenter extends SecuredBasePresenter
         } // if
 
         $this->sendResource();
-	} // actionDetail()
+    } // actionDetail()
 
-	public function actionCreate()
-	{
+    public function actionCreate()
+    {
         $this->checkAdministrator();
 
-	$this->checkContentTypeJson();
+        $this->checkContentTypeJson();
 
-	$this->checkValuesExists($this->input, [
-		'name',
-		'shibboleth',
-		'role',
-		'isActive'
-	]); // checkValuesExists()
+        $this->checkValuesExists($this->input, [
+            'name',
+            'shibboleth',
+            'role',
+            'isActive'
+        ]); // checkValuesExists()
 
         $values = [
             'name'           => $this->input->name,
@@ -99,21 +99,20 @@ class TeamPresenter extends SecuredBasePresenter
             'data'   => $result
         ];
         $this->sendResource();
-	} // actionCreate()
+    } // actionCreate()
 
-	public function actionUpdate()
-	{
+    public function actionUpdate()
+    {
         $this->checkAdministrator();
 
-	$this->checkContentTypeJson();
+        $this->checkContentTypeJson();
 
-	$this->checkValuesExists($this->input, [
-		'name',
-		'shibboleth',
-		'role',
-		'isActive'
-	]); // checkValuesExists()
-
+        $this->checkValuesExists($this->input, [
+            'name',
+            'shibboleth',
+            'role',
+            'isActive'
+        ]); // checkValuesExists()
 
         $team = (int) $this->input->team;
         $filter = [ 'team' => $team ];
@@ -147,10 +146,10 @@ class TeamPresenter extends SecuredBasePresenter
             'code'   => 201
         ];
         $this->sendResource();
-	} // actionCreate()
+    } // actionCreate()
 
-	public function actionDelete()
-	{
+    public function actionDelete()
+    {
         $this->checkAdministrator();
 
         $filter = [ 'team' => (int) $this->input->team ];
@@ -165,6 +164,6 @@ class TeamPresenter extends SecuredBasePresenter
             'code'   => 200
         ];
         $this->sendResource();
-	} // actionDelete()
+    } // actionDelete()
 
 } // TeamPresenter

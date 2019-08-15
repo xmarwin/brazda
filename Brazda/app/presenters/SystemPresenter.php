@@ -6,68 +6,68 @@ use Nette\Utils;
 
 class SystemPresenter extends SecuredBasePresenter
 {
-	protected
-		$messages,
-		$settings;
+    protected
+        $messages,
+        $settings;
 
-	public function startup()
-	{
-		parent::startup();
+    public function startup()
+    {
+        parent::startup();
 
-		$this->messages = $this->context->getService('messages');
-		$this->settings = $this->context->getService('settings');
-	} // startup()
+        $this->messages = $this->context->getService('messages');
+        $this->settings = $this->context->getService('settings');
+    } // startup()
 
-	public function actionDefault()
-	{
-		$parameters  = $this->context->getParameters();
-		$versionFile = realpath($parameters['appDir'].
-			DIRECTORY_SEPARATOR.'..'.
-			DIRECTORY_SEPARATOR.'version'
-		); // realpath()
+    public function actionDefault()
+    {
+        $parameters  = $this->context->getParameters();
+        $versionFile = realpath($parameters['appDir'].
+            DIRECTORY_SEPARATOR.'..'.
+            DIRECTORY_SEPARATOR.'version'
+        ); // realpath()
 
-		$settings = $this->settings->enumeration();
-		$settings['version'] = $versionFile
-			? trim(Utils\FileSystem::read($versionFile))
-			: null;
+        $settings = $this->settings->enumeration();
+        $settings['version'] = $versionFile
+            ? trim(Utils\FileSystem::read($versionFile))
+            : null;
 
         $settings['newMessages'] = isset($this->team['team'])
             ? $this->messages->count($this->team['team'])
             : 0;
 
-		$this->resource = $settings;
+        $this->resource = $settings;
 
-		$this->sendResource();
-	} // actionDefault()
+        $this->sendResource();
+    } // actionDefault()
 
-	public function actionStart()
-	{
-		$this->checkAdministrator();
+    public function actionStart()
+    {
+        $this->checkAdministrator();
 
-		$raceStart = date('Y-m-d H:i:s');
-		$this->settings->set('raceStart', $raceStart);
+        $raceStart = date('Y-m-d H:i:s');
+        $this->settings->set('raceStart', $raceStart);
 
-		$this->resource = [ 'raceStart' => $raceStart ];
+        $this->resource = [ 'raceStart' => $raceStart ];
 
-		$this->sendResource();
-	} // actionStart()
+        $this->sendResource();
+    } // actionStart()
 
-	public function actionSet()
-	{
-		$this->checkAdministrator();
+    public function actionSet()
+    {
+        $this->checkAdministrator();
 
-		$settings = $this->input->getData();
-		unset($settings['securityToken']);
+        $settings = $this->input->getData();
+        unset($settings['securityToken']);
 
-		foreach ($settings as $setting => $value) {
-			$this->settings->set($setting, $value);
-		} // foreach
+        foreach ($settings as $setting => $value) {
+            $this->settings->set($setting, $value);
+        } // foreach
 
-		$this->resource = [
-			'status' => 'OK',
-			'code'   => 201
-		];
-		$this->sendResource();
-	} // actionSet()
+        $this->resource = [
+            'status' => 'OK',
+            'code'   => 201
+        ];
+        $this->sendResource();
+    } // actionSet()
 
 } // SystemPresenter

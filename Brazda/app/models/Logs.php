@@ -308,21 +308,7 @@ class Logs extends Base
             ? $lastErrorLogs[0]->expire
             : null;
     } // nextBonusLog()
-/*
-    public function deleteLog($team, $post, $logType)
-    {
-        $team = (int) $team;
-        $post = (int) $post;
 
-        return $this->db->query(
-            "DELETE
-             FROM logs
-             WHERE team = %i", $team,
-            "AND post = %i", $post,
-            "AND log_type = %s", $logType
-        ); // query()
-    }
-*/
     public static function checkLogType($logType)
     {
         $validLogTypes = [
