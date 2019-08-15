@@ -35,16 +35,17 @@ class GpxPresenter extends SecuredBaseXmlPresenter
                 'post' => (int) $post->post,
                 'team' => (int) $this->team['team']
             ])->fetchAll();
+
+            /** Vybereme atributy pro stanoviště */
+            $attributes = $this->postAttributes->view([ 'post' => (int) $post->post ]);
+            /** Pokud stanoviště žádné atributy nastaveny nemá */
+            $posts[$id]->attributes = $attributes->count() == 0
+                /** Vrať prázdné pole */
+                ? []
+                /** Vrať vybrané atributy */
+                : $attributes->fetchAll();
         } // foreach
 
-        /** Vybereme atributy pro stanoviště */
-        $attributes = $this->postAttributes->view([ 'post' => (int) $post ]);
-        /** Pokud stanoviště žádné atributy nastaveny nemá */
-        $this->template->attributes = $attributes->count() == 0
-            /** Vrať prázdné pole */
-            ? []
-            /** Vrať vybrané atributy */
-            : $attributes->fetchAll();
 
         $this->template->posts = $posts;
 

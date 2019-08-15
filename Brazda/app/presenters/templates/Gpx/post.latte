@@ -110,11 +110,11 @@
             {if !empty($attributes)}
             <groundspeak:attributes>
                 {foreach $attributes as $attribute}
-                <groundspeak:attribute id="{$attribute->code}" inc="{if $attribute->status}1{else}0{/if}">{if $attribute->status}
+                <groundspeak:attribute id="{$attribute->code}" inc="{if $attribute->status}1{else}0{/if}">{block |strip}{if $attribute->status}
                         {$attribute->name_on}
                     {else}
                         {$attribute->name_off}
-                    {/if}</groundspeak:attribute>
+                    {/if}{/block}</groundspeak:attribute>
                 {/foreach}
             </groundspeak:attributes>
             {/if}
