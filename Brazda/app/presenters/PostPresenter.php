@@ -454,7 +454,7 @@ class PostPresenter extends SecuredBasePresenter
                         'status'    => $attributeValue
                     ];
 
-                    $result['attributes'][] = (int) $this->attributes->save($attributeValues);
+                    $result['attributes'][] = (int) $this->postAttributes->save($attributeValues);
                 } // foreach
             } // if
 
