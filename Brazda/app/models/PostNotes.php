@@ -21,8 +21,6 @@ class PostNotes extends Base
     {
         if (empty($values)) throw new \Exception('Chybí hodnoty pro zápis poznámky.');
 
-        $filter = $this->normalizeFilter($filter);
-
         return $this->db->query(
             "INSERT INTO post_notes %v", $values,
             "RETURNING post_note"

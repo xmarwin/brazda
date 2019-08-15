@@ -40,7 +40,6 @@ class NotePresenter extends SecuredBasePresenter
         $this->checkContentTypeJson();
 
         $this->checkValuesExists($this->input, [
-            'team',
             'post',
             'note'
         ]); // checkValuesExists()
