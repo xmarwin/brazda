@@ -55,19 +55,19 @@ class PostAttributes extends Base
             "LIMIT 1"
         )->fetch();
 
-        if (!empty($postAttribute) && $values['status'] == null) {
+        if (!empty($postAttribute) && $values['status'] === null) {
             $this->delete([
                 'post'      => $values['post'],
                 'attribute' => $values['attribute']
             ]); // delete()
-        } elseif (!empty($postAttribute) && $values['status'] !== false) {
+        } elseif (!empty($postAttribute) && $values['status'] !== null) {
             $this->update([
                 'status'    => $values['status'],
             ], [
                 'post'      => $values['post'],
                 'attribute' => $values['attribute']
             ]); // update()
-        } elseif (empty($postAttribute)) {
+        } elseif (empty($postAttribute) && $values['status'] !== null) {
             $this->insert($values);
         } // if
     } // save()
