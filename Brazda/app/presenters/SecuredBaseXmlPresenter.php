@@ -8,11 +8,17 @@ use Nette\Application,
 class SecuredBaseXmlPresenter extends BaseXmlPresenter
 {
     protected
+        $logins,
+        $teams,
+
         $team;
 
     public function startup()
     {
         parent::startup();
+
+        $this->logins = $this->context->getService('logins')
+        $this->teams  = $this->context->getService('teams')
 
         $this->checkSecurityToken();
 
