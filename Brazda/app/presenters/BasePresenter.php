@@ -13,7 +13,7 @@ class BasePresenter extends UI\Presenter
         $resource,
 
         $logins;
-        
+
 
     public function startup()
     {
@@ -68,7 +68,7 @@ class BasePresenter extends UI\Presenter
         if (strpos($this->getHttpRequest()->getHeader('Content-Type'), 'application/json') === FALSE) {
             $this->sendErrorResource(
                 new \Exception('Content type not acceptable, JSON excpected.', 406)
-            ); // sendErrorResource() 
+            ); // sendErrorResource()
         } // if
     } // checkJsonHeaders()
 
@@ -99,7 +99,9 @@ class BasePresenter extends UI\Presenter
 
         switch ($contentType) {
             case 'application/json':
-                $body = Nette\Utils\Json::decode($input);
+                $body = !empty($input)
+                    ? Nette\Utils\Json::decode($input)
+                    : [];
                 break;
 
             case 'query':

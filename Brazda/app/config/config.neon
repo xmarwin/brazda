@@ -7,8 +7,7 @@ parameters:
 application:
 	errorPresenter: Error
 	mapping:
-		*: Brazda\*Module\Presenters\*Presenter
-		#*: Brazda\Presenters\*Presenter
+		*: Brazda\Presenters\*Presenter
 
 
 session:

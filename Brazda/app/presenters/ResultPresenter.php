@@ -43,7 +43,7 @@ class ResultPresenter extends SecuredBasePresenter
         $this->sendResource();
     } // actionList()
 
-    public function actionKidList()
+    public function actionListKid()
     {
         $this->checkAdministrator();
 
@@ -64,14 +64,14 @@ class ResultPresenter extends SecuredBasePresenter
 
         $this->resource = $teams;
         $this->sendResource();
-    } // actionKidList()
+    } // actionListKid()
 
-    public function actionAllList()
+    public function actionListAll()
     {
         $this->checkAdministrator();
 
         $teams = [];
-        $teamsData = (array) $this->teams->view([ ['t.team_type IN %n', [ 'COM', 'KID' ] ] ]);
+        $teamsData = (array) $this->teams->view([ ['t.team_type IN %in', [ 'COM', 'KID' ] ] ]);
         foreach ($teamsData as $teamItem) {
             $team = [
                 'team' => $teamItem->team,
@@ -87,6 +87,6 @@ class ResultPresenter extends SecuredBasePresenter
 
         $this->resource = $teams;
         $this->sendResource();
-    } // actionKidList()
+    } // actionListAll()
 
 } // ResultPresenter

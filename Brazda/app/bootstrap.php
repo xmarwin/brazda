@@ -14,7 +14,8 @@ $configurator->setDebugMode([
 	'2001:470:1f0b:3ff:12c3:7bff:fea2:7f2b',
 	'2a0a:1c01:0:1002:ddd5:2d5d:182c:f96a',
 	'2a0a:1c01:0:1005:12c3:7bff:fea2:7f2b',
-	'2a0a:1c01:0:1005:f4ff:863b:c181:9ced'
+	'2a0a:1c01:0:1005:f4ff:863b:c181:9ced',
+	'2a0a:1c01:0:1002:7054:8738:6b57:8f78'
 ]); // enable for your remote IP
 $configurator->enableDebugger(realpath(__DIR__.'/../log/'));
 

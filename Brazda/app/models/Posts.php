@@ -225,7 +225,7 @@ class Posts extends Base
                 p.time_estimate,
                 to_char(p.open_from, 'HH24:MI') AS open_from,
                 to_char(p.open_to, 'HH24:MI') AS open_to,
-                CASE WHEN p.help NOT LIKE '' THEN TRUE ELSE FALSE END AS has_help,
+                CASE WHEN (p.help NOT LIKE '' OR p.help IS NOT NULL) THEN TRUE ELSE FALSE END AS has_help,
 
                 cs.name AS size_name,
                 ct.name AS cache_name,
@@ -268,7 +268,7 @@ class Posts extends Base
              LEFT JOIN (
                 SELECT post, moment
                 FROM logs
-                WHERE log_type = 'OUT'
+                WHERE log_type IN ('OUT', 'STR', 'FIN')
                   AND team = %i", $team, "
              ) lo USING (post)
              LEFT JOIN (
