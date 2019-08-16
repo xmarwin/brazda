@@ -22,11 +22,11 @@
         </div>
         <div class="row">
             <strong class="col-xs-5 col-sm-3 col-md-2 col-xl-2 text-right">Terén:</strong>
-            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10"><img alt="{{ctrl.post.cache_name}}" title="Terén {{ctrl.post.terrain}}" src="/www/assets/images/stars{{ctrl.post.terrain}}.gif" style="vertical-align: top"> {{ctrl.post.terrain}}</div>
+            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10"><img alt="{{ctrl.post.cache_name}}" title="Terén {{ctrl.post.terrain}}" src="/assets/images/stars{{ctrl.post.terrain}}.gif" style="vertical-align: top"> {{ctrl.post.terrain}}</div>
         </div>
         <div class="row">
             <strong class="col-xs-5 col-sm-3 col-md-2 col-xl-2 text-right">Obtížnost:</strong>
-            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10"><img alt="{{ctrl.post.cache_name}}" title="Obtížnost {{ctrl.post.difficulty}}" src="/www/assets/images/stars{{ctrl.post.difficulty}}.gif" style="vertical-align: top"> {{ctrl.post.difficulty}}</div>
+            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10"><img alt="{{ctrl.post.cache_name}}" title="Obtížnost {{ctrl.post.difficulty}}" src="/assets/images/stars{{ctrl.post.difficulty}}.gif" style="vertical-align: top"> {{ctrl.post.difficulty}}</div>
         </div>
         <div class="row" ng-show="ctrl.post.open_from !== null">
             <strong class="col-xs-5 col-sm-3 col-md-2 col-xl-2 text-right">Otvírací doba:</strong>
@@ -34,22 +34,22 @@
         </div>
         <div class="row" ng-show="ctrl.post.post_type==='CGC'">
             <strong class="col-xs-5 col-sm-3 col-md-2 col-xl-2 text-right">Typ:</strong>
-            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_type === 'TRA'"><img alt="{{ctrl.post.cache_name}}" title="{{ctrl.post.cache_name}}" src="/www/assets/images/traditional.png"> ({{ctrl.post.cache_name}})</div>
-            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_type === 'MLT'"><img alt="{{ctrl.post.cache_name}}" title="{{ctrl.post.cache_name}}" src="/www/assets/images/multi.png"> ({{ctrl.post.cache_name}})</div>
-            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_type === 'LTB'"><img alt="{{ctrl.post.cache_name}}" title="{{ctrl.post.cache_name}}" src="/www/assets/images/letterbox.png"> ({{ctrl.post.cache_name}})</div>
-            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_type === 'CIT'"><img alt="{{ctrl.post.cache_name}}" title="{{ctrl.post.cache_name}}" src="/www/assets/images/cito.png"> ({{ctrl.post.cache_name}})</div>
-            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_type === 'MYS'"><img alt="{{ctrl.post.cache_name}}" title="{{ctrl.post.cache_name}}" src="/www/assets/images/unknown.png"> ({{ctrl.post.cache_name}})</div>
-            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_type === 'ERT'"><img alt="{{ctrl.post.cache_name}}" title="{{ctrl.post.cache_name}}" src="/www/assets/images/earthcache.png"> ({{ctrl.post.cache_name}})</div>
-            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_type === 'WIG'"><img alt="{{ctrl.post.cache_name}}" title="{{ctrl.post.cache_name}}" src="/www/assets/images/wherigo.png"> ({{ctrl.post.cache_name}})</div>
+            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_type === 'TRA'"><img alt="{{ctrl.post.cache_name}}" title="{{ctrl.post.cache_name}}" src="/assets/images/traditional.png"> ({{ctrl.post.cache_name}})</div>
+            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_type === 'MLT'"><img alt="{{ctrl.post.cache_name}}" title="{{ctrl.post.cache_name}}" src="/assets/images/multi.png"> ({{ctrl.post.cache_name}})</div>
+            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_type === 'LTB'"><img alt="{{ctrl.post.cache_name}}" title="{{ctrl.post.cache_name}}" src="/assets/images/letterbox.png"> ({{ctrl.post.cache_name}})</div>
+            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_type === 'CIT'"><img alt="{{ctrl.post.cache_name}}" title="{{ctrl.post.cache_name}}" src="/assets/images/cito.png"> ({{ctrl.post.cache_name}})</div>
+            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_type === 'MYS'"><img alt="{{ctrl.post.cache_name}}" title="{{ctrl.post.cache_name}}" src="/assets/images/unknown.png"> ({{ctrl.post.cache_name}})</div>
+            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_type === 'ERT'"><img alt="{{ctrl.post.cache_name}}" title="{{ctrl.post.cache_name}}" src="/assets/images/earthcache.png"> ({{ctrl.post.cache_name}})</div>
+            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_type === 'WIG'"><img alt="{{ctrl.post.cache_name}}" title="{{ctrl.post.cache_name}}" src="/assets/images/wherigo.png"> ({{ctrl.post.cache_name}})</div>
             <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_type == null || ctrl.post.cache_type === ''">-</div>
         </div>
         <div class="row" ng-show="ctrl.post.post_type==='BON' || ctrl.post.post_type==='SBN' || ctrl.post.post_type==='CGC'">
             <strong class="col-xs-5 col-sm-3 col-md-2 col-xl-2 text-right">Velikost:</strong>
-            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_size === 'M'"><img src="/www/assets/images/micro.gif" title="{{ctrl.post.size_name}}" alt="{{ctrl.post.size_name}}" /> ({{ctrl.post.size_name}})</div>
-            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_size === 'S'"><img src="/www/assets/images/small.gif" title="{{ctrl.post.size_name}}" alt="{{ctrl.post.size_name}}" /> ({{ctrl.post.size_name}})</div>
-            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_size === 'R'"><img src="/www/assets/images/regular.gif" title="{{ctrl.post.size_name}}" alt="{{ctrl.post.size_name}}" /> ({{ctrl.post.size_name}})</div>
-            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_size === 'L'"><img src="/www/assets/images/large.gif" title="{{ctrl.post.size_name}}" alt="{{ctrl.post.size_name}}" /> ({{ctrl.post.size_name}})</div>
-            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_size === 'O'"><img src="/www/assets/images/other.gif" title="{{ctrl.post.size_name}}" alt="{{ctrl.post.size_name}}" /> ({{ctrl.post.size_name}})</div>
+            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_size === 'M'"><img src="/assets/images/micro.gif" title="{{ctrl.post.size_name}}" alt="{{ctrl.post.size_name}}" /> ({{ctrl.post.size_name}})</div>
+            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_size === 'S'"><img src="/assets/images/small.gif" title="{{ctrl.post.size_name}}" alt="{{ctrl.post.size_name}}" /> ({{ctrl.post.size_name}})</div>
+            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_size === 'R'"><img src="/assets/images/regular.gif" title="{{ctrl.post.size_name}}" alt="{{ctrl.post.size_name}}" /> ({{ctrl.post.size_name}})</div>
+            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_size === 'L'"><img src="/assets/images/large.gif" title="{{ctrl.post.size_name}}" alt="{{ctrl.post.size_name}}" /> ({{ctrl.post.size_name}})</div>
+            <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_size === 'O'"><img src="/assets/images/other.gif" title="{{ctrl.post.size_name}}" alt="{{ctrl.post.size_name}}" /> ({{ctrl.post.size_name}})</div>
         </div>
         <div class="row">
             <strong class="col-xs-5 col-sm-3 col-md-2 col-xl-2 text-right">Barva:</strong>
@@ -117,11 +117,11 @@
         <div class="list-group">
             <div class="list-group-item row" ng-repeat="wpt in ctrl.post.waypoints">
                 <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
-                    <img src="/www/assets/images/finish.png" ng-show="wpt.waypoint_type==='FIN'" title="{{wpt.waypoint_typeName}}" class="waipoint-type-icon" />
-                    <img src="/www/assets/images/parking.png" ng-show="wpt.waypoint_type==='PAR'" title="{{wpt.waypoint_typeName}}" class="waipoint-type-icon" />
-                    <img src="/www/assets/images/poi.png" ng-show="wpt.waypoint_type==='REF'" title="{{wpt.waypoint_typeName}}" class="waipoint-type-icon" />
-                    <img src="/www/assets/images/path.png" ng-show="wpt.waypoint_type==='WAY'" title="{{wpt.waypoint_typeName}}" class="waipoint-type-icon" />
-                    <img src="/www/assets/images/stage.png" ng-show="wpt.waypoint_type==='STA'" title="{{wpt.waypoint_typeName}}" class="waipoint-type-icon" />
+                    <img src="/assets/images/finish.png" ng-show="wpt.waypoint_type==='FIN'" title="{{wpt.waypoint_typeName}}" class="waipoint-type-icon" />
+                    <img src="/assets/images/parking.png" ng-show="wpt.waypoint_type==='PAR'" title="{{wpt.waypoint_typeName}}" class="waipoint-type-icon" />
+                    <img src="/assets/images/poi.png" ng-show="wpt.waypoint_type==='REF'" title="{{wpt.waypoint_typeName}}" class="waipoint-type-icon" />
+                    <img src="/assets/images/path.png" ng-show="wpt.waypoint_type==='WAY'" title="{{wpt.waypoint_typeName}}" class="waipoint-type-icon" />
+                    <img src="/assets/images/stage.png" ng-show="wpt.waypoint_type==='STA'" title="{{wpt.waypoint_typeName}}" class="waipoint-type-icon" />
                 </div>
                 <div class="col-sm-3 col-md-3 col-lg-3 hidden-xs">
                     {{wpt.name}}
