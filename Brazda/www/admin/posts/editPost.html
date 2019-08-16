@@ -153,9 +153,9 @@
             </div>
             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
                 <div ng-repeat="att in ctrl.post.attributes" style="display: inline">
-                    <img ng-src="/www{{att.icon}}" title="{{att.name_on}}" ng-click="ctrl.changeAttribute(att.attribute)" ng-show="att.status==null" />
-                    <img ng-src="/www{{att.icon_on}}" title="{{att.name_on}}" ng-click="ctrl.changeAttribute(att.attribute)" ng-show="att.status" />
-                    <img ng-src="/www{{att.icon_off}}" title="{{att.name_off}}" ng-click="ctrl.changeAttribute(att.attribute)" ng-show="att.status===false" />
+                    <img ng-src="{{att.icon}}" title="{{att.name_on}}" ng-click="ctrl.changeAttribute(att.attribute)" ng-show="att.status==null" />
+                    <img ng-src="{{att.icon_on}}" title="{{att.name_on}}" ng-click="ctrl.changeAttribute(att.attribute)" ng-show="att.status" />
+                    <img ng-src="{{att.icon_off}}" title="{{att.name_off}}" ng-click="ctrl.changeAttribute(att.attribute)" ng-show="att.status===false" />
                 </div>
             </div>
         </div>

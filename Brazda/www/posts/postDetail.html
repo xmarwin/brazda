@@ -110,6 +110,15 @@
             Na {{ctrl.post.password_position}}. místě hesla k bonusu je písmeno {{ctrl.post.password_character | uppercase}}.
         </div>
     </div>
+    <div class="row" ng-show="ctrl.post.attributes.length > 0">
+        <h2 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Atributy:</h2>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12" ng-show="ctrl.post.attributes.length > 0">
+        <div ng-repeat="att in ctrl.post.attributes" style="display: inline">
+            <img ng-src="{{att.icon_on}}" title="{{att.name_on}}" ng-click="ctrl.changeAttribute(att.attribute)" ng-show="att.status" class="attribute" />
+            <img ng-src="{{att.icon_off}}" title="{{att.name_off}}" ng-click="ctrl.changeAttribute(att.attribute)" ng-show="att.status===false" class="attribute" />
+        </div>
+    </div>
     <div class="row">
         <h2 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Waypointy</h2>
     </div>
