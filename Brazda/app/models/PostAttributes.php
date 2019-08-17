@@ -7,7 +7,19 @@ use Nette,
 
 class PostAttributes extends Base
 {
-    public function view(array $filter = [], array $order = [], array $limit = [])
+    public function find(array $filter)
+    {
+        $filter = $this->normalizeFilter($filter);
+
+        return $this->db->query(
+            "SELECT *
+             FROM posts_has_attributes
+             WHERE %and", $filter,
+            "LIMIT 1"
+        )->fetch();
+    } // find()
+
+    public function view(array $filter = [], array $order = [ 'code' => 'ASC' ], array $limit = [])
     {
         $filter = $this->normalizeFilter($filter);
         $order  = $this->normalizeOrder($order);
@@ -25,7 +37,7 @@ class PostAttributes extends Base
         ); // query()
     } // view()
 
-    public function viewAll(array $filter = [], array $order = [], array $limit = [])
+    public function viewAll(array $filter = [], array $order = [ 'code' => 'ASC' ], array $limit = [])
     {
         $filter = $this->normalizeFilter($filter);
         $order  = $this->normalizeOrder($order);
@@ -35,9 +47,26 @@ class PostAttributes extends Base
 
         return $this->db->query(
             "SELECT
-                *
-             FROM posts_has_attributes_all_view
-             WHERE %and", $filter,
+                a.attribute,
+                a.code,
+                a.name_on,
+                a.name_off,
+                '/assets/images/attributes/' || a.icon || '.png' AS icon,
+                '/assets/images/attributes/' || a.icon || '-yes.png' AS icon_on,
+                CASE WHEN a.status_count = 3 THEN '/assets/images/attributes/' || a.icon || '-no.png' ELSE NULL END AS icon_off,
+                a.status_count,
+                a.code,
+                pha.post,
+                pha.status
+             FROM attributes a
+             LEFT JOIN (
+                SELECT
+                    attribute,
+                    post,
+                    status
+                FROM posts_has_attributes
+                WHERE %and", $filter,
+            ") pha USING (attribute)",
             "%if", !empty($order), " ORDER BY %by", $order, "%end",
             "%if", !empty($limit), " LIMIT %lmt", $limit, " OFFSET %ofs", $offset, "%end"
         ); // query()
@@ -48,12 +77,7 @@ class PostAttributes extends Base
         if (empty($values))
             throw new \Exception('Chybí hodnoty pro změnu atributu stanoviště');
 
-        $postAttribute = $this->db->query(
-            "SELECT *
-             FROM posts_has_attributes
-             WHERE %and", [ 'post' => $values['post'], 'attribute' => $values['attribute'] ],
-            "LIMIT 1"
-        )->fetch();
+        $postAttribute = $this->find([ 'post' => $values['post'], 'attribute' => $values['attribute'] ])->fetch();
 
         if (!empty($postAttribute) && $values['status'] === null) {
             $this->delete([
