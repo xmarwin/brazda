@@ -2,7 +2,7 @@
 
 namespace Brazda\Presenters;
 
-class MapPresenter extends BasePresenter
+class MapPresenter extends SecuredBasePresenter
 {
     protected
         $posts,
@@ -20,6 +20,7 @@ class MapPresenter extends BasePresenter
 
     public function actionPoints(array $filter)
     {
+
         $postFilter = [
             'team' => $this->team['team']
         ];
@@ -34,21 +35,27 @@ class MapPresenter extends BasePresenter
 
         } // if
 
-		if (isset($filter['color']) && !empty($filter['color'])) {
-			$colors = explode(',', $filter['color']);
-			$postFilter[] = [ 'p.color IN %in', $colors ];
-		} // if
+        if (isset($filter['color']) && !empty($filter['color'])) {
+            $colors = explode(',', $filter['color']);
+            $postFilter[] = [ 'p.color IN %in', $colors ];
+            } // if
 
-        $posts = (array) $this->posts->view($postFilter)->fetchAll();
+        $posts = (array) $this->posts->listView($postFilter)->fetchAll();
+
+        $posts = $this->posts->listView()->fetchAll();
+
         $this->resource = [
             'type' => 'FeatureCollection',
             'features' => []
         ];
-		foreach ($posts as $id => $post) {
+        foreach ($posts as $id => $post) {
             $this->resource['features'][] = [
                 'type' => 'Feature',
                 'properties' => [
                     'name' => $post['name'],
+                    'terrain' => $post['terrain'],
+                    'difficulty' => $post['difficulty'],
+                    'maxScore' => $post['max_score'],
                     'marker-color' => $post['color_code'],
                     'marker-symbol' => $post['post_type']
                 ],
@@ -82,9 +89,9 @@ class MapPresenter extends BasePresenter
                     ]
                 ];
             } // foreach
-		} // foreach
+        } // foreach
 
-		$this->sendResource($this->outputType);
+        $this->sendResource($this->outputType);
     } // actionPoints()
 
 } // MapPresenter
