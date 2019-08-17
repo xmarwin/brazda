@@ -128,7 +128,7 @@ class PostPresenter extends SecuredBasePresenter
             ])->fetch();
 
             /** Vybereme atributy pro stanoviště */
-            $attributes = $this->postAttributes->view([ 'post' => (int) $post ]);
+            $attributes = $this->postAttributes->view([ 'post' => (int) $post ], [ 'id' => 'ASC' ]);
             /** Pokud stanoviště žádné atributy nastaveny nemá, nebo je informace pro organizátora */
             $this->resource['attributes'] = $attributes->count() == 0 || $this->team['role'] == Models\Teams::ORGANIZATION
                 /** Vrať všechny atributy */

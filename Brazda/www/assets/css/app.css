@@ -185,6 +185,11 @@ table.content-table th {
 }
 
 .attribute {
+    display: inline-block;
+    margin: 2px;
+}
+
+.attribute img {
     width: 40px;
     height: 40px;
 }
