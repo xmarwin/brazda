@@ -114,7 +114,7 @@
         <h2 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Atributy:</h2>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12" ng-show="ctrl.post.attributes.length > 0">
-        <div ng-repeat="att in ctrl.post.attributes" style="display: inline">
+        <div ng-repeat="att in ctrl.post.attributes" class="attribute">
             <img ng-src="{{att.icon_on}}" title="{{att.name_on}}" ng-click="ctrl.changeAttribute(att.attribute)" ng-show="att.status" class="attribute" />
             <img ng-src="{{att.icon_off}}" title="{{att.name_off}}" ng-click="ctrl.changeAttribute(att.attribute)" ng-show="att.status===false" class="attribute" />
         </div>

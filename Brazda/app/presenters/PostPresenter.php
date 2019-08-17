@@ -132,7 +132,7 @@ class PostPresenter extends SecuredBasePresenter
             /** Pokud stanoviště žádné atributy nastaveny nemá, nebo je informace pro organizátora */
             $this->resource['attributes'] = $attributes->count() == 0 || $this->team['role'] == Models\Teams::ORGANIZATION
                 /** Vrať všechny atributy */
-                ? $this->postAttributes->viewAll()->fetchAll()
+                ? $this->postAttributes->viewAll([ 'post' => (int) $post ], [ 'code' => 'ASC' ])->fetchAll()
                 /** Vrať vybrané atributy */
                 : $attributes->fetchAll();
 

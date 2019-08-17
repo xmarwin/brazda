@@ -23,7 +23,7 @@ class AttributesPresenter extends SecuredBasePresenter
 		$this->checkAdministrator();
 
 		try {
-			$this->resource = $this->attributes->view()->fetchAll();
+			$this->resource = $this->attributes->view([], [ 'code' => 'ASC' ])->fetchAll();
 		} catch (\Exception $e) {
 			$this->sendErrorResource($e);
 		} // try
