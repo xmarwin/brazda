@@ -131,7 +131,7 @@ function EditPostController($routeParams, $location, notification, authService, 
                 status = vm.post.attributes[i].status;
             }
 
-            let att = "'" + vm.post.attributes[i].attribute + "': " + status;
+            let att = '"' + vm.post.attributes[i].attribute + '": ' + status;
             atts.push(att);
         }
 
@@ -159,7 +159,7 @@ function EditPostController($routeParams, $location, notification, authService, 
             "passwordCharacter": post.passwordCharacter,
             "passwordPosition": post.passwordPosition,
             "timeEstimate": post.time_estimate,
-            "attributes": "{" + atts.join() + "}"
+            "attributes": JSON.parse('{' + atts.join() + '}')
         };
 
         postService.updatePost(input)
