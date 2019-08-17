@@ -11,22 +11,22 @@
     padding: 0 0 0.5em;
 }
 
-.menu:before {
-    content: "[";
-}
+    .menu:before {
+        content: "[";
+    }
 
-.menu:after {
-    content: "]";
-}
+    .menu:after {
+        content: "]";
+    }
 
-.menu > li {
-    display: inline;
-}
+    .menu > li {
+        display: inline;
+    }
 
-.menu > li + li:before {
-    content: "|";
-    padding-right: 0.3em;
-}
+        .menu > li + li:before {
+            content: "|";
+            padding-right: 0.3em;
+        }
 
 .postItem {
     border: 1px solid black;
@@ -78,9 +78,9 @@ table.post-list {
     border-collapse: collapse;
 }
 
-table.post-list tbody tr td {
-    padding: 3px;
-}
+    table.post-list tbody tr td {
+        padding: 3px;
+    }
 
 .waipoint-type-icon {
     width: 32px;
@@ -111,11 +111,11 @@ table.results-table th {
     table-layout: fixed
 }
 
-table.results-table th div {
-    position: absolute;
-    left: -15px;
-    top: -1px;
-}
+    table.results-table th div {
+        position: absolute;
+        left: -15px;
+        top: -1px;
+    }
 
 .bonus {
     height: 60px;
@@ -125,10 +125,10 @@ table.results-table th div {
     margin-top: 200px;
 }
 
-.results-table td {
-    padding: 3px;
-    width: 50px!important;
-}
+    .results-table td {
+        padding: 3px;
+        width: 50px !important;
+    }
 
 .result-1 {
     /*background-color: red;*/
@@ -163,33 +163,33 @@ table.results-table th div {
 }
 
 .no-padding {
-	padding-left: 0 !important;
-	padding-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
 .color-square {
-	border-radius: 3px;
-	display: inline-block;
-	width: 1.35em;
-	height: 1.35em;
-	vertical-align: middle;
+    border-radius: 3px;
+    display: inline-block;
+    width: 1.35em;
+    height: 1.35em;
+    vertical-align: middle;
 }
 
 table.content-table td,
 table.content-table th {
-	padding: 1ex;
+    padding: 1ex;
 }
 
 table.content-table th {
-	background-color: #eee;
+    background-color: #eee;
 }
 
 .attribute {
-    display: inline-block;
-    margin: 2px;
+    display: inline;
 }
 
-.attribute img {
-    width: 40px;
-    height: 40px;
-}
+    .attribute img {
+        width: 40px;
+        height: 40px;
+        padding: 2px 0;
+    }
