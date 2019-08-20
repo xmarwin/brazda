@@ -97,22 +97,28 @@ class BasePresenter extends UI\Presenter
         } // if
         $contentType = strtolower(trim($contentType));
 
-        switch ($contentType) {
-            case 'application/json':
-                $body = !empty($input)
-                    ? Nette\Utils\Json::decode($input)
-                    : [];
-                break;
+        try {
+            switch ($contentType) {
+                case 'application/json':
+                    $body = !empty($input)
+                        ? Nette\Utils\Json::decode($input)
+                        : [];
+                    break;
 
-            case 'query':
-                $body = [];
-                parse_str($input, $body);
-                break;
+                case 'query':
+                    $body = [];
+                    parse_str($input, $body);
+                    break;
 
-            default:
-                $body = [];
-                break;
-        } // if
+                default:
+                    $body = [];
+                    break;
+            } // switch
+        } catch (Utils\JsonException $e) {
+            $this->sendErrorResource(
+                new \Exception($e->getMessage(), 400)
+            ); // sendErrorResource()
+        } // try
 
         return $body;
     } // parseRequestBody()

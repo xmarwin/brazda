@@ -77,21 +77,21 @@ class PostAttributes extends Base
         if (empty($values))
             throw new \Exception('Chybí hodnoty pro změnu atributu stanoviště');
 
-        $postAttribute = $this->find([ 'post' => $values['post'], 'attribute' => $values['attribute'] ])->fetch();
+        $postAttribute = $this->find([ 'post' => $values['post'], 'attribute' => $values['attribute'] ]);
 
-        if (!empty($postAttribute) && $values['status'] === null) {
+        if ($postAttribute !== false && $values['status'] === null) {
             $this->delete([
                 'post'      => $values['post'],
                 'attribute' => $values['attribute']
             ]); // delete()
-        } elseif (!empty($postAttribute) && $values['status'] !== null) {
+        } elseif ($postAttribute !== false && $values['status'] !== null) {
             $this->update([
                 'status'    => $values['status'],
             ], [
                 'post'      => $values['post'],
                 'attribute' => $values['attribute']
             ]); // update()
-        } elseif (empty($postAttribute) && $values['status'] !== null) {
+        } elseif ($postAttribute === false && $values['status'] !== null) {
             $this->insert($values);
         } // if
     } // save()
