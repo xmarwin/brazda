@@ -28,6 +28,7 @@ function ResultController(notification, resultService, postService, teamService,
     vm.delayPenalisation = 10; // points/min
     vm.delayDisc = 20; // mins
     vm.stats = [];
+    vm.teamType = "all";
 
     var logsLoaded = false;
     var postsLoaded = false;
@@ -52,14 +53,44 @@ function ResultController(notification, resultService, postService, teamService,
         }
     }
 
+    vm.changeTeamType = function () {
+        logsLoaded = false;
+        getLogs();
+        checkForData();
+    };
+
     function getLogs() {
-        resultService.getResult()
-            .then(function successCallback(response) {
-                vm.logs = response.data;
-                logsLoaded = true;
-            }, function errorCallback(err) {
-                notification.error(err.data.message);
-            });
+        switch (vm.teamType) {
+            case 'all':
+                resultService.getResultsAll()
+                    .then(function successCallback(response) {
+                        vm.logs = response.data;
+                        logsLoaded = true;
+                    }, function errorCallback(err) {
+                        notification.error(err.data.message);
+                    });
+                break;
+
+            case 'adults':
+                resultService.getResultsAdults()
+                    .then(function successCallback(response) {
+                        vm.logs = response.data;
+                        logsLoaded = true;
+                    }, function errorCallback(err) {
+                        notification.error(err.data.message);
+                    });
+                break;
+
+            case 'kids':
+                resultService.getResultsKids()
+                    .then(function successCallback(response) {
+                        vm.logs = response.data;
+                        logsLoaded = true;
+                    }, function errorCallback(err) {
+                        notification.error(err.data.message);
+                    });
+                break;
+        }
     }
 
     function getPosts() {
@@ -83,6 +114,8 @@ function ResultController(notification, resultService, postService, teamService,
     }
 
     function getTeamsResult() {
+        vm.results = [];
+
         for (let i = 0; i < vm.posts.length; i++) {
             let post = vm.posts[i];
             post.logs = [];

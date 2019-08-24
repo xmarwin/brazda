@@ -2,6 +2,13 @@
 <div>
     <h1>Výsledky</h1>
     <div>
+        <div>
+            <select ng-model="ctrl.teamType" class="form-control" ng-change="ctrl.changeTeamType()">
+                <option value="all">Všichni</option>
+                <option value="adults">Dospělí</option>
+                <option value="kids">Děti</option>
+            </select>
+        </div>
         <table class="results-table">
             <tr>
                 <th style="border-right: 1px solid lightgrey">
