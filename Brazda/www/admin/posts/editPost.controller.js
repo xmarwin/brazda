@@ -17,6 +17,7 @@ EditPostController.$inject = ['$routeParams', '$location', 'Notification', 'Auth
 
 function EditPostController($routeParams, $location, notification, authService, postService, ngDialog, $filter) {
     var vm = this;
+    vm.showHtml = false;
     vm.post = {};
     vm.postTypes = [];
     vm.cacheTypes = [];

@@ -17,6 +17,8 @@ AddPostController.$inject = ['$routeParams', '$location', 'Notification', 'AuthS
 
 function AddPostController($routeParams, $location, notification, authService, postService, ngDialog, $filter) {
     var vm = this;
+    vm.showHtml = false;
+
     vm.post = {};
     vm.post.waypoints = [];
 
