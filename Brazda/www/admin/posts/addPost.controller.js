@@ -107,7 +107,7 @@ function AddPostController($routeParams, $location, notification, authService, p
                 status = vm.attributes[i].status;
             }
 
-            let att = "'" + vm.attributes[i].attribute + "': " + status;
+            let att = '"' + vm.attributes[i].attribute + '": ' + status;
             atts.push(att);
         }
 
@@ -134,7 +134,7 @@ function AddPostController($routeParams, $location, notification, authService, p
             "passwordCharacter": post.passwordCharacter,
             "passwordPosition": post.passwordPosition,
             "time_estimate": post.time_estimate,
-            "attributes": "{" + atts.join() + "}"
+            "attributes": JSON.parse('{' + atts.join() + '}')
         };
 
         postService.addPost(input)
