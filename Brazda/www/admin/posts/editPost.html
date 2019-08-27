@@ -13,10 +13,12 @@
         </div>
         <div class="row form-group">
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                Popis:
+                Popis:<br />
+                <input type="checkbox" ng-model="ctrl.showHtml" id="showHtml"><label for="showHtml">HTML</label>
             </div>
             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                <ng-quill-editor ng-model="ctrl.post.description"></ng-quill-editor>
+                <ng-quill-editor ng-model="ctrl.post.description" ng-show="!ctrl.showHtml"></ng-quill-editor>
+                <textarea rows="5" style="width: 100%" ng-model="ctrl.post.description" ng-show="ctrl.showHtml"></textarea>
             </div>
         </div>
         <div class="row form-group">

@@ -32,7 +32,7 @@
             <strong class="col-xs-5 col-sm-3 col-md-2 col-xl-2 text-right">Otvírací doba:</strong>
             <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10">{{ctrl.post.open_from}} - {{ctrl.post.open_to}}</div>
         </div>
-        <div class="row" ng-show="ctrl.post.post_type==='CGC'">
+        <div class="row" ng-show="ctrl.post.post_type === 'CGC'">
             <strong class="col-xs-5 col-sm-3 col-md-2 col-xl-2 text-right">Typ:</strong>
             <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_type === 'TRA'"><img alt="{{ctrl.post.cache_name}}" title="{{ctrl.post.cache_name}}" src="/assets/images/traditional.png"> ({{ctrl.post.cache_name}})</div>
             <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10" ng-show="ctrl.post.cache_type === 'MLT'"><img alt="{{ctrl.post.cache_name}}" title="{{ctrl.post.cache_name}}" src="/assets/images/multi.png"> ({{ctrl.post.cache_name}})</div>
@@ -59,8 +59,8 @@
             <strong class="col-xs-5 col-sm-3 col-md-2 col-xl-2 text-right">Body:</strong>
             <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10">{{ctrl.post.max_score}}</div>
         </div>
-        <div class="row">
-            <strong class="col-xs-5 col-sm-3 col-md-2 col-xl-2 text-right" ng-show="ctrl.post.time_estimate">Délka:</strong>
+        <div class="row" ng-show="ctrl.post.time_estimate">
+            <strong class="col-xs-5 col-sm-3 col-md-2 col-xl-2 text-right">Délka:</strong>
             <div class="col-xs-7 col-sm-9 col-md-10 col-xl-10">{{ctrl.post.time_estimate}}</div>
         </div>
     </div>
@@ -110,16 +110,16 @@
             Na {{ctrl.post.password_position}}. místě hesla k bonusu je písmeno {{ctrl.post.password_character | uppercase}}.
         </div>
     </div>
-    <div class="row" ng-show="ctrl.post.attributes.length > 0">
-        <h2 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Atributy:</h2>
+    <div class="row" ng-show="ctrl.showAttributes()">
+        <h2 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Atributy</h2>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12" ng-show="ctrl.post.attributes.length > 0">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12" ng-show="ctrl.showAttributes()">
         <div ng-repeat="att in ctrl.post.attributes" class="attribute">
             <img ng-src="{{att.icon_on}}" title="{{att.name_on}}" ng-click="ctrl.changeAttribute(att.attribute)" ng-show="att.status" class="attribute" />
             <img ng-src="{{att.icon_off}}" title="{{att.name_off}}" ng-click="ctrl.changeAttribute(att.attribute)" ng-show="att.status===false" class="attribute" />
         </div>
     </div>
-    <div class="row">
+    <div class="row" ng-show="ctrl.post.waypoints.length > 0">
         <h2 class="col-xs-12 col-sm-12 col-md-12 col-xl-12">Waypointy</h2>
     </div>
     <div class="row">

@@ -83,6 +83,10 @@ function PostDetailController(postService, $routeParams, $filter, downloadServic
         $location.path("/bonusUnlock/" + vm.post.post);
     };
 
+    vm.showAttributes = function () {
+        return !angular.isUndefined(vm.post.attributes) && $filter('filter')(vm.post.attributes, { 'status': '' }).length > 0;
+    };
+
     function getHelpInt() {
         postService.getHelp(vm.postId)
             .then(function (data) {
