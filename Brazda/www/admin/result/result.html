@@ -4,9 +4,9 @@
     <div>
         <div>
             <select ng-model="ctrl.teamType" class="form-control" ng-change="ctrl.changeTeamType()">
-                <option value="all">Všichni</option>
-                <option value="adults">Dospělí</option>
-                <option value="kids">Děti</option>
+                <option value="">Všichni</option>
+                <option value="COM">Dospělí</option>
+                <option value="KID">Děti</option>
             </select>
         </div>
         <table class="results-table">
@@ -30,7 +30,8 @@
                     </div>
                 </th>
             </tr>
-            <tr ng-repeat="team in ctrl.results | orderBy: '-totalPoints'" style="border-top: 1px solid lightgrey" ng-class="{'result-1': $index == '0','result-2': $index == '1','result-3': $index == '2', 'result-4': $index == '3'}">
+            <tr ng-repeat="team in ctrl.results | orderBy: '-totalPoints'" style="border-top: 1px solid lightgrey" ng-class="{'result-1': $index == '0','result-2': $index == '1','result-3': $index == '2', 'result-4': $index == '3'}" 
+                ng-show="ctrl.teamType === '' || team.teamRole === ctrl.teamType">
                 <td style="width: 200px; text-align: right; border-right: 1px solid lightgrey">
                     <nobr>{{ team.teamName }}</nobr>
                 </td>
@@ -46,21 +47,4 @@
             </tr>
         </table>
     </div>
-
-    <!--<div>
-        <ul>
-            <li>
-                První startovali: {{ctrl.stats.firstStart.name}} - {{ctrl.stats.firstStart.moment | date: 'mediumTime'}}
-            </li>
-            <li>
-                Poslední startovali: {{ctrl.stats.lastStart.name}} - {{ctrl.stats.lastStart.moment | date: 'mediumTime'}}
-            </li>
-            <li>
-                První v cíli: {{ctrl.stats.firstEnd.name}} - {{ctrl.stats.firstEnd.moment | date: 'mediumTime'}}
-            </li>
-            <li>
-                Poslední v cíli: {{ctrl.stats.lastEnd.name}} - {{ctrl.stats.lastEnd.moment | date: 'mediumTime'}}
-            </li>
-        </ul>
-    </div>-->
 </div>
