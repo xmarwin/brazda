@@ -48,7 +48,7 @@
                 Telefon:
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <input type="text" id="phone" name="phone" ng-model="ctrl.team.phone" class="form-control" />
+                <input type="text" id="telephone" name="telephone" ng-model="ctrl.team.telephone" class="form-control" />
             </div>
         </div>
         <div class="row form-group">
@@ -56,7 +56,7 @@
                 Aktivní:
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <input type="checkbox" id="active" name="active" ng-model="ctrl.team.active" class="form-control" />
+                <input type="checkbox" id="active" name="active" ng-model="ctrl.team.is_active" class="form-control" />
             </div>
         </div>
         <div class="row form-group">
@@ -64,7 +64,7 @@
                 Kategorie:
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <select id="category" name="category" ng-model="ctrl.team.role" class="form-control">
+                <select id="role" name="role" ng-model="ctrl.team.role" class="form-control">
                     <option value="COM">Dospělý</option>
                     <option value="KID">Dětský</option>
                     <option value="ORG">Organizátoři</option>
@@ -76,7 +76,7 @@
                 Povolit sledování:
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <input type="checkbox" id="allowTracking" name="allowTracking" ng-model="ctrl.team.allowTracking" class="form-control" />
+                <input type="checkbox" id="allowTracking" name="allowTracking" ng-model="ctrl.team.allow_tracking" class="form-control" />
             </div>
         </div>
         <div class="row form-group">

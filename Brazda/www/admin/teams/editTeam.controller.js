@@ -10,7 +10,6 @@ angular.module('myApp.admin.editTeam', ['ngRoute'])
                 controllerAs: 'ctrl'
             });
     }])
-
     .controller('EditTeamCtrl', EditTeamController);
 
 EditTeamController.$inject = ['$routeParams', '$location', '$filter', 'Notification', 'AuthService', 'TeamService'];
@@ -35,11 +34,11 @@ function EditTeamController($routeParams, $location, $filter, notification, auth
             "team": vm.team.team,
             "name": vm.team.name,
             "shibboleth": vm.team.shibboleth,
-            "role": vm.team.type,
-            "isActive": vm.team.active,
-            "allowTracking": vm.team.allowTracking,
+            "role": vm.team.role,
+            "isActive": vm.team.is_active,
+            "allowTracking": vm.team.allow_tracking,
             "description": vm.team.description,
-            "telephone": vm.team.phone,
+            "telephone": vm.team.telephone,
             "email": vm.team.email
         };
 
