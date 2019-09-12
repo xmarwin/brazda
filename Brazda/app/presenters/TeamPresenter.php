@@ -106,22 +106,28 @@ class TeamPresenter extends SecuredBasePresenter
         $this->checkAdministrator();
 
         $this->checkContentTypeJson();
-
+/*
         $this->checkValuesExists($this->input, [
             'name',
             'shibboleth',
             'role',
             'isActive'
         ]); // checkValuesExists()
-
+*/
         $team = (int) $this->input->team;
         $filter = [ 'team' => $team ];
-        $values = [
-            'name'           => $this->input->name,
-            'shibboleth'     => $this->input->shibboleth,
-            'team_type'      => strtoupper($this->input->role),
-            'is_active'      => $this->input->isActive
-        ];
+        if (isset($this->input->name) && !empty($this->input->name))
+            $values['name'] = $this->input->name;
+
+        if (isset($this->input->shibboleth) && !empty($this->input->shibboleth))
+            $values['shibboleth'] = $this->input->shibboleth;
+
+        if (isset($this->input->role) && !empty($this->input->role))
+            $values['team_type'] = $this->input->role;
+
+        if (isset($this->input->isActive) && !empty($this->input->isActive))
+            $values['is_active'] = $this->input->isActive;
+
         $values['tracking_allowed'] = isset($this->input->allowTracking)
             ? $this->input->allowTracking
             : false;

@@ -154,7 +154,8 @@ class Teams extends Base
         if (empty($values))
             throw new \Exception('Chybí hodnoty pro úpravu týmu.');
 
-        self::checkType($values['team_type']);
+		if (!empty($values['team_type']))
+			self::checkType($values['team_type']);
 
         $filter = $this->normalizeFilter($filter);
 

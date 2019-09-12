@@ -7,10 +7,10 @@ SET PGVERSION=9.5
 SET PGCLIENTENCODING=UTF8
 SET PGUSER=postgres
 SET PGPASSWORD=
-SET PGDATABASE=brazda_test
+SET PGDATABASE=brazda
 
 ECHO Ruším starou databázi BRAZDA...
-"C:\Program Files\PostgreSQL\%PGVERSION%\bin\dropdb.exe" brazda_test
+"C:\Program Files\PostgreSQL\%PGVERSION%\bin\dropdb.exe" brazda
 
 ECHO Vytvářím novou databázi BRAZDA...
 "C:\Program Files\PostgreSQL\%PGVERSION%\bin\createdb.exe" -O brazda_test -E UTF8 -T template0  -U postgres -O brazda
@@ -18,7 +18,7 @@ if errorLevel 1 ( exit /b %errorLevel%; )
 
 SET PGUSER=brazda
 SET PGPASSWORD=FzwtMS/jq.XSQ
-SET PGDATABASE=brazda_test
+SET PGDATABASE=brazda
 
 ECHO Importuji schéma...
 "C:\Program Files\PostgreSQL\%PGVERSION%\bin\psql.exe" -f schema.sql
@@ -102,6 +102,22 @@ if errorLevel 1 ( exit /b %errorLevel%; )
 
 ECHO Aplikuji patch 019...
 "C:\Program Files\PostgreSQL\%PGVERSION%\bin\psql.exe" -f p019.sql
+if errorLevel 1 ( exit /b %errorLevel%; )
+
+ECHO Aplikuji patch 020...
+"C:\Program Files\PostgreSQL\%PGVERSION%\bin\psql.exe" -f p020.sql
+if errorLevel 1 ( exit /b %errorLevel%; )
+
+ECHO Aplikuji patch 021...
+"C:\Program Files\PostgreSQL\%PGVERSION%\bin\psql.exe" -f p021.sql
+if errorLevel 1 ( exit /b %errorLevel%; )
+
+ECHO Aplikuji patch 022...
+"C:\Program Files\PostgreSQL\%PGVERSION%\bin\psql.exe" -f p022.sql
+if errorLevel 1 ( exit /b %errorLevel%; )
+
+ECHO Aplikuji patch 023...
+"C:\Program Files\PostgreSQL\%PGVERSION%\bin\psql.exe" -f p023.sql
 if errorLevel 1 ( exit /b %errorLevel%; )
 
 ECHO Importuji základní data...

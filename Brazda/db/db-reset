@@ -2,7 +2,7 @@
 
 export PGHOST="dbserver"
 export PGPORT="5432"
-export PGDATABASE="brazda_test"
+export PGDATABASE="brazda"
 export PGPASSWORD="Bitov7+Sv8b"
 
 echo "Ruším starou databázi BRAZDA..."
@@ -97,6 +97,18 @@ echo "Aplikuji patch 018..."
 
 echo "Aplikuji patch 019..."
 /usr/bin/psql -q -h $PGHOST -p $PGPORT -f p019.sql
+
+echo "Aplikuji patch 020..."
+/usr/bin/psql -q -h $PGHOST -p $PGPORT -f p020.sql
+
+echo "Aplikuji patch 021..."
+/usr/bin/psql -q -h $PGHOST -p $PGPORT -f p021.sql
+
+echo "Aplikuji patch 022..."
+/usr/bin/psql -q -h $PGHOST -p $PGPORT -f p022.sql
+
+echo "Aplikuji patch 023..."
+/usr/bin/psql -q -h $PGHOST -p $PGPORT -f p023.sql
 
 if [ $? -gt 0 ]; then exit; fi
 echo "Importuji základní data..."
