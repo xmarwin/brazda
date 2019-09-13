@@ -61,8 +61,8 @@ function EditPostController($routeParams, $location, notification, authService, 
                 }
 
                 angular.forEach(vm.post.waypoints, function (value) {
-                    value.waypointType = $filter('filter')(vm.waypointTypes, { 'waypointType': value.waypointType }, true)[0];
-                    value.waypointVisibility = $filter('filter')(vm.waypointVisibilities, { 'waypointVisibility': value.waypointVisibility }, true)[0];
+                    value.waypointType = $filter('filter')(vm.waypointTypes, { 'waypointType': value.waypoint_type }, true)[0];
+                    value.waypointVisibility = $filter('filter')(vm.waypointVisibilities, { 'waypointVisibility': value.waypoint_visibility }, true)[0];
                 });
             }, function (err) {
 
