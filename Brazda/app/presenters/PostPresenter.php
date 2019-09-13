@@ -576,12 +576,16 @@ class PostPresenter extends SecuredBasePresenter
                             'waypoint_type'       => strtoupper($wp->waypointType),
                             'waypoint_visibility' => strtoupper($wp->waypointVisibility),
                             'post'                => $post,
-                            'name'                => $wp->name,
-                            'latitude'            => (float) $wp->latitude,
-                            'longitude'           => (float) $wp->longitude
+                            'name'                => $wp->name
                         ];
+                        if (isset($wp->latitude) && !empty($wp->latitude))
+							$values['latitude'] = (float) $wp->latitude;
+
+                        if (isset($wp->longitude) && !empty($wp->longitude))
+							$values['longitude'] = (float) $wp->longitude;
+
                         if (isset($wp->description) &&  !empty($wp->description))
-                            $waypointValues['description'] = $wp->description;
+                            $values['description'] = $wp->description;
 
                         $result['waypoints'][] = (int) $this->waypoints->insert($values);
                     } catch (Dibi\Exception $e) {
