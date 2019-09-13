@@ -30,7 +30,7 @@ function PostNoteController(postService, $routeParams, $filter, notification, $l
     };
 
     vm.saveNote = function () {
-        var data = { post: vm.postId, note: vm.post.postNote };
+        var data = { post: vm.postId, note: vm.post.post_note };
 
         postService.saveNote(data)
             .then(function (response) {
