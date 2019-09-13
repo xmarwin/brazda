@@ -85,6 +85,6 @@ function WebApiService($http, $q, $rootScope, $log) {
             parameters = parameters.substr(0, parameters.length - 1);
         }
 
-        return 'https://test.brazda-gc.cz/api/' + endpointName + parameters;
+        return 'https://app.brazda-gc.cz/api/' + endpointName + parameters;
     }
 }
