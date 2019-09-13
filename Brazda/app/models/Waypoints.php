@@ -41,7 +41,10 @@ class Waypoints extends Base
                 wt.rank AS waypoint_type_rank,
                 w.waypoint_visibility,
                 wv.name AS waypoint_visibility_name,
-                %if", isset($team), "
+                %if", isset($team) && $team == 1, "
+                    w.latitude AS latitude,
+                    w.longitude AS longitude
+                %else %if", isset($team), "
                 CASE WHEN w.waypoint_visibility = 'VW' THEN w.latitude
                     WHEN w.waypoint_visibility = 'HC' AND p.post_type NOT IN ('BON', 'SBN') AND lo.moment IS NOT NULL THEN w.latitude
                     WHEN w.waypoint_visibility = 'HC' AND p.post_type IN ('BON', 'SBN') AND lb.moment IS NOT NULL THEN w.latitude
@@ -54,10 +57,10 @@ class Waypoints extends Base
                     WHEN w.waypoint_visibility = 'HW' AND p.post_type NOT IN ('BON', 'SBN') AND lo.moment IS NOT NULL THEN w.longitude
                     WHEN w.waypoint_visibility = 'HW' AND p.post_type IN ('BON', 'SBN') AND lb.moment IS NOT NULL THEN w.longitude
                     ELSE NULL END AS longitude
-                %else
+				%else
                 CASE waypoint_visibility WHEN 'VW' THEN w.latitude  ELSE NULL END AS latitude,
                 CASE waypoint_visibility WHEN 'VW' THEN w.longitude ELSE NULL END AS longitude
-                %end
+                %end %end
              FROM waypoints w
              JOIN waypoint_types wt USING (waypoint_type)
              JOIN waypoint_visibilities wv USING (waypoint_visibility)
