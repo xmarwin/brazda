@@ -15,7 +15,8 @@ DirectoryIndex index.html index.php
 	# RewriteBase /
 
 	# prevents files starting with dot to be viewed by browser
-	RewriteRule /\.|^\.(?!well-known/) - [F]
+	#RewriteRule /\.|^\.(?!well-known/) - [F]
+	RewriteCond %{REQUEST_URI} !^/\.well\-known/acme\-challenge/
 
 	# front controller
 	RewriteCond %{REQUEST_FILENAME} !-f
