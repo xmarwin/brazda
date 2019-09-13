@@ -157,8 +157,8 @@ function EditPostController($routeParams, $location, notification, authService, 
             "waypoints": waypoints,
             "openFrom": $filter("date")(post.open_from, "shortTime"),
             "openTo": $filter("date")(post.open_to, "shortTime"),
-            "passwordCharacter": post.passwordCharacter,
-            "passwordPosition": post.passwordPosition,
+            "passwordCharacter": post.password_character,
+            "passwordPosition": post.password_position,
             "timeEstimate": post.time_estimate,
             "attributes": JSON.parse('{' + atts.join() + '}')
         };
