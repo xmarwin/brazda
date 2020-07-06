@@ -56,6 +56,11 @@ function EditPostController($routeParams, $location, notification, authService, 
                     vm.post.open_from = new Date("2017-01-01 " + vm.post.open_from + ":00");
                 }
 
+                vm.latitudeDeg = Math.floor(vm.post.latitude);
+                vm.latitudeDecimals = Math.round((((vm.post.latitude - vm.latitudeDeg) * 60) + Number.EPSILON) * 1000) / 1000;
+                vm.longitudeDeg = Math.floor(vm.post.longitude);
+                vm.longitudeDecimals = Math.round((((vm.post.longitude - vm.longitudeDeg) * 60) + Number.EPSILON) * 1000) / 1000;
+
                 if (vm.post.open_to !== null) {
                     vm.post.open_to = new Date("2017-01-01 " + vm.post.open_to + ":00");
                 }
@@ -76,6 +81,18 @@ function EditPostController($routeParams, $location, notification, authService, 
             controller: 'EditPostCtrl',
             controllerAs: 'vm'
         }).then(function (data) {
+            if (data.latitudeDeg & data.latitudeDecimals) {
+                data.latitude = data.latitudeDeg + data.latitudeDecimals / 60;
+            } else {
+                data.latitude = 0;
+            }
+
+            if (data.longitudeDeg & data.longitudeDecimals) {
+                data.longitude = data.longitudeDeg + data.longitudeDecimals / 60;
+            } else {
+                data.longitude = 0;
+            }
+
             vm.post.waypoints.push(data);
         }, function (err) {
 
@@ -151,8 +168,8 @@ function EditPostController($routeParams, $location, notification, authService, 
             "description": post.description,
             "cacheType": angular.isUndefined(post.cacheType) ? null : post.cacheType.cacheType,
             "maxScore": post.max_score,
-            "latitude": post.latitude,
-            "longitude": post.longitude,
+            "latitude": (vm.latitudeDeg + vm.latitudeDecimals / 60) || 0,
+            "longitude": (vm.longitudeDeg + vm.longitudeDecimals / 60) || 0,
             "withStaff": post.withStaff,
             "waypoints": waypoints,
             "openFrom": $filter("date")(post.open_from, "shortTime"),

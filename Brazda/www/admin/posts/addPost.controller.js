@@ -55,6 +55,19 @@ function AddPostController($routeParams, $location, notification, authService, p
             controllerAs: 'vm'
         }).then(function (data) {
             data.wpt = vm.post.waypoints.length + 1;
+
+            if (data.latitudeDeg & data.latitudeDecimals) {
+                data.latitude = data.latitudeDeg + data.latitudeDecimals / 60;
+            } else {
+                data.latitude = 0;
+            }
+
+            if (data.longitudeDeg & data.longitudeDecimals) {
+                data.longitude = data.longitudeDeg + data.longitudeDecimals / 60;
+            } else {
+                data.longitude = 0;
+            }
+
             vm.post.waypoints.push(data);
         }, function (err) {
 
@@ -127,8 +140,8 @@ function AddPostController($routeParams, $location, notification, authService, p
             "description": post.description,
             "cacheType": angular.isUndefined(post.cacheType) ? null : post.cacheType.cacheType,
             "maxScore": post.maxScore,
-            "latitude": post.latitude,
-            "longitude": post.longitude,
+            "latitude": (vm.latitudeDeg + vm.latitudeDecimals / 60) || 0,
+            "longitude": (vm.longitudeDeg + vm.longitudeDecimals / 60) || 0,
             "withStaff": post.withStaff,
             "waypoints": waypoints,
             "openFrom": $filter("date")(post.openFrom, "shortTime"),
