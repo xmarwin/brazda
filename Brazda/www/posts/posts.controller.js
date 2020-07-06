@@ -52,7 +52,7 @@ function PostsController(authService, postService, $filter, notification) {
         var postColorFilter = (angular.isUndefined(vm.filter.color) || vm.filter.color === null) ? "" : angular.isUndefined(vm.filter.color.color) ? "" : vm.filter.color.color;
 
         vm.postsFiltered = $filter('filter')(vm.posts, { "post_type": postTypeFilter, "color": postColorFilter });
-        
+
         if (!(angular.isUndefined(vm.filter.state) || vm.filter.state === '')) {
             vm.postsFiltered = $filter('filter')(vm.postsFiltered, { "is_done": vm.filter.state === 'found' });
         }
@@ -77,6 +77,27 @@ function PostsController(authService, postService, $filter, notification) {
     vm.refresh = function () {
         loadPosts();
     };
+
+    vm.isOpen = function (post) {
+        var now = new Date();
+        
+        if ((!post.open_from || post.open_from <= now) && (!post.open_to || post.open_to > now)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    vm.isClosing = function (post) {
+        var future = new Date().setHours(new Date().getHours() + 1);        
+
+        if (!post.open_to || post.open_to <= future && vm.isOpen(post)) {
+            return true;
+        }
+
+        return false;
+    }
 
     var loadPosts = function () {
         postService.getPosts()

@@ -44,7 +44,7 @@
     </div>
     <table class="post-list">
         <tbody ng-repeat="postItem in ctrl.postsFiltered">
-            <tr>
+            <tr ng-style="!ctrl.isOpen(postItem) && {'background-color': 'lightgrey'}">
                 <td style="width: 40px; background-color: {{postItem.color_code}}; text-align: center; border-radius: 6px;">
                     <i class="fa fa-2x fa-question-circle-o" aria-hidden="true" ng-show="postItem.post_type==='CIP'"></i>
                     <i class="fa fa-2x fa-child" aria-hidden="true" ng-show="postItem.post_type==='ACT'"></i>
@@ -65,13 +65,13 @@
                         <span ng-show="postItem.cache_type === 'WIG'"><img src="/assets/images/wherigo.png" alt="{{postItem.cache_name}}" title="{{postItem.cache_name}}"></span>
                         <a href="#/postDetail/{{postItem.post}}">{{postItem.name}}</a>
                     </h4>
-                    <span ng-show="postItem.open_from !== null">
+                    <span ng-show="postItem.open_from !== null" ng-style="ctrl.isClosing(postItem) && {'color': 'red'}">
                         &nbsp;({{postItem.open_from | date:'shortTime'}} - {{postItem.open_to | date:'shortTime'}})
                     </span>
                 </td>
 
             </tr>
-            <tr>
+            <tr ng-style="!ctrl.isOpen(postItem) && {'background-color': 'lightgrey'}">
                 <td style="width: 40px; height: 35px;" class="text-center">
                     <i class="fa fa-check fa-2x" style="color: green" aria-hidden="true" ng-show="postItem.is_done"></i>
                     <i class="fa fa-unlock-alt fa-2x" style="color: green" aria-hidden="true" ng-show="postItem.is_unlocked && !postItem.is_done"></i>
