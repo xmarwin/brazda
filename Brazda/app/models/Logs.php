@@ -196,12 +196,12 @@ class Logs extends Base
     public function isFinished($team)
     {
         $endLog = $this->db->query(
-			"SELECT p.*
-			 FROM posts p
-			 LEFT JOIN logs l USING (post)
-			 WHERE p.post_type LIKE %s", Posts::END,
-            "AND l.team = %i", $team,
-			"AND l.log_type LIKE %s", self::FINISH
+            "SELECT p.*
+	     FROM posts p
+	     LEFT JOIN logs l USING (post)
+	     WHERE p.post_type LIKE %s", Posts::END,
+	    "AND l.team = %i", $team,
+	    "AND l.log_type LIKE %s", self::FINISH
         )->fetch();
 
         return !empty($endLog);
