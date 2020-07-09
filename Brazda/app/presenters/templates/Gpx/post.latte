@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <gpx xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" creator="BRAZDAteam All Rights Reserved. http://www.brazda-gc.cz" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://www.groundspeak.com/cache/1/0 http://www.groundspeak.com/cache/1/0/cache.xsd" xmlns="http://www.topografix.com/GPX/1/0">
-    <name>Stanoviště závodu BRAZDA</name>
-    <desc>Seznam stanovišť závodu BRAZDA vygenerovaný z brazda-gc.cz</desc>
+    <name>Stanoviště závodu BRAZDA {date('Y')}</name>
+    <desc>Seznam stanovišť závodu BRAZDA {date('Y')} vygenerovaný z brazda-gc.cz</desc>
     <author>Account "BRAZDAteam" From Geocaching.com</author>
     <email>info@brazda-gc.cz</email>
     <url>http://www.brazda-gc.cz/#/posts</url>
-    <urlname>BRAZDA - Brutální Rožnovský Závod Družstev Amatérů</urlname>
+    <urlname>BRAZDA {date('Y')} - Brutální Rožnovský Závod Družstev Amatérů</urlname>
     <time>{date('c')}</time>
     <keywords>cache, geocache</keywords>
     <bounds minlat="49.5280778" minlon="17.9448169" maxlat="49.3806722" maxlon="18.3373956" />
-    {foreach $posts as $postId => $post}
+    {foreach $posts as $post}
     <wpt lat="{$post->latitude}" lon="{$post->longitude}">
         <time>{date('c')}</time>
-        <name>GCP{$post->post}</name>
+        <name>GCP{date('Y')}{$post->post}</name>
         <desc>{$post->name}, {$post->type_name} ({$post->difficulty}/{$post->terrain})</desc>
         <url>https://app.brazda-gc.cz/#/postDetail/{$post->post}</url>
         <urlname>{$post->name}</urlname>
