@@ -135,8 +135,11 @@ class Posts extends Base
                 p.password_character,
                 p.password_position,
                 p.shibboleth,
+		p.shibboleth_kid,
                 p.bonus_code,
-                p.help
+                p.help,
+		p.support,
+		p.instructions
             %end
              FROM posts p
              JOIN post_colors pc USING (color)
@@ -257,8 +260,11 @@ class Posts extends Base
                 p.password_character,
                 p.password_position,
                 p.shibboleth,
+                p.shibboleth_kid,
                 p.bonus_code,
-                p.help
+                p.help,
+		p.support,
+		p.instructions
             %end
              FROM posts p
              JOIN post_colors pc USING (color)
@@ -307,25 +313,29 @@ class Posts extends Base
 
         return $this->db->query(
             "SELECT
-				CASE WHEN post_type LIKE 'SBN' THEN superbonusPassword(%i)", $team, " ELSE bonusPassword(color, %i)", $team, " END AS password,
-				password_character,
-				password_position
+		CASE WHEN post_type LIKE 'SBN' THEN superbonusPassword(%i)", $team, " ELSE bonusPassword(color, %i)", $team, " END AS password,
+		password_character,
+		password_position
              FROM posts
              WHERE post = %i", $post
         )->fetch();
 
     } // getPassword()
 
-    public function getShibboleth($post)
+    public function getShibboleth($post, $role = null)
     {
         $post = (int) $post;
 
-        return $this->db->query(
-            "SELECT shibboleth
+        $row = $this->db->query(
+            "SELECT shibboleth, shibboleth_kid
              FROM posts
              WHERE post = %i", $post
-        )->fetchSingle('shibboleth');
+        )->fetch();
 
+	// Pro dětské týmy vracíme (je-li nastaveno) heslo pro dětské týmy
+	return ($role === 'KID' && !empty($row->shibboleth_kid))
+		? $row->shibboleth_kid
+		: $row->shibboleth;
     } // getShibboleth()
 
     public function getBonusCode($post)

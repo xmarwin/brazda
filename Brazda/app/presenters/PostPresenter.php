@@ -192,7 +192,7 @@ class PostPresenter extends SecuredBasePresenter
                 $this->sendResource();
             } // if
 
-            // Neskončil zatím tým závod?
+            // Neskončil už tým závod?
             if ($this->logs->isFinished($this->team['team'])) {
                 $this->resource = [
                 'status' => 'nelze logovat stanoviště po skončení závodu',
@@ -231,11 +231,12 @@ class PostPresenter extends SecuredBasePresenter
             } // if
 
             // Zjistíme heslo stanoviště a připravíme jej na porovnání
-            $postShibboleth = mb_strtolower($this->posts->getShibboleth($post));
+            $postShibboleth = mb_strtolower($this->posts->getShibboleth($post, $this->team['role']));
             $shibboleth     = mb_strtolower(urldecode($shibboleth));
 
             // Je heslo stanoviště správné?
             if ($shibboleth != $postShibboleth) {
+		// Pokud ne, zalogujeme chybu
                 $this->logs->insert([
                     'team'     => (int) $this->team['team'],
                     'post'     => (int) $post,
@@ -249,6 +250,7 @@ class PostPresenter extends SecuredBasePresenter
                 $this->sendResource();
             } // if
 
+            // Podle typu stanoviště vybereme spravný typ logu
             $postData = $this->posts->find($post);
             switch ($postData->post_type) {
                 case Models\Posts::BEGIN:
@@ -438,6 +440,15 @@ class PostPresenter extends SecuredBasePresenter
         if (isset($this->input->timeEstimate) && !empty($this->input->timeEstimate))
             $values['time_estimate'] = $this->input->timeEstimate;
 
+        if (isset($this->input->shibbolethKid) && !empty($this->input->shibbolethKid))
+	   $values['shibboleth_kid'] = $this->input->shibbolethKid;
+
+        if (isset($this->input->support) && !empty($this->input->support))
+	   $values['support'] = $this->input->support;
+
+        if (isset($this->input->instructions) && !empty($this->input->instructions))
+	   $values['instructions'] = $this->input->instructions;
+
         $result = [];
         try {
             $this->posts->begin();
@@ -557,6 +568,15 @@ class PostPresenter extends SecuredBasePresenter
 
         if (isset($this->input->timeEstimate) && !empty($this->input->timeEstimate))
             $values['time_estimate'] = $this->input->timeEstimate;
+
+        if (isset($this->input->shibbolethKid) && !empty($this->input->shibbolethKid))
+	   $values['shibboleth_kid'] = $this->input->shibbolethKid;
+
+        if (isset($this->input->support) && !empty($this->input->support))
+	   $values['support'] = $this->input->support;
+
+        if (isset($this->input->instructions) && !empty($this->input->instructions))
+	   $values['instructions'] = $this->input->instructions;
 
         $result = [];
         try {
