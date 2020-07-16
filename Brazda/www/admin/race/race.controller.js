@@ -20,16 +20,16 @@ function RaceController(notification, raceService, $filter, systemService) {
 
     var init = function () {
         systemService.getSystemInfo()
-            .then(function (data) {
-                vm.raceDuration = data.data.raceDuration;
+            .then(function (response) {
+                vm.details = response.data;
             }, function (err) {
                 notification.error(err.data.message);
             });
     }
 
-    vm.setRaceDuration = function () {
-        raceService.setRaceDuration(vm.raceDuration)
-            .then(function (data) {
+    vm.setRaceDetails = function () {
+        raceService.setRaceDetails(vm.details)
+            .then(function (response) {
                 notification.success("Nastavení uloženo.");
             }, function (err) {
                 notification.error(err.data.message);
