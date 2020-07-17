@@ -17,7 +17,9 @@ EditPostController.$inject = ['$routeParams', '$location', 'Notification', 'Auth
 
 function EditPostController($routeParams, $location, notification, authService, postService, ngDialog, $filter) {
     var vm = this;
-    vm.showHtml = false;
+    vm.showDescriptionHtml = false;
+    vm.showInstructionsHtml = false;
+    vm.showSupportHtml = false;
     vm.post = {};
     vm.postTypes = [];
     vm.cacheTypes = [];
@@ -165,7 +167,10 @@ function EditPostController($routeParams, $location, notification, authService, 
             "help": post.help,
             "bonusCode": post.bonus_code,
             "shibboleth": post.shibboleth,
+            "shibbolethKid": post.shibboleth_kid,
             "description": post.description,
+            "instructions": post.instructions,
+            "support": post.support,
             "cacheType": angular.isUndefined(post.cacheType) ? null : post.cacheType.cacheType,
             "maxScore": post.max_score,
             "latitude": (vm.latitudeDeg + vm.latitudeDecimals / 60) || 0,

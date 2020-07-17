@@ -17,7 +17,9 @@ AddPostController.$inject = ['$routeParams', '$location', 'Notification', 'AuthS
 
 function AddPostController($routeParams, $location, notification, authService, postService, ngDialog, $filter) {
     var vm = this;
-    vm.showHtml = false;
+    vm.showDescriptionHtml = false;
+    vm.showSupportHtml = false;
+    vm.showInstructionsHtml = false;
 
     vm.post = {};
     vm.post.waypoints = [];
@@ -137,7 +139,10 @@ function AddPostController($routeParams, $location, notification, authService, p
             "help": post.help,
             "bonusCode": post.bonusCode,
             "shibboleth": post.shibboleth,
+            "shibbolethKid": post.shibboleth_kid,
             "description": post.description,
+            "instructions": post.instructions,
+            "support": post.support,
             "cacheType": angular.isUndefined(post.cacheType) ? null : post.cacheType.cacheType,
             "maxScore": post.maxScore,
             "latitude": (vm.latitudeDeg + vm.latitudeDecimals / 60) || 0,
