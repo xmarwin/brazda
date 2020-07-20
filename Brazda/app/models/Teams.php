@@ -60,8 +60,8 @@ class Teams extends Base
         $filter = $this->normalizeFilter($filter);
         $order  = $this->normalizeOrder($order);
         $limit  = $this->normalizeLimit($limit);
-        $limit  = $limit['limit'];
         $offset = $limit['offset'];
+        $limit  = $limit['limit'];
 
         return $this->db->query(
            "SELECT
