@@ -8365,7 +8365,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63007</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://brazda.local</IISUrl>
+          <IISUrl>http://brazda.local/www</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

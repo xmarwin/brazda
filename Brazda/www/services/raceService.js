@@ -18,10 +18,19 @@ function RaceService($interval, webApiService, localStorageService, $rootScope) 
             "raceStart_COM": data.raceStart_COM,
             "raceStart_KID": data.raceStart_KID,
             "timePenalization": data.timePenalization,
+            "raceTitle": data.raceTitle 
         }, 'POST');
     }
 
     vm.startRace = function () {
         return webApiService.get('system/start');
+    }
+
+    vm.startRace_COM = function () {
+        return webApiService.get('system/start?role=COM');
+    }
+
+    vm.startRace_KID = function () {
+        return webApiService.get('system/start?role=KID');
     }
 }

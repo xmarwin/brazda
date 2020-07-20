@@ -3,6 +3,14 @@
     <h1>Nastavení parametrů závodu</h1>
     <div class="row form-group">
         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            Titulek závodu:
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <input type="text" name="raceTitle" ng-model="ctrl.details.raceTitle" class="form-control" />
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
             Začátek závodu:
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
@@ -54,7 +62,13 @@
             <button ng-click="ctrl.setRaceDetails()" class="btn btn-default">Nastavit</button>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-            <button ng-click="ctrl.startRace()" class="btn btn-danger">Zahájit závod</button>
+            <button ng-click="ctrl.startRace()" class="btn btn-danger">Zahájit závod všem</button>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <button ng-click="ctrl.startRace_COM()" class="btn btn-danger">Zahájit závod dospělým</button>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <button ng-click="ctrl.startRace_KID()" class="btn btn-danger">Zahájit závod dětem</button>
         </div>
     </div>
 </div>

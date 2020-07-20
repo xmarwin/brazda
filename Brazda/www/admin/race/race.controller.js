@@ -39,7 +39,25 @@ function RaceController(notification, raceService, $filter, systemService) {
     vm.startRace = function () {
         raceService.startRace()
             .then(function (data) {
-                notification.success("Závod zahájen.");
+                notification.success("Závod zahájen pro obě kategorie.");
+            }, function (err) {
+                notification.error(err.data.message);
+            });
+    };
+
+    vm.startRace_COM = function () {
+        raceService.startRace_COM()
+            .then(function (data) {
+                notification.success("Dospělácká kategorie zahájena.");
+            }, function (err) {
+                notification.error(err.data.message);
+            });
+    };
+
+    vm.startRace_KID = function () {
+        raceService.startRace_KID()
+            .then(function (data) {
+                notification.success("Dětská kategorie zahájena.");
             }, function (err) {
                 notification.error(err.data.message);
             });
