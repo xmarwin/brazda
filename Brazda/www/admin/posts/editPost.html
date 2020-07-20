@@ -14,11 +14,31 @@
         <div class="row form-group">
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 Popis:<br />
-                <input type="checkbox" ng-model="ctrl.showHtml" id="showHtml"><label for="showHtml">HTML</label>
+                <input type="checkbox" ng-model="ctrl.showDescriptionHtml" id="showDescriptionHtml"><label for="showDescriptionHtml">HTML</label>
             </div>
             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                <ng-quill-editor ng-model="ctrl.post.description" ng-show="!ctrl.showHtml"></ng-quill-editor>
-                <textarea rows="5" style="width: 100%" ng-model="ctrl.post.description" ng-show="ctrl.showHtml"></textarea>
+                <ng-quill-editor ng-model="ctrl.post.description" ng-show="!ctrl.showDescriptionHtml"></ng-quill-editor>
+                <textarea rows="5" style="width: 100%" ng-model="ctrl.post.description" ng-show="ctrl.showDescriptionHtml"></textarea>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                Instrukce pro B-tým:<br />
+                <input type="checkbox" ng-model="ctrl.showInstructionsHtml" id="showInstructionsHtml"><label for="showInstructionsHtml">HTML</label>
+            </div>
+            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                <ng-quill-editor ng-model="ctrl.post.instructions" ng-show="!ctrl.showInstructionsHtml"></ng-quill-editor>
+                <textarea rows="5" style="width: 100%" ng-model="ctrl.post.instructions" ng-show="ctrl.showInstructionsHtml"></textarea>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                Info pro A-tým:<br />
+                <input type="checkbox" ng-model="ctrl.showSupportHtml" id="showSupportHtml"><label for="showSupportHtml">HTML</label>
+            </div>
+            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                <ng-quill-editor ng-model="ctrl.post.support" ng-show="!ctrl.showSupportHtml"></ng-quill-editor>
+                <textarea rows="5" style="width: 100%" ng-model="ctrl.post.support" ng-show="ctrl.showSupportHtml"></textarea>
             </div>
         </div>
         <div class="row form-group">
@@ -69,10 +89,13 @@
                 <input type="number" ng-model="ctrl.post.max_score" id="maxScore" name="maxScore" class="form-control" />
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <abbr title="Heslo pro zalogování stanoviště">Heslo:</abbr>
+                <abbr title="Heslo pro zalogování stanoviště">Heslo dospělácké/dětské:</abbr>
             </div>
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
                 <input type="text" ng-model="ctrl.post.shibboleth" id="shibboleth" name="shibboleth" class="form-control" />
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                <input type="text" ng-model="ctrl.post.shibboleth_kid" id="shibboleth_kid" name="shibboleth_kid" class="form-control" />
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 <abbr title="Kód, kterým se stanoviště odemkne k zalogování (bonus a superbonus)">Bonusový kód:</abbr>

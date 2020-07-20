@@ -8,8 +8,17 @@ RaceService.$inject = ['$interval', 'WebApiService', 'localStorageService', '$ro
 function RaceService($interval, webApiService, localStorageService, $rootScope) {
     var vm = this;
 
-    vm.setRaceDuration = function (raceDuration) {
-        return webApiService.get('system/set', {"raceDuration": raceDuration}, 'POST');
+    vm.setRaceDetails = function (data) {
+        return webApiService.get('system/set', {
+            "disqualificationTime": data.disqualificationTime,
+            "helpPenalization": data.helpPenalization,
+            "orderPenalization": data.orderPenalization,
+            "raceDuration_COM": data.raceDuration_COM,
+            "raceDuration_KID": data.raceDuration_KID,
+            "raceStart_COM": data.raceStart_COM,
+            "raceStart_KID": data.raceStart_KID,
+            "timePenalization": data.timePenalization,
+        }, 'POST');
     }
 
     vm.startRace = function () {
