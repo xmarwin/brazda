@@ -40,12 +40,26 @@ class SystemPresenter extends SecuredBasePresenter
         $this->sendResource();
     } // actionDefault()
 
-    public function actionStart()
+    public function actionStart($role = null)
     {
         $this->checkAdministrator();
 
         $raceStart = date('Y-m-d H:i:s');
-        $this->settings->set('raceStart', $raceStart);
+        switch (strtoupper($role)) {
+            case 'KID':
+                $this->settings->set('raceStart_KID', $raceStart);
+		break;
+
+            case 'COM':
+                $this->settings->set('raceStart_COM', $raceStart);
+		break;
+
+            default:
+                $this->settings->set('raceStart_KID', $raceStart);
+                $this->settings->set('raceStart_COM', $raceStart);
+		break;
+                
+	} // switch
 
         $this->resource = [ 'raceStart' => $raceStart ];
 
@@ -56,7 +70,7 @@ class SystemPresenter extends SecuredBasePresenter
     {
         $this->checkAdministrator();
 
-        $settings = $this->input->getData();
+        $settings = $this->input;
         unset($settings['securityToken']);
 
         foreach ($settings as $setting => $value) {
