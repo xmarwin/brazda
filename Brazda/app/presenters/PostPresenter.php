@@ -230,13 +230,29 @@ class PostPresenter extends SecuredBasePresenter
                 $this->sendResource();
             } // if
 
+            // Pokud je tým dětský, vybere heslo i pro dětský tým
+	    if ($this->team['role'] === 'KID') {
+                $postShibbolethKID = mb_strtolower($this->posts->getShibboleth($post, 'KID'));
+            } // if
             // Zjistíme heslo stanoviště a připravíme jej na porovnání
-            $postShibboleth = mb_strtolower($this->posts->getShibboleth($post, $this->team['role']));
-            $shibboleth     = mb_strtolower(urldecode($shibboleth));
+            $postShibbolethCOM = mb_strtolower($this->posts->getShibboleth($post, 'COM'));
+            // Upravíme heslo tak, aby bylo vše malými písmeny
+            $shibboleth = mb_strtolower(urldecode($shibboleth));
 
-            // Je heslo stanoviště správné?
-            if ($shibboleth != $postShibboleth) {
-		// Pokud ne, zalogujeme chybu
+	    // Pokud je nastaveno heslo pro dětský tým (tzn. tým je dětský), zkontrolujeme heslo nejprve proti tomuto heslu
+            if (!empty($postShibbolethKID) && $postShibbolethKID === $shibboleth) {
+                $rightShibboleth = true;
+            // Jinak se kontroluje heslo stanoviště proti heslu pro dospělé týmy
+            } elseif ($postShibbolethCOM === $shibboleth) {
+                $rightShibboleth = true;
+            // Jinak je to špatně
+            } else {
+                $rightShibboleth = false;
+	    } // if
+
+            // Pokud heslo stanoviště není správně
+            if (!$rightSibboleth) {
+		// Zalogujeme chybu
                 $this->logs->insert([
                     'team'     => (int) $this->team['team'],
                     'post'     => (int) $post,

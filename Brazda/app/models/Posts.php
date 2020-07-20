@@ -120,7 +120,7 @@ class Posts extends Base
                 pt.rank AS type_rank,
 
             %if", isset($team) && in_array($role, [ Teams::COMPETITORS, Teams::KIDSCOMPETITORS ]), "
-                CASE WHEN p.post_type LIKE 'SBN' THEN superbonusPassword(%i)", $team, " ELSE bonusPassword(p.color, %i)", $team, " END AS password,
+                CASE WHEN p.post_type LIKE 'SBN' THEN superbonusPassword(%i)", isset($team) ? $team : null, " ELSE bonusPassword(p.color, %i)", isset($team) ? $team : null, " END AS password,
                 CASE WHEN lo.moment IS NOT NULL THEN p.password_character ELSE NULL END AS password_character,
                 CASE WHEN lo.moment IS NOT NULL THEN p.password_position ELSE NULL END AS password_position,
                 CASE WHEN lb.moment IS NOT NULL THEN p.bonus_code ELSE NULL END AS bonus_code,
@@ -151,23 +151,23 @@ class Posts extends Base
                 SELECT post, moment
                 FROM logs
                 WHERE log_type IN ('OUT', 'STR', 'FIN')
-                  AND team = %i", $team, "
+                  AND team = %i", isset($team) ? $team : null, "
              ) lo USING (post)
              LEFT JOIN (
                 SELECT post, moment
                 FROM logs
                 WHERE log_type = 'BON'
-                  AND team = %i", $team, "
+                  AND team = %i", isset($team) ? $team : null, "
              ) lb USING (post)
              LEFT JOIN (
                 SELECT post, moment
                 FROM logs
                 WHERE log_type = 'HLP'
-                  AND team = %i", $team, "
+                  AND team = %i", isset($team) ? $team : null, "
              ) lh USING (post)
         %end
         %if", isset($team), "
-             LEFT JOIN post_notes pn ON pn.post = p.post AND pn.team = %i", $team, "
+             LEFT JOIN post_notes pn ON pn.post = p.post AND pn.team = %i", isset($team) ? $team : null, "
         %end
             %if", !empty($filter), "WHERE %and", $filter, "%end",
            "%if", !empty($order), " ORDER BY %by", $order, " %end",
@@ -249,7 +249,7 @@ class Posts extends Base
                 lh.moment AS log_help_moment,
 
             %if", isset($team) && in_array($role, [ Teams::COMPETITORS, Teams::KIDSCOMPETITORS ]), "
-                CASE WHEN p.post_type LIKE 'SBN' THEN superbonusPassword(%i)", $team, " ELSE bonusPassword(p.color, %i)", $team, " END AS password,
+                CASE WHEN p.post_type LIKE 'SBN' THEN superbonusPassword(%i)", isset($team) ? $team : null, " ELSE bonusPassword(p.color, %i)", isset($team) ? $team : null, " END AS password,
                 CASE WHEN lo.moment IS NOT NULL THEN p.password_character ELSE NULL END AS password_character,
                 CASE WHEN lo.moment IS NOT NULL THEN p.password_position ELSE NULL END AS password_position,
                 CASE WHEN lo.moment IS NOT NULL THEN p.shibboleth ELSE NULL END AS shibboleth,
@@ -275,21 +275,21 @@ class Posts extends Base
                 SELECT post, moment
                 FROM logs
                 WHERE log_type IN ('OUT', 'STR', 'FIN')
-                  AND team = %i", $team, "
+                  AND team = %i", isset($team) ? $team : null, "
              ) lo USING (post)
              LEFT JOIN (
                 SELECT post, moment
                 FROM logs
                 WHERE log_type = 'BON'
-                  AND team = %i", $team, "
+                  AND team = %i", isset($team) ? $team : null, "
              ) lb USING (post)
              LEFT JOIN (
                 SELECT post, moment
                 FROM logs
                 WHERE log_type = 'HLP'
-                  AND team = %i", $team, "
+                  AND team = %i", isset($team) ? $team : null, "
              ) lh USING (post)
-             LEFT JOIN post_notes pn ON (pn.post = p.post AND pn.team = %i", $team, ")
+             LEFT JOIN post_notes pn ON (pn.post = p.post AND pn.team = %i", isset($team) ? $team : null, ")
             %if", !empty($filter), "WHERE %and", $filter, "%end",
            "%if", !empty($order), " ORDER BY %by", $order, " %end",
            "%if", !empty($limit), " LIMIT %lmt", $limit, " %ofs", $offset
@@ -322,7 +322,7 @@ class Posts extends Base
 
     } // getPassword()
 
-    public function getShibboleth($post, $role = null)
+    public function getShibboleth($post, $role = 'COM')
     {
         $post = (int) $post;
 
@@ -332,8 +332,8 @@ class Posts extends Base
              WHERE post = %i", $post
         )->fetch();
 
-	// Pro dětské týmy vracíme (je-li nastaveno) heslo pro dětské týmy
-	return ($role === 'KID' && !empty($row->shibboleth_kid))
+	// Pro dětské týmy vracíme heslo pro detske tymy, jinak vracime heslo pro dospele
+	return ($role === 'KID')
 		? $row->shibboleth_kid
 		: $row->shibboleth;
     } // getShibboleth()
