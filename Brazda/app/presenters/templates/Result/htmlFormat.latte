@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Výsledky závodu BRAZDA</title>
+        <style>
+            body {
+                font-family: 'Arual CE', Helvetica, Arial, sans-serif;
+            }
+
+            table {
+		border-collapse: collapse;
+                margin-top: 16em;
+                width: 100%;
+            }
+
+            td {
+                border: 1pt solid #ccc;
+                border-collapse: collapse;
+		padding: .5ex;
+            }
+
+            thead tr {
+            }
+
+            thead th {
+		white-space: nowrap;
+		vertical-align: bottom;
+            }
+
+            th.posts {
+                transform: rotate(-90deg);
+		text-align: left;
+                max-width: 2em;
+                height: 3em;
+		vertical-align: inherit;
+            }
+
+            tr.order-1 td {
+                background-color: gold;
+            }
+
+            tr.order-2 td {
+                background-color: silver;
+            }
+
+            tr.order-3 td {
+                background-color: #cd7f32;
+            }
+
+            tr.disqualified td {
+		color: #800;
+                text-decoration: line-through;
+            }
+
+            td.right {
+                text-align: right;
+            }
+
+            td.center {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Výsledky závodu BRAZDA</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tým</th>
+                    <th>Body</th>
+                    <th class="posts">Penalizace</th>
+{foreach $result[1]['posts'] as $post}
+                    <th class="posts">{$post['name']}</th>
+{/foreach}
+                    <th>Start</th>
+                    <th>Cíl</th>
+                </tr>
+            </thead>
+            <tbody>
+{foreach $result as $team}
+                <tr class="order-{$team['order']}{if !empty($team['score']['disqualified'])} disqualified{/if}">
+                    <td class="right">{$team['order']}.</td>
+                    <td>{$team['name']}</td>
+                    <td class="right">{$team['score']['final']|number:0:',':' '}</td>
+     {if $team['score']['penalization'] > 0}
+                    <td class="right penalization">-{$team['score']['penalization']}</td>
+     {else}
+                    <td class="right">0</td>
+     {/if}
+     {foreach $team['posts'] as $post}
+         {if $post['score'] > 0}
+                    <td class="right">{$post['score']}</td>
+         {else}
+                    <td class="center">-</td>
+         {/if}
+     {/foreach}
+                    <td class="right">{$team['time']['start']|date:'H:i:s'}</td>
+                    <td class="right">{$team['time']['end']|date:'H:i:s'}</td>
+                </tr>
+{/foreach}
+            </tbody>
+        </table>
+    </body>
+</html>

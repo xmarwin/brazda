@@ -31,6 +31,7 @@ services:
 	postNotes: Brazda\Models\PostNotes(@container)
 	posts: Brazda\Models\Posts(@container)
 	postTypes: Brazda\Models\PostTypes(@container)
+	results: Brazda\Models\Results(@container)
 	settings: Brazda\Models\Settings(@container)
 	teams: Brazda\Models\Teams(@container)
 	waypoints: Brazda\Models\Waypoints(@container)
