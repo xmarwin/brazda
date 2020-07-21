@@ -18,7 +18,8 @@ function RaceService($interval, webApiService, localStorageService, $rootScope) 
             "raceStart_COM": data.raceStart_COM,
             "raceStart_KID": data.raceStart_KID,
             "timePenalization": data.timePenalization,
-            "raceTitle": data.raceTitle 
+            "raceTitle": data.raceTitle,
+            "hotlineTelephone": data.hotlineTelephone
         }, 'POST');
     }
 
