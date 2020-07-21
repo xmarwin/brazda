@@ -1,0 +1,37 @@
+@page {
+    footer: html_post-footer
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial CE', Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+}
+
+footer {
+    border-top: 1pt solid #000;
+    bottom: .5cm;
+    left: 0;
+    height: 1.5cm;
+    margin: 0 1.5cm;
+    padding: 0;
+    position: absolute;
+}
+
+#brand {
+    float: right;
+    margin: 0;
+    padding: 0;
+    width: 2cm;
+    height: 2cm;
+}
+
+#brand img {
+    width: 100%;
+    height: 100%;
+}
+
+.page-break {
+    page-break-after: always;
+}

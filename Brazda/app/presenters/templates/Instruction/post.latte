@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+<!--mpdf
+
+    <htmlpagefooter name="post-footer">
+	<footer>
+	    <p><strong>POZOR</strong> Tento materiál je pouze pro organizátora na stanovišti. V žádném případě by jeho obsah neměl být před ani během závodu přístupný závodníkům, nebo komukoliv mimo organizačního týmu!</p>
+	    <p>{$settings['raceTitle']} HOT-LINE: {$settings['hotlineTelephone']}</p>
+	</footer>
+    </htmlpagefooter>
+
+mpdf-->
+
+        <header>
+            <p id="brand"><img src="logo.png" /></p>
+            <h1>{$post['name']}</h1>
+	</header>
+
+        <main>
+            {$post['instructions']|noescape}
+	</main>
+    </body>
+</html>
