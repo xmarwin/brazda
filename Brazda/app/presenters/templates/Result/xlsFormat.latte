@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Výsledky závodu {$results['title']} / {$results['category']}</title>
+    </head>
+    <body>
+        <table>
+            <tr>
+                {php $postsCount = count($results['results'][1]['posts'])}
+                <td colspan="{$postsCount * 2 + 6}">
+                    <h1>Výsledky závodu {$results['title']}</h1>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="{$postsCount * 2 + 6}">
+                    <h2>{$results['category']}</h2>
+                </td>
+            </tr>
+            <tr>
+{for $i = 0; $i < ($postsCount * 2 + 6); ++$i}
+                <td></td>
+{/for}
+            </tr>
+            <tr>
+                <td rowspan="2"><strong>Pořadí</strong></td>
+                <td rowspan="2"><strong>Tým</strong></td>
+                <td rowspan="2"><strong>Body</strong></td>
+                <td rowspan="2"><strong>Penalizace</strong></td>
+                <td rowspan="2"><strong>Start</strong></td>
+{foreach $results['results'][1]['posts'] as $post}
+                <td colspan="2"><strong>{$post['name']}</strong></td>
+{/foreach}
+                <td rowspan="2"><strong>Cíl</strong></td>
+            </tr>
+            <tr>
+{foreach $results['results'][1]['posts'] as $post}
+                <td><strong>Body</strong></td>
+                <td><strong>Čas</strong></td>
+{/foreach}
+            </tr>
+{foreach $results['results'] as $team}
+            <tr class="order-{$team['order']}{if !empty($team['score']['disqualified'])} disqualified{/if}">
+                <td class="right">{$team['order']}.</td>
+                <td>{$team['name']}</td>
+                <td class="right">{$team['score']['final']|number:0:',':' '}</td>
+     {if $team['score']['penalization'] > 0}
+                <td class="right penalization">-{$team['score']['penalization']}</td>
+     {else}
+                <td class="right"></td>
+     {/if}
+                <td class="right">{$team['time']['start']|date:'H:i:s'}</td>
+     {foreach $team['posts'] as $post}
+         {if $post['score'] > 0}
+                <td class="right">{$post['score']}</td>
+                <td>{$post['time']|date:'j. n. Y H:i:s'}</td>
+         {else}
+                <td class="right"></td>
+                <td class="right"></td>
+         {/if}
+     {/foreach}
+                <td class="right">{$team['time']['end']|date:'H:i:s'}</td>
+            </tr>
+{/foreach}
+        </table>
+    </body>
+</html>
+

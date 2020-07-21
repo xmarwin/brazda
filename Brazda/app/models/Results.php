@@ -42,6 +42,7 @@ class Results extends Base
                 s.team,
                 t.team_type,
                 s.post,
+                s.moment,
                 s.with_help,
                 ROW_NUMBER() OVER ( ORDER BY penalized_moment ) AS [order],
                 p.max_score,
@@ -51,6 +52,7 @@ class Results extends Base
                     l.log_type,
 		    l.team,
 		    l.post,
+                    l.moment,
 		    CASE WHEN with_help IS TRUE
 		    THEN l.moment + %s::interval", $settings['helpPenalization'], "
 		    ELSE l.moment END AS penalized_moment,
@@ -115,7 +117,10 @@ class Results extends Base
 	    foreach ($postResult as $postResultRow) {
 
 	        // zapiseme skore k tomuto tymu 
-                $teamResults[$postResultRow->team] = $postResultRow->score;
+                $teamResults[$postResultRow->team] = [
+                    'score' => $postResultRow->score,
+                    'time'  => date('c', strtotime($postResultRow->moment))
+                ];
 
                 // zalozime/pricteme k celkovemu skore
 		if (isset($teamsResult[$postResultRow->team])) {
@@ -185,8 +190,9 @@ class Results extends Base
 
             foreach ($postResults as $post => $score) {
                 $teamResult['posts'][$post] = [
-                    'name' => $posts[$post],
-                    'score' => $score[$team]
+                    'name'  => $posts[$post],
+                    'score' => $score[$team]['score'],
+                    'time'  => $score[$team]['time']
                 ];
             } // if
 
@@ -199,11 +205,22 @@ class Results extends Base
             return $item2['score']['final'] <=> $item1['score']['final'];
         }); // usort()
 
-	$results = [];
+	$results = [
+            'title' => $settings['raceTitle'],
+            'category' => $teamType === 'KID'
+                ? 'Dětská kategorie'
+                : 'Dospělá kategorie',
+	    'time'  => [
+                'start' => date('c', strtotime($settings["raceStart_{$teamType}"])),
+                'end'   => date('c', strtotime($settings["raceStart_{$teamType}"].' + '.$settings["raceDuration_{$teamType}"])),
+                'disqualification' => date('c', strtotime($settings["raceStart_{$teamType}"].' + '.$settings["raceDuration_{$teamType}"].' + '.$settings['disqualificationTime']))
+            ],
+	    'results' => []
+	];
         foreach ($teamResults as $index => $teamResult) {
             $order = ++$index;
 	    $teamResult['order'] = $order;
-	    $results[$order] = $teamResult;
+	    $results['results'][$order] = $teamResult;
         } // foreach
 
         return $results;

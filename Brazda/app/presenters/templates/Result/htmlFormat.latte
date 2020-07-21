@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Výsledky závodu {$settings['raceTitle']}</title>
+        <title>Výsledky závodu {$results['title']} / {$results['category']}</title>
         <style>
             body {
                 font-family: 'Arual CE', Helvetica, Arial, sans-serif;
@@ -64,7 +64,8 @@
         </style>
     </head>
     <body>
-        <h1>Výsledky závodu {$settings['raceTitle']}</h1>
+        <h1>Výsledky závodu {$results['title']}</h1>
+	<h2>{$results['category']}</h2>
         <table>
             <thead>
                 <tr>
@@ -72,15 +73,15 @@
                     <th>Tým</th>
                     <th>Body</th>
                     <th class="posts">Penalizace</th>
-{foreach $result[1]['posts'] as $post}
+                    <th>Start</th>
+{foreach $results['results'][1]['posts'] as $post}
                     <th class="posts">{$post['name']}</th>
 {/foreach}
-                    <th>Start</th>
                     <th>Cíl</th>
                 </tr>
             </thead>
             <tbody>
-{foreach $result as $team}
+{foreach $results['results'] as $team}
                 <tr class="order-{$team['order']}{if !empty($team['score']['disqualified'])} disqualified{/if}">
                     <td class="right">{$team['order']}.</td>
                     <td>{$team['name']}</td>
@@ -90,14 +91,14 @@
      {else}
                     <td class="right">0</td>
      {/if}
+                    <td class="right">{$team['time']['start']|date:'H:i:s'}</td>
      {foreach $team['posts'] as $post}
          {if $post['score'] > 0}
-                    <td class="right">{$post['score']}</td>
+                    <td class="right" title="{$post['time']|date:'j. n. Y H:i:s'}">{$post['score']}</td>
          {else}
                     <td class="center">-</td>
          {/if}
      {/foreach}
-                    <td class="right">{$team['time']['start']|date:'H:i:s'}</td>
                     <td class="right">{$team['time']['end']|date:'H:i:s'}</td>
                 </tr>
 {/foreach}
@@ -105,3 +106,4 @@
         </table>
     </body>
 </html>
+

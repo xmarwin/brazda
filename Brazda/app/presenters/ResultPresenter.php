@@ -14,7 +14,6 @@ class ResultPresenter extends SecuredBasePresenter
         $logs,
 	$posts,
 	$results,
-	$settings,
         $teams;
 
     public function startup()
@@ -24,7 +23,6 @@ class ResultPresenter extends SecuredBasePresenter
         $this->logs     = $this->context->getService('logs');
         $this->posts    = $this->context->getService('posts');
         $this->results  = $this->context->getService('results');
-        $this->settings = $this->context->getService('settings');
         $this->teams    = $this->context->getService('teams');
     } // startup()
 
@@ -100,7 +98,10 @@ class ResultPresenter extends SecuredBasePresenter
         $this->sendResource();
     } // actionListAll()
 
-    public function actionCom($format = 'json')
+    /**
+     * Vrací výsledky závodu pro dospělé týmy
+     */
+    public function actionCom(string $format = 'json')
     {
         $this->checkAdministrator();
 
@@ -109,11 +110,10 @@ class ResultPresenter extends SecuredBasePresenter
         } // if
 
         switch ($format) {
-             case 'csv':
              case 'xls':
              case 'html':
                 try {
-                    $response = $this->getResultsResponse($format, $this->results->resultsView('COM'));
+                    $response = $this->getResultsResponse($format, $this->results->resultsView('COM'), 'COM');
                 } catch (\Exception $e) {
                     $this->sendErrorResource($e);
                 } // try
@@ -128,7 +128,10 @@ class ResultPresenter extends SecuredBasePresenter
 	} // switch
     } // actionCom()
 
-    public function actionKid($format = 'json')
+    /**
+     * Vrací výsledky závodu pro dětské týmy
+     */
+    public function actionKid(string $format = 'json')
     {
         $this->checkAdministrator();
 
@@ -137,11 +140,10 @@ class ResultPresenter extends SecuredBasePresenter
         } // if
 
         switch ($format) {
-             case 'csv':
              case 'xls':
              case 'html':
                 try {
-                    $response = $this->getResultsResponse($format, $this->results->resultsView('KID'));
+                    $response = $this->getResultsResponse($format, $this->results->resultsView('KID'), 'KID');
                 } catch (\Exception $e) {
                     $this->sendErrorResource($e);
                 } // try
@@ -161,7 +163,7 @@ class ResultPresenter extends SecuredBasePresenter
         return in_array(strtolower($format), [ 'json', 'csv', 'xls', 'html' ]);
     } // checkFormat()
 
-   private function getResultsResponse(string $format, array $result): object
+   private function getResultsResponse(string $format, array $result, string $role): object
    {
        $format = strtolower($format);
        $templateFile = __DIR__."/templates/Result/{$format}Format.latte";
@@ -169,35 +171,24 @@ class ResultPresenter extends SecuredBasePresenter
            throw new \Exception(sprintf("Šablona pro formát %s nebyla nalezna, asi to zatím není implementováno", $format), 500);
        } // if
 
-       $params = $this->context->getParameters();
-       $settings = $this->settings->enumeration();
-
        $latte = new Latte\Engine;
        $latte->setTempDirectory(__DIR__.'/../../temp/cache/latte/');
 
-       $data = [
-           'result'   => $result,
-           'params'   => $params,
-           'settings' => $settings
-       ];
-
        $contentTypes = [
-           'csv' => 'text/csv',
 	   'xls' => 'application/vnd.ms-excel'
        ];
 
        switch ($format) {
-           case 'csv':
            case 'xls':
                $tempFile = tempnam(__DIR__.'/../../temp/', "{$format}_");
-               file_put_contents($tempFile, $latte->renderToString($templateFile, $data));
+               file_put_contents($tempFile, $latte->renderToString($templateFile, [ 'results' => $result ]));
 
                return new Responses\FileResponse($tempFile, "results.{$format}", $contentTypes[$format]);
                break;
 
            case 'html':
 
-               return new Responses\TextResponse($latte->renderToString($templateFile, $data));
+               return new Responses\TextResponse($latte->renderToString($templateFile, [ 'results' => $result ]));
                break;
        } // switch
    } // getResultsResponse()
