@@ -169,8 +169,17 @@ class ResultPresenter extends SecuredBasePresenter
            throw new \Exception(sprintf("Šablona pro formát %s nebyla nalezna, asi to zatím není implementováno", $format), 500);
        } // if
 
+       $params = $this->context->getParameters();
+       $settings = $this->settings->enumeration();
+
        $latte = new Latte\Engine;
        $latte->setTempDirectory(__DIR__.'/../../temp/cache/latte/');
+
+       $data = [
+           'result'   => $result,
+           'params'   => $params,
+           'settings' => $settings
+       ];
 
        $contentTypes = [
            'csv' => 'text/csv',
@@ -181,14 +190,14 @@ class ResultPresenter extends SecuredBasePresenter
            case 'csv':
            case 'xls':
                $tempFile = tempnam(__DIR__.'/../../temp/', "{$format}_");
-	       file_put_contents($tempFile, $latte->renderToString($templateFile, [ 'result' => $result ]));
+               file_put_contents($tempFile, $latte->renderToString($templateFile, $data));
 
                return new Responses\FileResponse($tempFile, "results.{$format}", $contentTypes[$format]);
                break;
 
            case 'html':
 
-               return new Responses\TextResponse($latte->renderToString($templateFile, [ 'result' => $result ]));
+               return new Responses\TextResponse($latte->renderToString($templateFile, $data));
                break;
        } // switch
    } // getResultsResponse()
