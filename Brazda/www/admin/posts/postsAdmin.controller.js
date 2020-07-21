@@ -17,6 +17,7 @@ PostsAdminController.$inject = ['$routeParams', 'Notification', 'AuthService', '
 
 function PostsAdminController($routeParams, notification, authService, postService, ngDialog) {
     var vm = this;
+    vm.securityToken;
 
     vm.deletePost = function (id) {
         ngDialog.openConfirm({
@@ -30,6 +31,7 @@ function PostsAdminController($routeParams, notification, authService, postServi
 
     var init = function () {
         getPosts();
+        getSecurityToken();
     };
 
     var getPosts = function () {
@@ -59,5 +61,26 @@ function PostsAdminController($routeParams, notification, authService, postServi
             }, function errorCallback(err) {
                 notification.error(err.data.message);
             });
+    };
+
+    vm.getInstructions = function(id) {
+        postService.getInstructions(id)
+            .then(function successCallback(response) {
+                var blob = new Blob([response], { type: "application/pdf" });
+                var objectUrl = URL.createObjectURL(blob);
+                window.open(objectUrl);
+            }), function errorCallback(err) {
+                notification.error(err.data.message);
+            };
+    };
+
+    function getSecurityToken() {
+        if (authService.getTeam()) {
+            vm.securityToken = authService.getTeam().securityToken;
+        } else {
+            setTimeout(function () {
+                getSecurityToken();
+            }, 100);
+        }
     };
 }
