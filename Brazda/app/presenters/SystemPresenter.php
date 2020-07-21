@@ -72,6 +72,8 @@ class SystemPresenter extends SecuredBasePresenter
 
         $settings = $this->input;
         unset($settings['securityToken']);
+	if (isset($settings['raceStart_COM'])) unset($settings['raceStart_COM']);
+	if (isset($settings['raceStart_KID'])) unset($settings['raceStart_KID']);
 
         foreach ($settings as $setting => $value) {
             $this->settings->set($setting, $value);
