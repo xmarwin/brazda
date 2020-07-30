@@ -189,7 +189,8 @@ class Results extends Base
             } // if
 
             foreach ($postResults as $post => $score) {
-                $teamResult['posts'][$post] = [
+                $teamResult['posts'][] = [
+                    'post'  => $post,
                     'name'  => $posts[$post],
                     'score' => $score[$team]['score'],
                     'time'  => $score[$team]['time']
@@ -220,7 +221,7 @@ class Results extends Base
         foreach ($teamResults as $index => $teamResult) {
             $order = ++$index;
 	    $teamResult['order'] = $order;
-	    $results['results'][$order] = $teamResult;
+	    $results['results'][] = $teamResult;
         } // foreach
 
         return $results;
