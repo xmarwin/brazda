@@ -14,9 +14,19 @@
                 <th style="border-right: 1px solid lightgrey">
                     &nbsp;
                 </th>
-                <th ng-repeat="post in ctrl.posts" style="border-right: 1px solid lightgrey">
+                <th style="border-right: 1px solid lightgrey">
+                    <div>
+                        Start
+                    </div>
+                </th>
+                <th ng-repeat="post in ctrl.resultsAdults.results[1].posts | orderBy: 'post'" style="border-right: 1px solid lightgrey">
                     <div>
                         <nobr>{{ post.name }}</nobr>
+                    </div>
+                </th>
+                <th style="border-right: 1px solid lightgrey">
+                    <div>
+                        Cíl
                     </div>
                 </th>
                 <th style="border-right: 1px solid lightgrey">
@@ -30,19 +40,48 @@
                     </div>
                 </th>
             </tr>
-            <tr ng-repeat="team in ctrl.results | orderBy: '-totalPoints'" style="border-top: 1px solid lightgrey" ng-class="{'result-1': $index == '0','result-2': $index == '1','result-3': $index == '2', 'result-4': $index == '3'}" 
-                ng-show="ctrl.teamType === '' || team.teamRole === ctrl.teamType">
+            <tr ng-repeat="team in ctrl.resultsAdults.results | orderBy: 'order'" style="border-top: 1px solid lightgrey" ng-class="{'result-1': $index == '0','result-2': $index == '1','result-3': $index == '2', 'result-4': $index == '3'}"
+                ng-show="ctrl.teamType === '' || ctrl.teamType === 'COM'">
                 <td style="width: 200px; text-align: right; border-right: 1px solid lightgrey">
-                    <nobr>{{ team.teamName }}</nobr>
-                </td>
-                <td ng-repeat="post in ctrl.posts" style="border-right: 1px solid lightgrey">
-                    {{ ctrl.getScore(team.team, post.post) }}
+                    <nobr>{{ team.name }}</nobr>
                 </td>
                 <td style="border-right: 1px solid lightgrey">
-                    {{ ctrl.getPenalty(team.team) }}
+                    {{ team.time.start | date: 'mediumTime' }}
                 </td>
-                <td>
-                    {{ ctrl.getTotal(team.team) }}
+                <td ng-repeat="post in team.posts | orderBy: 'post'" style="border-right: 1px solid lightgrey">
+                    {{ post.score }}
+                </td>
+
+                <td style="border-right: 1px solid lightgrey">
+                    {{ team.time.end | date: 'mediumTime' }}
+                </td>
+                <td style="border-right: 1px solid lightgrey">
+                    {{ team.score.penalization}}
+                </td>
+                <td style="border-right: 1px solid lightgrey">
+                    {{ team.score.final }}
+                </td>
+            </tr>
+            <tr ng-repeat="team in ctrl.resultsKids.results | orderBy: 'order'" style="border-top: 1px solid lightgrey" ng-class="{'result-1': $index == '0','result-2': $index == '1','result-3': $index == '2', 'result-4': $index == '3'}"
+                ng-show="ctrl.teamType === '' || ctrl.teamType === 'KID'">
+                <td style="width: 200px; text-align: right; border-right: 1px solid lightgrey">
+                    <nobr>{{ team.name }}</nobr>
+                </td>
+                <td style="border-right: 1px solid lightgrey">
+                    {{ team.time.start | date: 'mediumTime' }}
+                </td>
+                <td ng-repeat="post in team.posts | orderBy: 'post'" style="border-right: 1px solid lightgrey">
+                    {{ post.score }}
+                </td>
+
+                <td style="border-right: 1px solid lightgrey">
+                    {{ team.time.end | date: 'mediumTime' }}
+                </td>
+                <td style="border-right: 1px solid lightgrey">
+                    {{ team.score.penalization}}
+                </td>
+                <td style="border-right: 1px solid lightgrey">
+                    {{ team.score.final }}
                 </td>
             </tr>
         </table>
