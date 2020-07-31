@@ -9,12 +9,12 @@ add column support text;
 alter table posts
 add column instructions text;
 
-update settings
-set setting = 'raceDuration_COM'
+delete from settings
 where setting = 'raceDuration';
 
 insert into settings (setting, value)
-values ('raceDuration_KID', '10 hour');
+values ('raceEnd_COM', '2019-09-14 20:00:00+02'),
+('raceEnd_KID', '2019-09-14 20:00:00+02');
 
 drop view settings_view;
 

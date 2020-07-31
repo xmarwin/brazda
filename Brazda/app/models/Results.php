@@ -134,24 +134,34 @@ class Results extends Base
 	    $postResults[$post] = $teamResults;
         } // foreach
 
+	// zjistime, kdy startovaly jednotlive tymy
         $teamsStarts = $this->db->query(
             "SELECT team, moment
              FROM logs
              WHERE log_type = 'STR'"
         )->fetchPairs('team', 'moment');
 
+        // nacteme cas zacatku zavodu pro dany typ tymu
+        $raceStart = date('c', strtotime($settings['raceStart_'.$teamType]));
+
+        // nacteme cas konce zavodu pro dany typ tymu
+        $raceEnd = date('c', strtotime($settings['raceEnd_'.$teamType]));
+
+	// vypocteme cas pro diskvalifikaci
+        $disqualificationTime = date('c', strtotime($raceEnd.' + '.$settings['disqualificationTime']));
+
+// zjistime, kdy jednotlive tymy skoncily zavod
         $teamsEnds = $this->db->query(
             "SELECT team, moment
              FROM logs
              WHERE log_type = 'FIN'"
         )->fetchPairs('team', 'moment');
 
-        $raceEnd = date('c', strtotime($settings['raceStart_'.$teamType].' + '.$settings['raceDuration_'.$teamType]));
-        $disqualificationTime = date('c', strtotime($raceEnd.' + '.$settings['disqualificationTime']));
-
+	// projdeme jednotlive vysledky tymu a sestavime finalni vysledky
         $teamResults = [];
         foreach ($teamsResult as $team => $teamResult) {
 
+	    // zakladni struktura vysledku jednoho tymu
             $teamResult = [
                 'name' => $teams[$team],
                 'order' => null,
@@ -167,28 +177,38 @@ class Results extends Base
 		'posts' => []
             ];
            
+	    // pokud zname cas zahajeni zavodu pro dany tym vyplnime jej
             if (!empty($teamsStarts[$team])) {
                 $teamResult['time']['start'] = date('c', strtotime($teamsStarts[$team]));
             } // if
 
+	    // pokud zname cas ukonceni zavodu pro dany tym vyplnime jej
             if (!empty($teamsEnds[$team])) {
                 $teamResult['time']['end'] = $teamsEnds[$team]->format('c');
             } // if
 
+            // vypocteme penalizacni cas pro tym   
             $penalizationTime = !empty($teamsEnds[$team])
                 ? ceil(($teamsEnds[$team]->getTimestamp() - strtotime($raceEnd)) / 60)
                 : 0;
 
+            // pokud ma tym penalizaci
             if ($penalizationTime > 0) {
+                // vypocteme pocet penalizacnich bodu
                 $teamResult['score']['penalization'] = $penalizationTime * $settings['timePenalization'];
-                $teamResult['score']['final'] = $teamResult['score']['posts'] - $penalizationTime * $settings['timePenalization'];
+		// odecteme penalizovane body od celkoveho skore
+                $teamResult['score']['final'] = $teamResult['score']['posts'] - $teamResult['score']['penalization'];
             } // if
 
+            // pokud tym skoncil pozdeji nez je diskvalifikacni cas
             if (!empty($teamsEnds[$team]) && $teamsEnds[$team]->getTimestamp() >= strtotime($disqualificationTime)) {
+                // nastavime mu priznak diskvalifikace
                 $teamResult['score']['disqualified'] = true;
             } // if
 
+            // projdeme vysledky jednotlivych stanovist pro dany tym
             foreach ($postResults as $post => $score) {
+                // ulozime k identifikatoru a nazvu stanoviste i dosazene skore a cas zalogovani
                 $teamResult['posts'][] = [
                     'post'  => $post,
                     'name'  => $posts[$post],
@@ -197,33 +217,37 @@ class Results extends Base
                 ];
             } // if
 
+            // vlozime vysledky tymu k ostatnim vysledkum
             $teamResults[$team] = $teamResult;
 	} // foreach
 
-        //$results = $teamResults;
+	// seradime vysledky podle finalniho skore
         usort($teamResults, function ($item1, $item2) {
 
             return $item2['score']['final'] <=> $item1['score']['final'];
         }); // usort()
 
+        // sestavime kompletni vysledky vcetne hlavicky zavodu a parametru zavodu
 	$results = [
             'title' => $settings['raceTitle'],
             'category' => $teamType === 'KID'
                 ? 'Dětská kategorie'
                 : 'Dospělá kategorie',
 	    'time'  => [
-                'start' => date('c', strtotime($settings["raceStart_{$teamType}"])),
-                'end'   => date('c', strtotime($settings["raceStart_{$teamType}"].' + '.$settings["raceDuration_{$teamType}"])),
-                'disqualification' => date('c', strtotime($settings["raceStart_{$teamType}"].' + '.$settings["raceDuration_{$teamType}"].' + '.$settings['disqualificationTime']))
+                'start' => $raceStart,
+                'end'   => $raceEnd,
+                'disqualification' => $disqualificationTime
             ],
 	    'results' => []
 	];
+	// doplnime poradi k jednotlivym tymum
         foreach ($teamResults as $index => $teamResult) {
             $order = ++$index;
 	    $teamResult['order'] = $order;
 	    $results['results'][] = $teamResult;
         } // foreach
 
+	// vvratime vysledky
         return $results;
     } // resultsView()
 
