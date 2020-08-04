@@ -9,14 +9,10 @@ function ResultService(webApiService) {
     var vm = this;
 
     vm.getResultsAdults = function () {
-        return webApiService.get('result/list');
+        return webApiService.get('result/com');
     };
 
     vm.getResultsKids = function () {
-        return webApiService.get('result/list-kid');
-    };
-
-    vm.getResultsAll = function () {
-        return webApiService.get('result/list-all');
+        return webApiService.get('result/kid');
     };
 }
