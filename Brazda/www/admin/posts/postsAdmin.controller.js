@@ -63,8 +63,19 @@ function PostsAdminController($routeParams, notification, authService, postServi
             });
     };
 
-    vm.getInstructions = function(id) {
+    vm.getInstructions = function (id) {
         postService.getInstructions(id)
+            .then(function successCallback(response) {
+                var blob = new Blob([response], { type: "application/pdf" });
+                var objectUrl = URL.createObjectURL(blob);
+                window.open(objectUrl);
+            }), function errorCallback(err) {
+                notification.error(err.data.message);
+            };
+    };
+
+    vm.getInstructionsAll = function () {
+        postService.getInstructionsAll()
             .then(function successCallback(response) {
                 var blob = new Blob([response], { type: "application/pdf" });
                 var objectUrl = URL.createObjectURL(blob);

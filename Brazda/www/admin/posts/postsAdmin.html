@@ -1,7 +1,15 @@
 ﻿<please-wait></please-wait>
 <div>
     <h1>Admin - stanoviště</h1>
-    <a href="#/admin/posts/add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Přidat stanoviště</a>
+    <div class="row">
+        <div class="col-xs-9">
+            <a href="#/admin/posts/add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Přidat stanoviště</a>
+        </div>
+
+        <div class="col-xs-3">
+            <button type="button" ng-click="ctrl.getInstructionsAll()" class="btn btn-default"><i class="fa fa-save" aria-hidden="true"></i><span class="hidden-xs"> Instrukce</span></button>
+        </div>
+    </div>
     <div class="row" ng-repeat="post in ctrl.posts">
         <div class="col-xs-12 col-sm-12 col-md-12 col-xl-12 postItemAdmin">
             <div class="row">
