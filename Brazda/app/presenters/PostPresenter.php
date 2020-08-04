@@ -536,14 +536,14 @@ class PostPresenter extends SecuredBasePresenter
         $post = (int) $this->input->post;
         $filter = [ 'post' => $post ];
         $values = [
-            'post_type'   => strtoupper($this->input->postType),
-            'color'       => strtoupper($this->input->color),
-            'name'        => $this->input->name,
-            'max_score'   => (int) $this->input->maxScore,
-            'difficulty'  => $this->input->difficulty,
-            'terrain'     => $this->input->terrain,
-            'latitude'    => $this->input->latitude,
-            'longitude'   => $this->input->longitude
+            'post_type'    => strtoupper($this->input->postType),
+            'color'        => strtoupper($this->input->color),
+            'name'         => $this->input->name,
+            'max_score'    => (int) $this->input->maxScore,
+            'difficulty'   => $this->input->difficulty,
+            'terrain'      => $this->input->terrain,
+            'latitude'     => $this->input->latitude,
+            'longitude'    => $this->input->longitude
         ];
 
         if (isset($this->input->cacheType) && !empty($this->input->cacheType))
@@ -588,11 +588,11 @@ class PostPresenter extends SecuredBasePresenter
         if (isset($this->input->shibbolethKid) && !empty($this->input->shibbolethKid))
 	   $values['shibboleth_kid'] = $this->input->shibbolethKid;
 
-        if (isset($this->input->support) && !empty($this->input->support))
-	   $values['support'] = $this->input->support;
+        if (isset($this->input->support))
+           $values['support'] = $this->input->support;
 
-        if (isset($this->input->instructions) && !empty($this->input->instructions))
-	   $values['instructions'] = $this->input->instructions;
+        if (isset($this->input->instructions))
+           $values['instructions'] = $this->input->instructions;
 
         $result = [];
         try {
