@@ -64,6 +64,11 @@ class InstructionPresenter extends SecuredBasePresenter
 
     } // actionDefault()
 
+    public function actionAll()
+    {
+        $this->actionDefault();
+    } // actionAll()
+
     public function actionPost($post)
     {
         $this->checkAdministrator();
