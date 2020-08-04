@@ -57,14 +57,13 @@ function AddPostController($routeParams, $location, notification, authService, p
             controllerAs: 'vm'
         }).then(function (data) {
             data.wpt = vm.post.waypoints.length + 1;
-
-            if (data.latitudeDeg & data.latitudeDecimals) {
+            if (angular.isNumber(data.latitudeDeg) && angular.isNumber(data.latitudeDecimals)) {
                 data.latitude = data.latitudeDeg + data.latitudeDecimals / 60;
             } else {
                 data.latitude = 0;
             }
 
-            if (data.longitudeDeg & data.longitudeDecimals) {
+            if (angular.isNumber(data.longitudeDeg) && angular.isNumber(data.longitudeDecimals)) {
                 data.longitude = data.longitudeDeg + data.longitudeDecimals / 60;
             } else {
                 data.longitude = 0;

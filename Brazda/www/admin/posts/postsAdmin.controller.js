@@ -63,32 +63,25 @@ function PostsAdminController($routeParams, notification, authService, postServi
             });
     };
 
-    vm.getInstructions = function (id) {
-        postService.getInstructions(id)
+    vm.getInstructions = function (post) {
+        postService.getInstructions(post.post)
             .then(function successCallback(response) {
-                //showFile(response.data);
-                var blob = new Blob([response.data], { type: "application/pdf" });
-                var objectUrl = URL.createObjectURL(blob);
-                window.open(objectUrl);
+                showFile(response.data, post.name + ".pdf");
             }), function errorCallback(err) {
                 notification.error(err.data.message);
             };
     };
 
     vm.getInstructionsAll = function () {
-        alert("WIP");
-
-        //postService.getInstructionsAll()
-        //    .then(function successCallback(response) {
-        //        var blob = new Blob([response], { type: "application/pdf" });
-        //        var objectUrl = URL.createObjectURL(blob);
-        //        window.open(objectUrl);
-        //    }), function errorCallback(err) {
-        //        notification.error(err.data.message);
-        //    };
+        postService.getInstructionsAll()
+            .then(function successCallback(response) {
+                showFile(response.data, "_instrukce.pdf");
+            }), function errorCallback(err) {
+                notification.error(err.data.message);
+            };
     };
 
-    function showFile(blob) {
+    function showFile(blob, filename) {
         // It is necessary to create a new blob object with mime-type explicitly set
         // otherwise only Chrome works like it should
         var newBlob = new Blob([blob], { type: "application/pdf" })
@@ -105,7 +98,7 @@ function PostsAdminController($routeParams, notification, authService, postServi
         const data = window.URL.createObjectURL(newBlob);
         var link = document.createElement('a');
         link.href = data;
-        link.download = "file.pdf";
+        link.download = filename;
         link.click();
         setTimeout(function () {
             // For Firefox it is necessary to delay revoking the ObjectURL
