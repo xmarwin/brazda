@@ -9,7 +9,7 @@ function WebApiService($http, $q, $rootScope, $log) {
     var vm = this;
     vm.online;
 
-    vm.get = function (endpointName, parameters, method, showLoader) {
+    vm.get = function (endpointName, parameters, method, showLoader, loadPdf) {
         var deferred = $q.defer();
         var data;
         var url;
@@ -42,7 +42,8 @@ function WebApiService($http, $q, $rootScope, $log) {
         $http({
             method: method,
             url: url,
-            data: data
+            data: data,
+            responseType: !!loadPdf ? 'arraybuffer': 'json'
         }).then(function successCallback(response) {
             if (showLoader) {
                 $rootScope.$broadcast('app-finish-loading');

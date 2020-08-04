@@ -13,11 +13,11 @@ function PostService(webApiService, $filter, localStorageService) {
     };
 
     vm.getInstructions = function (id) {
-        return webApiService.get("instruction/post?post=" + id, null, 'POST');
+        return webApiService.get("instruction/post?post=" + id, null, 'POST', true, true);
     }
 
     vm.getInstructionsAll = function () {
-        return webApiService.get("instruction/all", null, 'POST');
+        return webApiService.get("instruction/all", null, 'POST', true, true);
     }
 
     // https://brazda/api/post/bonus-list?securityToken=<security token>
