@@ -1,4 +1,5 @@
 @page {
+    margin-bottom: 2cm;
     footer: html_post-footer
 }
 
@@ -35,3 +36,12 @@ footer {
 .page-break {
     page-break-after: always;
 }
+
+hr.cut-here {
+   overflow: visible;
+   padding: 0;
+   border: none;
+   border-top: 1pt dashed #000;
+   color: #000;
+}
+

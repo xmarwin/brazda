@@ -73,15 +73,15 @@ class InstructionPresenter extends SecuredBasePresenter
     {
         $this->checkAdministrator();
 
-	$postId = (int) $post;
+        $postId = (int) $post;
         $post = $this->posts->find($postId);
+        $post->instructions = $this->replacements($post->instructions);
 
         $data = [
             'post' => $post,
             'params' => $this->context->getParameters(),
             'settings' => $this->settings->enumeration()
 	];
-
         $templateFile = __DIR__.'/templates/Instruction/post.latte';
         $styleFile = __DIR__.'/templates/Instruction/post.css';
 
@@ -111,6 +111,19 @@ class InstructionPresenter extends SecuredBasePresenter
 
 	$this->terminate();
     } // actionPost()
+
+    protected function replacements(?string $input): string
+    {
+        $replacements = [
+            '----------' => '<hr class="cut-here" />'
+        ];
+
+        return str_replace(
+            array_keys($replacements),
+            array_values($replacements),
+            $input
+	); // str_replace()
+    } // replacements()
 
 } // InstructionPresenter
 
