@@ -146,13 +146,13 @@ function AddPostController($routeParams, $location, notification, authService, p
             "maxScore": post.maxScore,
             "latitude": (vm.latitudeDeg + vm.latitudeDecimals / 60) || 0,
             "longitude": (vm.longitudeDeg + vm.longitudeDecimals / 60) || 0,
-            "withStaff": post.withStaff,
+            "withStaff": post.with_staff,
             "waypoints": waypoints,
             "openFrom": $filter("date")(post.openFrom, "shortTime"),
             "openTo": $filter("date")(post.openTo, "shortTime"),
             "passwordCharacter": post.passwordCharacter,
             "passwordPosition": post.passwordPosition,
-            "time_estimate": post.time_estimate,
+            "timeEstimate": post.time_estimate,
             "attributes": JSON.parse('{' + atts.join() + '}')
         };
 
