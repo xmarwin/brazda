@@ -397,9 +397,9 @@ class Posts extends Base
 
         $values['difficulty'] = $this->prepareFloat($values['difficulty']);
         $values['terrain']    = $this->prepareFloat($values['terrain']);
-
-        if (isset($values['with_staff']) && !empty($values['with_staff']))
-            $values['with_staff'] = $this->prepareBoolean($values['with_staff']);
+        $values['with_staff'] = !empty($values['with_staff'])
+            ? $this->prepareBoolean($values['with_staff'])
+            : false;
 
         return $this->db->query(
             "UPDATE posts
