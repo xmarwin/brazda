@@ -1,0 +1,54 @@
+@page {
+    margin: 1cm
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial CE', Helvetica, Arial, sans-serif;
+    font-size: 8pt;
+}
+
+h1 {
+    font-size: 140%;
+    margin: 0;
+}
+
+table {
+    border-collapse: collapse;
+    border: .35pt solid #000;
+    width: 100%;
+}
+
+th, td {
+    border: .25pt solid #000;
+    padding: .25ex .5ex;
+}
+
+.red {
+    background-color: #ea9999;
+}
+
+.green {
+    background-color: #b6d7a8;
+}
+
+.blue {
+    background-color: #a4c2f4;
+}
+
+.yellow {
+    background-color: #ffe599;
+}
+
+.gold {
+    background-color: #f1c232;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}

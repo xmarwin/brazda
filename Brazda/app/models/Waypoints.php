@@ -30,7 +30,7 @@ class Waypoints extends Base
             unset($filter['team']);
         } // if
 
-        return $this->db->query(
+        return @$this->db->query(
             "SELECT
                 w.waypoint,
                 w.post,

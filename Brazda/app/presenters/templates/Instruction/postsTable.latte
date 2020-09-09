@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <h1>Stanoviště závodu {$settings['raceTitle']}</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Typ</th>
+                    <th>Název</th>
+                    <th>Body</th>
+                    <th>Otvírací doba</th>
+                    <th>Ter.</th>
+                    <th>Obt.</th>
+                    <th>Čas. náročnost</th>
+                    <th>Souřadnice</th>
+                    <th>Parkoviště</th>
+                    <th>Stezka</th>
+                </tr>
+            </thead>
+            <tbody>
+{foreach $posts as $post}
+    {var $postId = $post->post}
+    {switch $post->color}
+        {case 'RED'}
+            {var $color = 'red'}
+        {case 'BLU'}
+            {var $color = 'blue'}
+        {case 'GRN'}
+            {var $color = 'green'}
+        {case 'YEL'}
+            {var $color = 'yellow'}
+        {case 'GLD'}
+            {var $color = 'gold'}
+        {default}
+            {var $color = ''}
+    {/switch}
+                <tr>
+                    <td class="{$color}">{$post->type_name}</td>
+                    <td class="{$color}">{$post->name}</td>
+                    <td class="text-right">{$post->max_score}</td>
+                    <td class="text-center">{if !empty($post->open_from) || !empty($post->open_to)}{$post->open_from}&thinsp;&ndash;&thinsp;{$post->open_to}{/if}</td>
+                    <td>{$post->terrain}</td>
+                    <td>{$post->difficulty}</td>
+                    <td>{if !empty($post->time_estimate)}{$post->time_estimate}{/if}</td>
+                    <td>{if !empty($post->coordinate)}{$post->coordinate|noescape}{/if}</td>
+                    <td>{if !empty($waypoints[$postId]['PAR']) && $waypoints[$postId]['PAR']->waypoint_visibility == 'VW'}{$waypoints[$postId]['PAR']->coordinate|noescape}{/if}</td>
+                    <td>{if !empty($waypoints[$postId]['WAY']) && $waypoints[$postId]['WAY']->waypoint_visibility == 'VW'}{$waypoints[$postId]['WAY']->coordinate|noescape}{/if}</td>
+                </tr>
+{/foreach}
+            </tbody>
+        </table>
+    </body>
+</html>
