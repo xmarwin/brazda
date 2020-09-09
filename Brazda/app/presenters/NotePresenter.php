@@ -102,8 +102,6 @@ class NotePresenter extends SecuredBasePresenter
 
     public function actionSave()
     {
-        $this->checkAdministrator();
-
         $this->checkContentTypeJson();
 
         $this->checkValuesExists($this->input, [
