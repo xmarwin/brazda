@@ -19,8 +19,9 @@ class Settings extends Base
         return $this->db->query(
             'SELECT value
              FROM settings_view
-             WHERE setting LIKE %s'
-        )->fetch('value');
+             WHERE setting LIKE %s',
+             $name
+        )->fetchSingle('value');
     } // get()
 
     public function set($name, $value = null)
