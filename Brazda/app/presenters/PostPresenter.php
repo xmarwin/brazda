@@ -251,7 +251,7 @@ class PostPresenter extends SecuredBasePresenter
 	    } // if
 
             // Pokud heslo stanoviště není správně
-            if (!$rightSibboleth) {
+            if (!$rightShibboleth) {
 		// Zalogujeme chybu
                 $this->logs->insert([
                     'team'     => (int) $this->team['team'],
