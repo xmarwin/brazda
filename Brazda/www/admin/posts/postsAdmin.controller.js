@@ -81,6 +81,15 @@ function PostsAdminController($routeParams, notification, authService, postServi
             };
     };
 
+    vm.getPostsPdf = function () {
+        postService.getPostsPdf()
+            .then(function successCallback(response) {
+                showFile(response.data, "Tabulka stanovist.pdf");
+            }), function errorCallback(err) {
+                notification.error(err.data.message);
+            };
+    }
+
     function showFile(blob, filename) {
         // It is necessary to create a new blob object with mime-type explicitly set
         // otherwise only Chrome works like it should
