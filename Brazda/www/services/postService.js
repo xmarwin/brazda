@@ -20,6 +20,10 @@ function PostService(webApiService, $filter, localStorageService) {
         return webApiService.get("instruction/all", null, 'POST', true, true);
     }
 
+    vm.getPostsPdf = function () {
+        return webApiService.get("instruction/posts-table", null, 'POST', true, true);
+    }
+
     // https://brazda/api/post/bonus-list?securityToken=<security token>
     vm.getBonuses = function () {
         return webApiService.get('post/bonus-list');
