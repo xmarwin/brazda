@@ -117,7 +117,7 @@ class ResultPresenter extends SecuredBasePresenter
              case 'html':
              case 'webHtml':
                 try {
-                    $response = $this->getResultsResponse($format, $this->results->resultsView('COM'), 'COM');
+                    $response = $this->getResultsResponse($format, $this->results->resultsView('COM'));
                 } catch (\Exception $e) {
                     $this->sendErrorResource($e);
                 } // try
@@ -148,7 +148,7 @@ class ResultPresenter extends SecuredBasePresenter
              case 'html':
              case 'webHtml':
                 try {
-                    $response = $this->getResultsResponse($format, $this->results->resultsView('KID'), $this->posts->view());
+                    $response = $this->getResultsResponse($format, $this->results->resultsView('KID'));
                 } catch (\Exception $e) {
                     $this->sendErrorResource($e);
                 } // try
@@ -168,7 +168,7 @@ class ResultPresenter extends SecuredBasePresenter
         return in_array(strtolower($format), [ 'json', 'csv', 'xls', 'html', 'webhtml' ]);
     } // checkFormat()
 
-   private function getResultsResponse(string $format, array $result, string $role): object
+   private function getResultsResponse(string $format, array $result): object
    {
        $format = strtolower($format);
        $templateFile = __DIR__."/templates/Result/{$format}Format.latte";
