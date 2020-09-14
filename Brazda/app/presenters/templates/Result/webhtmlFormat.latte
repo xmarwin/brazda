@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Výsledky závodu {$results['title']} / {$results['category']}</title>
+	<style>
+		body {
+			font-family: Trebuchet MS, sans-serif;
+		}
+		table {
+			border-collapse: collapse;
+		}
+		td, th {
+			padding:  .4ex 1.2ex;
+		}
+		.text-right {
+			text-align: right;
+		}
+	</style>
+    </head>
+    <body>
+	<h2>Výsledková listina {$results['category']}</h2>
+        <ol>
+{foreach $results['results'] as $team}
+            <li>Tým <strong>{$team['name']}</strong> (ve složení ) s <strong>{$team['score']['final']}</strong> body</li>
+{/foreach}
+        </ol>
+        <table width="100%" border="1">
+            <thead>
+                <tr>
+                    <th rowspan="2">Stanoviště</th>
+                    <th colspan="{count($results['results'])}">Tým</th>
+                </tr>
+                <tr>
+{foreach $results['results'] as $team}
+                    <th>{$team['order']}. {$team['name']}</th>
+{/foreach}
+                </tr>
+            </thead>
+            <tbody>
+{foreach $posts as $post}
+    {continueIf  in_array($post['post_type'], ['BEG', 'END', 'ORG'])}
+                <tr>
+                    <td><a href="#{$post['name']|webalize}">{$post['name']}</a> {if (!in_array($post['post_type'], [ 'BON', 'SBN' ]))}({$post['type_name']}){/if} </td>
+    {foreach $results['results'] as $team}
+        {php $postItem = []}
+        {foreach $team['posts'] as $postItem}
+	    {breakIf $postItem['post'] == $post['post']}
+        {/foreach}
+                    <td class="text-right">{if $postItem['score'] > 0}{$postItem['score']}{else}0{/if}</td>
+     {/foreach}
+                </tr>
+{/foreach}
+            </tbody>
+            <tfoot>
+                <tr>
+		    <td><strong>CELKEM</strong></td>
+{foreach $results['results'] as $team}
+		    <td class="text-right"><strong>{$team['score']['final']}</strong></td>
+{/foreach}
+                </tr>
+            </tfoot>
+        </table>
+    </body>
+</html>
+
