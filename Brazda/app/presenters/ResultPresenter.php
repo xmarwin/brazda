@@ -27,6 +27,7 @@ class ResultPresenter extends SecuredBasePresenter
     } // startup()
 
     /** ZASTARALE */
+/*
     public function actionList()
     {
         $this->checkAdministrator();
@@ -51,6 +52,7 @@ class ResultPresenter extends SecuredBasePresenter
     } // actionList()
 
     /** ZASTARALE */
+/*
     public function actionListKid()
     {
         $this->checkAdministrator();
@@ -75,6 +77,7 @@ class ResultPresenter extends SecuredBasePresenter
     } // actionListKid()
 
     /** ZASTARALE */
+/*
     public function actionListAll()
     {
         $this->checkAdministrator();
@@ -97,7 +100,7 @@ class ResultPresenter extends SecuredBasePresenter
         $this->resource = $teams;
         $this->sendResource();
     } // actionListAll()
-
+*/
     /**
      * Vrací výsledky závodu pro dospělé týmy
      */
@@ -112,6 +115,7 @@ class ResultPresenter extends SecuredBasePresenter
         switch ($format) {
              case 'xls':
              case 'html':
+             case 'webHtml':
                 try {
                     $response = $this->getResultsResponse($format, $this->results->resultsView('COM'), 'COM');
                 } catch (\Exception $e) {
@@ -142,8 +146,9 @@ class ResultPresenter extends SecuredBasePresenter
         switch ($format) {
              case 'xls':
              case 'html':
+             case 'webHtml':
                 try {
-                    $response = $this->getResultsResponse($format, $this->results->resultsView('KID'), 'KID');
+                    $response = $this->getResultsResponse($format, $this->results->resultsView('KID'), $this->posts->view());
                 } catch (\Exception $e) {
                     $this->sendErrorResource($e);
                 } // try
@@ -160,7 +165,7 @@ class ResultPresenter extends SecuredBasePresenter
 
     private function checkFormat(string $format): bool
     {
-        return in_array(strtolower($format), [ 'json', 'csv', 'xls', 'html' ]);
+        return in_array(strtolower($format), [ 'json', 'csv', 'xls', 'html', 'webhtml' ]);
     } // checkFormat()
 
    private function getResultsResponse(string $format, array $result, string $role): object
@@ -187,8 +192,9 @@ class ResultPresenter extends SecuredBasePresenter
                break;
 
            case 'html':
+           case 'webhtml':
 
-               return new Responses\TextResponse($latte->renderToString($templateFile, [ 'results' => $result ]));
+               return new Responses\TextResponse($latte->renderToString($templateFile, [ 'results' => $result, 'posts' => $this->posts->view()->fetchAll() ]));
                break;
        } // switch
    } // getResultsResponse()
