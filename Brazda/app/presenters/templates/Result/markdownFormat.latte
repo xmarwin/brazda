@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta encoding="utf-8" />
+		<title>Výsledky BRAZDA {date('Y')} v {$results['category']|lower}</title>
+	</head>
+	<body>
+		<pre>
+## Výsledky
+### Výsledková listina {$results['category']|lower}
+
+{php $i = 1}
+{foreach $results['results'] as $team}
+{$i++}. Tým **{$team['name']}** (ve složení ) s **{$team['score']['final']}** body
+{/foreach}
+
+&lt;table width="100%" border="1"&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th rowspan="2"&gt;Stanoviště&lt;/th&gt;
+&lt;th colspan="{count($results['results'])}"&gt;Tým&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+{foreach $results['results'] as $team}
+ &lt;th&gt;{$team['order']}. {$team['name']}&lt;/th&gt;
+{/foreach}
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+{foreach $posts as $post}
+    {continueIf  in_array($post['post_type'], ['BEG', 'END', 'ORG'])}
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="#{$post['name']|webalize}"&gt;{$post['name']}&lt;/a&gt; {if (!in_array($post['post_type'], [ 'BON', 'SBN' ]))}({$post['type_name']|lower}){/if} &lt;/td&gt;
+    {foreach $results['results'] as $team}
+        {php $postItem = []}
+        {foreach $team['posts'] as $postItem}
+            {breakIf $postItem['post'] == $post['post']}
+        {/foreach}
+&lt;td class="text-right"&gt;{if $postItem['score'] > 0}{$postItem['score']}{else}0{/if}&lt;/td&gt;
+    {/foreach}
+&lt;/tr&gt;
+{/foreach}
+ &lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;CELKEM&lt;/strong&gt;&lt;/td&gt;
+{foreach $results['results'] as $team}
+&lt;td class="text-right"&gt;&lt;strong&gt;{$team['score']['final']}&lt;/strong&gt;&lt;/td&gt;
+{/foreach}
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+
+#### Data ke stažení
+
+- Dětská kategorie: [XLS]({date('Y')}/_vysledky/kid.xls), [JSON]({date('Y')}/_vysledky/kid.json) (podrobnější)
+- Dospělá kategorie: [XLS]({date('Y')}/_vysledky/com.xls), [JSON]({date('Y')}/_vysledky/com.json) (podrobnější)
+
