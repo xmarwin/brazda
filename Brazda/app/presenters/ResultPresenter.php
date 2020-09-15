@@ -115,6 +115,7 @@ class ResultPresenter extends SecuredBasePresenter
         switch ($format) {
              case 'xls':
              case 'html':
+             case 'markdown':
              case 'webHtml':
                 try {
                     $response = $this->getResultsResponse($format, $this->results->resultsView('COM'));
@@ -146,6 +147,7 @@ class ResultPresenter extends SecuredBasePresenter
         switch ($format) {
              case 'xls':
              case 'html':
+             case 'markdown':
              case 'webHtml':
                 try {
                     $response = $this->getResultsResponse($format, $this->results->resultsView('KID'));
@@ -165,38 +167,39 @@ class ResultPresenter extends SecuredBasePresenter
 
     private function checkFormat(string $format): bool
     {
-        return in_array(strtolower($format), [ 'json', 'csv', 'xls', 'html', 'webhtml' ]);
+        return in_array(strtolower($format), [ 'json', 'csv', 'xls', 'html', 'webhtml', 'markdown' ]);
     } // checkFormat()
 
-   private function getResultsResponse(string $format, array $result): object
-   {
-       $format = strtolower($format);
-       $templateFile = __DIR__."/templates/Result/{$format}Format.latte";
-       if (!file_exists($templateFile)) {
-           throw new \Exception(sprintf("Šablona pro formát %s nebyla nalezna, asi to zatím není implementováno", $format), 500);
-       } // if
+    private function getResultsResponse(string $format, array $result): object
+    {
+        $format = strtolower($format);
+        $templateFile = __DIR__."/templates/Result/{$format}Format.latte";
+        if (!file_exists($templateFile)) {
+            throw new \Exception(sprintf("Šablona pro formát %s nebyla nalezna, asi to zatím není implementováno", $format), 500);
+        } // if
 
-       $latte = new Latte\Engine;
-       $latte->setTempDirectory(__DIR__.'/../../temp/cache/latte/');
+        $latte = new Latte\Engine;
+        $latte->setTempDirectory(__DIR__.'/../../temp/cache/latte/');
+ 
+        $contentTypes = [
+            'xls' => 'application/vnd.ms-excel'
+        ];
 
-       $contentTypes = [
-	   'xls' => 'application/vnd.ms-excel'
-       ];
+        switch ($format) {
+            case 'xls':
+                $tempFile = tempnam(__DIR__.'/../../temp/', "{$format}_");
+                file_put_contents($tempFile, $latte->renderToString($templateFile, [ 'results' => $result ]));
 
-       switch ($format) {
-           case 'xls':
-               $tempFile = tempnam(__DIR__.'/../../temp/', "{$format}_");
-               file_put_contents($tempFile, $latte->renderToString($templateFile, [ 'results' => $result ]));
+                return new Responses\FileResponse($tempFile, "results.{$format}", $contentTypes[$format]);
+                break;
 
-               return new Responses\FileResponse($tempFile, "results.{$format}", $contentTypes[$format]);
-               break;
+            case 'html':
+            case 'markdown':
+            case 'webhtml':
 
-           case 'html':
-           case 'webhtml':
-
-               return new Responses\TextResponse($latte->renderToString($templateFile, [ 'results' => $result, 'posts' => $this->posts->view()->fetchAll() ]));
-               break;
-       } // switch
-   } // getResultsResponse()
+                return new Responses\TextResponse($latte->renderToString($templateFile, [ 'results' => $result, 'posts' => $this->posts->view()->fetchAll() ]));
+                break;
+        } // switch
+    } // getResultsResponse()
 
 } // ResultPresenter

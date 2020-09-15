@@ -20,12 +20,14 @@
 	</style>
     </head>
     <body>
-	<h2>Výsledková listina {$results['category']}</h2>
+	<h3>Výsledková listina {$results['category']|lower}</h3>
+
         <ol>
 {foreach $results['results'] as $team}
             <li>Tým <strong>{$team['name']}</strong> (ve složení ) s <strong>{$team['score']['final']}</strong> body</li>
 {/foreach}
         </ol>
+
         <table width="100%" border="1">
             <thead>
                 <tr>
@@ -42,7 +44,7 @@
 {foreach $posts as $post}
     {continueIf  in_array($post['post_type'], ['BEG', 'END', 'ORG'])}
                 <tr>
-                    <td><a href="#{$post['name']|webalize}">{$post['name']}</a> {if (!in_array($post['post_type'], [ 'BON', 'SBN' ]))}({$post['type_name']}){/if} </td>
+                    <td><a href="#{$post['name']|webalize}">{$post['name']}</a> {if (!in_array($post['post_type'], [ 'BON', 'SBN' ]))}({$post['type_name']|lower}){/if} </td>
     {foreach $results['results'] as $team}
         {php $postItem = []}
         {foreach $team['posts'] as $postItem}
@@ -62,6 +64,12 @@
                 </tr>
             </tfoot>
         </table>
+
+        <h4>Data ke stažení</h4>
+        <ul>
+            <li>Dětská kategorie: <a href="kid.xls">XLS</a>, <a href="kid.json">JSON</a></li>
+            <li>Dospělá kategorie: <a href="com.xls">XLS</a>, <a href="com.json">JSON</a></li>
+        </ul>
     </body>
 </html>
 
