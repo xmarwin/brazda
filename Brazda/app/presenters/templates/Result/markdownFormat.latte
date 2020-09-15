@@ -54,6 +54,10 @@
 
 #### Data ke stažení
 
-- Dětská kategorie: [XLS]({date('Y')}/_vysledky/kid.xls), [JSON]({date('Y')}/_vysledky/kid.json) (podrobnější)
-- Dospělá kategorie: [XLS]({date('Y')}/_vysledky/com.xls), [JSON]({date('Y')}/_vysledky/com.json) (podrobnější)
+{if $results['category'] == 'Dospělá kategorie'}
+{php $filename = 'com'}
+{else}
+{php $filename = 'kid'}
+{/if}
+[XLS]({$filename}.xls), [JSON]({$filename}.json) (podrobnější)
 
