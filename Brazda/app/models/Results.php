@@ -72,6 +72,7 @@ class Results extends Base
 	    JOIN posts p USING (post)
 	    JOIN teams t USING (team)
 	    WHERE t.is_active = true
+	      AND t.is_disqualified = false
 	      AND t.team_type != 'ORG'
 	      AND %and", $filter,
 	   "%if", !empty($order), "ORDER BY %by", $order, "%end",
@@ -130,7 +131,7 @@ class Results extends Base
                 } // if
             } // foreach
 
-	    // zapiseme vysledek do 
+	    // zapiseme vysledek tymu do seznamu vysledku stanovist
 	    $postResults[$post] = $teamResults;
         } // foreach
 
@@ -150,12 +151,19 @@ class Results extends Base
 	// vypocteme cas pro diskvalifikaci
         $disqualificationTime = date('c', strtotime($raceEnd.' + '.$settings['disqualificationTime']));
 
-// zjistime, kdy jednotlive tymy skoncily zavod
+	// zjistime, kdy jednotlive tymy skoncily zavod
         $teamsEnds = $this->db->query(
             "SELECT team, moment
              FROM logs
              WHERE log_type = 'FIN'"
         )->fetchPairs('team', 'moment');
+
+        // vybereme si diskvalifikace tymu
+        $teamsDisqualification = $this->db->query(
+            "SELECT team, is_disqualified
+             FROM teams
+             WHERE team_type NOT IN ('ORG')"
+        )->fetchPairs('team', 'is_disqualified');
 
 	// projdeme jednotlive vysledky tymu a sestavime finalni vysledky
         $teamResults = [];
@@ -168,7 +176,8 @@ class Results extends Base
                 'score' => [
                     'posts' => $teamsResult[$team],
                     'penalization' => 0,
-                    'final' => $teamsResult[$team]
+		    'final' => $teamsResult[$team],
+		    'disqualified' => $teamsDisqualification[$team]
                 ],
                 'time' => [
                     'start' => null,
@@ -200,8 +209,11 @@ class Results extends Base
                 $teamResult['score']['final'] = $teamResult['score']['posts'] - $teamResult['score']['penalization'];
             } // if
 
-            // pokud tym skoncil pozdeji nez je diskvalifikacni cas
-            if (!empty($teamsEnds[$team]) && $teamsEnds[$team]->getTimestamp() >= strtotime($disqualificationTime)) {
+            // pokud tym skoncil pozdeji nez je diskvalifikacni cas nebo byl tym diskvalifikovan
+	    if (!empty($teamsEnds[$team])
+	    && ($teamsDisqualification[$team]
+	    ||  $teamsEnds[$team]->getTimestamp() >= strtotime($disqualificationTime))) {
+
                 // nastavime mu priznak diskvalifikace
                 $teamResult['score']['disqualified'] = true;
             } // if
@@ -240,6 +252,7 @@ class Results extends Base
             ],
 	    'results' => []
 	];
+
 	// doplnime poradi k jednotlivym tymum
         foreach ($teamResults as $index => $teamResult) {
             $order = ++$index;

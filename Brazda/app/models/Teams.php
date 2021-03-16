@@ -32,6 +32,7 @@ class Teams extends Base
                 tt.name AS role_name,
                 t.is_active AS is_active,
                 t.tracking_allowed AS allow_tracking,
+                t.is_disqualified AS is_disqualified,
                 t.team_status,
                 t.shibboleth,
                 t.telephone,
@@ -72,6 +73,7 @@ class Teams extends Base
                 tt.name AS roleName,
                 t.is_active AS active,
                 t.tracking_allowed AS allow_tracking,
+                t.is_disqualified AS is_disqualified,
                 t.team_status,
                 t.shibboleth,
                 t.telephone,
@@ -109,6 +111,7 @@ class Teams extends Base
                 tt.name AS roleName,
                 t.is_active AS active,
                 t.tracking_allowed AS allow_tracking,
+                t.is_disqualified AS is_disqualified,
                 t.team_status,
                 t.shibboleth,
                 t.telephone,
@@ -154,8 +157,8 @@ class Teams extends Base
         if (empty($values))
             throw new \Exception('Chybí hodnoty pro úpravu týmu.');
 
-		if (!empty($values['team_type']))
-			self::checkType($values['team_type']);
+        if (!empty($values['team_type']))
+            self::checkType($values['team_type']);
 
         $filter = $this->normalizeFilter($filter);
 

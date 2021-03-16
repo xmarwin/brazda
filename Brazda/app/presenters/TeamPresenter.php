@@ -69,13 +69,18 @@ class TeamPresenter extends SecuredBasePresenter
         ]); // checkValuesExists()
 
         $values = [
-            'name'           => $this->input->name,
-            'shibboleth'     => $this->input->shibboleth,
-            'team_type'      => strtoupper($this->input->role),
-            'is_active'      => $this->input->isActive
+            'name'            => $this->input->name,
+            'shibboleth'      => $this->input->shibboleth,
+            'team_type'       => strtoupper($this->input->role),
+            'is_active'       => $this->input->isActive
         ];
+
         $values['tracking_allowed'] = isset($this->input->allowTracking)
             ? $this->input->allowTracking
+            : false;
+
+        $values['is_disqualified'] = isset($this->input->isDisqualified)
+            ? $this->input->isDisqualified
             : false;
 
         if (isset($this->input->description) && !empty($this->input->description))
@@ -90,7 +95,7 @@ class TeamPresenter extends SecuredBasePresenter
         try {
             $result['team'] = $this->teams->insert($values);
         } catch (\Exception $e) {
-            $this->sendErrorResource($e, );
+            $this->sendErrorResource($e);
         } // try
 
         $this->resource = [
@@ -132,6 +137,10 @@ class TeamPresenter extends SecuredBasePresenter
             ? $this->input->allowTracking
             : false;
 
+        $values['is_disqualified'] = isset($this->input->isDisqualified)
+            ? $this->input->isDisqualified
+            : false;
+
         if (isset($this->input->description) && !empty($this->input->description))
             $values['description'] = $this->input->description;
 
@@ -144,7 +153,7 @@ class TeamPresenter extends SecuredBasePresenter
         try {
             $this->teams->update($values, $filter);
         } catch (\Exception $e) {
-            $this->sendErrorResource($e, );
+            $this->sendErrorResource($e);
         } // try
 
         $this->resource = [
@@ -162,7 +171,7 @@ class TeamPresenter extends SecuredBasePresenter
         try {
             $this->teams->delete($filter);
         } catch (\Exception $e) {
-            $this->sendErrorResource($e, );
+            $this->sendErrorResource($e);
         } // if
 
         $this->resource = [
